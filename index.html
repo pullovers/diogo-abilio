@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Diogo Abílio — Brand &amp; Content Strategist. 12 anos entre design, marketing, growth e UX. Brand Performance: estratégia que transforma marca em demanda mensurável.">
+  <meta property="og:title" content="Diogo Abílio — Brand &amp; Content Strategist">
+  <meta property="og:description" content="Menos anúncio. Mais memória. 12 anos entre design, marketing, growth e UX.">
+  <meta property="og:type" content="website">
+  <title>Diogo Abílio — Brand &amp; Content Strategist</title>
+
+  <!--
+    IMAGENS NECESSÁRIAS — subir na mesma pasta do index.html:
+
+    foto-diogo.jpg       → Foto pessoal para o hero (recomendado: 600x600px ou maior)
+    capa-cura-salute.jpg → Screenshot ou capa do projeto Cura Salute (recomendado: 800x450px)
+    capa-g4.jpg          → Capa do projeto G4 Educação (recomendado: 800x450px)
+    capa-rg-go.jpg       → Capa do projeto RG GO (recomendado: 800x450px)
+
+    Todos os placeholders visuais já estão no código.
+    Quando os arquivos forem subidos, as imagens aparecem automaticamente.
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET & BASE ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:     #EFE2CC;
+      --paper-lt:  #F5EDD8;
+      --paper-dk:  #DCC9AA;
+      --ink:       #1F2526;
+      --ink-soft:  #252A2B;
+      --red:       #7E1714;
+      --red-dim:   #5C100E;
+      --red-lt:    #F0E0DE;
+      --ash:       #7A7268;
+      --ash-lt:    #C4BDB5;
+      --border:    #C9C2B7;
+      --surface:   #E8DDD0;
+      --grid-line: rgba(180,170,160,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Paper grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+    }
+
+    /* ─── UTILITIES ─────────────────────────────────────────────────────── */
+    .grid-bg {
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 40px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAV ───────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--red); }
+
+    .btn-pdf {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: var(--paper);
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      transition: background 0.15s;
+    }
+
+    .btn-pdf:hover { background: var(--red-dim); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 40px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 80px 40px;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .hero-red-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ash);
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(72px, 9vw, 120px);
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .hero-name .red { color: var(--red); }
+
+    .hero-tagline {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 22px;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+    }
+
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 28px;
+    }
+
+    .hero-bio {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      color: var(--ash);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .hero-contact-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: color 0.15s;
+    }
+
+    .hero-contact-link:hover { color: var(--red); }
+    .hero-contact-link svg { flex-shrink: 0; }
+
+    /* Hero photo column */
+    .hero-photo-col {
+      position: relative;
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .hero-photo-frame img,
+    .hero-photo-frame .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .hero-coord-tag {
+      position: absolute;
+      bottom: -14px;
+      left: -16px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      padding: 6px 12px;
+      white-space: nowrap;
+    }
+
+    .hero-serial {
+      position: absolute;
+      top: -10px;
+      right: -4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px;
+      color: var(--ash);
+      letter-spacing: 0.1em;
+      writing-mode: vertical-rl;
+    }
+
+    /* ─── SOBRE ─────────────────────────────────────────────────────────── */
+    .sobre-section {
+      background: var(--paper-lt);
+      padding: 100px 40px;
+    }
+
+    .sobre-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sobre-text p {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .sobre-text p:last-child { margin-bottom: 0; }
+
+    .quote-block {
+      background: var(--ink);
+      padding: 40px 36px;
+      position: relative;
+    }
+
+    .quote-block::before {
+      content: '"';
+      font-family: 'Anton', sans-serif;
+      font-size: 120px;
+      color: var(--red);
+      opacity: 0.15;
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      line-height: 1;
+    }
+
+    .quote-text {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(22px, 2.5vw, 30px);
+      line-height: 1.25;
+      color: var(--paper);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .quote-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    /* ─── EXPERIÊNCIA ───────────────────────────────────────────────────── */
+    .experiencia-section {
+      background: var(--paper);
+      padding: 100px 40px;
+    }
+
+    .experiencia-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Highlight card */
+    .exp-highlight {
+      border: 2px solid var(--red);
+      background: var(--red-lt);
+      padding: 40px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .exp-highlight-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 3px 8px;
+    }
+
+    .exp-company {
+      font-family: 'Anton', sans-serif;
+      font-size: 28px;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .exp-role {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--ash);
+      margin-bottom: 4px;
+    }
+
+    .exp-period {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--ash-lt);
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .exp-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+    }
+
+    /* Stats row inside highlight */
+    .exp-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .exp-stat {
+      background: var(--paper);
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .exp-stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 42px;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .exp-stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: var(--ash);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    /* Standard exp item */
+    .exp-list { margin-top: 16px; }
+
+    .exp-item {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-item .exp-company { font-size: 24px; }
+
+    .exp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 12px;
+      transition: opacity 0.15s;
+    }
+
+    .exp-link:hover { opacity: 0.7; }
+
+    /* ─── TRABALHOS ─────────────────────────────────────────────────────── */
+    .works-section {
+      background: var(--ink);
+      padding: 100px 40px;
+    }
+
+    .works-inner { max-width: 1200px; margin: 0 auto; }
+
+    .works-section .section-title { color: var(--paper); }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(242,237,227,0.08);
+    }
+
+    .work-card {
+      background: var(--ink-soft);
+      border: 1px solid rgba(242,237,227,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      z-index: 2;
+      position: relative;
+    }
+
+    .work-cover {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .work-cover img,
+    .work-cover .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .work-body { padding: 24px; }
+
+    .work-category {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .work-title {
+      font-family: 'Anton', sans-serif;
+      font-size: 22px;
+      color: var(--paper);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .work-client {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--ash);
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .work-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: rgba(242,237,227,0.6);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .work-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      border-bottom: 1px solid var(--red);
+      padding-bottom: 2px;
+      transition: opacity 0.15s;
+    }
+
+    .work-link:hover { opacity: 0.7; }
+
+    /* ─── HABILIDADES ───────────────────────────────────────────────────── */
+    .skills-section {
+      background: var(--paper);
+      padding: 100px 40px;
+    }
+
+    .skills-inner { max-width: 1200px; margin: 0 auto; }
+
+    .skills-group-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ash);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+    }
+
+    .tag-strategy {
+      border: 1px solid var(--red);
+      background: var(--red-lt);
+      color: var(--red-dim);
+    }
+
+    .tag-design,
+    .tag-tools {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--ash);
+    }
+
+    /* ─── FORMAÇÃO ──────────────────────────────────────────────────────── */
+    .formacao-section {
+      background: var(--paper-lt);
+      padding: 100px 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .formacao-inner { max-width: 1200px; margin: 0 auto; }
+
+    .formacao-school-name {
+      font-family: 'Anton', sans-serif;
+      font-size: 26px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .formacao-course {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+    }
+
+    .formacao-period {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--ash);
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+    }
+
+    .certs-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+    }
+
+    .certs-table th {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--paper-dk);
+    }
+
+    .certs-table td {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-soft);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .certs-table tr:last-child td { border-bottom: none; }
+
+    /* ─── CONTATO ───────────────────────────────────────────────────────── */
+    .contato-section {
+      background: var(--ink);
+      padding: 100px 40px 80px;
+    }
+
+    .contato-inner { max-width: 1200px; margin: 0 auto; }
+
+    .contato-section .section-label { color: var(--red); opacity: 0.8; }
+    .contato-section .section-title { color: var(--paper); }
+
+    .contato-intro {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      color: rgba(239,226,204,0.7);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .contato-links { display: flex; flex-direction: column; gap: 20px; }
+
+    .contato-link-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .contato-link-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .contato-link-value {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--paper);
+      transition: color 0.15s;
+    }
+
+    .contato-link-value:hover { color: var(--ash-lt); }
+
+    .pdf-cta-wrap {
+      max-width: 1200px;
+      margin: 60px auto 0;
+      text-align: center;
+    }
+
+    .btn-pdf-large {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: var(--paper);
+      border: none;
+      cursor: pointer;
+      padding: 18px 48px;
+      transition: background 0.15s;
+    }
+
+    .btn-pdf-large:hover { background: var(--red-dim); }
+
+    /* ─── FOOTER ────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(242,237,227,0.07);
+      padding: 24px 40px;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(242,237,227,0.2);
+    }
+
+    /* ─── IMAGE PLACEHOLDER ─────────────────────────────────────────────── */
+    .img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      color: var(--ash);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-align: center;
+      gap: 8px;
+      padding: 20px;
+    }
+
+    .img-placeholder svg { opacity: 0.3; }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 60px 24px 80px; }
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .hero-photo-col { order: -1; max-width: 320px; }
+      .hero-name { font-size: clamp(60px, 15vw, 90px); }
+
+      .sobre-section { padding: 80px 24px; }
+      .sobre-inner .two-col { grid-template-columns: 1fr; gap: 40px; }
+
+      .experiencia-section { padding: 80px 24px; }
+      .exp-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .works-section { padding: 80px 24px; }
+      .works-grid { grid-template-columns: 1fr 1fr; }
+
+      .skills-section { padding: 80px 24px; }
+      .skills-inner .three-col { grid-template-columns: 1fr; gap: 40px; }
+
+      .formacao-section { padding: 80px 24px; }
+      .formacao-inner .two-col { grid-template-columns: 1fr; gap: 48px; }
+
+      .contato-section { padding: 80px 24px 60px; }
+      .contato-inner .two-col { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .mobile-menu { padding: 20px; }
+
+      .hero { padding: 48px 20px 64px; }
+      .hero-name { font-size: clamp(54px, 18vw, 80px); }
+      .hero-photo-col { max-width: 260px; }
+      .hero-contacts { gap: 14px; }
+
+      .sobre-section { padding: 64px 20px; }
+      .experiencia-section { padding: 64px 20px; }
+      .exp-highlight { padding: 28px 20px; }
+      .exp-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .works-section { padding: 64px 20px; }
+      .works-grid { grid-template-columns: 1fr; }
+
+      .skills-section { padding: 64px 20px; }
+      .formacao-section { padding: 64px 20px; }
+
+      .contato-section { padding: 64px 20px 48px; }
+      .btn-pdf-large { width: 100%; padding: 16px 24px; }
+
+      footer { padding: 20px; }
+    }
+
+    /* ─── PRINT / PDF ───────────────────────────────────────────────────── */
+    @media print {
+      nav,
+      .print-hide,
+      .btn-pdf,
+      .btn-pdf-large,
+      .hero-coord-tag,
+      .hero-serial {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+      }
+
+      body::before { display: none !important; }
+
+      .section-ink,
+      .works-section,
+      .contato-section,
+      footer {
+        background: #f5f5f5 !important;
+        color: black !important;
+      }
+
+      .works-section .section-title,
+      .contato-section .section-title { color: black !important; }
+
+      .work-title { color: black !important; }
+      .work-desc { color: #444 !important; }
+      .contato-link-value { color: black !important; }
+      footer p { color: #999 !important; }
+
+      .two-col,
+      .three-col,
+      .works-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .section {
+        page-break-before: auto;
+        page-break-inside: avoid;
+      }
+
+      .exp-item,
+      .exp-highlight,
+      .work-card {
+        page-break-inside: avoid;
+      }
+
+      * { box-shadow: none !important; }
+
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #666;
+      }
+
+      nav a[href]::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────────── -->
+  <nav aria-label="Navegação principal">
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#trabalhos">Trabalhos</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#formacao">Formação</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <button class="btn-pdf print-hide" onclick="window.print()">↓ BAIXAR CV</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#sobre" onclick="closeMenu()">Sobre</a>
+    <a href="#experiencia" onclick="closeMenu()">Experiência</a>
+    <a href="#trabalhos" onclick="closeMenu()">Trabalhos</a>
+    <a href="#habilidades" onclick="closeMenu()">Habilidades</a>
+    <a href="#formacao" onclick="closeMenu()">Formação</a>
+    <a href="#contato" onclick="closeMenu()">Contato</a>
+  </div>
+
+  <main>
+
+    <!-- ─── 01 HERO ────────────────────────────────────────────────────── -->
+    <section class="hero grid-bg" aria-label="Hero">
+      <div class="hero-red-bar"></div>
+      <div class="hero-inner">
+
+        <!-- Left -->
+        <div class="hero-left">
+          <p class="hero-label">Brand &amp; Content Strategist · São Paulo, SP</p>
+          <h1 class="hero-name">
+            DIOGO<br>
+            <span class="red">ABÍLIO.</span>
+          </h1>
+          <p class="hero-tagline">Menos anúncio. Mais memória.</p>
+          <div class="hero-divider"></div>
+          <p class="hero-bio">12 anos entre design, marketing, growth e UX. Hoje: Brand Performance — estratégia que transforma marca em demanda mensurável.</p>
+          <div class="hero-contacts">
+            <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" class="hero-contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <a href="https://www.instagram.com/_diogoabilio/" target="_blank" class="hero-contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Instagram
+            </a>
+            <a href="mailto:diogocontatoblog@gmail.com" class="hero-contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+              Email
+            </a>
+            <a href="https://wa.me/5511985557297" target="_blank" class="hero-contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Photo -->
+        <div class="hero-photo-col">
+          <div class="hero-photo-frame">
+            <img
+              src="foto-diogo.jpg"
+              alt="Foto de Diogo Abílio"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+            <div class="img-placeholder" style="display:none; width:100%; height:100%; position:absolute; top:0; left:0;">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              foto-diogo.jpg
+            </div>
+          </div>
+          <div class="hero-coord-tag">23.5505° S · 46.6333° W · SÃO PAULO</div>
+          <div class="hero-serial">DA–2026–001</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 02 SOBRE ───────────────────────────────────────────────────── -->
+    <section class="sobre-section" id="sobre" aria-label="Sobre">
+      <div class="sobre-inner">
+        <div class="two-col">
+          <div>
+            <p class="section-label">02 / Sobre</p>
+            <h2 class="section-title">QUEM SOU.</h2>
+            <div class="sobre-text">
+              <p>Tenho 12 anos de experiência em comunicação, marketing, design e UX/UI.</p>
+              <p>Passei por design gráfico, campanhas, landing pages, interfaces digitais, conteúdo, experiência do usuário e presença digital. Essa trajetória me ensinou que uma marca é construída não só no discurso, mas nos pontos de contato que as pessoas realmente veem, usam e lembram.</p>
+              <p>Hoje meu foco está em branding e brand performance: ajudar empresas a construir uma marca mais clara, consistente e reconhecível, capaz de gerar confiança, diferenciação e demanda com menos dependência de mídia paga.</p>
+              <p>Meu trabalho parte da leitura do negócio, do mercado, do público e da forma como a marca se comporta no dia a dia. A partir disso, atuo em posicionamento, narrativa, identidade, linguagem, presença digital e experiência.</p>
+              <p>Trabalho com Figma, Webflow, Photoshop, Illustrator e Claude Code para transformar estratégia em interfaces, páginas e sistemas visuais que possam ser aplicados de verdade.</p>
+            </div>
+          </div>
+          <div>
+            <div class="quote-block">
+              <p class="quote-text">"O problema das empresas não é falta de branding ou falta de performance. É que os dois nunca conversam."</p>
+              <span class="quote-label">Princípio de Trabalho</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 03 EXPERIÊNCIA ─────────────────────────────────────────────── -->
+    <section class="experiencia-section" id="experiencia" aria-label="Experiência">
+      <div class="experiencia-inner">
+        <p class="section-label">03 / Experiência</p>
+        <h2 class="section-title">TRAJETÓRIA.</h2>
+
+        <!-- DESTAQUE: K.PITALIZA -->
+        <div class="exp-highlight">
+          <span class="exp-highlight-badge">DESTAQUE</span>
+          <div class="exp-company">K.PITALIZA Tecnologia</div>
+          <div class="exp-role">Coordenador de Marketing</div>
+          <div class="exp-period">jun 2025 — out 2025 · 5 meses · Remoto</div>
+          <p class="exp-desc">Coordenei a operação de marketing de uma fintech de títulos de capitalização com a Claudia Leitte como embaixadora, liderando um time de 8 pessoas entre copywriters, designers e editores de vídeo.</p>
+          <p class="exp-desc">Em menos de um mês, o Instagram saiu do zero para 50 mil seguidores. As lives chegaram a 3 mil usuários simultâneos. A rede de afiliados cresceu para mais de 300 parceiros ativos. A operação de mídia out of home cobriu mais de 5 estados brasileiros, com campanhas que chegaram também à televisão.</p>
+          <p class="exp-desc" style="margin-bottom:0">Atuei nas frentes de aquisição orgânica, mídia paga, OOH, TV e posicionamento estratégico de marca, garantindo consistência de comunicação em todos os canais.</p>
+          <div class="exp-stats">
+            <div class="exp-stat">
+              <div class="exp-stat-num">50K</div>
+              <div class="exp-stat-label">seguidores em menos de 1 mês</div>
+            </div>
+            <div class="exp-stat">
+              <div class="exp-stat-num">300+</div>
+              <div class="exp-stat-label">parceiros afiliados</div>
+            </div>
+            <div class="exp-stat">
+              <div class="exp-stat-num">5</div>
+              <div class="exp-stat-label">estados com OOH</div>
+            </div>
+            <div class="exp-stat">
+              <div class="exp-stat-num">8</div>
+              <div class="exp-stat-label">pessoas lideradas</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESTAQUE: G4 -->
+        <div class="exp-highlight">
+          <span class="exp-highlight-badge">DESTAQUE</span>
+          <div class="exp-company">G4 Educação</div>
+          <div class="exp-role">Web Designer Pleno</div>
+          <div class="exp-period">abr 2024 — fev 2025 · 11 meses · No local</div>
+          <p class="exp-desc">Como Web Designer Pleno no G4 Educação, atuei na criação e desenvolvimento de interfaces digitais para comunidades, programas presenciais e eventos.</p>
+          <p class="exp-desc" style="margin-bottom:0">Desenvolvi e mantive landing pages e sites em Webflow com foco em experiência de usuário otimizada. Colaborei com equipes de marketing e growth para soluções visuais que impulsionassem o engajamento. Utilizei Figma, Strapi e Amplitude para criação e monitoramento de projetos.</p>
+        </div>
+
+        <!-- LISTA PADRÃO -->
+        <div class="exp-list">
+
+          <div class="exp-item">
+            <div class="exp-company">Cura Salute</div>
+            <div class="exp-role">Brand Performance Consultant</div>
+            <div class="exp-period">2026</div>
+            <p class="exp-desc">Case de validação do método Brand Performance Playbook. Seis fases em seis semanas: Discovery, Diagnóstico, Posicionamento, Motor de Conteúdo, Arquitetura de Conversão e Playbook Final para uma corretora de planos de saúde em São Paulo.</p>
+            <a href="https://brandperformance-cura-salute.vercel.app/" target="_blank" class="exp-link">
+              Ver projeto ↗
+            </a>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-company">LET'S</div>
+            <div class="exp-role">Webflow Designer → Designer</div>
+            <div class="exp-period">dez 2025 — abr 2026 · 5 meses · Remoto</div>
+            <p class="exp-desc">Atuei na reconstrução completa do site institucional de uma SaaS B2B de logística. Todo o processo passou por prototipagem de UI no Figma antes do desenvolvimento em Webflow. Desenvolvi 5 landing pages para campanhas sazonais e perpétuas, páginas de vendas e otimizações no formulário de captação com integração ao HubSpot.</p>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-company">Valid</div>
+            <div class="exp-role">UX Designer — V/Pass</div>
+            <div class="exp-period">jan 2023 — nov 2023 · 11 meses · Híbrido</div>
+            <p class="exp-desc">No V/Pass da Valid, focado na criação de aplicativos de identidade digital (RG, CIN, Câmara dos Deputados) para o Governo, aprimorei a usabilidade e a experiência do usuário através de Design Thinking, pesquisa, card sorting e testes.</p>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-company">Valid</div>
+            <div class="exp-role">Analista de Marketing &amp; Growth</div>
+            <div class="exp-period">dez 2021 — dez 2022 · 1 ano 1 mês · Híbrido</div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-company">Agência Moonflag</div>
+            <div class="exp-role">Designer Gráfico</div>
+            <div class="exp-period">fev 2021 — nov 2021 · 10 meses · Híbrido</div>
+            <p class="exp-desc">Marketing digital para empresas de contabilidade. Criação de posts, LPs, apresentações e cronograma de postagem.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 04 TRABALHOS ───────────────────────────────────────────────── -->
+    <section class="works-section" id="trabalhos" aria-label="Trabalhos">
+      <div class="works-inner">
+        <p class="section-label">04 / Trabalhos</p>
+        <h2 class="section-title">PROJETOS.</h2>
+
+        <div class="works-grid">
+
+          <!-- Projeto 1 -->
+          <article class="work-card">
+            <div class="work-cover">
+              <img
+                src="capa-cura-salute.jpg"
+                alt="Brand Performance Playbook — Cura Salute"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              >
+              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span style="color:#7A7268; font-size:9px;">capa-cura-salute.jpg</span>
+              </div>
+            </div>
+            <div class="work-body">
+              <div class="work-category">Brand Strategy · Posicionamento · Conteúdo</div>
+              <h3 class="work-title">BRAND PERFORMANCE PLAYBOOK</h3>
+              <div class="work-client">Cura Salute · 2026</div>
+              <p class="work-desc">Seis semanas de diagnóstico, posicionamento e arquitetura de conteúdo para uma corretora de saúde. Primeira validação pública do método Brand Performance.</p>
+              <a href="https://brandperformance-cura-salute.vercel.app/" target="_blank" class="work-link">Ver Projeto ↗</a>
+            </div>
+          </article>
+
+          <!-- Projeto 2 -->
+          <article class="work-card">
+            <div class="work-cover">
+              <img
+                src="capa-g4.jpg"
+                alt="Redesign LP G4 Gestão & Estratégia"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              >
+              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span style="color:#7A7268; font-size:9px;">capa-g4.jpg</span>
+              </div>
+            </div>
+            <div class="work-body">
+              <div class="work-category">Web Design · Webflow · Growth</div>
+              <h3 class="work-title">REDESIGN LP G4 GESTÃO &amp; ESTRATÉGIA</h3>
+              <div class="work-client">G4 Educação · 2024</div>
+              <p class="work-desc">Redesign da landing page do principal programa presencial do G4 Educação, com foco em conversão e experiência do usuário.</p>
+              <a href="https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia" target="_blank" class="work-link">Ver Projeto ↗</a>
+            </div>
+          </article>
+
+          <!-- Projeto 3 -->
+          <article class="work-card">
+            <div class="work-cover">
+              <img
+                src="capa-rg-go.jpg"
+                alt="RG GO — Identidade Digital"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              >
+              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span style="color:#7A7268; font-size:9px;">capa-rg-go.jpg</span>
+              </div>
+            </div>
+            <div class="work-body">
+              <div class="work-category">UX Design · Produto Digital · Gov</div>
+              <h3 class="work-title">RG GO — IDENTIDADE DIGITAL</h3>
+              <div class="work-client">Valid × Governo do Estado de Goiás · 2023</div>
+              <p class="work-desc">Interface do aplicativo de identidade digital RG GO, garantindo acessibilidade e usabilidade em produto essencial para cidadãos.</p>
+              <a href="https://www.behance.net/gallery/193349605/RG-GO-em-parceria-com-a-Valid" target="_blank" class="work-link">Ver Projeto ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 05 HABILIDADES ─────────────────────────────────────────────── -->
+    <section class="skills-section grid-bg" id="habilidades" aria-label="Habilidades">
+      <div class="skills-inner">
+        <p class="section-label">05 / Habilidades</p>
+        <h2 class="section-title">SKILLS.</h2>
+
+        <div class="three-col">
+
+          <div>
+            <div class="skills-group-label">Estratégia</div>
+            <div class="skills-tags">
+              <span class="tag tag-strategy">Brand Strategy</span>
+              <span class="tag tag-strategy">Posicionamento de Marca</span>
+              <span class="tag tag-strategy">Content Architecture</span>
+              <span class="tag tag-strategy">ICP &amp; Segmentação</span>
+              <span class="tag tag-strategy">Brand Performance</span>
+              <span class="tag tag-strategy">Diagnóstico de Marca</span>
+              <span class="tag tag-strategy">Motor de Conteúdo</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="skills-group-label">Design &amp; UX</div>
+            <div class="skills-tags">
+              <span class="tag tag-design">UX Design</span>
+              <span class="tag tag-design">Web Design</span>
+              <span class="tag tag-design">Figma</span>
+              <span class="tag tag-design">Webflow</span>
+              <span class="tag tag-design">Prototipagem</span>
+              <span class="tag tag-design">Design System</span>
+              <span class="tag tag-design">Landing Pages</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="skills-group-label">Ferramentas &amp; Growth</div>
+            <div class="skills-tags">
+              <span class="tag tag-tools">Claude Code</span>
+              <span class="tag tag-tools">Photoshop</span>
+              <span class="tag tag-tools">Illustrator</span>
+              <span class="tag tag-tools">HubSpot</span>
+              <span class="tag tag-tools">Strapi</span>
+              <span class="tag tag-tools">Amplitude</span>
+              <span class="tag tag-tools">Google Analytics</span>
+              <span class="tag tag-tools">Meta Ads</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 06 FORMAÇÃO ────────────────────────────────────────────────── -->
+    <section class="formacao-section" id="formacao" aria-label="Formação">
+      <div class="formacao-inner">
+        <p class="section-label">06 / Formação</p>
+        <h2 class="section-title">EDUCAÇÃO.</h2>
+
+        <div class="two-col">
+
+          <div>
+            <div class="formacao-school-name">FMU · Centro Universitário</div>
+            <div class="formacao-course">Comunicação Social — Publicidade e Propaganda</div>
+            <div class="formacao-period">2014 — 2017 · Bacharel</div>
+          </div>
+
+          <div>
+            <table class="certs-table">
+              <thead>
+                <tr>
+                  <th>Curso</th>
+                  <th>Escola</th>
+                  <th>Carga</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Formação Design System</td>
+                  <td>Alura</td>
+                  <td>40h</td>
+                </tr>
+                <tr>
+                  <td>Formação UX Design</td>
+                  <td>Alura</td>
+                  <td>36h</td>
+                </tr>
+                <tr>
+                  <td>Formação Figma</td>
+                  <td>Alura</td>
+                  <td>40h</td>
+                </tr>
+                <tr>
+                  <td>Curso Starter Pacote Adobe</td>
+                  <td>Saga</td>
+                  <td>200h</td>
+                </tr>
+                <tr>
+                  <td>Web Analytics e B.I</td>
+                  <td>Lemonade School</td>
+                  <td>20h</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 07 CONTATO ─────────────────────────────────────────────────── -->
+    <section class="contato-section" id="contato" aria-label="Contato">
+      <div class="contato-inner">
+        <p class="section-label">07 / Contato</p>
+        <h2 class="section-title">VAMOS CONVERSAR.</h2>
+
+        <div class="two-col">
+
+          <div>
+            <p class="contato-intro">Aberto a projetos, parcerias e oportunidades. Respondo em até 24 horas.</p>
+          </div>
+
+          <div class="contato-links">
+            <div class="contato-link-item">
+              <span class="contato-link-label">Email</span>
+              <a href="mailto:diogocontatoblog@gmail.com" class="contato-link-value">diogocontatoblog@gmail.com</a>
+            </div>
+            <div class="contato-link-item">
+              <span class="contato-link-label">WhatsApp</span>
+              <a href="https://wa.me/5511985557297" target="_blank" class="contato-link-value">+55 11 98555-7297</a>
+            </div>
+            <div class="contato-link-item">
+              <span class="contato-link-label">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" class="contato-link-value">linkedin.com/in/diogo-abilio</a>
+            </div>
+            <div class="contato-link-item">
+              <span class="contato-link-label">Instagram</span>
+              <a href="https://www.instagram.com/_diogoabilio/" target="_blank" class="contato-link-value">@_diogoabilio</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pdf-cta-wrap print-hide">
+        <button class="btn-pdf-large" onclick="window.print()">↓ BAIXAR CURRÍCULO EM PDF</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer>
+    <p>Diogo Abílio · Brand &amp; Content Strategist · São Paulo, SP · 2026</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>
