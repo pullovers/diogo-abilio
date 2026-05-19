@@ -1,1417 +1,2023 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Diogo Abílio — Brand &amp; Content Strategist. 12 anos entre design, marketing, growth e UX. Brand Performance: estratégia que transforma marca em demanda mensurável.">
-  <meta property="og:title" content="Diogo Abílio — Brand &amp; Content Strategist">
-  <meta property="og:description" content="Menos anúncio. Mais memória. 12 anos entre design, marketing, growth e UX.">
-  <meta property="og:type" content="website">
-  <title>Diogo Abílio — Brand &amp; Content Strategist</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Diogo Abílio · Brand & Content Strategist. 12 anos entre design, marketing, growth e UX. Brand Performance: estratégia que transforma marca em demanda mensurável." />
+<meta property="og:title" content="Diogo Abílio · Brand & Content Strategist" />
+<meta property="og:description" content="Menos anúncio. Mais memória. 12 anos entre design, marketing, growth e UX." />
+<meta property="og:type" content="website" />
+<title>Diogo Abílio · Brand & Content Strategist</title>
 
-  <!--
-    IMAGENS NECESSÁRIAS — subir na mesma pasta do index.html:
+<!--
+  IMAGENS NECESSÁRIAS — subir na mesma pasta do index.html:
 
-    foto-diogo.jpg       → Foto pessoal para o hero (recomendado: 600x600px ou maior)
-    capa-cura-salute.jpg → Screenshot ou capa do projeto Cura Salute (recomendado: 800x450px)
-    capa-g4.jpg          → Capa do projeto G4 Educação (recomendado: 800x450px)
-    capa-rg-go.jpg       → Capa do projeto RG GO (recomendado: 800x450px)
+  foto-diogo.jpg       → Foto pessoal para o hero (recomendado: 600x600px ou maior)
+  capa-cura-salute.png → Capa do projeto Cura Salute (já incluso como placeholder editorial — pode substituir)
+  capa-g4.jpg          → Capa do projeto G4 Educação (recomendado: 800x450px)
+  capa-rg-go.jpg       → Capa do projeto RG GO (recomendado: 800x450px)
 
-    Todos os placeholders visuais já estão no código.
-    Quando os arquivos forem subidos, as imagens aparecem automaticamente.
-  -->
+  Todos os placeholders visuais já estão no código.
+  Quando os arquivos forem subidos, as imagens aparecem automaticamente.
+-->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <style>
-    /* ─── RESET & BASE ──────────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+  /* ===== TOKENS ===== */
+  :root {
+    --bg:        #F4F4F4;   /* off-white page */
+    --bg-alt:    #FFFFFF;   /* pure white surfaces */
+    --bg-dk:     #ECECEC;   /* subtle gray panel */
+    --ink:       #0A0A0A;   /* near-black */
+    --ink-soft:  #1A1A1A;
+    --ink-2:     #2A2A2A;
+    --gray:      #6B6B6B;
+    --gray-lt:   #B8B8B8;
+    --border:    #E2E2E2;
+    --border-strong: #0A0A0A;
+    --surface:   #F0F0F0;
+    --red:       #7D1714;
+    --red-dim:   #5C100E;
+    --red-soft:  #F0E0DE;   /* very faint red wash — used sparingly */
+    --grid-line: rgba(10,10,10,0.05);
+    --maxw: 1280px;
+    --pad-x: clamp(20px, 4vw, 64px);
+  }
 
-    :root {
-      --paper:     #EFE2CC;
-      --paper-lt:  #F5EDD8;
-      --paper-dk:  #DCC9AA;
-      --ink:       #1F2526;
-      --ink-soft:  #252A2B;
-      --red:       #7E1714;
-      --red-dim:   #5C100E;
-      --red-lt:    #F0E0DE;
-      --ash:       #7A7268;
-      --ash-lt:    #C4BDB5;
-      --border:    #C9C2B7;
-      --surface:   #E8DDD0;
-      --grid-line: rgba(180,170,160,0.3);
-    }
+  /* ===== RESET ===== */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 
-    html { scroll-behavior: smooth; }
+  /* ===== GRAIN (subtle, modern) ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+  }
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
+  /* ===== TYPE UTILS ===== */
+  .anton { font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif; font-weight: 400; letter-spacing: 0.005em; line-height: 1.08; text-transform: uppercase; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .sans { font-family: 'IBM Plex Sans', sans-serif; }
+
+  .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+  }
+  .label-gray { color: var(--gray); }
+
+  /* ===== LAYOUT ===== */
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+  section { position: relative; }
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* ===== TOP PROGRESS BAR ===== */
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--bg-dk);
+    z-index: 100;
+  }
+  .top-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--progress, 0%);
+    background: var(--red);
+    transition: width 0.05s linear;
+  }
+
+  /* ===== NAV ===== */
+  nav.site-nav {
+    position: sticky;
+    top: 3px;
+    z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 24px;
+  }
+  .nav-mark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-mark::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--red);
+    display: inline-block;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+    position: relative;
+    padding: 4px 0;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-links a.active { color: var(--red); }
+  .nav-links a.active::before {
+    content: '';
+    position: absolute;
+    left: -10px; top: 50%;
+    width: 4px; height: 4px;
+    background: var(--red);
+    transform: translateY(-50%);
+  }
+
+  .btn-pdf {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--red);
+    padding: 10px 16px;
+    border: 1px solid var(--red);
+    transition: background 0.15s ease;
+    font-weight: 500;
+  }
+  .btn-pdf:hover { background: var(--red-dim); }
+
+  .hamb {
+    display: none;
+    width: 32px; height: 32px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+  }
+  .hamb span {
+    height: 2px;
+    background: var(--ink);
+    width: 100%;
+    transition: transform 0.2s ease;
+  }
+
+  /* ===== HERO (DARK) ===== */
+  .hero {
+    padding-top: clamp(60px, 9vw, 110px);
+    padding-bottom: clamp(60px, 9vw, 110px);
+    position: relative;
+    background: var(--ink);
+    color: var(--bg-alt);
+  }
+  .hero.grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-color: var(--ink);
+  }
+  .hero::before {
+    /* soft red glow on the left */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -120px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle at center, rgba(125,23,20,0.55), transparent 65%);
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+  .hero-left .label-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .hero-left .label-row .dot {
+    width: 6px; height: 6px; background: var(--red); border-radius: 50%;
+  }
+
+  /* status pill (dark hero) */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px 8px 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.16);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bg-alt);
+    margin-bottom: 22px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .status-pill .live-dot {
+    position: relative;
+    width: 8px; height: 8px;
+    background: #4ADE80;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(74,222,128,0.6);
+  }
+  .status-pill .live-dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: #4ADE80;
+    opacity: 0.35;
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { transform: scale(0.6); opacity: 0.5; }
+    100% { transform: scale(2);   opacity: 0;   }
+  }
+  .status-pill strong { font-weight: 700; color: var(--bg-alt); }
+  .status-pill .sep { color: rgba(255,255,255,0.3); }
+  .status-pill .loc { color: rgba(255,255,255,0.65); }
+  .hero-name {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(56px, 10vw, 148px);
+    line-height: 0.86;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--bg-alt);
+  }
+  .hero-name .red { color: var(--red); }
+  .hero-name .stop { color: var(--red); }
+
+  .hero-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.25;
+    margin: 28px 0 24px;
+    color: rgba(255,255,255,0.85);
+    max-width: 26ch;
+    text-wrap: balance;
+  }
+  .hero-tag em {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--red);
+  }
+  .hero-rule {
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+    margin: 0 0 24px;
+    max-width: 460px;
+  }
+  .hero-bio {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    max-width: 52ch;
+    margin: 0 0 36px;
+    font-weight: 400;
+  }
+  .hero-bio b { font-weight: 600; color: var(--bg-alt); }
+
+  .hero-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    align-items: center;
+  }
+  .hero-contacts a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    transition: color 0.15s ease;
+    padding: 6px 0;
+  }
+  .hero-contacts a:hover { color: var(--bg-alt); }
+  .hero-contacts svg { width: 14px; height: 14px; }
+
+  /* hero CTA buttons */
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: 1px solid var(--ink);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: var(--bg);
+    border-color: var(--red);
+  }
+  .btn-primary:hover {
+    background: var(--red-dim);
+    border-color: var(--red-dim);
+    transform: translateY(-2px);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--bg-alt);
+    border-color: rgba(255,255,255,0.4);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-alt);
+    color: var(--ink);
+    border-color: var(--bg-alt);
+    transform: translateY(-2px);
+  }
+  .btn .arr { transition: transform 0.2s ease; }
+  .btn:hover .arr { transform: translateX(3px); }
+
+  /* "atualmente" inline note (hero dark) */
+  .now-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 12px;
+  }
+  .now-line .now-bar {
+    width: 24px; height: 1px; background: var(--red);
+  }
+  .now-line b { color: var(--bg-alt); font-weight: 600; }
+
+  /* Hero right — foto */
+  .hero-right {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .photo-frame {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    flex: 0 0 auto;
+    aspect-ratio: 4/5;
+    background: var(--ink-2);
+    border: 1px solid rgba(255,255,255,0.12);
+    overflow: hidden;
+    align-self: center;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,0.6);
+  }
+  .photo-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  /* clean red corner block instead of retro stamps */
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 56px; height: 56px;
+    background: var(--red);
+    z-index: 3;
+  }
+  .photo-frame::after {
+    /* slim red base bar — replaces the meaningless "01/07" tag */
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--red);
+    z-index: 3;
+  }
+
+  /* ===== STATS STRIP (removed) ===== */
+
+  /* ===== REVEAL ON SCROLL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .section {
+    padding-top: clamp(72px, 9vw, 120px);
+    padding-bottom: clamp(72px, 9vw, 120px);
+    position: relative;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+  .section-head .label { white-space: nowrap; }
+  .section-head .rule {
+    flex: 1;
+    height: 1px;
+    background: transparent;
+  }
+  .section-title {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(40px, 6.5vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.005em;
+    margin: 0 0 56px;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .section-title .stop { color: var(--red); }
+
+  /* ===== SOBRE ===== */
+  #sobre { background: var(--bg-alt); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(36px, 5vw, 80px);
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0 0 18px;
+    color: var(--ink-soft);
+  }
+  .pullquote {
+    background: var(--ink);
+    color: var(--bg);
+    padding: clamp(28px, 4vw, 48px);
+    position: relative;
+    align-self: stretch;
+    border-left: 4px solid var(--red);
+  }
+  .pullquote q {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(20px, 2.1vw, 28px);
+    line-height: 1.22;
+    text-transform: uppercase;
+    quotes: none;
+    display: block;
+  }
+  .pullquote q::before, .pullquote q::after { content: ''; }
+  .pullquote .label {
+    margin-top: 32px;
+    color: var(--red);
+    display: block;
+  }
+  .pullquote .meta-line {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== TRAJETÓRIA ===== */
+  #experiencia { background: var(--bg); }
+  #experiencia.grid-bg { background-color: var(--bg); }
+
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .exp-item {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 8px;
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: clamp(20px, 3vw, 48px);
+    position: relative;
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); padding-bottom: 32px; }
+  .exp-head h3 {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1.08;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+  .exp-head .role {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .exp-head .period {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .exp-body p {
+    margin: 0 0 14px;
+    font-weight: 300;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .exp-body p:last-child { margin-bottom: 0; }
+
+  /* Multi-stint inside a single company (e.g. Valid: UX + Growth) */
+  .exp-stint {
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  .exp-stint:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .exp-stint:last-child {
+    padding-bottom: 0;
+  }
+  .exp-stint-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-bottom: 8px;
+  }
+  .exp-stint-role {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    position: relative;
+    padding-left: 12px;
+  }
+  .exp-stint-role::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px; height: 6px;
+    background: var(--red);
+  }
+  .exp-stint-period {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .exp-stint p {
+    margin: 0;
+  }
+
+  /* destaque cards */
+  .exp-item.featured {
+    border: 2px solid var(--ink);
+    background: var(--bg-alt);
+    padding: clamp(28px, 3vw, 40px);
+    position: relative;
+  }
+  .exp-item.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 64px; height: 6px;
+    background: var(--red);
+  }
+  .exp-item.featured + .exp-item:not(.featured) { border-top: 1px solid var(--border); }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bg-alt);
+    background: var(--ink);
+    padding: 6px 10px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--red);
+  }
+  .badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .metric {
+    border-left: 1px solid var(--border);
+    padding-left: 14px;
+  }
+  .metric:first-child { border-left: 0; padding-left: 0; }
+  .metric-num {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    line-height: 1;
+    color: var(--ink);
+    display: block;
+    letter-spacing: -0.005em;
+  }
+  .metric-num .accent { color: var(--red); }
+  .metric-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 8px;
+    display: block;
+    line-height: 1.4;
+  }
+
+  .exp-item .idx {
+    position: absolute;
+    top: 28px; right: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--gray-lt);
+  }
+  .exp-item.featured .idx { color: rgba(125,23,20,0.5); top: 32px; right: 32px; }
+
+  /* ===== TRABALHOS ===== */
+  #trabalhos {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  #trabalhos .section-title { color: var(--bg); }
+  #trabalhos .section-title .stop { color: var(--red); }
+  #trabalhos .section-head { border-bottom: 1px solid rgba(255,255,255,0.12); }
+  #trabalhos .section-head .label { color: var(--red); }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .work-card {
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.025);
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .work-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--red);
+    background: rgba(125,23,20,0.08);
+  }
+  .work-thumb {
+    aspect-ratio: 16/9;
+    background: var(--ink-soft);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    position: relative;
+  }
+  .work-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .work-card:hover .work-thumb img { transform: scale(1.04); }
+  .work-meta {
+    padding: 22px 22px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .work-cat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .work-title {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: 19px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+    color: var(--bg);
+  }
+  .work-client {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 14px;
+  }
+  .work-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    font-weight: 300;
+    color: rgba(255,255,255,0.78);
+    margin: 0 0 22px;
+  }
+  .work-cta {
+    margin-top: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ===== SKILLS ===== */
+  #skills.grid-bg { background-color: var(--bg); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .skill-col h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+  }
+  .skill-col h3 span { color: var(--gray); font-weight: 400; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+    line-height: 1;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .tag:hover {
+    border-color: var(--ink);
+  }
+  .tag.tag-red {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg-alt);
+  }
+  .tag.tag-red:hover {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  /* ===== FORMAÇÃO ===== */
+  #formacao { background: var(--bg-alt); }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+  }
+  .edu-grad {
+    border-top: 2px solid var(--ink);
+    padding-top: 22px;
+  }
+  .edu-grad .school {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .edu-grad h3 {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(22px, 2.6vw, 30px);
+    text-transform: uppercase;
+    line-height: 1.08;
+    margin: 0 0 12px;
+  }
+  .edu-grad .course {
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-bottom: 18px;
+  }
+  .edu-grad .period {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .cert-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .cert-table caption {
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    padding-bottom: 14px;
+  }
+  .cert-table thead th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--ink);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .cert-table thead th:last-child { text-align: right; }
+  .cert-table tbody td {
+    padding: 16px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .cert-table tbody tr td:first-child { font-weight: 500; color: var(--ink); }
+  .cert-table tbody td:last-child {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+
+  /* ===== CONTATO ===== */
+  #contato {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  #contato .section-head { border-bottom: 1px solid rgba(255,255,255,0.12); }
+  #contato .section-head .label { color: var(--red); }
+  #contato .section-title { color: var(--bg); }
+  #contato .section-title .stop { color: var(--red); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+    margin-bottom: 64px;
+  }
+  .contact-intro {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.35;
+    color: var(--bg);
+    text-wrap: balance;
+  }
+  .contact-intro .accent { color: var(--red); font-weight: 500; }
+  .contact-list { display: flex; flex-direction: column; }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease, padding-left 0.2s ease;
+  }
+  .contact-row:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
+  .contact-row:hover {
+    padding-left: 12px;
+  }
+  .contact-row:hover .contact-value { color: var(--red); }
+  .contact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .contact-value {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    color: var(--bg);
+    transition: color 0.15s ease;
+  }
+  .contact-row .arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .cta-pdf-wrap {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 56px;
+  }
+  .cta-pdf {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--red);
+    padding: 22px 40px;
+    border: 1px solid var(--red);
+    transition: background 0.2s ease, transform 0.2s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cta-pdf:hover { background: var(--red-dim); transform: translateY(-2px); }
+
+  /* ===== FOOTER ===== */
+  footer.site-foot {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 28px 0;
+  }
+  .foot-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-right { order: -1; max-width: 380px; margin: 0 auto; display: block; width: 100%; }
+    .photo-frame { width: 100%; max-width: 380px; margin: 0 auto; }
+    .about-grid,
+    .edu-grid,
+    .contact-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .exp-item .idx { position: static; margin-top: 4px; }
+    .works-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid { grid-template-columns: 1fr; gap: 28px; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .metric { padding-left: 0; border-left: 0; border-top: 1px solid rgba(125,23,20,0.25); padding-top: 12px; }
+    .metric:first-child, .metric:nth-child(2) { border-top: 0; padding-top: 0; }
+  }
+  @media (max-width: 720px) {
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg); flex-direction: column; align-items: flex-start; padding: 18px var(--pad-x); border-bottom: 1px solid var(--border); gap: 14px; }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .hamb { display: flex; }
+    .btn-pdf { padding: 8px 12px; font-size: 9px; }
+    .nav-mark span.fullname { display: none; }
+    .works-grid { grid-template-columns: 1fr; }
+    .contact-row { grid-template-columns: 90px 1fr; }
+    .contact-row .arrow { display: none; }
+    .hero-bio { font-size: 14.5px; }
+    .pullquote { font-size: 18px; }
+    .status-pill { font-size: 9px; padding: 7px 11px 7px 10px; }
+    .status-pill .sep, .status-pill .loc { display: none; }
+    .hero-ctas .btn { padding: 12px 18px; font-size: 10px; flex: 1; justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .photo-tag.year { display: none; }
+    .photo-stamp { width: 72px; height: 72px; bottom: -18px; left: -18px; }
+    .metrics-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ===== PRINT — compact CV (1–2 pages) ===== */
+  @media print {
+    @page { size: A4; margin: 0; }
+
+    /* Reset */
+    html, body {
+      background: #0A0A0A !important;
+      color: #F4F4F4 !important;
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-size: 9pt;
+      line-height: 1.42;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important; }
+    body::before, .top-bar, .hero::before { display: none !important; }
+    .grid-bg, .hero.grid-bg { background-image: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+
+    /* Override screen responsive rules that interfere with print layout */
+    .hero-inner { grid-template-columns: 1fr 30mm !important; }
+    .about-grid { grid-template-columns: 1fr !important; }
+    .edu-grid { grid-template-columns: 1fr 1.5fr !important; }
+    .works-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .skills-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .exp-item { grid-template-columns: 34mm 1fr !important; }
+    .metrics-row { grid-template-columns: repeat(4, 1fr) !important; }
+    .metric { border-left: 1px solid #DCDCDC !important; padding-left: 5pt !important; border-top: 0 !important; padding-top: 0 !important; }
+    .metric:first-child { border-left: 0 !important; padding-left: 0 !important; }
+    nav.site-nav, .print-hide, .btn-pdf, .cta-pdf, .cta-pdf-wrap, .hamb,
+    .hero-ctas, .now-line, .status-pill, .hero-rule, .pullquote,
+    .section-head .rule, .section-head .label-gray, footer.site-foot,
+    #contato, .exp-item .idx, .badge, .work-thumb {
+      display: none !important;
     }
 
-    /* Paper grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      mix-blend-mode: multiply;
-      opacity: 0.5;
-    }
+    /* Outer page padding */
+    main { padding: 0 !important; }
+    .wrap { padding: 0 14mm !important; max-width: 100% !important; }
 
-    /* ─── UTILITIES ─────────────────────────────────────────────────────── */
-    .grid-bg {
-      background-image:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-
-    .section-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(48px, 6vw, 80px);
-      line-height: 1;
-      letter-spacing: 0.01em;
-      color: var(--ink);
-      margin-bottom: 40px;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-
-    img { display: block; max-width: 100%; }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── NAV ───────────────────────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--paper);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-      transition: color 0.15s;
-    }
-
-    .nav-links a:hover { color: var(--red); }
-
-    .btn-pdf {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      background: var(--red);
-      color: var(--paper);
-      border: none;
-      cursor: pointer;
-      padding: 8px 16px;
-      transition: background 0.15s;
-    }
-
-    .btn-pdf:hover { background: var(--red-dim); }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--ink);
-      transition: all 0.2s;
-    }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 52px;
-      left: 0;
-      right: 0;
-      background: var(--paper);
-      border-bottom: 1px solid var(--border);
-      padding: 24px 40px;
-      z-index: 99;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-
-    /* ─── HERO ──────────────────────────────────────────────────────────── */
+    /* ===== DARK HERO STRIP ===== */
     .hero {
+      background: #0A0A0A !important;
+      color: #F4F4F4 !important;
+      padding: 12mm 0 6mm !important;
+      margin: 0 0 5mm !important;
+      border-bottom: 2pt solid #7D1714 !important;
+      page-break-after: avoid;
       position: relative;
-      padding: 80px 40px;
-      background: var(--paper);
-      overflow: hidden;
     }
-
-    .hero-red-bar {
+    .hero::after {
+      content: 'CV / 2026';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--red);
+      top: 6mm;
+      right: 14mm;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 7pt;
+      letter-spacing: 0.2em;
+      color: #7D1714;
     }
-
     .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 80px;
-      align-items: center;
+      display: grid !important;
+      grid-template-columns: 1fr 30mm !important;
+      gap: 8mm !important;
+      align-items: start !important;
     }
-
-    .hero-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--ash);
-      margin-bottom: 20px;
+    .hero-left { order: 0 !important; }
+    .hero-right {
+      order: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+      display: block !important;
+      justify-content: flex-end !important;
     }
-
     .hero-name {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(72px, 9vw, 120px);
-      line-height: 0.95;
-      letter-spacing: 0.01em;
-      color: var(--ink);
-      margin-bottom: 24px;
+      color: #F4F4F4 !important;
+      font-size: 30pt !important;
+      line-height: 0.95 !important;
+      margin: 0 0 4pt !important;
+      letter-spacing: 0.005em;
     }
-
-    .hero-name .red { color: var(--red); }
-
-    .hero-tagline {
-      font-family: 'IBM Plex Sans', sans-serif;
+    .hero-name .red, .hero-name .stop { color: #7D1714 !important; }
+    .hero-tag {
+      color: #F4F4F4 !important;
+      font-size: 11pt !important;
+      margin: 0 0 4pt !important;
+      max-width: none !important;
       font-weight: 300;
-      font-size: 22px;
-      color: var(--ink-soft);
-      margin-bottom: 28px;
     }
-
-    .hero-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 28px;
-    }
-
+    .hero-tag em { color: #7D1714 !important; font-weight: 500; font-style: normal; }
     .hero-bio {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      color: var(--ash);
-      line-height: 1.7;
-      margin-bottom: 32px;
-      max-width: 520px;
+      color: rgba(244,244,244,0.85) !important;
+      font-size: 8.5pt !important;
+      margin: 0 0 5pt !important;
+      max-width: none !important;
+      line-height: 1.45 !important;
+    }
+    .hero-bio b { color: #F4F4F4 !important; font-weight: 600; }
+
+    /* Photo: small block on the right with red corner */
+    .hero-right { justify-content: flex-end !important; }
+    .photo-frame {
+      max-width: 30mm !important;
+      width: 30mm !important;
+      aspect-ratio: 4/5 !important;
+      border: 1pt solid rgba(255,255,255,0.18) !important;
+      background: #1A1A1A !important;
+    }
+    .photo-frame::before { width: 7mm !important; height: 7mm !important; background: #7D1714 !important; }
+    .photo-frame::after {
+      content: '' !important;
+      width: 100% !important;
+      height: 4pt !important;
+      background: #7D1714 !important;
+      border: 0 !important;
+      padding: 0 !important;
     }
 
+    /* Contacts — one row, light on dark */
     .hero-contacts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      margin: 5pt 0 0 !important;
+      gap: 3pt 12pt !important;
     }
-
-    .hero-contact-link {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      transition: color 0.15s;
+    .hero-contacts a {
+      color: rgba(244,244,244,0.75) !important;
+      padding: 0 !important;
+      font-size: 7.5pt !important;
+      letter-spacing: 0.1em !important;
     }
+    .hero-contacts svg { width: 9pt !important; height: 9pt !important; }
+    .hero-contacts a::after { display: none !important; }
 
-    .hero-contact-link:hover { color: var(--red); }
-    .hero-contact-link svg { flex-shrink: 0; }
+    /* ===== LIGHT CONTENT SECTIONS ===== */
+    .section {
+      padding: 4mm 0 !important;
+      background: #F4F4F4 !important;
+      color: #0A0A0A !important;
+      page-break-inside: avoid;
+    }
+    .section-head {
+      padding-bottom: 3pt !important;
+      margin-bottom: 4pt !important;
+      border-bottom: 1px solid #0A0A0A !important;
+      gap: 8pt !important;
+    }
+    .section-head .label { color: #7D1714 !important; font-size: 7.5pt !important; letter-spacing: 0.18em; }
+    .section-title {
+      color: #0A0A0A !important;
+      font-size: 16pt !important;
+      margin: 0 0 5pt !important;
+      line-height: 1 !important;
+      letter-spacing: 0.005em;
+    }
+    .section-title .stop { color: #7D1714 !important; }
 
-    /* Hero photo column */
-    .hero-photo-col {
+    /* SOBRE — light */
+    #sobre { background: #F4F4F4 !important; }
+    .about-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+    .about-text p {
+      font-size: 9pt !important;
+      margin: 0 0 4pt !important;
+      color: #0A0A0A !important;
+      line-height: 1.45 !important;
+    }
+    .about-text p:nth-of-type(n+4) { display: none !important; }
+
+    /* EXPERIÊNCIA — light */
+    #experiencia { background: #FFFFFF !important; }
+    .exp-list { gap: 3pt !important; }
+    .exp-item, .exp-item.featured {
+      padding: 4pt 0 !important;
+      border: 0 !important;
+      border-top: 1px solid #DCDCDC !important;
+      background: transparent !important;
+      grid-template-columns: 34mm 1fr !important;
+      gap: 6mm !important;
+      page-break-inside: avoid;
       position: relative;
     }
-
-    .hero-photo-frame {
-      position: relative;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      aspect-ratio: 1;
-      overflow: hidden;
+    .exp-item:first-of-type { border-top: 0 !important; padding-top: 0 !important; }
+    .exp-item.featured { border-left: 2pt solid #7D1714 !important; padding-left: 6pt !important; }
+    .exp-item.featured::before { display: none !important; }
+    .exp-head h3 {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-size: 11pt !important;
+      margin: 0 0 2pt !important;
+      letter-spacing: 0.01em;
+      color: #0A0A0A !important;
+      line-height: 1.1 !important;
     }
+    .exp-head .role { font-size: 8.5pt !important; margin: 0 0 2pt !important; color: #444 !important; font-weight: 500; }
+    .exp-head .period { font-size: 7pt !important; color: #7D1714 !important; letter-spacing: 0.1em; }
+    .exp-body p { font-size: 8.5pt !important; margin: 0 0 2pt !important; color: #0A0A0A !important; line-height: 1.45 !important; }
+    .exp-item.featured .exp-body p:nth-of-type(n+2) { display: none !important; }
 
-    .hero-photo-frame img,
-    .hero-photo-frame .img-placeholder {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
+    /* Compact multi-stint in print */
+    .exp-stint { padding: 3pt 0 !important; border-top: 1px solid #DCDCDC !important; }
+    .exp-stint:first-child { border-top: 0 !important; padding-top: 0 !important; }
+    .exp-stint-head { margin-bottom: 2pt !important; gap: 2pt 8pt !important; }
+    .exp-stint-role { font-size: 8.5pt !important; color: #0A0A0A !important; padding-left: 9pt !important; }
+    .exp-stint-role::before { width: 4pt !important; height: 4pt !important; }
+    .exp-stint-period { font-size: 6.5pt !important; color: #7D1714 !important; letter-spacing: 0.1em !important; }
+    .exp-stint p { font-size: 8.5pt !important; margin: 0 !important; line-height: 1.4 !important; }
+
+    /* Metrics */
+    .metrics-row {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 6pt !important;
+      margin-top: 4pt !important;
+      padding-top: 4pt !important;
+      border-top: 1px solid #DCDCDC !important;
     }
-
-    .hero-coord-tag {
-      position: absolute;
-      bottom: -14px;
-      left: -16px;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      padding: 6px 12px;
-      white-space: nowrap;
+    .metric { border-left: 1px solid #DCDCDC !important; padding-left: 5pt !important; }
+    .metric:first-child { border-left: 0 !important; padding-left: 0 !important; }
+    .metric-num {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-size: 16pt !important;
+      color: #0A0A0A !important;
+      line-height: 1 !important;
     }
+    .metric-num .accent { color: #7D1714 !important; }
+    .metric-lbl { font-size: 6pt !important; color: #555 !important; margin-top: 3pt !important; letter-spacing: 0.1em; }
 
-    .hero-serial {
-      position: absolute;
-      top: -10px;
-      right: -4px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 8px;
-      color: var(--ash);
-      letter-spacing: 0.1em;
-      writing-mode: vertical-rl;
+    /* TRABALHOS — dark band */
+    #trabalhos {
+      background: #0A0A0A !important;
+      color: #F4F4F4 !important;
+      padding: 5mm 0 !important;
+      margin: 4mm 0 !important;
+      page-break-inside: avoid;
     }
-
-    /* ─── SOBRE ─────────────────────────────────────────────────────────── */
-    .sobre-section {
-      background: var(--paper-lt);
-      padding: 100px 40px;
-    }
-
-    .sobre-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .sobre-text p {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--ink);
-      margin-bottom: 18px;
-    }
-
-    .sobre-text p:last-child { margin-bottom: 0; }
-
-    .quote-block {
-      background: var(--ink);
-      padding: 40px 36px;
-      position: relative;
-    }
-
-    .quote-block::before {
-      content: '"';
-      font-family: 'Anton', sans-serif;
-      font-size: 120px;
-      color: var(--red);
-      opacity: 0.15;
-      position: absolute;
-      top: -20px;
-      left: 20px;
-      line-height: 1;
-    }
-
-    .quote-text {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(22px, 2.5vw, 30px);
-      line-height: 1.25;
-      color: var(--paper);
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px;
-    }
-
-    .quote-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
-    /* ─── EXPERIÊNCIA ───────────────────────────────────────────────────── */
-    .experiencia-section {
-      background: var(--paper);
-      padding: 100px 40px;
-    }
-
-    .experiencia-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Highlight card */
-    .exp-highlight {
-      border: 2px solid var(--red);
-      background: var(--red-lt);
-      padding: 40px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .exp-highlight-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: var(--red);
-      border: 1px solid var(--red);
-      padding: 3px 8px;
-    }
-
-    .exp-company {
-      font-family: 'Anton', sans-serif;
-      font-size: 28px;
-      color: var(--ink);
-      margin-bottom: 4px;
-      letter-spacing: 0.02em;
-    }
-
-    .exp-role {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 500;
-      font-size: 13px;
-      color: var(--ash);
-      margin-bottom: 4px;
-    }
-
-    .exp-period {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--ash-lt);
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-    }
-
-    .exp-desc {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--ink-soft);
-      margin-bottom: 28px;
-    }
-
-    /* Stats row inside highlight */
-    .exp-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-top: 8px;
-    }
-
-    .exp-stat {
-      background: var(--paper);
-      padding: 20px 16px;
-      text-align: center;
-    }
-
-    .exp-stat-num {
-      font-family: 'Anton', sans-serif;
-      font-size: 42px;
-      color: var(--red);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .exp-stat-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      color: var(--ash);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      line-height: 1.4;
-    }
-
-    /* Standard exp item */
-    .exp-list { margin-top: 16px; }
-
-    .exp-item {
-      padding: 36px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .exp-item:last-child { border-bottom: none; }
-
-    .exp-item .exp-company { font-size: 24px; }
-
-    .exp-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-top: 12px;
-      transition: opacity 0.15s;
-    }
-
-    .exp-link:hover { opacity: 0.7; }
-
-    /* ─── TRABALHOS ─────────────────────────────────────────────────────── */
-    .works-section {
-      background: var(--ink);
-      padding: 100px 40px;
-    }
-
-    .works-inner { max-width: 1200px; margin: 0 auto; }
-
-    .works-section .section-title { color: var(--paper); }
-
+    #trabalhos .section-head { border-bottom: 1px solid rgba(244,244,244,0.18) !important; }
+    #trabalhos .section-head .label { color: #7D1714 !important; }
+    #trabalhos .section-title { color: #F4F4F4 !important; }
+    #trabalhos .section-title .stop { color: #7D1714 !important; }
     .works-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: rgba(242,237,227,0.08);
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 4mm !important;
     }
-
     .work-card {
-      background: var(--ink-soft);
-      border: 1px solid rgba(242,237,227,0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
+      background: rgba(244,244,244,0.04) !important;
+      border: 1px solid rgba(244,244,244,0.12) !important;
+      border-left: 2pt solid #7D1714 !important;
+      padding: 5pt 7pt !important;
+      transform: none !important;
     }
-
-    .work-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-      z-index: 2;
-      position: relative;
-    }
-
-    .work-cover {
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: var(--surface);
-      position: relative;
-    }
-
-    .work-cover img,
-    .work-cover .img-placeholder {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .work-body { padding: 24px; }
-
-    .work-category {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 10px;
-    }
-
+    .work-meta { padding: 0 !important; }
+    .work-cat { font-size: 6pt !important; color: #7D1714 !important; margin-bottom: 3pt !important; letter-spacing: 0.14em; }
     .work-title {
-      font-family: 'Anton', sans-serif;
-      font-size: 22px;
-      color: var(--paper);
-      line-height: 1.1;
-      margin-bottom: 8px;
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-size: 10pt !important;
+      color: #F4F4F4 !important;
+      margin: 0 0 3pt !important;
+      line-height: 1.08 !important;
+    }
+    .work-client { font-size: 7pt !important; color: rgba(244,244,244,0.55) !important; margin-bottom: 3pt !important; letter-spacing: 0.08em; }
+    .work-desc { font-size: 7.5pt !important; color: rgba(244,244,244,0.82) !important; margin: 0 0 3pt !important; line-height: 1.4 !important; }
+    .work-cta {
+      display: inline-flex !important;
+      font-size: 6.5pt !important;
+      color: #7D1714 !important;
+      padding-top: 3pt !important;
+      border-top: 1px solid rgba(244,244,244,0.12) !important;
+      margin-top: 2pt !important;
     }
 
-    .work-client {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--ash);
-      letter-spacing: 0.05em;
-      margin-bottom: 14px;
+    /* SKILLS — light */
+    #skills { background: #F4F4F4 !important; }
+    .skills-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 5mm !important; }
+    .skill-col h3 {
+      font-size: 7.5pt !important;
+      color: #7D1714 !important;
+      padding-bottom: 2pt !important;
+      margin: 0 0 4pt !important;
+      border-bottom: 1px solid #DCDCDC !important;
+      letter-spacing: 0.18em;
     }
-
-    .work-desc {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 13px;
-      color: rgba(242,237,227,0.6);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .work-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      border-bottom: 1px solid var(--red);
-      padding-bottom: 2px;
-      transition: opacity 0.15s;
-    }
-
-    .work-link:hover { opacity: 0.7; }
-
-    /* ─── HABILIDADES ───────────────────────────────────────────────────── */
-    .skills-section {
-      background: var(--paper);
-      padding: 100px 40px;
-    }
-
-    .skills-inner { max-width: 1200px; margin: 0 auto; }
-
-    .skills-group-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--ash);
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .skills-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      font-weight: 500;
+    .skill-col h3 span { display: none !important; }
+    .tag-list { gap: 3pt !important; }
+    .tag, .tag.tag-red {
+      font-size: 6.5pt !important;
+      padding: 2pt 4pt !important;
+      border: 1px solid #B0B0B0 !important;
+      background: #FFFFFF !important;
+      color: #0A0A0A !important;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 10px;
+      line-height: 1;
+    }
+    .tag.tag-red {
+      background: #0A0A0A !important;
+      color: #F4F4F4 !important;
+      border-color: #0A0A0A !important;
     }
 
-    .tag-strategy {
-      border: 1px solid var(--red);
-      background: var(--red-lt);
-      color: var(--red-dim);
+    /* FORMAÇÃO — light */
+    #formacao { background: #F4F4F4 !important; }
+    .edu-grid { grid-template-columns: 1fr 1.5fr !important; gap: 6mm !important; align-items: start !important; }
+    .edu-grad { border-top: 1.5pt solid #0A0A0A !important; padding-top: 3pt !important; }
+    .edu-grad .school { font-size: 7pt !important; color: #7D1714 !important; margin-bottom: 2pt !important; letter-spacing: 0.18em; }
+    .edu-grad h3 {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-size: 11pt !important;
+      margin: 0 0 2pt !important;
+      letter-spacing: 0.01em;
     }
-
-    .tag-design,
-    .tag-tools {
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--ash);
+    .edu-grad .course { font-size: 8pt !important; margin-bottom: 3pt !important; color: #333 !important; }
+    .edu-grad .period { font-size: 7pt !important; padding-top: 2pt !important; border-top: 1px solid #DCDCDC !important; color: #555 !important; letter-spacing: 0.1em; }
+    .cert-table caption { font-size: 7pt !important; padding-bottom: 3pt !important; color: #7D1714 !important; letter-spacing: 0.18em; text-align: left; }
+    .cert-table thead th {
+      font-size: 6.5pt !important;
+      padding: 3pt 4pt !important;
+      border-bottom: 1px solid #0A0A0A !important;
+      border-top: 0 !important;
+      color: #7D1714 !important;
+      letter-spacing: 0.14em;
     }
-
-    /* ─── FORMAÇÃO ──────────────────────────────────────────────────────── */
-    .formacao-section {
-      background: var(--paper-lt);
-      padding: 100px 40px;
-      border-top: 1px solid var(--border);
+    .cert-table tbody td {
+      padding: 3pt 4pt !important;
+      font-size: 8pt !important;
+      border-bottom: 1px solid #EEEEEE !important;
+      color: #0A0A0A !important;
     }
+    .cert-table tbody td:last-child { font-size: 7pt !important; letter-spacing: 0.08em; }
 
-    .formacao-inner { max-width: 1200px; margin: 0 auto; }
-
-    .formacao-school-name {
-      font-family: 'Anton', sans-serif;
-      font-size: 26px;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .formacao-course {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 400;
-      font-size: 15px;
-      color: var(--ink-soft);
-      margin-bottom: 6px;
-    }
-
-    .formacao-period {
+    /* Print footer — dark strip */
+    main::after {
+      content: 'DIOGO ABÍLIO  ·  BRAND & CONTENT STRATEGIST  ·  diogocontatoblog@gmail.com  ·  +55 11 98555-7297  ·  linkedin.com/in/diogo-abilio';
+      display: block;
+      background: #0A0A0A;
+      color: rgba(244,244,244,0.55);
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      color: var(--ash);
-      letter-spacing: 0.1em;
-      margin-bottom: 28px;
-    }
-
-    .certs-table {
-      width: 100%;
-      border-collapse: collapse;
-      border: 1px solid var(--border);
-    }
-
-    .certs-table th {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 6.5pt;
       letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-align: left;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-      background: var(--paper-dk);
+      padding: 4mm 14mm;
+      margin-top: 5mm;
+      border-top: 1pt solid #7D1714;
+      text-align: center;
     }
 
-    .certs-table td {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 13px;
+    /* URLs after links */
+    a[href^="http"]::after, a[href^="mailto"]::after, a[href^="tel"]::after {
+      content: " · " attr(href);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6pt;
+      color: #888;
+      word-break: break-all;
       font-weight: 400;
-      color: var(--ink-soft);
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
     }
-
-    .certs-table tr:last-child td { border-bottom: none; }
-
-    /* ─── CONTATO ───────────────────────────────────────────────────────── */
-    .contato-section {
-      background: var(--ink);
-      padding: 100px 40px 80px;
-    }
-
-    .contato-inner { max-width: 1200px; margin: 0 auto; }
-
-    .contato-section .section-label { color: var(--red); opacity: 0.8; }
-    .contato-section .section-title { color: var(--paper); }
-
-    .contato-intro {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      color: rgba(239,226,204,0.7);
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .contato-links { display: flex; flex-direction: column; gap: 20px; }
-
-    .contato-link-item {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .contato-link-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
-    .contato-link-value {
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--paper);
-      transition: color 0.15s;
-    }
-
-    .contato-link-value:hover { color: var(--ash-lt); }
-
-    .pdf-cta-wrap {
-      max-width: 1200px;
-      margin: 60px auto 0;
-      text-align: center;
-    }
-
-    .btn-pdf-large {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      background: var(--red);
-      color: var(--paper);
-      border: none;
-      cursor: pointer;
-      padding: 18px 48px;
-      transition: background 0.15s;
-    }
-
-    .btn-pdf-large:hover { background: var(--red-dim); }
-
-    /* ─── FOOTER ────────────────────────────────────────────────────────── */
-    footer {
-      background: var(--ink);
-      border-top: 1px solid rgba(242,237,227,0.07);
-      padding: 24px 40px;
-      text-align: center;
-    }
-
-    footer p {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(242,237,227,0.2);
-    }
-
-    /* ─── IMAGE PLACEHOLDER ─────────────────────────────────────────────── */
-    .img-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface);
-      color: var(--ash);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-align: center;
-      gap: 8px;
-      padding: 20px;
-    }
-
-    .img-placeholder svg { opacity: 0.3; }
-
-    /* ─── RESPONSIVE ────────────────────────────────────────────────────── */
-    @media (max-width: 960px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-
-      .hero { padding: 60px 24px 80px; }
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-      .hero-photo-col { order: -1; max-width: 320px; }
-      .hero-name { font-size: clamp(60px, 15vw, 90px); }
-
-      .sobre-section { padding: 80px 24px; }
-      .sobre-inner .two-col { grid-template-columns: 1fr; gap: 40px; }
-
-      .experiencia-section { padding: 80px 24px; }
-      .exp-stats { grid-template-columns: repeat(2, 1fr); }
-
-      .works-section { padding: 80px 24px; }
-      .works-grid { grid-template-columns: 1fr 1fr; }
-
-      .skills-section { padding: 80px 24px; }
-      .skills-inner .three-col { grid-template-columns: 1fr; gap: 40px; }
-
-      .formacao-section { padding: 80px 24px; }
-      .formacao-inner .two-col { grid-template-columns: 1fr; gap: 48px; }
-
-      .contato-section { padding: 80px 24px 60px; }
-      .contato-inner .two-col { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    @media (max-width: 640px) {
-      nav { padding: 0 20px; }
-      .mobile-menu { padding: 20px; }
-
-      .hero { padding: 48px 20px 64px; }
-      .hero-name { font-size: clamp(54px, 18vw, 80px); }
-      .hero-photo-col { max-width: 260px; }
-      .hero-contacts { gap: 14px; }
-
-      .sobre-section { padding: 64px 20px; }
-      .experiencia-section { padding: 64px 20px; }
-      .exp-highlight { padding: 28px 20px; }
-      .exp-stats { grid-template-columns: repeat(2, 1fr); }
-
-      .works-section { padding: 64px 20px; }
-      .works-grid { grid-template-columns: 1fr; }
-
-      .skills-section { padding: 64px 20px; }
-      .formacao-section { padding: 64px 20px; }
-
-      .contato-section { padding: 64px 20px 48px; }
-      .btn-pdf-large { width: 100%; padding: 16px 24px; }
-
-      footer { padding: 20px; }
-    }
-
-    /* ─── PRINT / PDF ───────────────────────────────────────────────────── */
-    @media print {
-      nav,
-      .print-hide,
-      .btn-pdf,
-      .btn-pdf-large,
-      .hero-coord-tag,
-      .hero-serial {
-        display: none !important;
-      }
-
-      body {
-        background: white !important;
-        color: black !important;
-        font-size: 11pt;
-      }
-
-      body::before { display: none !important; }
-
-      .section-ink,
-      .works-section,
-      .contato-section,
-      footer {
-        background: #f5f5f5 !important;
-        color: black !important;
-      }
-
-      .works-section .section-title,
-      .contato-section .section-title { color: black !important; }
-
-      .work-title { color: black !important; }
-      .work-desc { color: #444 !important; }
-      .contato-link-value { color: black !important; }
-      footer p { color: #999 !important; }
-
-      .two-col,
-      .three-col,
-      .works-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .section {
-        page-break-before: auto;
-        page-break-inside: avoid;
-      }
-
-      .exp-item,
-      .exp-highlight,
-      .work-card {
-        page-break-inside: avoid;
-      }
-
-      * { box-shadow: none !important; }
-
-      a[href]::after {
-        content: " (" attr(href) ")";
-        font-size: 9pt;
-        color: #666;
-      }
-
-      nav a[href]::after { display: none; }
-    }
-  </style>
+    nav a::after, .nav-links a::after, .hero-contacts a::after,
+    .contact-row a::after, .work-card::after, .work-card a::after,
+    .work-cta::after, .hero-ctas a::after { display: none !important; }
+    .exp-body a[href^="http"]::after { display: inline !important; font-size: 6.5pt; color: #7D1714 !important; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ─── NAV ─────────────────────────────────────────────────────────── -->
-  <nav aria-label="Navegação principal">
-    <ul class="nav-links">
+<div class="top-bar" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="site-nav" aria-label="Navegação principal">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-mark"><span class="fullname">DIOGO ABÍLIO</span></a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#trabalhos">Trabalhos</a></li>
-      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#skills">Habilidades</a></li>
       <li><a href="#formacao">Formação</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <button class="btn-pdf print-hide" onclick="window.print()">↓ BAIXAR CV</button>
-  </nav>
-
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#sobre" onclick="closeMenu()">Sobre</a>
-    <a href="#experiencia" onclick="closeMenu()">Experiência</a>
-    <a href="#trabalhos" onclick="closeMenu()">Trabalhos</a>
-    <a href="#habilidades" onclick="closeMenu()">Habilidades</a>
-    <a href="#formacao" onclick="closeMenu()">Formação</a>
-    <a href="#contato" onclick="closeMenu()">Contato</a>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button class="btn-pdf print-hide" onclick="window.print()" aria-label="Baixar currículo em PDF">↓ Baixar CV</button>
+      <button class="hamb" aria-label="Menu" id="hambBtn"><span></span><span></span><span></span></button>
+    </div>
   </div>
+</nav>
 
-  <main>
+<main id="top">
 
-    <!-- ─── 01 HERO ────────────────────────────────────────────────────── -->
-    <section class="hero grid-bg" aria-label="Hero">
-      <div class="hero-red-bar"></div>
-      <div class="hero-inner">
-
-        <!-- Left -->
-        <div class="hero-left">
-          <p class="hero-label">Brand &amp; Content Strategist · São Paulo, SP</p>
-          <h1 class="hero-name">
-            DIOGO<br>
-            <span class="red">ABÍLIO.</span>
-          </h1>
-          <p class="hero-tagline">Menos anúncio. Mais memória.</p>
-          <div class="hero-divider"></div>
-          <p class="hero-bio">12 anos entre design, marketing, growth e UX. Hoje: Brand Performance — estratégia que transforma marca em demanda mensurável.</p>
-          <div class="hero-contacts">
-            <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" class="hero-contact-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              LinkedIn
-            </a>
-            <a href="https://www.instagram.com/_diogoabilio/" target="_blank" class="hero-contact-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              Instagram
-            </a>
-            <a href="mailto:diogocontatoblog@gmail.com" class="hero-contact-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-              Email
-            </a>
-            <a href="https://wa.me/5511985557297" target="_blank" class="hero-contact-link">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              WhatsApp
-            </a>
-          </div>
+  <!-- ===== HERO ===== -->
+  <section class="hero grid-bg" aria-label="Apresentação">
+    <div class="wrap hero-inner">
+      <div class="hero-left">
+        <div class="status-pill" role="status" aria-live="polite">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span><strong>Disponível</strong> para novas oportunidades</span>
+          <span class="sep">·</span>
+          <span class="loc">São Paulo, SP</span>
         </div>
-
-        <!-- Right: Photo -->
-        <div class="hero-photo-col">
-          <div class="hero-photo-frame">
-            <img
-              src="foto-diogo.jpg"
-              alt="Foto de Diogo Abílio"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-            >
-            <div class="img-placeholder" style="display:none; width:100%; height:100%; position:absolute; top:0; left:0;">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              foto-diogo.jpg
-            </div>
-          </div>
-          <div class="hero-coord-tag">23.5505° S · 46.6333° W · SÃO PAULO</div>
-          <div class="hero-serial">DA–2026–001</div>
+        <h1 class="hero-name">
+          DIOGO<br />
+          <span class="red">ABÍLIO<span class="stop">.</span></span>
+        </h1>
+        <p class="hero-tag">Menos anúncio. <em>Mais memória.</em></p>
+        <div class="now-line">
+          <span class="now-bar" aria-hidden="true"></span>
+          <span>Atualmente · <b>Brand Performance Consultant</b> @ Cura Salute</span>
         </div>
-
-      </div>
-    </section>
-
-    <!-- ─── 02 SOBRE ───────────────────────────────────────────────────── -->
-    <section class="sobre-section" id="sobre" aria-label="Sobre">
-      <div class="sobre-inner">
-        <div class="two-col">
-          <div>
-            <p class="section-label">02 / Sobre</p>
-            <h2 class="section-title">QUEM SOU.</h2>
-            <div class="sobre-text">
-              <p>Tenho 12 anos de experiência em comunicação, marketing, design e UX/UI.</p>
-              <p>Passei por design gráfico, campanhas, landing pages, interfaces digitais, conteúdo, experiência do usuário e presença digital. Essa trajetória me ensinou que uma marca é construída não só no discurso, mas nos pontos de contato que as pessoas realmente veem, usam e lembram.</p>
-              <p>Hoje meu foco está em branding e brand performance: ajudar empresas a construir uma marca mais clara, consistente e reconhecível, capaz de gerar confiança, diferenciação e demanda com menos dependência de mídia paga.</p>
-              <p>Meu trabalho parte da leitura do negócio, do mercado, do público e da forma como a marca se comporta no dia a dia. A partir disso, atuo em posicionamento, narrativa, identidade, linguagem, presença digital e experiência.</p>
-              <p>Trabalho com Figma, Webflow, Photoshop, Illustrator e Claude Code para transformar estratégia em interfaces, páginas e sistemas visuais que possam ser aplicados de verdade.</p>
-            </div>
-          </div>
-          <div>
-            <div class="quote-block">
-              <p class="quote-text">"O problema das empresas não é falta de branding ou falta de performance. É que os dois nunca conversam."</p>
-              <span class="quote-label">Princípio de Trabalho</span>
-            </div>
-          </div>
+        <div class="hero-rule"></div>
+        <p class="hero-bio">
+          12 anos entre design, marketing, growth e UX. Hoje: <b>Brand Performance</b>, estratégia que transforma marca em demanda mensurável.
+        </p>
+        <div class="hero-ctas print-hide">
+          <a href="#contato" class="btn btn-primary">Falar comigo <span class="arr">↗</span></a>
+          <a href="#trabalhos" class="btn btn-ghost">Ver trabalhos <span class="arr">↓</span></a>
+        </div>
+        <div class="hero-contacts" style="margin-top: 28px;">
+          <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-2.97-1.8-2.97-1.8 0-2.08 1.4-2.08 2.86V21h-4V9z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://www.instagram.com/_diogoabilio/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            Instagram
+          </a>
+          <a href="mailto:diogocontatoblog@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
+            Email
+          </a>
+          <a href="https://wa.me/5511985557297" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.13-1.35A9.95 9.95 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.62 0-3.13-.48-4.4-1.3l-.3-.18-3.05.8.82-2.97-.2-.32A7.96 7.96 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.5-5.85c-.25-.12-1.47-.72-1.7-.8-.23-.08-.4-.12-.56.12-.16.25-.64.8-.78.96-.14.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.38-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.37 1 2.54.12.16 1.74 2.65 4.21 3.72.59.25 1.05.4 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.23-.16-.48-.28z"/></svg>
+            WhatsApp
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- ─── 03 EXPERIÊNCIA ─────────────────────────────────────────────── -->
-    <section class="experiencia-section" id="experiencia" aria-label="Experiência">
-      <div class="experiencia-inner">
-        <p class="section-label">03 / Experiência</p>
-        <h2 class="section-title">TRAJETÓRIA.</h2>
-
-        <!-- DESTAQUE: K.PITALIZA -->
-        <div class="exp-highlight">
-          <span class="exp-highlight-badge">DESTAQUE</span>
-          <div class="exp-company">K.PITALIZA Tecnologia</div>
-          <div class="exp-role">Coordenador de Marketing</div>
-          <div class="exp-period">jun 2025 — out 2025 · 5 meses · Remoto</div>
-          <p class="exp-desc">Coordenei a operação de marketing de uma fintech de títulos de capitalização com a Claudia Leitte como embaixadora, liderando um time de 8 pessoas entre copywriters, designers e editores de vídeo.</p>
-          <p class="exp-desc">Em menos de um mês, o Instagram saiu do zero para 50 mil seguidores. As lives chegaram a 3 mil usuários simultâneos. A rede de afiliados cresceu para mais de 300 parceiros ativos. A operação de mídia out of home cobriu mais de 5 estados brasileiros, com campanhas que chegaram também à televisão.</p>
-          <p class="exp-desc" style="margin-bottom:0">Atuei nas frentes de aquisição orgânica, mídia paga, OOH, TV e posicionamento estratégico de marca, garantindo consistência de comunicação em todos os canais.</p>
-          <div class="exp-stats">
-            <div class="exp-stat">
-              <div class="exp-stat-num">50K</div>
-              <div class="exp-stat-label">seguidores em menos de 1 mês</div>
-            </div>
-            <div class="exp-stat">
-              <div class="exp-stat-num">300+</div>
-              <div class="exp-stat-label">parceiros afiliados</div>
-            </div>
-            <div class="exp-stat">
-              <div class="exp-stat-num">5</div>
-              <div class="exp-stat-label">estados com OOH</div>
-            </div>
-            <div class="exp-stat">
-              <div class="exp-stat-num">8</div>
-              <div class="exp-stat-label">pessoas lideradas</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DESTAQUE: G4 -->
-        <div class="exp-highlight">
-          <span class="exp-highlight-badge">DESTAQUE</span>
-          <div class="exp-company">G4 Educação</div>
-          <div class="exp-role">Web Designer Pleno</div>
-          <div class="exp-period">abr 2024 — fev 2025 · 11 meses · No local</div>
-          <p class="exp-desc">Como Web Designer Pleno no G4 Educação, atuei na criação e desenvolvimento de interfaces digitais para comunidades, programas presenciais e eventos.</p>
-          <p class="exp-desc" style="margin-bottom:0">Desenvolvi e mantive landing pages e sites em Webflow com foco em experiência de usuário otimizada. Colaborei com equipes de marketing e growth para soluções visuais que impulsionassem o engajamento. Utilizei Figma, Strapi e Amplitude para criação e monitoramento de projetos.</p>
-        </div>
-
-        <!-- LISTA PADRÃO -->
-        <div class="exp-list">
-
-          <div class="exp-item">
-            <div class="exp-company">Cura Salute</div>
-            <div class="exp-role">Brand Performance Consultant</div>
-            <div class="exp-period">2026</div>
-            <p class="exp-desc">Case de validação do método Brand Performance Playbook. Seis fases em seis semanas: Discovery, Diagnóstico, Posicionamento, Motor de Conteúdo, Arquitetura de Conversão e Playbook Final para uma corretora de planos de saúde em São Paulo.</p>
-            <a href="https://brandperformance-cura-salute.vercel.app/" target="_blank" class="exp-link">
-              Ver projeto ↗
-            </a>
-          </div>
-
-          <div class="exp-item">
-            <div class="exp-company">LET'S</div>
-            <div class="exp-role">Webflow Designer → Designer</div>
-            <div class="exp-period">dez 2025 — abr 2026 · 5 meses · Remoto</div>
-            <p class="exp-desc">Atuei na reconstrução completa do site institucional de uma SaaS B2B de logística. Todo o processo passou por prototipagem de UI no Figma antes do desenvolvimento em Webflow. Desenvolvi 5 landing pages para campanhas sazonais e perpétuas, páginas de vendas e otimizações no formulário de captação com integração ao HubSpot.</p>
-          </div>
-
-          <div class="exp-item">
-            <div class="exp-company">Valid</div>
-            <div class="exp-role">UX Designer — V/Pass</div>
-            <div class="exp-period">jan 2023 — nov 2023 · 11 meses · Híbrido</div>
-            <p class="exp-desc">No V/Pass da Valid, focado na criação de aplicativos de identidade digital (RG, CIN, Câmara dos Deputados) para o Governo, aprimorei a usabilidade e a experiência do usuário através de Design Thinking, pesquisa, card sorting e testes.</p>
-          </div>
-
-          <div class="exp-item">
-            <div class="exp-company">Valid</div>
-            <div class="exp-role">Analista de Marketing &amp; Growth</div>
-            <div class="exp-period">dez 2021 — dez 2022 · 1 ano 1 mês · Híbrido</div>
-          </div>
-
-          <div class="exp-item">
-            <div class="exp-company">Agência Moonflag</div>
-            <div class="exp-role">Designer Gráfico</div>
-            <div class="exp-period">fev 2021 — nov 2021 · 10 meses · Híbrido</div>
-            <p class="exp-desc">Marketing digital para empresas de contabilidade. Criação de posts, LPs, apresentações e cronograma de postagem.</p>
-          </div>
-
-        </div>
+      <div class="hero-right">
+        <figure class="photo-frame">
+          <img src="foto-diogo.jpg" alt="Diogo Abílio. Retrato" data-fallback="foto-diogo.jpg" data-fb-w="480" data-fb-h="600" />
+        </figure>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ─── 04 TRABALHOS ───────────────────────────────────────────────── -->
-    <section class="works-section" id="trabalhos" aria-label="Trabalhos">
-      <div class="works-inner">
-        <p class="section-label">04 / Trabalhos</p>
-        <h2 class="section-title">PROJETOS.</h2>
+  <!-- ===== STATS STRIP REMOVED ===== -->
 
-        <div class="works-grid">
+  <!-- ===== SOBRE ===== -->
+  <section id="sobre" class="section" aria-label="Sobre">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">02 / Sobre</span>
+        <span class="rule"></span>
+        <span class="label label-gray">Bio · Princípio</span>
+      </div>
+      <h2 class="section-title reveal">Quem sou<span class="stop">.</span></h2>
 
-          <!-- Projeto 1 -->
-          <article class="work-card">
-            <div class="work-cover">
-              <img
-                src="capa-cura-salute.jpg"
-                alt="Brand Performance Playbook — Cura Salute"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              >
-              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                <span style="color:#7A7268; font-size:9px;">capa-cura-salute.jpg</span>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>Tenho 12 anos de experiência em comunicação, marketing, design e UX/UI.</p>
+          <p>Passei por design gráfico, campanhas, landing pages, interfaces digitais, conteúdo, experiência do usuário e presença digital. Essa trajetória me ensinou que uma marca é construída não só no discurso, mas nos pontos de contato que as pessoas realmente veem, usam e lembram.</p>
+          <p>Hoje meu foco está em <b style="color:var(--red);font-weight:600;">branding e brand performance</b>: ajudar empresas a construir uma marca mais clara, consistente e reconhecível, capaz de gerar confiança, diferenciação e demanda com menos dependência de mídia paga.</p>
+          <p>Meu trabalho parte da leitura do negócio, do mercado, do público e da forma como a marca se comporta no dia a dia. A partir disso, atuo em posicionamento, narrativa, identidade, linguagem, presença digital e experiência.</p>
+          <p>Trabalho com <b style="color:var(--ink);font-weight:600;">Figma, Webflow, Photoshop, Illustrator e Claude Code</b> para transformar estratégia em interfaces, páginas e sistemas visuais que possam ser aplicados de verdade.</p>
+        </div>
+
+        <aside class="pullquote">
+          <q>O problema das empresas não é falta de branding ou falta de performance. É que os dois raramente se conversam.</q>
+          <span class="label">Princípio de trabalho</span>
+          <div class="meta-line">
+            <span>D.A. · 2026</span>
+            <span>SP · BR</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIÊNCIA ===== -->
+  <section id="experiencia" class="section" aria-label="Experiência profissional">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">03 / Experiência</span>
+        <span class="rule"></span>
+        <span class="label label-gray">12 anos · 6 empresas</span>
+      </div>
+      <h2 class="section-title reveal">Trajetória<span class="stop">.</span></h2>
+
+      <div class="exp-list">
+
+        <!-- K.PITALIZA — FEATURED -->
+        <article class="exp-item featured">
+          <span class="idx">01</span>
+          <div class="exp-head">
+            <span class="badge">Destaque</span>
+            <h3>K.Pitaliza Tecnologia</h3>
+            <div class="role">Coordenador de Marketing</div>
+            <div class="period">jun 2025 / out 2025 · 5 meses · Remoto</div>
+          </div>
+          <div class="exp-body">
+            <p>Coordenei a operação de marketing de uma fintech de títulos de capitalização com a Claudia Leitte como embaixadora, liderando um time de 8 pessoas entre copywriters, designers e editores de vídeo.</p>
+            <p>Em menos de um mês, o Instagram saiu do zero para 50 mil seguidores. As lives chegaram a 3 mil usuários simultâneos. A rede de afiliados cresceu para mais de 300 parceiros ativos. A operação de mídia out of home cobriu mais de 5 estados brasileiros, com campanhas que chegaram também à televisão.</p>
+            <p>Atuei nas frentes de aquisição orgânica, mídia paga, OOH, TV e posicionamento estratégico de marca, garantindo consistência de comunicação em todos os canais.</p>
+            <div class="metrics-row">
+              <div class="metric"><span class="metric-num">50<span class="accent">K</span></span><span class="metric-lbl">seguidores em &lt; 1 mês</span></div>
+              <div class="metric"><span class="metric-num">300<span class="accent">+</span></span><span class="metric-lbl">parceiros afiliados</span></div>
+              <div class="metric"><span class="metric-num">5</span><span class="metric-lbl">estados com OOH</span></div>
+              <div class="metric"><span class="metric-num">8</span><span class="metric-lbl">pessoas lideradas</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- G4 — FEATURED -->
+        <article class="exp-item featured">
+          <span class="idx">02</span>
+          <div class="exp-head">
+            <span class="badge">Destaque</span>
+            <h3>G4 Educação</h3>
+            <div class="role">Web Designer Pleno</div>
+            <div class="period">abr 2024 / fev 2025 · 11 meses · No local</div>
+          </div>
+          <div class="exp-body">
+            <p>Como Web Designer Pleno no G4 Educação, atuei na criação e desenvolvimento de interfaces digitais para comunidades, programas presenciais e eventos.</p>
+            <p>Desenvolvi e mantive landing pages e sites em Webflow com foco em experiência de usuário otimizada. Colaborei com equipes de marketing e growth para soluções visuais que impulsionassem o engajamento. Utilizei Figma, Strapi e Amplitude para criação e monitoramento de projetos.</p>
+            <div class="metrics-row">
+              <div class="metric"><span class="metric-num">11</span><span class="metric-lbl">meses no projeto</span></div>
+              <div class="metric"><span class="metric-num">Webflow</span><span class="metric-lbl">stack principal</span></div>
+              <div class="metric"><span class="metric-num">Figma</span><span class="metric-lbl">design system</span></div>
+              <div class="metric"><span class="metric-num">Amplitude</span><span class="metric-lbl">tracking &amp; insights</span></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Cura Salute -->
+        <article class="exp-item">
+          <span class="idx">03</span>
+          <div class="exp-head">
+            <h3>Cura Salute</h3>
+            <div class="role">Brand Performance Consultant</div>
+            <div class="period">2026</div>
+          </div>
+          <div class="exp-body">
+            <p>Case de validação do método Brand Performance Playbook. Seis fases em seis semanas: Discovery, Diagnóstico, Posicionamento, Motor de Conteúdo, Arquitetura de Conversão e Playbook Final para uma corretora de planos de saúde em São Paulo.</p>
+            <p><a href="https://brandperformance-cura-salute.vercel.app/" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline;text-underline-offset:3px;">brandperformance-cura-salute.vercel.app ↗</a></p>
+          </div>
+        </article>
+
+        <!-- LET'S -->
+        <article class="exp-item">
+          <span class="idx">04</span>
+          <div class="exp-head">
+            <h3>LET'S</h3>
+            <div class="role">Webflow Designer → Designer</div>
+            <div class="period">dez 2025 / abr 2026 · 5 meses · Remoto</div>
+          </div>
+          <div class="exp-body">
+            <p>Atuei na reconstrução completa do site institucional de uma SaaS B2B de logística. Todo o processo passou por prototipagem de UI no Figma antes do desenvolvimento em Webflow. Desenvolvi 5 landing pages para campanhas sazonais e perpétuas, páginas de vendas e otimizações no formulário de captação com integração ao HubSpot.</p>
+          </div>
+        </article>
+
+        <!-- Valid (UX + Growth combined) -->
+        <article class="exp-item">
+          <span class="idx">05</span>
+          <div class="exp-head">
+            <h3>Valid</h3>
+            <div class="role">UX · Marketing &amp; Growth</div>
+            <div class="period">dez 2021 / nov 2023 · 1 ano 11 meses · Híbrido</div>
+          </div>
+          <div class="exp-body">
+            <div class="exp-stint">
+              <div class="exp-stint-head">
+                <span class="exp-stint-role">UX Designer</span>
+                <span class="exp-stint-period">jan 2023 / nov 2023 · 11 meses</span>
               </div>
+              <p>No V/Pass da Valid, focado na criação de aplicativos de identidade digital (RG, CIN, Câmara dos Deputados) para o Governo, aprimorei a usabilidade e a experiência do usuário através de Design Thinking, pesquisa, card sorting e testes.</p>
             </div>
-            <div class="work-body">
-              <div class="work-category">Brand Strategy · Posicionamento · Conteúdo</div>
-              <h3 class="work-title">BRAND PERFORMANCE PLAYBOOK</h3>
-              <div class="work-client">Cura Salute · 2026</div>
-              <p class="work-desc">Seis semanas de diagnóstico, posicionamento e arquitetura de conteúdo para uma corretora de saúde. Primeira validação pública do método Brand Performance.</p>
-              <a href="https://brandperformance-cura-salute.vercel.app/" target="_blank" class="work-link">Ver Projeto ↗</a>
-            </div>
-          </article>
-
-          <!-- Projeto 2 -->
-          <article class="work-card">
-            <div class="work-cover">
-              <img
-                src="capa-g4.jpg"
-                alt="Redesign LP G4 Gestão & Estratégia"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              >
-              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                <span style="color:#7A7268; font-size:9px;">capa-g4.jpg</span>
+            <div class="exp-stint">
+              <div class="exp-stint-head">
+                <span class="exp-stint-role">Analista de Marketing &amp; Growth</span>
+                <span class="exp-stint-period">dez 2021 / dez 2022 · 1 ano 1 mês</span>
               </div>
+              <p>Atuação em marketing e growth para portfólio de identificação digital. Geração de demanda, conteúdo e suporte às operações de aquisição.</p>
             </div>
-            <div class="work-body">
-              <div class="work-category">Web Design · Webflow · Growth</div>
-              <h3 class="work-title">REDESIGN LP G4 GESTÃO &amp; ESTRATÉGIA</h3>
-              <div class="work-client">G4 Educação · 2024</div>
-              <p class="work-desc">Redesign da landing page do principal programa presencial do G4 Educação, com foco em conversão e experiência do usuário.</p>
-              <a href="https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia" target="_blank" class="work-link">Ver Projeto ↗</a>
-            </div>
-          </article>
+          </div>
+        </article>
 
-          <!-- Projeto 3 -->
-          <article class="work-card">
-            <div class="work-cover">
-              <img
-                src="capa-rg-go.jpg"
-                alt="RG GO — Identidade Digital"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              >
-              <div class="img-placeholder" style="display:none; position:absolute; inset:0; background:#2a2f30;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A7268" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                <span style="color:#7A7268; font-size:9px;">capa-rg-go.jpg</span>
-              </div>
-            </div>
-            <div class="work-body">
-              <div class="work-category">UX Design · Produto Digital · Gov</div>
-              <h3 class="work-title">RG GO — IDENTIDADE DIGITAL</h3>
-              <div class="work-client">Valid × Governo do Estado de Goiás · 2023</div>
-              <p class="work-desc">Interface do aplicativo de identidade digital RG GO, garantindo acessibilidade e usabilidade em produto essencial para cidadãos.</p>
-              <a href="https://www.behance.net/gallery/193349605/RG-GO-em-parceria-com-a-Valid" target="_blank" class="work-link">Ver Projeto ↗</a>
-            </div>
-          </article>
+        <!-- Moonflag -->
+        <article class="exp-item">
+          <span class="idx">06</span>
+          <div class="exp-head">
+            <h3>Agência Moonflag</h3>
+            <div class="role">Designer Gráfico</div>
+            <div class="period">fev 2021 / nov 2021 · 10 meses · Híbrido</div>
+          </div>
+          <div class="exp-body">
+            <p>Marketing digital para empresas de contabilidade. Criação de posts, LPs, apresentações e cronograma de postagem.</p>
+          </div>
+        </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRABALHOS ===== -->
+  <section id="trabalhos" class="section" aria-label="Trabalhos selecionados">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">04 / Trabalhos</span>
+        <span class="rule"></span>
+        <span class="label" style="color: rgba(255,255,255,0.45);">Selecionados · 2023–2026</span>
+      </div>
+      <h2 class="section-title reveal">Projetos<span class="stop">.</span></h2>
+
+      <div class="works-grid">
+
+        <a class="work-card reveal" href="https://brandperformance-cura-salute.vercel.app/" target="_blank" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-cura-salute.png" alt="Brand Performance Playbook. Cura Salute" data-fallback="capa-cura-salute.png" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Brand Strategy · Posicionamento · Conteúdo</div>
+            <h3 class="work-title">Brand Performance Playbook</h3>
+            <div class="work-client">Cura Salute · 2026</div>
+            <p class="work-desc">Seis semanas de diagnóstico, posicionamento e arquitetura de conteúdo para uma corretora de saúde. Primeira validação pública do método Brand Performance.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia" target="_blank" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-g4.jpg" alt="Redesign LP G4 Gestão &amp; Estratégia" data-fallback="capa-g4.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Web Design · Webflow · Growth</div>
+            <h3 class="work-title">Redesign LP G4 Gestão &amp; Estratégia</h3>
+            <div class="work-client">G4 Educação · 2024</div>
+            <p class="work-desc">Redesign da landing page do principal programa presencial do G4 Educação, com foco em conversão e experiência do usuário.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="https://www.behance.net/gallery/193349605/RG-GO-em-parceria-com-a-Valid" target="_blank" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-rg-go.jpg" alt="RG GO. Identidade Digital" data-fallback="capa-rg-go.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">UX Design · Produto Digital · Gov</div>
+            <h3 class="work-title">RG GO · Identidade Digital</h3>
+            <div class="work-client">Valid × Governo de Goiás · 2023</div>
+            <p class="work-desc">Interface do aplicativo de identidade digital RG GO, garantindo acessibilidade e usabilidade em produto essencial para cidadãos.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="section grid-bg" aria-label="Habilidades">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">05 / Habilidades</span>
+        <span class="rule"></span>
+        <span class="label label-gray">Estratégia · Design · Growth</span>
+      </div>
+      <h2 class="section-title reveal">Skills<span class="stop">.</span></h2>
+
+      <div class="skills-grid reveal">
+        <div class="skill-col">
+          <h3>Estratégia <span>/ 07</span></h3>
+          <div class="tag-list">
+            <span class="tag tag-red">Brand Strategy</span>
+            <span class="tag tag-red">Posicionamento de Marca</span>
+            <span class="tag tag-red">Content Architecture</span>
+            <span class="tag tag-red">ICP &amp; Segmentação</span>
+            <span class="tag tag-red">Brand Performance</span>
+            <span class="tag tag-red">Diagnóstico de Marca</span>
+            <span class="tag tag-red">Motor de Conteúdo</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Design &amp; UX <span>/ 07</span></h3>
+          <div class="tag-list">
+            <span class="tag">UX Design</span>
+            <span class="tag">Web Design</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Webflow</span>
+            <span class="tag">Prototipagem</span>
+            <span class="tag">Design System</span>
+            <span class="tag">Landing Pages</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Ferramentas &amp; Growth <span>/ 08</span></h3>
+          <div class="tag-list">
+            <span class="tag">Claude Code</span>
+            <span class="tag">Photoshop</span>
+            <span class="tag">Illustrator</span>
+            <span class="tag">HubSpot</span>
+            <span class="tag">Strapi</span>
+            <span class="tag">Amplitude</span>
+            <span class="tag">Google Analytics</span>
+            <span class="tag">Meta Ads</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ─── 05 HABILIDADES ─────────────────────────────────────────────── -->
-    <section class="skills-section grid-bg" id="habilidades" aria-label="Habilidades">
-      <div class="skills-inner">
-        <p class="section-label">05 / Habilidades</p>
-        <h2 class="section-title">SKILLS.</h2>
-
-        <div class="three-col">
-
-          <div>
-            <div class="skills-group-label">Estratégia</div>
-            <div class="skills-tags">
-              <span class="tag tag-strategy">Brand Strategy</span>
-              <span class="tag tag-strategy">Posicionamento de Marca</span>
-              <span class="tag tag-strategy">Content Architecture</span>
-              <span class="tag tag-strategy">ICP &amp; Segmentação</span>
-              <span class="tag tag-strategy">Brand Performance</span>
-              <span class="tag tag-strategy">Diagnóstico de Marca</span>
-              <span class="tag tag-strategy">Motor de Conteúdo</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="skills-group-label">Design &amp; UX</div>
-            <div class="skills-tags">
-              <span class="tag tag-design">UX Design</span>
-              <span class="tag tag-design">Web Design</span>
-              <span class="tag tag-design">Figma</span>
-              <span class="tag tag-design">Webflow</span>
-              <span class="tag tag-design">Prototipagem</span>
-              <span class="tag tag-design">Design System</span>
-              <span class="tag tag-design">Landing Pages</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="skills-group-label">Ferramentas &amp; Growth</div>
-            <div class="skills-tags">
-              <span class="tag tag-tools">Claude Code</span>
-              <span class="tag tag-tools">Photoshop</span>
-              <span class="tag tag-tools">Illustrator</span>
-              <span class="tag tag-tools">HubSpot</span>
-              <span class="tag tag-tools">Strapi</span>
-              <span class="tag tag-tools">Amplitude</span>
-              <span class="tag tag-tools">Google Analytics</span>
-              <span class="tag tag-tools">Meta Ads</span>
-            </div>
-          </div>
-
-        </div>
+  <!-- ===== FORMAÇÃO ===== -->
+  <section id="formacao" class="section" aria-label="Formação">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">06 / Formação</span>
+        <span class="rule"></span>
+        <span class="label label-gray">Graduação · Certificações</span>
       </div>
-    </section>
+      <h2 class="section-title reveal">Educação<span class="stop">.</span></h2>
 
-    <!-- ─── 06 FORMAÇÃO ────────────────────────────────────────────────── -->
-    <section class="formacao-section" id="formacao" aria-label="Formação">
-      <div class="formacao-inner">
-        <p class="section-label">06 / Formação</p>
-        <h2 class="section-title">EDUCAÇÃO.</h2>
-
-        <div class="two-col">
-
-          <div>
-            <div class="formacao-school-name">FMU · Centro Universitário</div>
-            <div class="formacao-course">Comunicação Social — Publicidade e Propaganda</div>
-            <div class="formacao-period">2014 — 2017 · Bacharel</div>
-          </div>
-
-          <div>
-            <table class="certs-table">
-              <thead>
-                <tr>
-                  <th>Curso</th>
-                  <th>Escola</th>
-                  <th>Carga</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Formação Design System</td>
-                  <td>Alura</td>
-                  <td>40h</td>
-                </tr>
-                <tr>
-                  <td>Formação UX Design</td>
-                  <td>Alura</td>
-                  <td>36h</td>
-                </tr>
-                <tr>
-                  <td>Formação Figma</td>
-                  <td>Alura</td>
-                  <td>40h</td>
-                </tr>
-                <tr>
-                  <td>Curso Starter Pacote Adobe</td>
-                  <td>Saga</td>
-                  <td>200h</td>
-                </tr>
-                <tr>
-                  <td>Web Analytics e B.I</td>
-                  <td>Lemonade School</td>
-                  <td>20h</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
+      <div class="edu-grid reveal">
+        <div class="edu-grad">
+          <div class="school">FMU · Centro Universitário</div>
+          <h3>Publicidade &amp; Propaganda</h3>
+          <div class="course">Comunicação Social · Bacharelado</div>
+          <div class="period">2014 / 2017 · Bacharel</div>
         </div>
+
+        <table class="cert-table">
+          <caption>Certificações</caption>
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Escola</th>
+              <th>Carga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Formação Design System</td><td>Alura</td><td>40h</td></tr>
+            <tr><td>Formação UX Design</td><td>Alura</td><td>36h</td></tr>
+            <tr><td>Formação Figma</td><td>Alura</td><td>40h</td></tr>
+            <tr><td>Curso Starter Pacote Adobe</td><td>Saga</td><td>200h</td></tr>
+            <tr><td>Web Analytics e B.I</td><td>Lemonade School</td><td>20h</td></tr>
+          </tbody>
+        </table>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ─── 07 CONTATO ─────────────────────────────────────────────────── -->
-    <section class="contato-section" id="contato" aria-label="Contato">
-      <div class="contato-inner">
-        <p class="section-label">07 / Contato</p>
-        <h2 class="section-title">VAMOS CONVERSAR.</h2>
+  <!-- ===== CONTATO ===== -->
+  <section id="contato" class="section" aria-label="Contato">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">07 / Contato</span>
+        <span class="rule"></span>
+        <span class="label" style="color: rgba(255,255,255,0.45);">Em todos os canais</span>
+      </div>
+      <h2 class="section-title reveal">Vamos<br/>conversar<span class="stop">.</span></h2>
 
-        <div class="two-col">
-
-          <div>
-            <p class="contato-intro">Aberto a projetos, parcerias e oportunidades. Respondo em até 24 horas.</p>
-          </div>
-
-          <div class="contato-links">
-            <div class="contato-link-item">
-              <span class="contato-link-label">Email</span>
-              <a href="mailto:diogocontatoblog@gmail.com" class="contato-link-value">diogocontatoblog@gmail.com</a>
-            </div>
-            <div class="contato-link-item">
-              <span class="contato-link-label">WhatsApp</span>
-              <a href="https://wa.me/5511985557297" target="_blank" class="contato-link-value">+55 11 98555-7297</a>
-            </div>
-            <div class="contato-link-item">
-              <span class="contato-link-label">LinkedIn</span>
-              <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" class="contato-link-value">linkedin.com/in/diogo-abilio</a>
-            </div>
-            <div class="contato-link-item">
-              <span class="contato-link-label">Instagram</span>
-              <a href="https://www.instagram.com/_diogoabilio/" target="_blank" class="contato-link-value">@_diogoabilio</a>
-            </div>
-          </div>
-
+      <div class="contact-grid">
+        <p class="contact-intro">
+          Aberto a projetos, parcerias e oportunidades. <span class="accent">Respondo assim que disponível em todos os canais.</span>
+        </p>
+        <div class="contact-list">
+          <a class="contact-row" href="mailto:diogocontatoblog@gmail.com">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">diogocontatoblog@gmail.com</span>
+            <span class="arrow">↗</span>
+          </a>
+          <a class="contact-row" href="https://wa.me/5511985557297" target="_blank" rel="noopener">
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-value">+55 11 98555-7297</span>
+            <span class="arrow">↗</span>
+          </a>
+          <a class="contact-row" href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" rel="noopener">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/diogo-abilio</span>
+            <span class="arrow">↗</span>
+          </a>
+          <a class="contact-row" href="https://www.instagram.com/_diogoabilio/" target="_blank" rel="noopener">
+            <span class="contact-label">Instagram</span>
+            <span class="contact-value">@_diogoabilio</span>
+            <span class="arrow">↗</span>
+          </a>
         </div>
       </div>
 
-      <div class="pdf-cta-wrap print-hide">
-        <button class="btn-pdf-large" onclick="window.print()">↓ BAIXAR CURRÍCULO EM PDF</button>
+      <div class="cta-pdf-wrap print-hide">
+        <button class="cta-pdf" onclick="window.print()">↓ Baixar currículo em PDF</button>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+</main>
 
-  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
-  <footer>
-    <p>Diogo Abílio · Brand &amp; Content Strategist · São Paulo, SP · 2026</p>
-  </footer>
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <span>Diogo Abílio · Brand &amp; Content Strategist · São Paulo, SP · 2026</span>
+    <span>Built with Claude Code · Hosted on Vercel</span>
+  </div>
+</footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
+<script>
+  // Mobile nav toggle
+  (function () {
+    var btn = document.getElementById('hambBtn');
+    var links = document.getElementById('navLinks');
+    if (!btn || !links) return;
+    btn.addEventListener('click', function () {
+      links.classList.toggle('open');
     });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') links.classList.remove('open');
+    });
+  })();
 
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
+  // Scroll progress bar
+  (function () {
+    var bar = document.querySelector('.top-bar');
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      var h = document.documentElement;
+      var scrolled = h.scrollTop || document.body.scrollTop;
+      var max = h.scrollHeight - h.clientHeight;
+      var pct = max > 0 ? (scrolled / max) * 100 : 0;
+      bar.style.setProperty('--progress', pct.toFixed(2) + '%');
+      ticking = false;
     }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  })();
 
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-      }
+  // Active section in nav
+  (function () {
+    var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!navLinks.length || !('IntersectionObserver' in window)) return;
+    var map = {};
+    navLinks.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) map[id] = a;
     });
-  </script>
+    var ids = Object.keys(map);
+    if (!ids.length) return;
+    var current = null;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          if (current && current !== map[entry.target.id]) current.classList.remove('active');
+          current = map[entry.target.id];
+          if (current) current.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    ids.forEach(function (id) { obs.observe(document.getElementById(id)); });
+  })();
+
+  // Reveal on scroll
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+  })();
+  // Image fallback — render an inline SVG placeholder when an <img> fails to load.
+  (function () {
+    function makeFallback(name, w, h) {
+      var isWork = w >= 600; // dark editorial style for work cards
+      var bg = isWork ? '#1F2526' : '#E8DDD0';
+      var stroke = isWork ? '#7E1714' : '#C4BDB5';
+      var fg = isWork ? '#EFE2CC' : '#1F2526';
+      var accent = '#7E1714';
+      var dim = isWork ? 'rgba(239,226,204,0.5)' : '#7A7268';
+      var titleSize = Math.max(28, Math.round(w / 18));
+      var labelSize = Math.max(10, Math.round(w / 60));
+      var pretty = name.replace(/\.(jpg|jpeg|png|webp)$/i, '').replace(/-/g, ' ').toUpperCase();
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '">' +
+        '<rect width="' + w + '" height="' + h + '" fill="' + bg + '"/>' +
+        '<rect x="0" y="0" width="' + w + '" height="4" fill="' + accent + '"/>' +
+        '<rect x="' + (w * 0.05) + '" y="' + (h * 0.1) + '" width="' + (w * 0.9) + '" height="' + (h * 0.8) + '" fill="none" stroke="' + stroke + '" stroke-width="1.5" stroke-dasharray="8 6"/>' +
+        '<text x="' + (w / 2) + '" y="' + (h * 0.5) + '" font-family="Archivo Black, Arial Black, system-ui, sans-serif" font-size="' + titleSize + '" text-anchor="middle" fill="' + fg + '" letter-spacing="2">' + pretty + '</text>' +
+        '<text x="' + (w / 2) + '" y="' + (h * 0.5 + titleSize * 0.9) + '" font-family="monospace" font-size="' + labelSize + '" text-anchor="middle" fill="' + accent + '" letter-spacing="3">PLACEHOLDER · ' + name.toUpperCase() + '</text>' +
+        '<text x="' + (w / 2) + '" y="' + (h - h * 0.08) + '" font-family="monospace" font-size="' + (labelSize - 1) + '" text-anchor="middle" fill="' + dim + '" letter-spacing="2">SUBA O ARQUIVO PARA SUBSTITUIR</text>' +
+        '</svg>';
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+    function swap(img) {
+      var name = img.getAttribute('data-fallback') || 'image';
+      var w = parseInt(img.getAttribute('data-fb-w') || '800', 10);
+      var h = parseInt(img.getAttribute('data-fb-h') || '450', 10);
+      img.src = makeFallback(name, w, h);
+    }
+    var imgs = document.querySelectorAll('img[data-fallback]');
+    imgs.forEach(function (img) {
+      img.addEventListener('error', function handler() {
+        img.removeEventListener('error', handler);
+        swap(img);
+      });
+      // If the file exists but is a placeholder (very small / not a real upload), swap it too.
+      img.addEventListener('load', function handler() {
+        if (img.naturalWidth > 0 && img.naturalWidth < 120) {
+          img.removeEventListener('load', handler);
+          swap(img);
+        }
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
