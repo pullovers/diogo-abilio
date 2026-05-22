@@ -841,6 +841,12 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
   }
+  @media (max-width: 960px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+  @media (max-width: 720px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
   .skill-col h3 {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -878,6 +884,65 @@
   .tag.tag-red:hover {
     background: var(--red);
     border-color: var(--red);
+  }
+
+  /* ===== SECTION SUBTITLE ===== */
+  .section-subtitle {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin: -24px 0 48px;
+    max-width: 60ch;
+    font-weight: 300;
+  }
+
+  /* ===== ONDE EU ENTRO (Services) ===== */
+  #servicos { background: var(--bg-alt); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    border: 1px solid var(--border);
+    padding: 28px 24px 32px;
+    background: var(--bg);
+    position: relative;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .service-card:hover {
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 32px; height: 3px;
+    background: var(--red);
+  }
+  .service-card h3 {
+    font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+    font-size: clamp(15px, 1.5vw, 18px);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 18px 0 12px;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .service-card p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0;
+    font-weight: 300;
+  }
+  @media (max-width: 960px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .section-subtitle { margin-bottom: 32px; }
   }
 
   /* ===== FORMAÇÃO ===== */
@@ -1077,7 +1142,6 @@
     .exp-item { grid-template-columns: 1fr; gap: 16px; }
     .exp-item .idx { position: static; margin-top: 4px; }
     .works-grid { grid-template-columns: repeat(2, 1fr); }
-    .skills-grid { grid-template-columns: 1fr; gap: 28px; }
     .metrics-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .metric { padding-left: 0; border-left: 0; border-top: 1px solid rgba(125,23,20,0.25); padding-top: 12px; }
     .metric:first-child, .metric:nth-child(2) { border-top: 0; padding-top: 0; }
@@ -1136,7 +1200,7 @@
     nav.site-nav, .print-hide, .btn-pdf, .cta-pdf, .cta-pdf-wrap, .hamb,
     .hero-ctas, .now-line, .status-pill, .hero-rule, .pullquote,
     .section-head .rule, .section-head .label-gray, footer.site-foot,
-    #contato, .exp-item .idx, .badge, .work-thumb {
+    #contato, .exp-item .idx, .badge, .work-thumb, #servicos, .section-subtitle {
       display: none !important;
     }
 
@@ -1374,7 +1438,7 @@
 
     /* SKILLS — light */
     #skills { background: #F4F4F4 !important; }
-    .skills-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 5mm !important; }
+    .skills-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 4mm !important; }
     .skill-col h3 {
       font-size: 7.5pt !important;
       color: #7D1714 !important;
@@ -1471,6 +1535,7 @@
     <a href="#top" class="nav-mark"><span class="fullname">DIOGO ABÍLIO</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
       <li><a href="#experiencia">Experiência</a></li>
       <li><a href="#trabalhos">Trabalhos</a></li>
       <li><a href="#skills">Habilidades</a></li>
@@ -1492,7 +1557,7 @@
       <div class="hero-left">
         <div class="status-pill" role="status" aria-live="polite">
           <span class="live-dot" aria-hidden="true"></span>
-          <span><strong>Disponível</strong> para novas oportunidades</span>
+          <span><strong>Disponível</strong> para oportunidades em marketing, marca e conteúdo</span>
           <span class="sep">·</span>
           <span class="loc">São Paulo, SP</span>
         </div>
@@ -1500,14 +1565,14 @@
           DIOGO<br />
           <span class="red">ABÍLIO<span class="stop">.</span></span>
         </h1>
-        <p class="hero-tag">Generalista com foco. <em>Resultado com recurso limitado.</em></p>
+        <p class="hero-tag">Marca, conteúdo e operação para times que precisam <em>crescer com clareza.</em></p>
         <div class="hero-rule"></div>
         <p class="hero-bio">
-          12 anos entre marketing, design, growth e UX. Opero bem em caos, colaboro com times de produto e comercial, e entrego resultado com o que tem disponível.
+          Sou um generalista de marketing com <b>12 anos de experiência</b> em comunicação, design, UX/UI e presença digital. Ajudo empresas a organizar mensagens, campanhas, páginas e conteúdos que tornam a marca mais fácil de entender, lembrar e escolher.
         </p>
         <div class="hero-ctas print-hide">
-          <a href="#contato" class="btn btn-primary">Falar comigo <span class="arr">↗</span></a>
-          <a href="#trabalhos" class="btn btn-ghost">Ver trabalhos <span class="arr">↓</span></a>
+          <a href="#trabalhos" class="btn btn-primary">Ver projetos <span class="arr">↓</span></a>
+          <a href="#contato" class="btn btn-ghost">Falar comigo <span class="arr">↗</span></a>
         </div>
         <div class="hero-contacts" style="margin-top: 28px;">
           <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -1551,9 +1616,10 @@
 
       <div class="about-grid reveal">
         <div class="about-text">
-          <p>Tenho 12 anos de experiência em marketing, comunicação, design e UX. Passei por agência, empresa de tecnologia, startup de educação e fintech. Cada ambiente me ensinou a adaptar, priorizar e entregar sem esperar que tudo esteja organizado para começar.</p>
-          <p>Trabalho bem em times pequenos onde as funções se sobrepõem. Não sou especialista técnico de ferramenta nenhuma, mas consigo dar direção para quem executa, acompanhar resultado, ajustar o que não está funcionando e comunicar o raciocínio por trás de cada decisão.</p>
-          <p>Tenho experiência real com colaboração cross-funcional entre marketing, produto, growth e comercial. E um caso de consultoria estratégica documentado e publicado que mostra como penso um problema do zero até a entrega.</p>
+          <p>Tenho 12 anos de experiência em comunicação, marketing, design e UX/UI.</p>
+          <p>Passei por frentes como campanhas, landing pages, interfaces digitais, conteúdo, social media, experiência do usuário e presença digital. Essa trajetória me ensinou que uma marca não é construída só no discurso, mas nos pontos de contato que as pessoas veem, usam, compartilham e lembram.</p>
+          <p>Hoje, atuo entre marca, conteúdo e operação de marketing. Leio o negócio, o mercado e o público para transformar posicionamento em páginas, campanhas, narrativas e sistemas visuais aplicáveis.</p>
+          <p>Minha força está em conectar visão e execução: organizar o que está confuso, dar clareza para a comunicação e ajudar times enxutos a entregar melhor com menos recurso.</p>
         </div>
 
         <aside class="pullquote">
@@ -1564,6 +1630,46 @@
             <span>SP · BR</span>
           </div>
         </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ONDE EU ENTRO ===== -->
+  <section id="servicos" class="section grid-bg" aria-label="Serviços">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Onde eu entro</span>
+        <span class="rule"></span>
+        <span class="label label-gray">Estratégia · Execução</span>
+      </div>
+      <h2 class="section-title reveal">O que eu<br/>faço<span class="stop">.</span></h2>
+      <p class="section-subtitle reveal">Entre estratégia e execução, ajudo times pequenos a transformar prioridade em entrega.</p>
+
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <h3>Marca e posicionamento</h3>
+          <p>Clareza de mensagem, narrativa, diferenciação e consistência para empresas que precisam ser entendidas mais rápido.</p>
+        </div>
+        <div class="service-card">
+          <h3>Conteúdo e presença digital</h3>
+          <p>Estratégia de conteúdo, social media, campanhas e comunicação para marcas que precisam criar memória, não só alcance.</p>
+        </div>
+        <div class="service-card">
+          <h3>Landing pages e campanhas</h3>
+          <p>Estruturação de páginas, fluxos e materiais digitais conectados a objetivos de marketing, aquisição e conversão.</p>
+        </div>
+        <div class="service-card">
+          <h3>Operação de marketing</h3>
+          <p>Organização de demandas, priorização, briefing, acompanhamento de entregas e alinhamento entre áreas.</p>
+        </div>
+        <div class="service-card">
+          <h3>Design aplicado ao negócio</h3>
+          <p>Uso repertório visual para transformar ideias em interfaces, peças, páginas e sistemas de comunicação aplicáveis.</p>
+        </div>
+        <div class="service-card">
+          <h3>Growth e leitura de dados</h3>
+          <p>Apoio em hipóteses, leitura de métricas, análise de funil e melhoria contínua junto a times de marketing e performance.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1590,9 +1696,9 @@
             <div class="period">jun 2025 / out 2025 · 5 meses · Remoto</div>
           </div>
           <div class="exp-body">
-            <p>Coordenei a operação de marketing de uma fintech de títulos de capitalização com a Claudia Leitte como embaixadora, organizando um time de 8 pessoas entre copywriters, designers e editores de vídeo.</p>
-            <p>Em menos de um mês o Instagram saiu do zero para 50 mil seguidores. As lives chegaram a 3 mil usuários simultâneos. A rede de afiliados cresceu para mais de 300 parceiros ativos. A operação de mídia out of home cobriu mais de 5 estados, com campanhas que chegaram também à televisão.</p>
-            <p>Meu papel foi garantir que as frentes andassem em paralelo com consistência: acompanhar resultado, redistribuir esforço e manter o time orientado quando a prioridade mudava.</p>
+            <p>Coordenei a operação de marketing de uma fintech de títulos de capitalização em uma campanha nacional com Claudia Leitte como embaixadora.</p>
+            <p>Atuei na organização de frentes de conteúdo, social media, afiliados, mídia paga, OOH, TV e posicionamento de marca, liderando um time de 8 pessoas entre copywriters, designers e editores de vídeo.</p>
+            <p>Em menos de um mês, a operação saiu do zero para 50 mil seguidores no Instagram, mais de 300 afiliados ativos, lives com até 3 mil usuários simultâneos e presença em mais de 5 estados.</p>
             <div class="metrics-row">
               <div class="metric"><span class="metric-num">50<span class="accent">K</span></span><span class="metric-lbl">seguidores em &lt; 1 mês</span></div>
               <div class="metric"><span class="metric-num">300<span class="accent">+</span></span><span class="metric-lbl">parceiros afiliados</span></div>
@@ -1611,8 +1717,9 @@
             <div class="period">abr 2024 / fev 2025 · 11 meses · No local</div>
           </div>
           <div class="exp-body">
-            <p>No G4 Educação aprendi a trabalhar em ambiente de alta exigência e ritmo consistente. Desenvolvi e mantive interfaces digitais, landing pages e materiais de campanha para programas presenciais e eventos.</p>
-            <p>Colaborei com times de marketing e growth em entregas com prazo real, utilizando Figma e Amplitude para criação e acompanhamento de projetos. Aprendi a operar dentro de processo estruturado e a comunicar melhor o andamento das entregas.</p>
+            <p>Atuei na criação e desenvolvimento de interfaces digitais para comunidades, programas presenciais, eventos e materiais de marketing.</p>
+            <p>Colaborei com times de marketing e growth na construção de landing pages, páginas de programas e experiências digitais voltadas para clareza, conversão e consistência de marca.</p>
+            <p>Foi uma experiência importante em ritmo, processo, colaboração cross-funcional e entrega em ambiente exigente.</p>
             <div class="metrics-row" style="grid-template-columns: 1fr;">
               <div class="metric"><span class="metric-num">11</span><span class="metric-lbl">meses no projeto</span></div>
             </div>
@@ -1624,11 +1731,13 @@
           <span class="idx">03</span>
           <div class="exp-head">
             <h3>LET'S</h3>
-            <div class="role">Designer</div>
+            <div class="role">Webflow Designer</div>
             <div class="period">dez 2025 / abr 2026 · 5 meses · Remoto</div>
           </div>
           <div class="exp-body">
-            <p>Desenvolvimento e manutenção de landing pages e páginas de campanha para uma SaaS B2B de logística. Prototipagem no Figma antes da implementação, com integração de formulários ao HubSpot e colaboração com o time de design e marketing.</p>
+            <p>Atuei na reconstrução do site institucional de uma SaaS B2B de logística, apoiando a criação de páginas institucionais, páginas de produto e landing pages de campanha.</p>
+            <p>O trabalho envolveu prototipagem no Figma, desenvolvimento em Webflow, ajustes de formulário, integração com HubSpot e suporte à presença digital da marca.</p>
+            <p>Essa experiência reforçou minha atuação entre design, conteúdo, marketing e execução de páginas.</p>
           </div>
         </article>
 
@@ -1646,14 +1755,14 @@
                 <span class="exp-stint-role">UX Designer</span>
                 <span class="exp-stint-period">jan 2023 / nov 2023 · 11 meses</span>
               </div>
-              <p>Atuei em produto de identidade digital do governo (RG GO, CIN, Câmara dos Deputados), conduzindo pesquisa com usuários, card sorting e testes de usabilidade. Aprendi a trabalhar com stakeholder público e a justificar decisão de design com evidência, não com opinião.</p>
+              <p>Atuei em projetos digitais ligados a identidade, experiência do usuário e produtos digitais, incluindo iniciativas para grandes instituições e clientes governamentais.</p>
             </div>
             <div class="exp-stint">
               <div class="exp-stint-head">
                 <span class="exp-stint-role">Analista de Marketing &amp; Growth</span>
                 <span class="exp-stint-period">dez 2021 / dez 2022 · 1 ano 1 mês</span>
               </div>
-              <p>Geração de demanda, criação de conteúdo e suporte a operações de aquisição para portfólio de identificação digital B2B. Primeira experiência real com funil e métricas de marketing.</p>
+              <p>Também passei por marketing e growth, contribuindo com geração de leads, campanhas, comunicação, redes sociais e materiais digitais.</p>
             </div>
           </div>
         </article>
@@ -1667,7 +1776,34 @@
             <div class="period">fev 2021 / nov 2021 · 10 meses · Híbrido</div>
           </div>
           <div class="exp-body">
-            <p>Marketing digital para empresas de contabilidade. Criação de posts, LPs, apresentações e cronograma de postagem.</p>
+            <p>Atuei em uma agência especializada em marketing para empresas de contabilidade, criando posts orgânicos e patrocinados, apresentações, landing pages e cronogramas de conteúdo.</p>
+            <p>Essa experiência consolidou minha base em design aplicado a marketing, social media e comunicação para negócios B2B.</p>
+          </div>
+        </article>
+
+        <!-- Ituran -->
+        <article class="exp-item">
+          <span class="idx">06</span>
+          <div class="exp-head">
+            <h3>Ituran Brasil</h3>
+            <div class="role">Assistente de Marketing</div>
+            <div class="period">2019 / 2020 · Híbrido</div>
+          </div>
+          <div class="exp-body">
+            <p>Atuei com redes sociais, comunicados internos, e-mail marketing, apresentações, edição de vídeo, materiais institucionais e suporte à comunicação da empresa.</p>
+          </div>
+        </article>
+
+        <!-- CrediPronto -->
+        <article class="exp-item">
+          <span class="idx">07</span>
+          <div class="exp-head">
+            <h3>CrediPronto</h3>
+            <div class="role">Estagiário de Marketing</div>
+            <div class="period">2017 / 2019 · Híbrido</div>
+          </div>
+          <div class="exp-body">
+            <p>Atuei com peças online e offline, blog, e-mail marketing via RD Station, Google Analytics, Google Ads, Facebook Ads e WordPress.</p>
           </div>
         </article>
 
@@ -1687,15 +1823,15 @@
 
       <div class="works-grid">
 
-        <a class="work-card reveal" href="https://brandperformance-cura-salute.vercel.app/" target="_blank" rel="noopener">
+        <a class="work-card reveal" href="https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia" target="_blank" rel="noopener">
           <div class="work-thumb">
-            <img src="capa-cura-salute.png" alt="Brand Performance Playbook. Cura Salute" data-fallback="capa-cura-salute.png" data-fb-w="800" data-fb-h="450" />
+            <img src="capa-g4.jpg" alt="Redesign LP G4 Gestão &amp; Estratégia" data-fallback="capa-g4.jpg" data-fb-w="800" data-fb-h="450" />
           </div>
           <div class="work-meta">
-            <div class="work-cat">Brand Strategy · Posicionamento · Conteúdo</div>
-            <h3 class="work-title">Brand Performance Playbook</h3>
-            <div class="work-client">Cura Salute · 2026</div>
-            <p class="work-desc">Seis semanas de diagnóstico, posicionamento e arquitetura de conteúdo para uma corretora de saúde. Primeira validação pública do método Brand Performance.</p>
+            <div class="work-cat">Landing page · Educação B2B</div>
+            <h3 class="work-title">G4 Gestão &amp; Estratégia</h3>
+            <div class="work-client">G4 Educação · 2024</div>
+            <p class="work-desc">Redesign de página para um dos principais programas presenciais do G4, com foco em hierarquia de informação, clareza de oferta e percepção de valor.</p>
             <span class="work-cta">Ver projeto ↗</span>
           </div>
         </a>
@@ -1705,10 +1841,88 @@
             <img src="capa-rg-go.jpg" alt="RG GO. Identidade Digital" data-fallback="capa-rg-go.jpg" data-fb-w="800" data-fb-h="450" />
           </div>
           <div class="work-meta">
-            <div class="work-cat">UX Design · Produto Digital · Gov</div>
+            <div class="work-cat">UX/UI · Produto digital · Gov</div>
             <h3 class="work-title">RG GO · Identidade Digital</h3>
             <div class="work-client">Valid × Governo de Goiás · 2023</div>
-            <p class="work-desc">Interface do aplicativo de identidade digital RG GO, garantindo acessibilidade e usabilidade em produto essencial para cidadãos.</p>
+            <p class="work-desc">Projeto voltado à inovação e acessibilidade em identificação digital, com foco em experiência, clareza e uso em contexto público.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="https://brandperformance-cura-salute.vercel.app/" target="_blank" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-cura-salute.png" alt="Brand Performance. Cura Salute" data-fallback="capa-cura-salute.png" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Brand Performance · Projeto estratégico</div>
+            <h3 class="work-title">Cura Salute</h3>
+            <div class="work-client">Cura Salute · 2026</div>
+            <p class="work-desc">Projeto completo de marca e presença digital para uma corretora de planos de saúde, passando por diagnóstico, posicionamento, narrativa, identidade e site.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="#" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-godoor.jpg" alt="GoDoor. Identidade visual" data-fallback="capa-godoor.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Identidade visual · Produto</div>
+            <h3 class="work-title">GoDoor</h3>
+            <div class="work-client">GoDoor · 2023</div>
+            <p class="work-desc">Construção visual para uma marca digital, explorando percepção, diferenciação e presença aplicada.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="#" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-social-media-contabilidade.jpg" alt="Social Media. Contabilidade" data-fallback="capa-social-media-contabilidade.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Social media · B2B</div>
+            <h3 class="work-title">Social Media Pack</h3>
+            <div class="work-client">Contabilidade · Moonflag · 2021</div>
+            <p class="work-desc">Sistema visual de conteúdos para empresas de contabilidade, pensado para padronizar comunicação e melhorar presença digital.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="#" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-ituran.jpg" alt="Ituran. Marketing" data-fallback="capa-ituran.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Marketing · Comunicação</div>
+            <h3 class="work-title">Ituran</h3>
+            <div class="work-client">Ituran Brasil · 2020</div>
+            <p class="work-desc">Materiais visuais e digitais desenvolvidos em contexto corporativo, conectando redes sociais, comunicação interna e campanhas.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="#" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-credipronto.jpg" alt="CrediPronto. Marketing digital" data-fallback="capa-credipronto.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Marketing digital</div>
+            <h3 class="work-title">CrediPronto</h3>
+            <div class="work-client">CrediPronto (Itaú × Lopes) · 2019</div>
+            <p class="work-desc">Atuação em peças, blog, e-mail marketing e canais digitais para uma joint venture entre Itaú e Lopes.</p>
+            <span class="work-cta">Ver projeto ↗</span>
+          </div>
+        </a>
+
+        <a class="work-card reveal" href="#" rel="noopener">
+          <div class="work-thumb">
+            <img src="capa-insight.jpg" alt="InSight. Elementos visuais" data-fallback="capa-insight.jpg" data-fb-w="800" data-fb-h="450" />
+          </div>
+          <div class="work-meta">
+            <div class="work-cat">Direção visual</div>
+            <h3 class="work-title">InSight · Elementos Visuais</h3>
+            <div class="work-client">Projeto autoral · 2022</div>
+            <p class="work-desc">Exploração de elementos gráficos e sistemas visuais para construção de identidade e consistência estética.</p>
             <span class="work-cta">Ver projeto ↗</span>
           </div>
         </a>
@@ -1723,43 +1937,72 @@
       <div class="section-head">
         <span class="label">05 / Habilidades</span>
         <span class="rule"></span>
-        <span class="label label-gray">Estratégia · Design · Growth</span>
+        <span class="label label-gray">Marca · Marketing · Execução</span>
       </div>
       <h2 class="section-title reveal">Skills<span class="stop">.</span></h2>
+      <p class="section-subtitle reveal">O que eu uso para conectar marca, marketing e execução.</p>
 
       <div class="skills-grid reveal">
         <div class="skill-col">
-          <h3>Ferramentas &amp; Operação <span>/ 08</span></h3>
+          <h3>Estratégia e marca <span>/ 05</span></h3>
           <div class="tag-list">
-            <span class="tag">HubSpot</span>
-            <span class="tag">Google Analytics</span>
-            <span class="tag">Meta Ads</span>
-            <span class="tag">Amplitude</span>
+            <span class="tag tag-red">Branding</span>
+            <span class="tag tag-red">Posicionamento</span>
+            <span class="tag tag-red">Narrativa de marca</span>
+            <span class="tag tag-red">Arquitetura de mensagem</span>
+            <span class="tag tag-red">Clareza de oferta</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Marketing e growth <span>/ 07</span></h3>
+          <div class="tag-list">
+            <span class="tag tag-red">Estratégia de conteúdo</span>
+            <span class="tag tag-red">Social media strategy</span>
+            <span class="tag tag-red">Landing pages</span>
+            <span class="tag tag-red">Campanhas</span>
+            <span class="tag tag-red">Leitura de métricas</span>
+            <span class="tag tag-red">Geração de leads</span>
+            <span class="tag tag-red">Análise de funil</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Design e experiência <span>/ 06</span></h3>
+          <div class="tag-list">
+            <span class="tag">UX/UI</span>
+            <span class="tag">Hierarquia visual</span>
+            <span class="tag">Direção visual</span>
+            <span class="tag">Interfaces digitais</span>
+            <span class="tag">Design para conversão</span>
+            <span class="tag">Sistemas visuais</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Operação e colaboração <span>/ 05</span></h3>
+          <div class="tag-list">
+            <span class="tag">Gestão de demandas</span>
+            <span class="tag">Priorização</span>
+            <span class="tag">Briefing</span>
+            <span class="tag">Documentação</span>
+            <span class="tag">Colaboração cross-funcional</span>
+          </div>
+        </div>
+
+        <div class="skill-col">
+          <h3>Ferramentas <span>/ 10</span></h3>
+          <div class="tag-list">
             <span class="tag">Figma</span>
             <span class="tag">Photoshop</span>
             <span class="tag">Illustrator</span>
-            <span class="tag">Strapi</span>
-          </div>
-        </div>
-
-        <div class="skill-col">
-          <h3>Marketing &amp; Growth <span>/ 06</span></h3>
-          <div class="tag-list">
-            <span class="tag tag-red">Gestão de campanhas</span>
-            <span class="tag tag-red">Colaboração cross-funcional</span>
-            <span class="tag tag-red">Acompanhamento de métricas</span>
-            <span class="tag tag-red">Briefing e direção criativa</span>
-            <span class="tag tag-red">Inbound</span>
-            <span class="tag tag-red">Conteúdo B2B</span>
-          </div>
-        </div>
-
-        <div class="skill-col">
-          <h3>Estratégia <span>/ 03</span></h3>
-          <div class="tag-list">
-            <span class="tag">Posicionamento de marca</span>
-            <span class="tag">Diagnóstico de comunicação</span>
-            <span class="tag">ICP &amp; Segmentação</span>
+            <span class="tag">Webflow</span>
+            <span class="tag">HubSpot</span>
+            <span class="tag">RD Station</span>
+            <span class="tag">Google Analytics</span>
+            <span class="tag">Amplitude</span>
+            <span class="tag">Meta Ads</span>
+            <span class="tag">Relume</span>
           </div>
         </div>
       </div>
@@ -1780,12 +2023,12 @@
         <div class="edu-grad">
           <div class="school">FMU · Centro Universitário</div>
           <h3>Publicidade &amp; Propaganda</h3>
-          <div class="course">Comunicação Social · Bacharelado</div>
+          <div class="course">Formação em Publicidade e Propaganda, com especializações complementares em UX Design, Figma, Design System, Web Analytics, BI e ferramentas de criação visual.</div>
           <div class="period">2014 / 2017 · Bacharel</div>
         </div>
 
         <table class="cert-table">
-          <caption>Certificações</caption>
+          <caption>Formação complementar</caption>
           <thead>
             <tr>
               <th>Curso</th>
@@ -1794,11 +2037,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Formação Design System</td><td>Alura</td><td>40h</td></tr>
             <tr><td>Formação UX Design</td><td>Alura</td><td>36h</td></tr>
             <tr><td>Formação Figma</td><td>Alura</td><td>40h</td></tr>
+            <tr><td>Formação Design System</td><td>Alura</td><td>40h</td></tr>
+            <tr><td>Web Analytics e BI</td><td>Lemonade School</td><td>20h</td></tr>
             <tr><td>Curso Starter Pacote Adobe</td><td>Saga</td><td>200h</td></tr>
-            <tr><td>Web Analytics e B.I</td><td>Lemonade School</td><td>20h</td></tr>
           </tbody>
         </table>
       </div>
@@ -1817,7 +2060,7 @@
 
       <div class="contact-grid">
         <p class="contact-intro">
-          Disponível para oportunidades em marketing em startups. <span class="accent">Respondo em todos os canais.</span>
+          Estou disponível para oportunidades em marketing, marca, conteúdo e presença digital, especialmente em startups, empresas B2B e times enxutos. <span class="accent">Se a sua empresa precisa de alguém para organizar mensagens, campanhas e entregas de marketing com clareza, podemos conversar.</span>
         </p>
         <div class="contact-list">
           <a class="contact-row" href="mailto:diogocontatoblog@gmail.com">
