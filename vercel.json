@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/case-memed", "destination": "/case-memed.html" }
+  ]
+}
