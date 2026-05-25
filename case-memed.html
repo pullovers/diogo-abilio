@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Diagnóstico de Conteúdo B2B — Memed. Análise de posicionamento e oportunidades editoriais para a líder em prescrição digital do Brasil." />
+  <title>Case Memed · Diagnóstico de Conteúdo B2B — Diogo Abílio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --bg:        #F4F4F4;
+      --bg-alt:    #FFFFFF;
+      --bg-dk:     #ECECEC;
+      --ink:       #0A0A0A;
+      --ink-soft:  #1A1A1A;
+      --ink-2:     #2A2A2A;
+      --gray:      #6B6B6B;
+      --gray-lt:   #B8B8B8;
+      --border:    #E2E2E2;
+      --border-strong: #0A0A0A;
+      --surface:   #F0F0F0;
+      --red:       #7D1714;
+      --red-dim:   rgba(125,23,20,0.08);
+      --red-soft:  #F0E0DE;
+      --maxw:      1120px;
+      --pad-x:     clamp(20px, 5vw, 72px);
+      --sidebar:   240px;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ===== GRAIN ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      mix-blend-mode: multiply;
+      opacity: 0.4;
+    }
+
+    /* ===== TYPE ===== */
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+    .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
+    .label-gray { color: var(--gray); }
+
+    /* ===== NAV ===== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244,244,244,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 var(--pad-x);
+    }
+    .top-nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--red); }
+    .back-link .arr { font-size: 12px; }
+    .nav-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+    .nav-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+
+    /* ===== LAYOUT ===== */
+    .page-layout {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+      display: grid;
+      grid-template-columns: var(--sidebar) 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: sticky;
+      top: 72px;
+      padding: 48px 0 100px;
+    }
+    .sidebar-meta {
+      margin-bottom: 40px;
+    }
+    .sidebar-meta .s-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .sidebar-meta .s-val {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 4px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: all 0.15s;
+    }
+    .sidebar-nav a:hover {
+      color: var(--red);
+      background: var(--red-dim);
+    }
+    .sidebar-nav a .n {
+      font-size: 9px;
+      color: var(--gray-lt);
+      min-width: 18px;
+    }
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      padding: 64px 0 100px;
+      min-width: 0;
+    }
+
+    /* ===== HERO ===== */
+    .case-hero {
+      padding-bottom: 56px;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 64px;
+    }
+    .case-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .case-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--red);
+    }
+    .case-title {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: clamp(52px, 9vw, 100px);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin: 0 0 28px;
+      color: var(--ink);
+    }
+    .case-title .stop { color: var(--red); }
+    .case-desc {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 580px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .case-tag {
+      padding: 5px 13px;
+      border: 1px solid var(--border-strong);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+    }
+
+    /* ===== SECTION ===== */
+    .case-section {
+      margin-bottom: 72px;
+      scroll-margin-top: 80px;
+    }
+    .sec-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .sec-title {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+    .sec-lead {
+      font-size: 15.5px;
+      color: var(--gray);
+      max-width: 620px;
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+    h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+    p { margin: 0 0 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ===== STAT ROW ===== */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .stat-box {
+      padding: 24px 20px;
+      background: var(--ink);
+      color: var(--bg);
+      border: 2px solid var(--ink);
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      color: var(--bg);
+      display: block;
+      line-height: 1;
+    }
+    .stat-num .accent { color: var(--red); }
+    .stat-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      margin-top: 6px;
+    }
+
+    /* ===== GRID ===== */
+    .grid { display: grid; gap: 12px; }
+    .grid.two { grid-template-columns: repeat(2, 1fr); }
+    .grid.three { grid-template-columns: repeat(3, 1fr); }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--border);
+      padding: 22px 20px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-top-color: var(--red); }
+    .card-cat {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .card-cat.green { color: #1a6e45; }
+    .card-cat.red   { color: var(--red); }
+    .card-cat.yellow { color: #7a5a00; }
+    .card-cat.blue  { color: #1a3d7a; }
+    .card p {
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ===== ALERT ===== */
+    .alert {
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.65;
+      border-left: 3px solid;
+    }
+    .alert strong {
+      display: block;
+      margin-bottom: 5px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .alert.red    { background: #f8e8e8; border-color: var(--red); color: var(--ink-soft); }
+    .alert.red strong { color: var(--red); }
+    .alert.yellow { background: #faf5e4; border-color: #b8860b; color: var(--ink-soft); }
+    .alert.yellow strong { color: #7a5a00; }
+    .alert.green  { background: #e8f5ee; border-color: #1a6e45; color: var(--ink-soft); }
+    .alert.green strong { color: #1a6e45; }
+    .alert.blue   { background: #e8eef8; border-color: #1a3d7a; color: var(--ink-soft); }
+    .alert.blue strong { color: #1a3d7a; }
+
+    /* ===== TABLE ===== */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+    th {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 12px 14px;
+      text-align: left;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--ink);
+    }
+    td {
+      padding: 14px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.55;
+      color: var(--gray);
+    }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      min-width: 110px;
+    }
+    td .good { color: #1a6e45; font-size: 11px; font-weight: 600; }
+    td .bad  { color: var(--red); font-size: 11px; font-weight: 600; }
+
+    /* ===== PAUTA CARDS ===== */
+    .pauta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .pauta-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 22px 20px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .pauta-card:hover { border-color: var(--red); }
+    .pauta-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      margin-bottom: 10px;
+    }
+    .pauta-title {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .pauta-desc {
+      font-size: 12.5px;
+      color: var(--gray);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .pauta-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .meta-tag {
+      padding: 3px 9px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    .meta-tag.canal  { color: #1a3d7a; border-color: #1a3d7a; background: #e8eef8; }
+    .meta-tag.funil  { color: #1a6e45; border-color: #1a6e45; background: #e8f5ee; }
+    .meta-tag.publico { color: #7a5a00; border-color: #b8860b; background: #faf5e4; }
+
+    /* ===== QUICK WINS ===== */
+    .quick-win {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 24px 22px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .quick-win:hover { border-color: var(--red); }
+    .qw-num {
+      width: 52px;
+      height: 52px;
+      background: var(--ink);
+      color: var(--bg);
+      display: grid;
+      place-items: center;
+      font-family: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .quick-win h3 { font-size: 14.5px; margin-bottom: 6px; }
+    .quick-win p { font-size: 13.5px; color: var(--gray); margin: 0; }
+
+    /* ===== METRIC BLOCKS ===== */
+    .metric-block {
+      padding: 22px 20px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--ink);
+    }
+    .metric-block h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .metric-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .metric-block li {
+      font-size: 13px;
+      color: var(--gray);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .metric-block li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gray-lt);
+      font-size: 11px;
+      top: 1px;
+    }
+
+    /* ===== CONCLUSION ===== */
+    .conclusion {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 40px 36px;
+      border: 2px solid var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .conclusion::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+    .conclusion h3 {
+      color: var(--bg);
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .conclusion p {
+      font-size: 15px;
+      color: rgba(244,244,244,0.72);
+      line-height: 1.7;
+    }
+    .conclusion .highlight {
+      color: var(--bg);
+      font-style: italic;
+      border-left: 3px solid var(--red);
+      padding-left: 16px;
+      margin-top: 20px !important;
+    }
+
+    /* ===== FOOTER ===== */
+    .case-footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .case-footer p {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin: 0;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid var(--border-strong);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .btn-back:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .sidebar {
+        position: static;
+        padding: 32px 0 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .sidebar-meta { display: none; }
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .sidebar-nav a { font-size: 9px; padding: 5px 8px; }
+      .sidebar-divider { display: none; }
+      main { padding: 32px 0 60px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .grid.two, .grid.three, .pauta-grid { grid-template-columns: 1fr; }
+      .case-title { font-size: 52px; }
+    }
+
+    @media (max-width: 480px) {
+      .quick-win { grid-template-columns: 1fr; }
+      .qw-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav" role="navigation">
+    <div class="top-nav-inner">
+      <a href="/" class="back-link"><span class="arr">←</span> Voltar ao site</a>
+      <div class="nav-sep"></div>
+      <span class="nav-title">Case · Memed</span>
+    </div>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-meta">
+        <span class="s-label">Tipo</span>
+        <span class="s-val">Diagnóstico de Conteúdo B2B</span>
+      </div>
+      <div class="sidebar-meta">
+        <span class="s-label">Setor</span>
+        <span class="s-val">Healthtech · Prescrição Digital</span>
+      </div>
+      <div class="sidebar-meta">
+        <span class="s-label">Autor</span>
+        <span class="s-val">Diogo Abílio<br/>Marketing & Brand Strategist</span>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <nav class="sidebar-nav">
+        <a href="#contexto"><span class="n">01</span> Contexto</a>
+        <a href="#icp"><span class="n">02</span> ICP</a>
+        <a href="#presenca"><span class="n">03</span> Site</a>
+        <a href="#linkedin"><span class="n">04</span> LinkedIn</a>
+        <a href="#instagram"><span class="n">05</span> Instagram</a>
+        <a href="#concorrentes"><span class="n">06</span> Concorrentes</a>
+        <a href="#problemas"><span class="n">07</span> Problemas</a>
+        <a href="#pautas"><span class="n">08</span> 10 Pautas</a>
+        <a href="#quickwins"><span class="n">09</span> Quick Wins</a>
+        <a href="#metricas"><span class="n">10</span> Métricas</a>
+        <a href="#conclusao"><span class="n">11</span> Conclusão</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+      <!-- HERO -->
+      <header class="case-hero" id="intro">
+        <div class="case-eyebrow">Diagnóstico de Conteúdo B2B</div>
+        <h1 class="case-title">Memed<span class="stop">.</span></h1>
+        <p class="case-desc">
+          Uma análise da presença digital, posicionamento de conteúdo e oportunidades editoriais para a líder em prescrição digital do Brasil — em um momento de virada de modelo de negócio.
+        </p>
+        <div class="case-tags">
+          <span class="case-tag">Healthtech</span>
+          <span class="case-tag">B2B</span>
+          <span class="case-tag">Prescrição Digital</span>
+          <span class="case-tag">Publicidade Médica</span>
+          <span class="case-tag">São Paulo, SP</span>
+          <span class="case-tag">Fundada em 2012</span>
+        </div>
+      </header>
+
+      <!-- 01 CONTEXTO -->
+      <section class="case-section" id="contexto">
+        <span class="sec-label">01 — Contexto</span>
+        <h2 class="sec-title">Quem é a Memed hoje</h2>
+        <p class="sec-lead">Não a startup que todo mundo conhece de 2012. A empresa que existe em 2026 tem modelo de negócio diferente, lucro real e um posicionamento que ainda não foi comunicado com clareza.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">210<span class="accent">k</span></span>
+            <div class="stat-lbl">médicos ativos na plataforma</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">100<span class="accent">M</span></span>
+            <div class="stat-lbl">prescrições digitais processadas</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">R$<span class="accent">80M</span></span>
+            <div class="stat-lbl">captados em maio de 2026</div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <div class="card-cat green">Modelo atual</div>
+            <h3>Publicidade médica digital</h3>
+            <p>A Memed oferece prescrição gratuita para 210 mil médicos e cobra da indústria farmacêutica por acesso a essa base no momento da prescrição. A plataforma opera com lucro desde junho de 2025 e mira R$ 100 milhões em receita.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat yellow">Transição crítica</div>
+            <h3>14 anos queimando caixa, lucro desde 2025</h3>
+            <p>A virada de modelo é recente. A empresa vendeu a farmácia ao Mercado Livre, abandonou o e-commerce de medicamentos e voltou o foco para prescrição digital e publicidade para pharma. Essa história não está sendo contada.</p>
+          </div>
+        </div>
+
+        <div class="alert blue" style="margin-top: 12px;">
+          <strong>Contexto estratégico</strong>
+          A prescrição digital representa apenas 15% do total de receituários médicos no Brasil. O principal desafio da Memed agora é expansão de base, não defesa de mercado.
+        </div>
+      </section>
+
+      <!-- 02 ICP -->
+      <section class="case-section" id="icp">
+        <span class="sec-label">02 — ICP e Público</span>
+        <h2 class="sec-title">Três públicos, uma plataforma</h2>
+        <p class="sec-lead">A maioria das análises vai ver a Memed e pensar "o público é médico". Não é. Há três camadas distintas com necessidades, objeções e conteúdos completamente diferentes.</p>
+
+        <div class="grid three">
+          <div class="card">
+            <div class="card-cat blue">Público 1</div>
+            <h3>Médico</h3>
+            <p>Usuário da plataforma. Não paga. O conteúdo para ele precisa gerar adesão, confiança e retenção. Objeção principal: autonomia da prescrição. Ele precisa acreditar que a plataforma não enviesa o que ele prescreve.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat yellow">Público 2</div>
+            <h3>Indústria Farmacêutica</h3>
+            <p>Cliente que paga. O conteúdo para ele precisa provar ROI, escala de alcance e credibilidade do canal. Objeção: como garantir que o anúncio não pareça interferência na prescrição.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat green">Público 3</div>
+            <h3>Hospitais e Operadoras</h3>
+            <p>Parceiros institucionais que ampliam a base de médicos. Precisam de argumento técnico: produtividade, inteligência clínica, monitoramento e integração com sistemas existentes.</p>
+          </div>
+        </div>
+
+        <div class="alert yellow" style="margin-top: 12px;">
+          <strong>Lacuna identificada</strong>
+          A hipótese de que médicos jovens têm menor aderência à plataforma precisa de dado interno para confirmar. Se verdadeira, há uma frente de aquisição via Instagram e conteúdo educativo que está completamente inexplorada.
+        </div>
+      </section>
+
+      <!-- 03 SITE -->
+      <section class="case-section" id="presenca">
+        <span class="sec-label">03 — Site</span>
+        <h2 class="sec-title">memed.com.br</h2>
+        <p class="sec-lead">A homepage fala com médicos e pacientes, mas o cliente que paga é a indústria farmacêutica. Esse desalinhamento aparece antes de qualquer análise de conteúdo.</p>
+
+        <div class="alert red">
+          <strong>Problema crítico de mensagem</strong>
+          A headline principal "Saúde é o que nos aproxima" não diz o que a Memed faz, para quem é nem por que alguém deveria se cadastrar. É uma frase de valor de marca genérica que poderia estar no site de um plano de saúde, uma farmácia ou um app de telemedicina.
+        </div>
+
+        <div class="grid two" style="margin-top: 12px;">
+          <div class="card">
+            <div class="card-cat red">Problema</div>
+            <h3>Bug nas páginas de parceiros</h3>
+            <p>O dropdown de parceiros tem quatro opções: Hospitais e Operadoras de Saúde, Farmácias, Empresas de Software e Indústria Farmacêutica. "Hospitais e Operadoras" e "Empresas de Software" apontam para o mesmo link. O público mais estratégico do institucional está com página quebrada.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat red">Problema</div>
+            <h3>CTA de parceiros fraco</h3>
+            <p>O formulário de contato para parceiros é estático, sem etapas, com muitos campos e sem alternativa de canal mais direto. Para fechar contratos com pharma e hospitais, o ponto de contato precisa ter mais intenção e menos fricção.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat red">Ausente</div>
+            <h3>Interface da ferramenta não aparece</h3>
+            <p>O médico não sabe o que vai encontrar antes de se cadastrar. Faltam prints da plataforma em uso, walkthrough ou tutorial do produto. A barreira de entrada poderia ser reduzida com uma visualização clara do que é a experiência real.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat yellow">Oportunidade</div>
+            <h3>Gratuidade não está em destaque</h3>
+            <p>Para o médico, o produto é gratuito. Isso é um argumento forte de adesão que não aparece com clareza na hierarquia visual da página. Comunicar "gratuito para médicos" com destaque reduziria objeção na captação.</p>
+          </div>
+        </div>
+
+        <div class="alert green" style="margin-top: 12px;">
+          <strong>Ponto positivo</strong>
+          Big numbers estão presentes no site e são bons. 210 mil médicos, presença nacional e volume de prescrições comunicam escala com credibilidade.
+        </div>
+        <div class="alert red" style="margin-top: 8px;">
+          <strong>Ausente</strong>
+          Depoimentos de parceiros estratégicos: hospitais, operadoras e indústria farmacêutica. Os números existem, mas prova social qualitativa de quem paga falta.
+        </div>
+      </section>
+
+      <!-- 04 LINKEDIN -->
+      <section class="case-section" id="linkedin">
+        <span class="sec-label">04 — LinkedIn</span>
+        <h2 class="sec-title">LinkedIn da Memed</h2>
+        <p class="sec-lead">39 mil seguidores, 210 mil médicos ativos na plataforma. A audiência potencial é cinco vezes maior que a audiência conquistada. O conteúdo não está aproveitando esse ativo.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">39<span class="accent">k</span></span>
+            <div class="stat-lbl">seguidores na página</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">~<span class="accent">40</span></span>
+            <div class="stat-lbl">reações médias por post</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">&lt;<span class="accent">0,1%</span></span>
+            <div class="stat-lbl">taxa de engajamento</div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <div class="card-cat yellow">Observação</div>
+            <h3>Mix dos últimos 5 posts</h3>
+            <ol style="font-size: 13.5px; color: var(--gray); padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0;">
+              <li>Institucional sobre captação de R$ 80M</li>
+              <li>Divulgação de live educativa para médicos</li>
+              <li>Bastidores de evento para médicos</li>
+              <li>Divulgação estática da mesma live do post 2</li>
+              <li>Institucional de dia das mães</li>
+            </ol>
+          </div>
+          <div class="card">
+            <div class="card-cat red">Problema central</div>
+            <h3>Tom institucional e frio</h3>
+            <p>O conteúdo não trabalha nenhum dos dois públicos que importam. Não educa o médico sobre prescrição digital, não constrói argumento para a indústria farmacêutica sobre o valor do canal. Parece produzido por agência sem briefing estratégico.</p>
+          </div>
+        </div>
+
+        <div class="alert yellow" style="margin-top: 12px;">
+          <strong>CEO — Rodolfo Chung</strong>
+          Perfil ativo, mas fora do posicionamento ideal. Posta sobre eventos e presença nacional. Não usa o canal para thought leadership sobre prescrição digital, transformação da saúde ou dados do setor. Uma liderança com audiência que não está sendo usada para construir autoridade no tema que a empresa lidera.
+        </div>
+        <div class="alert green" style="margin-top: 8px;">
+          <strong>Oportunidade</strong>
+          A captação de R$ 80M e o lucro desde junho de 2025 são narrativas de empresa que está vencendo. Esse é o tipo de história que constrói autoridade para a indústria farmacêutica e credibilidade para médicos. Não está sendo contada com a profundidade que merece.
+        </div>
+      </section>
+
+      <!-- 05 INSTAGRAM -->
+      <section class="case-section" id="instagram">
+        <span class="sec-label">05 — Instagram</span>
+        <h2 class="sec-title">Instagram da Memed</h2>
+        <p class="sec-lead">Canal de awareness subutilizado. Médico jovem em formação ou início de carreira está no Instagram diariamente. Chegar primeiro nesse momento define preferência de marca no longo prazo.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">30,<span class="accent">7k</span></span>
+            <div class="stat-lbl">seguidores</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num"><span class="accent">7</span></span>
+            <div class="stat-lbl">posts em maio de 2026</div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">~<span class="accent">32</span></span>
+            <div class="stat-lbl">likes médios por post</div>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="card">
+            <div class="card-cat red">Problema</div>
+            <h3>Conteúdo de fundo de funil num canal de topo</h3>
+            <p>A maioria dos posts foca em produto e funcionalidade. Quem ainda não usa a Memed não vai se engajar com conteúdo sobre a ferramenta. O canal precisa entregar valor antes de pedir qualquer coisa: educação, notícia, dado relevante para médicos.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat red">Problema</div>
+            <h3>Reels e Stories abandonados</h3>
+            <p>Poucos Reels sendo feitos e Stories praticamente inexistentes. Os dois formatos com maior alcance orgânico do Instagram estão sem investimento. É o equivalente a ter uma loja na Paulista e não abrir a porta.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat red">Problema</div>
+            <h3>Reaproveitamento sem adaptação</h3>
+            <p>Conteúdo do LinkedIn publicado no Instagram sem ajuste de linguagem, formato ou intenção. LinkedIn e Instagram têm contextos completamente diferentes. O mesmo post nos dois canais desperdiça o potencial de cada um.</p>
+          </div>
+          <div class="card">
+            <div class="card-cat yellow">Hipótese</div>
+            <h3>Médicos jovens como frente de aquisição</h3>
+            <p>A hipótese de que residentes e médicos recém-formados têm menor aderência à plataforma precisa ser validada com dado interno. Se confirmada, Instagram com Reels educativos voltados para esse público é uma frente de aquisição inexplorada com alto potencial de retorno no longo prazo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 CONCORRENTES -->
+      <section class="case-section" id="concorrentes">
+        <span class="sec-label">06 — Análise de Concorrentes</span>
+        <h2 class="sec-title">O que o mercado está fazendo</h2>
+        <p class="sec-lead">Três players analisados. Nenhum está dominando conteúdo educativo de topo de funil. Essa lacuna existe no mercado inteiro e está disponível para quem agir primeiro.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Headline</th>
+                <th>Tom</th>
+                <th>O que fazem bem</th>
+                <th>O que está fraco</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mevo</td>
+                <td>"Se tudo evoluiu, porque o cuidado com a saúde ainda precisa ser tão complicado?"</td>
+                <td><span class="good">Acolhedor, moderno</span></td>
+                <td>Headline emocional, dobra explicando o produto com persona (Luisa), prints da plataforma, blog ativo</td>
+                <td>Instagram com 2 posts em maio, LinkedIn quase inativo, tudo em meio e fundo de funil</td>
+              </tr>
+              <tr>
+                <td>iClinic (Afya)</td>
+                <td>"Gestão clínica e prontuário eletrônico"</td>
+                <td><span class="bad">Frio, hierárquico</span></td>
+                <td>Print da plataforma na primeira dobra, quebra de objeção estruturada, mostra o produto em etapas</td>
+                <td>Arte genérica, ~10 likes por post, comunicação migrou para Afya, produto pode ser descontinuado</td>
+              </tr>
+              <tr>
+                <td>Memed</td>
+                <td>"Saúde é o que nos aproxima"</td>
+                <td><span class="bad">Institucional, frio</span></td>
+                <td>Big numbers fortes, líder absoluta em market share, maior base de médicos, captação recente</td>
+                <td>Headline genérica, sem prints do produto, parceiros com bug, conteúdo sem tese</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert green" style="margin-top: 12px;">
+          <strong>Oportunidade de mercado</strong>
+          Com o iClinic sendo absorvido pela Afya, médicos e clínicas que usavam a ferramenta como plataforma de prescrição podem migrar. A Memed poderia se posicionar ativamente para capturar esse público em transição com conteúdo direcionado e campanha específica.
+        </div>
+      </section>
+
+      <!-- 07 PROBLEMAS -->
+      <section class="case-section" id="problemas">
+        <span class="sec-label">07 — Problemas Identificados</span>
+        <h2 class="sec-title">Onde está o gargalo</h2>
+        <p class="sec-lead">Três camadas de problema: mensagem, presença e operação de conteúdo. Cada uma afeta um público diferente.</p>
+
+        <div class="grid two">
+          <div class="alert red">
+            <strong>Mensagem</strong>
+            Headline da home não comunica o produto nem o diferencial. Poderia estar no site de qualquer empresa de saúde. A virada de modelo para publicidade médica não está sendo contada em nenhum canal.
+          </div>
+          <div class="alert red">
+            <strong>Site</strong>
+            Página de "Hospitais e Operadoras" está quebrada (mesmo link que "Empresas de Software"). CTA de parceiros é um formulário estático sem urgência. Interface do produto não aparece antes do cadastro.
+          </div>
+          <div class="alert red">
+            <strong>LinkedIn</strong>
+            Taxa de engajamento abaixo de 0,1% para 39 mil seguidores. Conteúdo institucional sem tese, sem educação, sem argumento para nenhum dos dois públicos que importam. CEO com alcance e sem posicionamento editorial.
+          </div>
+          <div class="alert red">
+            <strong>Instagram</strong>
+            Canal de awareness usado como canal de produto. Reels e Stories abandonados. Reaproveitamento de LinkedIn sem adaptação. Sem conteúdo que entregue valor antes de pedir ação.
+          </div>
+          <div class="alert yellow">
+            <strong>Dois públicos, uma comunicação</strong>
+            Médico e indústria farmacêutica têm objeções, critérios de decisão e linguagens completamente diferentes. O site e os canais sociais não têm jornadas separadas para cada um.
+          </div>
+          <div class="alert yellow">
+            <strong>Autoridade não construída</strong>
+            A Memed é líder absoluta em prescrição digital, tem 100 milhões de prescrições e acaba de captar R$ 80M. Nada disso está virando argumento de posicionamento nos canais. A empresa sabe mais sobre prescrição digital no Brasil do que qualquer outro player e não está usando esse dado como conteúdo.
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 PAUTAS -->
+      <section class="case-section" id="pautas">
+        <span class="sec-label">08 — Pautas Recomendadas</span>
+        <h2 class="sec-title">10 conteúdos que fazem sentido agora</h2>
+        <p class="sec-lead">Cada pauta foi construída a partir das lacunas identificadas e dos dois públicos que a Memed precisa trabalhar. Nenhuma é genérica.</p>
+
+        <div class="pauta-grid">
+
+          <div class="pauta-card">
+            <div class="pauta-num">01 —</div>
+            <div class="pauta-title">Prescrição digital no Brasil: por que ainda estamos em 15% do potencial</div>
+            <div class="pauta-desc">Dado concreto sobre o mercado que posiciona a Memed como referência no tema e educa médicos e hospitais sobre o tamanho da oportunidade ainda não aproveitada.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Blog / LinkedIn</span>
+              <span class="meta-tag funil">Topo</span>
+              <span class="meta-tag publico">Médico / Parceiro</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">02 —</div>
+            <div class="pauta-title">Como a publicidade médica digital funciona sem enviesar a prescrição</div>
+            <div class="pauta-desc">Endereça a objeção central da indústria farmacêutica e dos médicos ao mesmo tempo. Explica o mecanismo do modelo de negócio com transparência e prova ética.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">LinkedIn / Blog</span>
+              <span class="meta-tag funil">Meio</span>
+              <span class="meta-tag publico">Pharma / Médico</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">03 —</div>
+            <div class="pauta-title">Por que 210 mil médicos usam a Memed para prescrever</div>
+            <div class="pauta-desc">Prova social + argumento de escala para a indústria farmacêutica. Mostra o tamanho e a qualidade da base de médicos como ativo de comunicação para quem paga pelo acesso.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Landing Page / LinkedIn</span>
+              <span class="meta-tag funil">Fundo</span>
+              <span class="meta-tag publico">Pharma</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">04 —</div>
+            <div class="pauta-title">Como hospitais estão reduzindo erros de medicação com prescrição digital</div>
+            <div class="pauta-desc">Argumento técnico para hospitais e operadoras. Conecta prescrição digital a resultado clínico mensurável, tornando a adesão institucional uma decisão de qualidade.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Blog / LinkedIn</span>
+              <span class="meta-tag funil">Meio</span>
+              <span class="meta-tag publico">Hospitais / Operadoras</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">05 —</div>
+            <div class="pauta-title">O que diferencia publicidade médica de publicidade farmacêutica tradicional</div>
+            <div class="pauta-desc">Educa o mercado sobre o canal e posiciona a Memed como pioneira num formato que a maioria da indústria farmacêutica ainda não conhece bem. Conteúdo de autoridade para pharma.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Newsletter / LinkedIn</span>
+              <span class="meta-tag funil">Topo / Meio</span>
+              <span class="meta-tag publico">Pharma</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">06 —</div>
+            <div class="pauta-title">5 coisas que mudam na rotina do médico quando ele adota prescrição digital</div>
+            <div class="pauta-desc">Conteúdo prático para o médico ainda não convencido. Substitui argumento genérico por consequência concreta do dia a dia: menos papel, mais rastreabilidade, menos retrabalho.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Instagram / LinkedIn</span>
+              <span class="meta-tag funil">Topo / Meio</span>
+              <span class="meta-tag publico">Médico</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">07 —</div>
+            <div class="pauta-title">Você sabia que a receita em papel ainda representa 85% das prescrições no Brasil?</div>
+            <div class="pauta-desc">Dado de impacto para Instagram e LinkedIn. Formato de topo de funil que provoca reflexão e introduz o problema que a Memed resolve sem falar de produto. Alto potencial de compartilhamento.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Instagram / LinkedIn</span>
+              <span class="meta-tag funil">Topo</span>
+              <span class="meta-tag publico">Médico / Amplo</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">08 —</div>
+            <div class="pauta-title">De startup que queimou caixa por 14 anos para lucro em 2025: a virada da Memed</div>
+            <div class="pauta-desc">Narrativa de bastidores sobre a transição de modelo. Humaniza a empresa, cria conexão com founders e gestores de marketing da pharma. Fortalece posicionamento como empresa que pensa em sustentabilidade.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">LinkedIn / Blog</span>
+              <span class="meta-tag funil">Topo</span>
+              <span class="meta-tag publico">Mercado / Pharma</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">09 —</div>
+            <div class="pauta-title">Como integrar prescrição digital ao prontuário eletrônico sem complicar a rotina clínica</div>
+            <div class="pauta-desc">Conteúdo técnico para sistemas de software e gestores de TI em clínicas e hospitais. Endereça a objeção de complexidade de integração que trava decisões institucionais.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Blog / LinkedIn</span>
+              <span class="meta-tag funil">Meio / Fundo</span>
+              <span class="meta-tag publico">Software / Hospitais</span>
+            </div>
+          </div>
+
+          <div class="pauta-card">
+            <div class="pauta-num">10 —</div>
+            <div class="pauta-title">O médico recém-formado e a prescrição digital: hábitos que definem a prática clínica</div>
+            <div class="pauta-desc">Conteúdo de topo para o público jovem no Instagram. Conecta a construção da rotina profissional com a adoção de ferramentas digitais. Posiciona a Memed como parceira da nova geração antes do primeiro emprego.</div>
+            <div class="pauta-meta">
+              <span class="meta-tag canal">Instagram / Reels</span>
+              <span class="meta-tag funil">Topo</span>
+              <span class="meta-tag publico">Médico Jovem</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 09 QUICK WINS -->
+      <section class="case-section" id="quickwins">
+        <span class="sec-label">09 — Quick Wins</span>
+        <h2 class="sec-title">3 ações para menos de 30 dias</h2>
+        <p class="sec-lead">Sem precisar de aprovação de budget, rebrand ou reestruturação. Três movimentos que poderiam ser executados em semanas com impacto imediato.</p>
+
+        <div class="quick-win">
+          <div class="qw-num">1</div>
+          <div>
+            <h3>Corrigir o link de "Hospitais e Operadoras" e reescrever o CTA de parceiros</h3>
+            <p>O bug existe agora e está afetando o público mais estratégico do institucional. Corrigir o link e simplificar o formulário de parceiros para duas etapas com opção de WhatsApp é uma semana de trabalho com impacto direto na conversão de leads B2B.</p>
+          </div>
+        </div>
+
+        <div class="quick-win">
+          <div class="qw-num">2</div>
+          <div>
+            <h3>Criar uma sequência de 3 Reels educativos para médicos no Instagram</h3>
+            <p>Sem precisar de estúdio. Três vídeos curtos com dados reais sobre prescrição digital no Brasil. Formato de topo de funil que entrega valor antes de pedir cadastro. Testar o canal com conteúdo que tem chance de alcance orgânico antes de investir em produção elaborada.</p>
+          </div>
+        </div>
+
+        <div class="quick-win">
+          <div class="qw-num">3</div>
+          <div>
+            <h3>Ativar o CEO no LinkedIn com um post sobre a virada de modelo da Memed</h3>
+            <p>Rodolfo Chung tem perfil ativo e audiência. Um post de bastidores sobre os 14 anos de queima de caixa e a virada para lucro em 2025 é o tipo de narrativa que gera engajamento real, alcança a indústria farmacêutica como público e posiciona a liderança como voz do setor. Custo: zero.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 MÉTRICAS -->
+      <section class="case-section" id="metricas">
+        <span class="sec-label">10 — Métricas</span>
+        <h2 class="sec-title">O que eu acompanharia</h2>
+        <p class="sec-lead">Métricas separadas por público. Juntar tudo num único dashboard esconde o que está funcionando e para quem.</p>
+
+        <div class="grid three">
+          <div class="metric-block">
+            <h3>Para o médico</h3>
+            <ul>
+              <li>Taxa de adesão à plataforma por canal de origem</li>
+              <li>Retenção após 30, 60 e 90 dias</li>
+              <li>NPS por perfil de médico</li>
+              <li>Taxa de ativação após cadastro</li>
+              <li>Prescrições por médico ativo por mês</li>
+            </ul>
+          </div>
+          <div class="metric-block">
+            <h3>Para a pharma</h3>
+            <ul>
+              <li>CPM na base de médicos ativos</li>
+              <li>Alcance por especialidade médica</li>
+              <li>Taxa de recall de campanha</li>
+              <li>Leads de indústria vindos de conteúdo orgânico</li>
+              <li>Ciclo de venda e CAC por segmento de pharma</li>
+            </ul>
+          </div>
+          <div class="metric-block">
+            <h3>Para conteúdo</h3>
+            <ul>
+              <li>Tráfego orgânico no blog por pauta</li>
+              <li>Engajamento por formato e canal</li>
+              <li>Crescimento de seguidores no LinkedIn e Instagram</li>
+              <li>Taxa de conversão de conteúdo para cadastro</li>
+              <li>Share of voice no tema prescrição digital</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 CONCLUSÃO -->
+      <section class="case-section" id="conclusao">
+        <span class="sec-label">11 — Conclusão</span>
+        <h2 class="sec-title">Próximos passos</h2>
+
+        <div class="conclusion">
+          <h3>O que este diagnóstico revela</h3>
+          <p>A Memed tem todos os ingredientes para construir a estratégia de conteúdo mais sólida do mercado de healthtech B2B no Brasil: liderança absoluta de mercado, base de 210 mil médicos, modelo de negócio em transição com narrativa forte e dados reais sobre o setor que nenhum concorrente tem.</p>
+          <p style="margin-top: 12px;">O gap é entre o que a empresa sabe e o que ela comunica. O conteúdo atual não trabalha a autoridade disponível, não educa os públicos que precisam ser convencidos e não usa os canais certos para cada etapa do funil.</p>
+          <p class="highlight">"Como próximos passos, validaria essas hipóteses com dados reais de CRM, análise de performance dos canais, pesquisa com médicos sobre barreiras de adesão e entrevistas com os times de aquisição e produto."</p>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="case-footer">
+        <p>Diagnóstico de Conteúdo B2B — Memed · Diogo Abílio · Maio de 2026</p>
+        <a href="/" class="btn-back">← Voltar ao site</a>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
