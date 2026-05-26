@@ -457,6 +457,32 @@
       margin-bottom: 16px;
       line-height: 1.6;
     }
+    .pauta-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .pauta-field {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+    .field-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .field-val {
+      color: var(--gray);
+    }
     .pauta-meta {
       display: flex;
       flex-wrap: wrap;
@@ -1020,117 +1046,174 @@
       <section class="case-section" id="pautas">
         <span class="sec-label">08 — Pautas Recomendadas</span>
         <h2 class="sec-title">10 conteúdos que fazem sentido agora</h2>
-        <p class="sec-lead">Cada pauta foi construída a partir das lacunas identificadas e dos dois públicos que a Memed precisa trabalhar. Nenhuma é genérica.</p>
+        <p class="sec-lead">Pautas construídas para posicionar a Memed como uma marca que entende a rotina médica contemporânea: digital, pressionada, informada e cada vez mais dependente de clareza.</p>
 
         <div class="pauta-grid">
 
           <div class="pauta-card">
             <div class="pauta-num">01</div>
-            <div class="pauta-title">Prescrição digital no Brasil: por que ainda estamos em 15% do potencial</div>
-            <div class="pauta-desc">Dado concreto sobre o mercado que posiciona a Memed como referência no tema e educa médicos e hospitais sobre o tamanho da oportunidade ainda não aproveitada.</div>
+            <div class="pauta-title">Seu paciente chegou com diagnóstico do TikTok. E agora?</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Desinformação em saúde e comportamento digital do paciente</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Educativo · Comportamental · Autoridade</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">O médico não disputa mais apenas com outras fontes técnicas — algoritmos, influenciadores e IA moldam a percepção do paciente antes da consulta.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Como corrigir desinformação sem humilhar o paciente, mantendo confiança e autoridade na relação.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Blog / LinkedIn</span>
-              <span class="meta-tag funil">Topo</span>
-              <span class="meta-tag publico">Médico / Parceiro</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Desinformação · Confiança</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">02</div>
-            <div class="pauta-title">Como a publicidade médica digital funciona sem enviesar a prescrição</div>
-            <div class="pauta-desc">Endereça a objeção central da indústria farmacêutica e dos médicos ao mesmo tempo. Explica o mecanismo do modelo de negócio com transparência e prova ética.</div>
+            <div class="pauta-title">Como falar de surtos sem gerar pânico</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Atualidades médicas, saúde pública e comunicação de risco</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Informativo · Utilidade pública · Educativo</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">Quando doenças voltam ao noticiário, o médico assume o papel de tradutor público: precisa informar com precisão sem alimentar medo ou sensacionalismo.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Guia prático para comunicar risco: o que se sabe, o que não se sabe, quem precisa se preocupar e qual ação tomar.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">LinkedIn / Blog</span>
-              <span class="meta-tag funil">Meio</span>
-              <span class="meta-tag publico">Pharma / Médico</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag publico">Saúde pública · Atualidades</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">03</div>
-            <div class="pauta-title">Por que 210 mil médicos usam a Memed para prescrever</div>
-            <div class="pauta-desc">Prova social + argumento de escala para a indústria farmacêutica. Mostra o tamanho e a qualidade da base de médicos como ativo de comunicação para quem paga pelo acesso.</div>
+            <div class="pauta-title">Por que confiança virou uma habilidade clínica</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Autoridade médica em ambiente de excesso de informação</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Estratégico · Comportamental · Autoridade</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">A maior disputa da saúde hoje não é por atenção, mas por confiança. O médico concorre com influenciadores, fóruns, IA e grupos de WhatsApp.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Confiança não nasce só de autoridade técnica — nasce de clareza, consistência, escuta e capacidade de orientar em meio ao ruído.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Landing Page / LinkedIn</span>
-              <span class="meta-tag funil">Fundo</span>
-              <span class="meta-tag publico">Pharma</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Confiança · Digital</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">04</div>
-            <div class="pauta-title">Como hospitais estão reduzindo erros de medicação com prescrição digital</div>
-            <div class="pauta-desc">Argumento técnico para hospitais e operadoras. Conecta prescrição digital a resultado clínico mensurável, tornando a adesão institucional uma decisão de qualidade.</div>
+            <div class="pauta-title">5 motivos pelos quais o paciente não segue o tratamento</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Adesão ao tratamento e comportamento do paciente</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Educativo · Baseado em evidência · Prático</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">O paciente não abandona o tratamento apenas por teimosia. Custo, medo, esquecimento, efeitos colaterais e orientação mal compreendida pesam tanto quanto a doença.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Ajuda o médico a enxergar fatores que interferem na adesão e reforça a importância de uma orientação clara e acionável.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Blog / LinkedIn</span>
-              <span class="meta-tag funil">Meio</span>
-              <span class="meta-tag publico">Hospitais / Operadoras</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Adesão · Tratamento</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">05</div>
-            <div class="pauta-title">O que diferencia publicidade médica de publicidade farmacêutica tradicional</div>
-            <div class="pauta-desc">Educa o mercado sobre o canal e posiciona a Memed como pioneira num formato que a maioria da indústria farmacêutica ainda não conhece bem. Conteúdo de autoridade para pharma.</div>
+            <div class="pauta-title">Coisas que parecem insegurança, mas são maturidade médica</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Desenvolvimento profissional e identidade do médico jovem</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Identificação · Carreira · Educativo</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">Maturidade médica não é fingir certeza o tempo todo. É saber validar informações, consultar diretrizes e reconhecer limites com responsabilidade.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Normaliza boas práticas profissionais e ajuda o médico jovem a diferenciar insegurança real de prudência clínica.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Newsletter / LinkedIn</span>
-              <span class="meta-tag funil">Topo / Meio</span>
-              <span class="meta-tag publico">Pharma</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag publico">Carreira · Identificação</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">06</div>
-            <div class="pauta-title">5 coisas que mudam na rotina do médico quando ele adota prescrição digital</div>
-            <div class="pauta-desc">Conteúdo prático para o médico ainda não convencido. Substitui argumento genérico por consequência concreta do dia a dia: menos papel, mais rastreabilidade, menos retrabalho.</div>
+            <div class="pauta-title">7 tecnologias que já aliviam a rotina do médico</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Tecnologia, produtividade médica e redução de retrabalho</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Aspiracional · Educativo · Tecnologia</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">O futuro da medicina não é só IA ou robôs cirúrgicos. Muitas inovações relevantes estão em remover fricções simples da rotina médica.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Apresenta tecnologias que já ajudam médicos hoje: prescrição digital, prontuário eletrônico, telemedicina, apoio à decisão, automação administrativa.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Instagram / LinkedIn</span>
-              <span class="meta-tag funil">Topo / Meio</span>
-              <span class="meta-tag publico">Médico</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Tecnologia · Rotina médica</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">07</div>
-            <div class="pauta-title">Você sabia que a receita em papel ainda representa 85% das prescrições no Brasil?</div>
-            <div class="pauta-desc">Dado de impacto para Instagram e LinkedIn. Formato de topo de funil que provoca reflexão e introduz o problema que a Memed resolve sem falar de produto. Alto potencial de compartilhamento.</div>
+            <div class="pauta-title">Que remédio é esse? Versão letra médica impossível</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Humor médico, prescrição e clareza na comunicação</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Humor · Interativo · Segurança</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">A letra médica virou meme, mas o problema por trás da piada é real: uma prescrição difícil de entender aumenta ruído entre médico, paciente e farmácia.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Usa humor para gerar alcance e identificação enquanto introduz a importância de prescrições claras e digitais.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Instagram / LinkedIn</span>
-              <span class="meta-tag funil">Topo</span>
-              <span class="meta-tag publico">Médico / Amplo</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Humor · Prescrição</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">08</div>
-            <div class="pauta-title">De startup que queimou caixa por 14 anos para lucro em 2025: a virada da Memed</div>
-            <div class="pauta-desc">Narrativa de bastidores sobre a transição de modelo. Humaniza a empresa, cria conexão com founders e gestores de marketing da pharma. Fortalece posicionamento como empresa que pensa em sustentabilidade.</div>
+            <div class="pauta-title">O que mais drena energia no plantão, além do número de pacientes</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Plantão, carga cognitiva e rotina médica</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Identificação · Educativo · Rotina profissional</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">Nem todo plantão é cansativo pelo volume. Muitas vezes o que mais desgasta é o caos operacional: interrupções, retrabalho, ruído e excesso de decisões pequenas.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Ajuda o médico a nomear problemas invisíveis da rotina e mostra a importância de processos mais claros e ferramentas que reduzam atrito.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">LinkedIn / Blog</span>
-              <span class="meta-tag funil">Topo</span>
-              <span class="meta-tag publico">Mercado / Pharma</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Plantão · Rotina</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">09</div>
-            <div class="pauta-title">Como integrar prescrição digital ao prontuário eletrônico sem complicar a rotina clínica</div>
-            <div class="pauta-desc">Conteúdo técnico para sistemas de software e gestores de TI em clínicas e hospitais. Endereça a objeção de complexidade de integração que trava decisões institucionais.</div>
+            <div class="pauta-title">Explique menos. Oriente melhor.</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Comunicação clara com o paciente</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Educativo · Prático · Comunicação</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">Explicar demais pode confundir. O paciente não precisa sair da consulta sabendo medicina — precisa sair sabendo o que fazer.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Dicas rápidas de clareza: linguagem simples, três orientações principais, sem jargão, reforçar o próximo passo e confirmar entendimento.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Blog / LinkedIn</span>
-              <span class="meta-tag funil">Meio / Fundo</span>
-              <span class="meta-tag publico">Software / Hospitais</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag canal">MOFU</span>
+              <span class="meta-tag publico">Comunicação · Clareza</span>
             </div>
           </div>
 
           <div class="pauta-card">
             <div class="pauta-num">10</div>
-            <div class="pauta-title">O médico recém-formado e a prescrição digital: hábitos que definem a prática clínica</div>
-            <div class="pauta-desc">Conteúdo de topo para o público jovem no Instagram. Conecta a construção da rotina profissional com a adoção de ferramentas digitais. Posiciona a Memed como parceira da nova geração antes do primeiro emprego.</div>
+            <div class="pauta-title">Como falar de saúde nas redes sem virar sensacionalista</div>
+            <div class="pauta-fields">
+              <div class="pauta-field"><span class="field-label">Tema</span><span class="field-val">Médicos no digital, autoridade e educação em saúde</span></div>
+              <div class="pauta-field"><span class="field-label">Tipo</span><span class="field-val">Educativo · Autoridade · Digital</span></div>
+              <div class="pauta-field"><span class="field-label">Tese</span><span class="field-val">Se o médico não ocupa o espaço digital com responsabilidade, alguém menos preparado ocupa. Comunicar saúde nas redes exige equilíbrio entre alcance, ética e precisão.</span></div>
+              <div class="pauta-field"><span class="field-label">Valor</span><span class="field-val">Framework prático para publicar com responsabilidade: começar pelo fato, evitar alarmismo, explicar quem se preocupa, orientar o que fazer e citar fontes.</span></div>
+              <div class="pauta-field"><span class="field-label">Formato</span><span class="field-val">Carrossel Instagram</span></div>
+            </div>
             <div class="pauta-meta">
-              <span class="meta-tag canal">Instagram / Reels</span>
-              <span class="meta-tag funil">Topo</span>
-              <span class="meta-tag publico">Médico Jovem</span>
+              <span class="meta-tag funil">TOFU</span>
+              <span class="meta-tag publico">Autoridade · Redes sociais</span>
             </div>
           </div>
 
