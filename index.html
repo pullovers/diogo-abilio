@@ -201,6 +201,32 @@
   }
   .btn-pdf:hover { background: var(--red-dim); }
 
+  /* ===== LANG TOGGLE ===== */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .lang-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    padding: 6px 7px;
+    transition: color 0.15s;
+    line-height: 1;
+  }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-btn.active { color: var(--red); font-weight: 700; }
+  .lang-sep { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-lt); }
+  @media (max-width: 720px) {
+    .lang-btn { font-size: 9px; padding: 5px 6px; }
+  }
+
   .hamb {
     display: none;
     width: 32px; height: 32px;
@@ -1544,16 +1570,21 @@
   <div class="wrap nav-inner">
     <a href="#top" class="nav-mark"><span class="fullname">DIOGO ABÍLIO</span></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#servicos">Entregas</a></li>
-      <li><a href="#trabalhos">Projetos</a></li>
-      <li><a href="#experiencia">Experiência</a></li>
-      <li><a href="#skills">Stack</a></li>
-      <li><a href="#formacao">Formação</a></li>
-      <li><a href="#contato">Contato</a></li>
+      <li><a href="#sobre" data-i18n="nav.sobre">Sobre</a></li>
+      <li><a href="#servicos" data-i18n="nav.entregas">Entregas</a></li>
+      <li><a href="#trabalhos" data-i18n="nav.projetos">Projetos</a></li>
+      <li><a href="#experiencia" data-i18n="nav.experiencia">Experiência</a></li>
+      <li><a href="#skills" data-i18n="nav.stack">Stack</a></li>
+      <li><a href="#formacao" data-i18n="nav.formacao">Formação</a></li>
+      <li><a href="#contato" data-i18n="nav.contato">Contato</a></li>
     </ul>
-    <div style="display:flex; align-items:center; gap:14px;">
-      <a href="cv-diogo-abilio.pdf" download class="btn-pdf print-hide" aria-label="Baixar currículo em PDF">↓ Baixar CV</a>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="cv-diogo-abilio.pdf" download class="btn-pdf print-hide" data-i18n="nav.cv">↓ Baixar CV</a>
+      <div class="lang-toggle print-hide">
+        <button class="lang-btn active" data-lang="pt" id="btn-pt">PT</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="en" id="btn-en">EN</button>
+      </div>
       <button class="hamb" aria-label="Menu" id="hambBtn"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -1567,7 +1598,7 @@
       <div class="hero-left">
         <div class="status-pill" role="status" aria-live="polite">
           <span class="live-dot" aria-hidden="true"></span>
-          <span><strong>Disponível</strong> · Growth Web Design · CRO · Webflow</span>
+          <span data-i18n="hero.pill"><strong>Disponível</strong> · Growth Web Design · CRO · Webflow</span>
           <span class="sep">·</span>
           <span class="loc">São Paulo, SP</span>
         </div>
@@ -1575,14 +1606,14 @@
           DIOGO<br />
           <span class="red">ABÍLIO<span class="stop">.</span></span>
         </h1>
-        <p class="hero-tag">Growth Web Designer para empresas que precisam transformar páginas em <em>canais de aquisição, conversão e crescimento.</em></p>
+        <p class="hero-tag" data-i18n="hero.tag">Growth Web Designer para empresas que precisam transformar páginas em <em>canais de aquisição, conversão e crescimento.</em></p>
         <div class="hero-rule"></div>
-        <p class="hero-bio">
+        <p class="hero-bio" data-i18n="hero.bio">
           Tenho <b>12 anos de experiência</b> conectando design, marketing, produto e comunicação. Crio e otimizo sites, landing pages, páginas de produto e experiências web combinando estratégia, CRO, copy, IA, Figma e Webflow para ajudar empresas a comunicarem melhor suas ofertas e converterem mais.
         </p>
         <div class="hero-ctas print-hide">
-          <a href="#trabalhos" class="btn btn-primary">Ver projetos <span class="arr">↓</span></a>
-          <a href="#contato" class="btn btn-ghost">Falar comigo <span class="arr">↗</span></a>
+          <a href="#trabalhos" class="btn btn-primary" data-i18n="hero.cta.primary">Ver projetos <span class="arr">↓</span></a>
+          <a href="#contato" class="btn btn-ghost" data-i18n="hero.cta.secondary">Falar comigo <span class="arr">↗</span></a>
         </div>
         <div class="hero-contacts" style="margin-top: 28px;">
           <a href="https://www.linkedin.com/in/diogo-abilio/" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -1618,23 +1649,23 @@
   <section id="sobre" class="section" aria-label="Sobre">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">02 / Sobre</span>
+        <span class="label" data-i18n="sobre.label">02 / Sobre</span>
         <span class="rule"></span>
-        <span class="label label-gray">Bio · Princípio</span>
+        <span class="label label-gray" data-i18n="sobre.label.meta">Bio · Princípio</span>
       </div>
-      <h2 class="section-title reveal">Quem sou<span class="stop">.</span></h2>
+      <h2 class="section-title reveal" data-i18n="sobre.title">Quem sou<span class="stop">.</span></h2>
 
       <div class="about-grid reveal">
         <div class="about-text">
-          <p>Tenho 12 anos de experiência em design, marketing e produto. Passei por campanhas, landing pages, interfaces, UX/UI, growth e comunicação antes de chegar onde estou hoje.</p>
-          <p>Hoje trabalho com Growth Web Design: crio e otimizo sites, landing pages e páginas de produto para aquisição, campanhas e geração de leads, com Figma, Webflow, CRO, copy e ferramentas modernas de criação web.</p>
-          <p>IA faz parte do processo. Uso para gerar variações de hero, testar ângulos de copy, prototipar seções mais rápido e chegar antes na primeira versão publicável de uma página.</p>
-          <p>Gosto de trabalhar próximo de times de marketing, growth e produto, onde entrega e estratégia precisam andar juntas.</p>
+          <p data-i18n="sobre.p1">Tenho 12 anos de experiência em design, marketing e produto. Passei por campanhas, landing pages, interfaces, UX/UI, growth e comunicação antes de chegar onde estou hoje.</p>
+          <p data-i18n="sobre.p2">Hoje trabalho com Growth Web Design: crio e otimizo sites, landing pages e páginas de produto para aquisição, campanhas e geração de leads, com Figma, Webflow, CRO, copy e ferramentas modernas de criação web.</p>
+          <p data-i18n="sobre.p3">IA faz parte do processo. Uso para gerar variações de hero, testar ângulos de copy, prototipar seções mais rápido e chegar antes na primeira versão publicável de uma página.</p>
+          <p data-i18n="sobre.p4">Gosto de trabalhar próximo de times de marketing, growth e produto, onde entrega e estratégia precisam andar juntas.</p>
         </div>
 
         <aside class="pullquote">
-          <q>Páginas que comunicam bem, convertem melhor e são úteis para o negócio.</q>
-          <span class="label">Growth Web Design · CRO · IA Aplicada</span>
+          <q data-i18n="sobre.pullquote">Páginas que comunicam bem, convertem melhor e são úteis para o negócio.</q>
+          <span class="label" data-i18n="sobre.label.tag">Growth Web Design · CRO · IA Aplicada</span>
           <div class="meta-line">
             <span>D.A. · 2026</span>
             <span>SP · BR</span>
@@ -1648,37 +1679,37 @@
   <section id="servicos" class="section grid-bg" aria-label="Serviços">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">03 / O que eu entrego</span>
+        <span class="label" data-i18n="svc.label">03 / O que eu entrego</span>
         <span class="rule"></span>
-        <span class="label label-gray">Design · CRO · Copy</span>
+        <span class="label label-gray" data-i18n="svc.label.meta">Design · CRO · Copy</span>
       </div>
-      <h2 class="section-title reveal">O que eu<br/>entrego<span class="stop">.</span></h2>
-      <p class="section-subtitle reveal">Crio e otimizo páginas, sites e fluxos web para campanhas, lançamentos e captação. Do wireframe ao ar, com estratégia, design, copy e IA.</p>
+      <h2 class="section-title reveal" data-i18n="svc.title">O que eu<br/>entrego<span class="stop">.</span></h2>
+      <p class="section-subtitle reveal" data-i18n="svc.subtitle">Crio e otimizo páginas, sites e fluxos web para campanhas, lançamentos e captação. Do wireframe ao ar, com estratégia, design, copy e IA.</p>
 
       <div class="services-grid reveal">
         <div class="service-card">
-          <h3>Growth Web Design</h3>
-          <p>Criação e evolução de sites, landing pages, páginas de produto e experiências web conectadas a aquisição, campanhas e conversão.</p>
+          <h3 data-i18n="svc.s1.title">Growth Web Design</h3>
+          <p data-i18n="svc.s1.desc">Criação e evolução de sites, landing pages, páginas de produto e experiências web conectadas a aquisição, campanhas e conversão.</p>
         </div>
         <div class="service-card">
-          <h3>Landing pages e páginas de campanha</h3>
-          <p>Estruturação de páginas com copy, hierarquia visual, clareza de oferta, CTAs, formulários e fluxos de captação.</p>
+          <h3 data-i18n="svc.s2.title">Landing pages e páginas de campanha</h3>
+          <p data-i18n="svc.s2.desc">Estruturação de páginas com copy, hierarquia visual, clareza de oferta, CTAs, formulários e fluxos de captação.</p>
         </div>
         <div class="service-card">
-          <h3>CRO e otimização de conversão</h3>
-          <p>Análise de páginas, identificação de fricções, hipóteses de melhoria e otimização de hero, oferta, CTA, prova social e formulários.</p>
+          <h3 data-i18n="svc.s3.title">CRO e otimização de conversão</h3>
+          <p data-i18n="svc.s3.desc">Análise de páginas, identificação de fricções, hipóteses de melhoria e otimização de hero, oferta, CTA, prova social e formulários.</p>
         </div>
         <div class="service-card">
-          <h3>Copy aplicada a páginas web</h3>
-          <p>Organização da mensagem, proposta de valor, argumentos, objeções, microcopy e estrutura narrativa para páginas mais claras e persuasivas.</p>
+          <h3 data-i18n="svc.s4.title">Copy aplicada a páginas web</h3>
+          <p data-i18n="svc.s4.desc">Organização da mensagem, proposta de valor, argumentos, objeções, microcopy e estrutura narrativa para páginas mais claras e persuasivas.</p>
         </div>
         <div class="service-card">
-          <h3>IA aplicada à produção web</h3>
-          <p>Uso de IA para acelerar pesquisa, wireframes, variações de interface, copy, prototipação, desenvolvimento assistido e escala de produção.</p>
+          <h3 data-i18n="svc.s5.title">IA aplicada à produção web</h3>
+          <p data-i18n="svc.s5.desc">Uso de IA para acelerar pesquisa, wireframes, variações de interface, copy, prototipação, desenvolvimento assistido e escala de produção.</p>
         </div>
         <div class="service-card">
-          <h3>Design systems, Webflow e CMS</h3>
-          <p>Componentização, consistência visual, CMS, páginas escaláveis e sistemas de interface para times de marketing e growth.</p>
+          <h3 data-i18n="svc.s6.title">Design systems, Webflow e CMS</h3>
+          <p data-i18n="svc.s6.desc">Componentização, consistência visual, CMS, páginas escaláveis e sistemas de interface para times de marketing e growth.</p>
         </div>
       </div>
     </div>
@@ -1688,11 +1719,11 @@
   <section id="experiencia" class="section" aria-label="Experiência profissional">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">05 / Experiência</span>
+        <span class="label" data-i18n="exp.label">05 / Experiência</span>
         <span class="rule"></span>
-        <span class="label label-gray">12 anos · 6 empresas</span>
+        <span class="label label-gray" data-i18n="exp.label.meta">12 anos · 6 empresas</span>
       </div>
-      <h2 class="section-title reveal">Trajetória<span class="stop">.</span></h2>
+      <h2 class="section-title reveal" data-i18n="exp.title">Trajetória<span class="stop">.</span></h2>
 
       <div class="exp-list">
 
@@ -1700,15 +1731,15 @@
         <article class="exp-item featured">
           <span class="idx">01</span>
           <div class="exp-head">
-            <span class="badge">Destaque</span>
+            <span class="badge" data-i18n="badge.destaque">Destaque</span>
             <h3>LET'S</h3>
-            <div class="role">Webflow Designer</div>
-            <div class="period">dez 2025 / abr 2026 · 5 meses · Remoto</div>
+            <div class="role" data-i18n="lets.role">Webflow Designer</div>
+            <div class="period" data-i18n="lets.period">dez 2025 / abr 2026 · 5 meses · Remoto</div>
           </div>
           <div class="exp-body">
-            <p>Atuei na operação e evolução web da LET'S, uma SaaS B2B de logística, cuidando de páginas institucionais, páginas de produto, landing pages e ajustes no site para apoiar marketing, vendas e geração de demanda.</p>
-            <p>Trabalhei com Figma, Webflow, CMS, formulários e integrações com HubSpot, criando páginas mais claras, fáceis de manter e mais úteis para campanhas e abordagens comerciais.</p>
-            <p>Também participei da estruturação de páginas de venda, melhorias em formulários, organização de componentes e protótipos para novas páginas de produto, com foco em clareza da oferta e conversão.</p>
+            <p data-i18n="lets.p1">Atuei na operação e evolução web da LET'S, uma SaaS B2B de logística, cuidando de páginas institucionais, páginas de produto, landing pages e ajustes no site para apoiar marketing, vendas e geração de demanda.</p>
+            <p data-i18n="lets.p2">Trabalhei com Figma, Webflow, CMS, formulários e integrações com HubSpot, criando páginas mais claras, fáceis de manter e mais úteis para campanhas e abordagens comerciais.</p>
+            <p data-i18n="lets.p3">Também participei da estruturação de páginas de venda, melhorias em formulários, organização de componentes e protótipos para novas páginas de produto, com foco em clareza da oferta e conversão.</p>
           </div>
         </article>
 
@@ -1716,15 +1747,15 @@
         <article class="exp-item featured">
           <span class="idx">02</span>
           <div class="exp-head">
-            <span class="badge">Destaque</span>
+            <span class="badge" data-i18n="badge.destaque">Destaque</span>
             <h3>G4 Educação</h3>
-            <div class="role">Web Designer Pleno</div>
-            <div class="period">abr 2024 / fev 2025 · 11 meses · No local</div>
+            <div class="role" data-i18n="g4.role">Web Designer Pleno</div>
+            <div class="period" data-i18n="g4.period">abr 2024 / fev 2025 · 11 meses · No local</div>
           </div>
           <div class="exp-body">
-            <p>Atuei no time de Web Experience dentro de Martech/Growth, criando e evoluindo páginas de produto, landing pages, páginas de eventos, programas presenciais, materiais ricos e experiências digitais ligadas à captação.</p>
-            <p>Recebia demandas de marketing e growth e transformava em páginas publicáveis, organizando conteúdo, hierarquia visual, CTA, formulários, responsividade e consistência com o ecossistema visual do G4.</p>
-            <p>Trabalhei com CMS, ajustes de SEO técnico, FAQ estruturada, fluxos de captação, testes de variações visuais e colaboração com times de marketing, growth, produto, tecnologia e conteúdo.</p>
+            <p data-i18n="g4.p1">Atuei no time de Web Experience dentro de Martech/Growth, criando e evoluindo páginas de produto, landing pages, páginas de eventos, programas presenciais, materiais ricos e experiências digitais ligadas à captação.</p>
+            <p data-i18n="g4.p2">Recebia demandas de marketing e growth e transformava em páginas publicáveis, organizando conteúdo, hierarquia visual, CTA, formulários, responsividade e consistência com o ecossistema visual do G4.</p>
+            <p data-i18n="g4.p3">Trabalhei com CMS, ajustes de SEO técnico, FAQ estruturada, fluxos de captação, testes de variações visuais e colaboração com times de marketing, growth, produto, tecnologia e conteúdo.</p>
           </div>
         </article>
 
@@ -1733,17 +1764,17 @@
           <span class="idx">03</span>
           <div class="exp-head">
             <h3>K.Pitaliza Tecnologia</h3>
-            <div class="role">Coordenador de Marketing</div>
-            <div class="period">jun 2025 / out 2025 · 5 meses · Remoto</div>
+            <div class="role" data-i18n="kpit.role">Coordenador de Marketing</div>
+            <div class="period" data-i18n="kpit.period">jun 2025 / out 2025 · 5 meses · Remoto</div>
           </div>
           <div class="exp-body">
-            <p>Coordenei uma operação de marketing e growth em uma campanha nacional, conectando conteúdo, copy, design, afiliados, influenciadores, lives e materiais de campanha.</p>
-            <p>Liderei designers, copywriters e editores de vídeo, organizei calendário editorial, ativações, sorteios e ações de engajamento para aquisição, audiência e rede de afiliados.</p>
+            <p data-i18n="kpit.p1">Coordenei uma operação de marketing e growth em uma campanha nacional, conectando conteúdo, copy, design, afiliados, influenciadores, lives e materiais de campanha.</p>
+            <p data-i18n="kpit.p2">Liderei designers, copywriters e editores de vídeo, organizei calendário editorial, ativações, sorteios e ações de engajamento para aquisição, audiência e rede de afiliados.</p>
             <div class="metrics-row">
-              <div class="metric"><span class="metric-num">50<span class="accent">K</span></span><span class="metric-lbl">seguidores em &lt; 1 mês</span></div>
-              <div class="metric"><span class="metric-num">300<span class="accent">+</span></span><span class="metric-lbl">afiliados ativos</span></div>
-              <div class="metric"><span class="metric-num">5</span><span class="metric-lbl">estados com OOH</span></div>
-              <div class="metric"><span class="metric-num">8</span><span class="metric-lbl">pessoas lideradas</span></div>
+              <div class="metric"><span class="metric-num">50<span class="accent">K</span></span><span class="metric-lbl" data-i18n="kpit.m1">seguidores em &lt; 1 mês</span></div>
+              <div class="metric"><span class="metric-num">300<span class="accent">+</span></span><span class="metric-lbl" data-i18n="kpit.m2">afiliados ativos</span></div>
+              <div class="metric"><span class="metric-num">5</span><span class="metric-lbl" data-i18n="kpit.m3">estados com OOH</span></div>
+              <div class="metric"><span class="metric-num">8</span><span class="metric-lbl" data-i18n="kpit.m4">pessoas lideradas</span></div>
             </div>
           </div>
         </article>
@@ -1753,23 +1784,23 @@
           <span class="idx">04</span>
           <div class="exp-head">
             <h3>Valid</h3>
-            <div class="role">UX · Marketing &amp; Growth</div>
-            <div class="period">dez 2021 / nov 2023 · 1 ano 11 meses · Híbrido</div>
+            <div class="role" data-i18n="valid.role">UX · Marketing &amp; Growth</div>
+            <div class="period" data-i18n="valid.period">dez 2021 / nov 2023 · 1 ano 11 meses · Híbrido</div>
           </div>
           <div class="exp-body">
             <div class="exp-stint">
               <div class="exp-stint-head">
-                <span class="exp-stint-role">UX Designer</span>
-                <span class="exp-stint-period">jan 2023 / nov 2023 · 11 meses</span>
+                <span class="exp-stint-role" data-i18n="valid.ux.role">UX Designer</span>
+                <span class="exp-stint-period" data-i18n="valid.ux.period">jan 2023 / nov 2023 · 11 meses</span>
               </div>
-              <p>Projetos digitais com foco em UX, interface e identidade digital, incluindo produtos para grandes instituições e clientes governamentais.</p>
+              <p data-i18n="valid.ux.p">Projetos digitais com foco em UX, interface e identidade digital, incluindo produtos para grandes instituições e clientes governamentais.</p>
             </div>
             <div class="exp-stint">
               <div class="exp-stint-head">
-                <span class="exp-stint-role">Analista de Marketing &amp; Growth</span>
-                <span class="exp-stint-period">dez 2021 / dez 2022 · 1 ano 1 mês</span>
+                <span class="exp-stint-role" data-i18n="valid.mkt.role">Analista de Marketing &amp; Growth</span>
+                <span class="exp-stint-period" data-i18n="valid.mkt.period">dez 2021 / dez 2022 · 1 ano 1 mês</span>
               </div>
-              <p>Campanhas, geração de leads, design e materiais digitais para aquisição e comunicação de marca.</p>
+              <p data-i18n="valid.mkt.p">Campanhas, geração de leads, design e materiais digitais para aquisição e comunicação de marca.</p>
             </div>
           </div>
         </article>
@@ -1779,11 +1810,11 @@
           <span class="idx">05</span>
           <div class="exp-head">
             <h3>Agência Moonflag</h3>
-            <div class="role">Designer Gráfico</div>
-            <div class="period">fev 2021 / nov 2021 · 10 meses · Híbrido</div>
+            <div class="role" data-i18n="moon.role">Designer Gráfico</div>
+            <div class="period" data-i18n="moon.period">fev 2021 / nov 2021 · 10 meses · Híbrido</div>
           </div>
           <div class="exp-body">
-            <p>Peças digitais, landing pages, apresentações e materiais de campanha para clientes B2B em uma agência focada no mercado contábil.</p>
+            <p data-i18n="moon.p">Peças digitais, landing pages, apresentações e materiais de campanha para clientes B2B em uma agência focada no mercado contábil.</p>
           </div>
         </article>
 
@@ -1792,11 +1823,11 @@
           <span class="idx">06</span>
           <div class="exp-head">
             <h3>Ituran Brasil</h3>
-            <div class="role">Assistente de Marketing</div>
-            <div class="period">set 2018 / dez 2019 · 1 ano 4 meses · Híbrido</div>
+            <div class="role" data-i18n="ituran.role">Assistente de Marketing</div>
+            <div class="period" data-i18n="ituran.period">set 2018 / dez 2019 · 1 ano 4 meses · Híbrido</div>
           </div>
           <div class="exp-body">
-            <p>Materiais digitais e institucionais para comunicação, campanhas e suporte às áreas internas de marketing e vendas.</p>
+            <p data-i18n="ituran.p">Materiais digitais e institucionais para comunicação, campanhas e suporte às áreas internas de marketing e vendas.</p>
           </div>
         </article>
 
@@ -1808,11 +1839,11 @@
   <section id="trabalhos" class="section" aria-label="Trabalhos selecionados">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">04 / Projetos</span>
+        <span class="label" data-i18n="proj.label">04 / Projetos</span>
         <span class="rule"></span>
-        <span class="label" style="color: rgba(255,255,255,0.45);">Selecionados · 2024</span>
+        <span class="label" style="color: rgba(255,255,255,0.45);" data-i18n="proj.label.meta">Selecionados · 2024</span>
       </div>
-      <h2 class="section-title reveal">Projetos<span class="stop">.</span></h2>
+      <h2 class="section-title reveal" data-i18n="proj.title">Projetos<span class="stop">.</span></h2>
 
       <div class="works-grid" style="grid-template-columns: repeat(2, 1fr);">
 
@@ -1821,17 +1852,17 @@
             <img src="capa-g4.jpg" alt="Redesign LP G4 Gestão &amp; Estratégia" data-fallback="capa-g4.jpg" data-fb-w="800" data-fb-h="450" />
           </div>
           <div class="work-meta">
-            <div class="work-cat">Página de produto · Growth Web Design · Educação executiva</div>
+            <div class="work-cat" data-i18n="g4.card.cat">Página de produto · Growth Web Design · Educação executiva</div>
             <h3 class="work-title">G4 Gestão &amp; Estratégia</h3>
-            <div class="work-client">G4 Educação · 2024</div>
-            <p class="work-desc">Redesign de uma página estratégica para comunicar melhor a oferta, organizar argumentos de valor e apoiar campanhas de aquisição para um dos principais produtos do G4 Educação.</p>
+            <div class="work-client" data-i18n="g4.card.client">G4 Educação · 2024</div>
+            <p class="work-desc" data-i18n="g4.card.desc">Redesign de uma página estratégica para comunicar melhor a oferta, organizar argumentos de valor e apoiar campanhas de aquisição para um dos principais produtos do G4 Educação.</p>
             <ul style="list-style: none; padding: 0; margin: 12px 0 16px; display: flex; flex-direction: column; gap: 5px;">
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Hierarquia visual orientada à conversão</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Organização de oferta e argumentos de venda</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Estrutura responsiva e publicação em alta demanda</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Colaboração com time de Growth e Marketing</li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="g4.card.b1">Hierarquia visual orientada à conversão</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="g4.card.b2">Organização de oferta e argumentos de venda</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="g4.card.b3">Estrutura responsiva e publicação em alta demanda</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="g4.card.b4">Colaboração com time de Growth e Marketing</span></li>
             </ul>
-            <span class="work-cta">Ver projeto no Behance ↗</span>
+            <span class="work-cta" data-i18n="g4.card.cta">Ver projeto no Behance ↗</span>
           </div>
         </a>
 
@@ -1840,17 +1871,17 @@
             <img src="capa-g4-sprints.jpg" alt="LP G4 Sprints — Lançamento de Produto" data-fallback="capa-g4-sprints.jpg" data-fb-w="800" data-fb-h="450" />
           </div>
           <div class="work-meta">
-            <div class="work-cat">LP de lançamento · Growth Web Design · Educação executiva</div>
+            <div class="work-cat" data-i18n="sprints.card.cat">LP de lançamento · Growth Web Design · Educação executiva</div>
             <h3 class="work-title">G4 Sprints — Aumento de Receita</h3>
-            <div class="work-client">G4 Educação · 2024</div>
-            <p class="work-desc">LP de lançamento para uma nova categoria de produto do G4 Educação, comunicando uma experiência presencial intensiva para fundadores e C-levels, com copy orientada à conversão e implementação no Webflow.</p>
+            <div class="work-client" data-i18n="sprints.card.client">G4 Educação · 2024</div>
+            <p class="work-desc" data-i18n="sprints.card.desc">LP de lançamento para uma nova categoria de produto do G4 Educação, comunicando uma experiência presencial intensiva para fundadores e C-levels, com copy orientada à conversão e implementação no Webflow.</p>
             <ul style="list-style: none; padding: 0; margin: 12px 0 16px; display: flex; flex-direction: column; gap: 5px;">
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Estrutura de oferta e copy para lançamento</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Do protótipo no Figma à publicação no Webflow</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Primeira turma preenchida no pré-lançamento</li>
-              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span>Página usada como modelo para futuras Sprints</li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="sprints.card.b1">Estrutura de oferta e copy para lançamento</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="sprints.card.b2">Do protótipo no Figma à publicação no Webflow</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="sprints.card.b3">Primeira turma preenchida no pré-lançamento</span></li>
+              <li style="font-size: 12px; color: rgba(255,255,255,0.55); padding-left: 14px; position: relative;"><span style="position:absolute;left:0;color:var(--red);font-size:10px;">→</span><span data-i18n="sprints.card.b4">Página usada como modelo para futuras Sprints</span></li>
             </ul>
-            <span class="work-cta">Ver projeto no Behance ↗</span>
+            <span class="work-cta" data-i18n="sprints.card.cta">Ver projeto no Behance ↗</span>
           </div>
         </a>
 
@@ -1873,8 +1904,8 @@
       </div>
 
       <div class="behance-cta reveal" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-        <p style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin: 0;">Outros projetos, estudos e trabalhos visuais estão disponíveis no Behance.</p>
-        <a href="https://www.behance.net/diogoux" target="_blank" rel="noopener" class="btn btn-ghost" style="flex-shrink: 0;">Ver mais no Behance <span class="arr">↗</span></a>
+        <p style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin: 0;" data-i18n="behance.text">Outros projetos, estudos e trabalhos visuais estão disponíveis no Behance.</p>
+        <a href="https://www.behance.net/diogoux" target="_blank" rel="noopener" class="btn btn-ghost" style="flex-shrink: 0;" data-i18n="behance.cta">Ver mais no Behance <span class="arr">↗</span></a>
       </div>
     </div>
   </section>
@@ -1883,16 +1914,16 @@
   <section id="skills" class="section grid-bg" aria-label="Habilidades">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">06 / Stack</span>
+        <span class="label" data-i18n="stack.label">06 / Stack</span>
         <span class="rule"></span>
-        <span class="label label-gray">Design · CRO · IA · Ferramentas</span>
+        <span class="label label-gray" data-i18n="stack.label.meta">Design · CRO · IA · Ferramentas</span>
       </div>
-      <h2 class="section-title reveal">Stack<span class="stop">.</span></h2>
-      <p class="section-subtitle reveal">Ferramentas e habilidades que uso para criar, publicar e otimizar páginas, campanhas e experiências web. Chips pretos: core stack. Chips brancos: complementares.</p>
+      <h2 class="section-title reveal" data-i18n="stack.title">Stack<span class="stop">.</span></h2>
+      <p class="section-subtitle reveal" data-i18n="stack.subtitle">Ferramentas e habilidades que uso para criar, publicar e otimizar páginas, campanhas e experiências web. Chips pretos: core stack. Chips brancos: complementares.</p>
 
       <div class="skills-grid reveal">
         <div class="skill-col">
-          <h3>Web e páginas <span>/ 07</span></h3>
+          <h3 data-i18n="stack.g1">Web e páginas <span>/ 07</span></h3>
           <div class="tag-list">
             <span class="tag tag-red">Growth Web Design</span>
             <span class="tag tag-red">Landing Pages</span>
@@ -1905,7 +1936,7 @@
         </div>
 
         <div class="skill-col">
-          <h3>CRO e aquisição <span>/ 08</span></h3>
+          <h3 data-i18n="stack.g2">CRO e aquisição <span>/ 08</span></h3>
           <div class="tag-list">
             <span class="tag tag-red">CRO</span>
             <span class="tag tag-red">CTAs</span>
@@ -1919,7 +1950,7 @@
         </div>
 
         <div class="skill-col">
-          <h3>Copy e mensagem <span>/ 07</span></h3>
+          <h3 data-i18n="stack.g3">Copy e mensagem <span>/ 07</span></h3>
           <div class="tag-list">
             <span class="tag tag-red">Copy</span>
             <span class="tag tag-red">Headline</span>
@@ -1932,7 +1963,7 @@
         </div>
 
         <div class="skill-col">
-          <h3>Design e UX/UI <span>/ 08</span></h3>
+          <h3 data-i18n="stack.g4">Design e UX/UI <span>/ 08</span></h3>
           <div class="tag-list">
             <span class="tag tag-red">Figma</span>
             <span class="tag tag-red">Wireframes</span>
@@ -1946,7 +1977,7 @@
         </div>
 
         <div class="skill-col">
-          <h3>IA aplicada <span>/ 07</span></h3>
+          <h3 data-i18n="stack.g5">IA aplicada <span>/ 07</span></h3>
           <div class="tag-list">
             <span class="tag tag-red">Claude</span>
             <span class="tag tag-red">Claude Code</span>
@@ -1959,7 +1990,7 @@
         </div>
 
         <div class="skill-col">
-          <h3>Operação <span>/ 06</span></h3>
+          <h3 data-i18n="stack.g6">Operação <span>/ 06</span></h3>
           <div class="tag-list">
             <span class="tag">Briefing</span>
             <span class="tag">Priorização</span>
@@ -1977,27 +2008,27 @@
   <section id="formacao" class="section" aria-label="Formação">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">07 / Formação</span>
+        <span class="label" data-i18n="edu.label">07 / Formação</span>
         <span class="rule"></span>
-        <span class="label label-gray">Graduação · Certificações</span>
+        <span class="label label-gray" data-i18n="edu.label.meta">Graduação · Certificações</span>
       </div>
-      <h2 class="section-title reveal">Educação<span class="stop">.</span></h2>
+      <h2 class="section-title reveal" data-i18n="edu.title">Educação<span class="stop">.</span></h2>
 
       <div class="edu-grid reveal">
         <div class="edu-grad">
           <div class="school">FMU · Centro Universitário</div>
           <h3>Publicidade &amp; Propaganda</h3>
-          <div class="course">Formação em Publicidade e Propaganda, complementada por estudos em UX, Figma, Design System, Web Analytics, BI, estratégia digital e IA aplicada à criação de experiências web.</div>
-          <div class="period">2014 / 2017 · Bacharel</div>
+          <div class="course" data-i18n="edu.course">Formação em Publicidade e Propaganda, complementada por estudos em UX, Figma, Design System, Web Analytics, BI, estratégia digital e IA aplicada à criação de experiências web.</div>
+          <div class="period" data-i18n="edu.degree">2014 / 2017 · Bacharel</div>
         </div>
 
         <table class="cert-table">
-          <caption>Formação complementar</caption>
+          <caption data-i18n="edu.caption">Formação complementar</caption>
           <thead>
             <tr>
-              <th>Curso</th>
-              <th>Escola</th>
-              <th>Carga</th>
+              <th data-i18n="edu.th.curso">Curso</th>
+              <th data-i18n="edu.th.escola">Escola</th>
+              <th data-i18n="edu.th.carga">Carga</th>
             </tr>
           </thead>
           <tbody>
@@ -2016,14 +2047,14 @@
   <section id="contato" class="section" aria-label="Contato">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">08 / Contato</span>
+        <span class="label" data-i18n="contact.label">08 / Contato</span>
         <span class="rule"></span>
-        <span class="label" style="color: rgba(255,255,255,0.45);">Em todos os canais</span>
+        <span class="label" style="color: rgba(255,255,255,0.45);" data-i18n="contact.label.meta">Em todos os canais</span>
       </div>
-      <h2 class="section-title reveal">Vamos<br/>conversar<span class="stop">.</span></h2>
+      <h2 class="section-title reveal" data-i18n="contact.title">Vamos<br/>conversar<span class="stop">.</span></h2>
 
       <div class="contact-grid">
-        <p class="contact-intro">
+        <p class="contact-intro" data-i18n="contact.intro">
           Estou disponível para oportunidades como Growth Web Designer, Web Designer, Webflow Designer ou Marketing Designer em empresas que precisam criar, otimizar e escalar sites, landing pages, páginas de produto e experiências web com foco em aquisição, conversão e crescimento. <span class="accent">Se sua empresa precisa de páginas que convertam de verdade, podemos conversar.</span>
         </p>
         <div class="contact-list">
@@ -2051,7 +2082,7 @@
       </div>
 
       <div class="cta-pdf-wrap print-hide">
-        <a href="cv-diogo-abilio.pdf" download class="cta-pdf">↓ Baixar currículo em PDF</a>
+        <a href="cv-diogo-abilio.pdf" download class="cta-pdf" data-i18n="contact.cv">↓ Baixar currículo em PDF</a>
       </div>
     </div>
   </section>
@@ -2060,12 +2091,155 @@
 
 <footer class="site-foot">
   <div class="wrap foot-inner">
-    <span>Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026</span>
+    <span data-i18n="footer.text">Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026</span>
     <span>Built with Claude Code · Hosted on Vercel</span>
   </div>
 </footer>
 
 <script>
+  // ===== i18n =====
+  var i18n = {
+    pt: {
+      'nav.sobre':'Sobre','nav.entregas':'Entregas','nav.projetos':'Projetos','nav.experiencia':'Experiência','nav.stack':'Stack','nav.formacao':'Formação','nav.contato':'Contato','nav.cv':'↓ Baixar CV',
+      'hero.pill':'<strong>Disponível</strong> · Growth Web Design · CRO · Webflow',
+      'hero.tag':'Growth Web Designer para empresas que precisam transformar páginas em <em>canais de aquisição, conversão e crescimento.</em>',
+      'hero.bio':'Tenho <b>12 anos de experiência</b> conectando design, marketing, produto e comunicação. Crio e otimizo sites, landing pages, páginas de produto e experiências web combinando estratégia, CRO, copy, IA, Figma e Webflow para ajudar empresas a comunicarem melhor suas ofertas e converterem mais.',
+      'hero.cta.primary':'Ver projetos <span class="arr">↓</span>','hero.cta.secondary':'Falar comigo <span class="arr">↗</span>',
+      'sobre.label':'02 / Sobre','sobre.label.meta':'Bio · Princípio','sobre.title':'Quem sou<span class="stop">.</span>',
+      'sobre.p1':'Tenho 12 anos de experiência em design, marketing e produto. Passei por campanhas, landing pages, interfaces, UX/UI, growth e comunicação antes de chegar onde estou hoje.',
+      'sobre.p2':'Hoje trabalho com Growth Web Design: crio e otimizo sites, landing pages e páginas de produto para aquisição, campanhas e geração de leads, com Figma, Webflow, CRO, copy e ferramentas modernas de criação web.',
+      'sobre.p3':'IA faz parte do processo. Uso para gerar variações de hero, testar ângulos de copy, prototipar seções mais rápido e chegar antes na primeira versão publicável de uma página.',
+      'sobre.p4':'Gosto de trabalhar próximo de times de marketing, growth e produto, onde entrega e estratégia precisam andar juntas.',
+      'sobre.pullquote':'Páginas que comunicam bem, convertem melhor e são úteis para o negócio.','sobre.label.tag':'Growth Web Design · CRO · IA Aplicada',
+      'svc.label':'03 / O que eu entrego','svc.label.meta':'Design · CRO · Copy','svc.title':'O que eu<br/>entrego<span class="stop">.</span>',
+      'svc.subtitle':'Crio e otimizo páginas, sites e fluxos web para campanhas, lançamentos e captação. Do wireframe ao ar, com estratégia, design, copy e IA.',
+      'svc.s1.title':'Growth Web Design','svc.s1.desc':'Criação e evolução de sites, landing pages, páginas de produto e experiências web conectadas a aquisição, campanhas e conversão.',
+      'svc.s2.title':'Landing pages e páginas de campanha','svc.s2.desc':'Estruturação de páginas com copy, hierarquia visual, clareza de oferta, CTAs, formulários e fluxos de captação.',
+      'svc.s3.title':'CRO e otimização de conversão','svc.s3.desc':'Análise de páginas, identificação de fricções, hipóteses de melhoria e otimização de hero, oferta, CTA, prova social e formulários.',
+      'svc.s4.title':'Copy aplicada a páginas web','svc.s4.desc':'Organização da mensagem, proposta de valor, argumentos, objeções, microcopy e estrutura narrativa para páginas mais claras e persuasivas.',
+      'svc.s5.title':'IA aplicada à produção web','svc.s5.desc':'Uso de IA para acelerar pesquisa, wireframes, variações de interface, copy, prototipação, desenvolvimento assistido e escala de produção.',
+      'svc.s6.title':'Design systems, Webflow e CMS','svc.s6.desc':'Componentização, consistência visual, CMS, páginas escaláveis e sistemas de interface para times de marketing e growth.',
+      'proj.label':'04 / Projetos','proj.label.meta':'Selecionados · 2024','proj.title':'Projetos<span class="stop">.</span>',
+      'g4.card.cat':'Página de produto · Growth Web Design · Educação executiva','g4.card.client':'G4 Educação · 2024',
+      'g4.card.desc':'Redesign de uma página estratégica para comunicar melhor a oferta, organizar argumentos de valor e apoiar campanhas de aquisição para um dos principais produtos do G4 Educação.',
+      'g4.card.b1':'Hierarquia visual orientada à conversão','g4.card.b2':'Organização de oferta e argumentos de venda','g4.card.b3':'Estrutura responsiva e publicação em alta demanda','g4.card.b4':'Colaboração com time de Growth e Marketing','g4.card.cta':'Ver projeto no Behance ↗',
+      'sprints.card.cat':'LP de lançamento · Growth Web Design · Educação executiva','sprints.card.client':'G4 Educação · 2024',
+      'sprints.card.desc':'LP de lançamento para uma nova categoria de produto do G4 Educação, comunicando uma experiência presencial intensiva para fundadores e C-levels, com copy orientada à conversão e implementação no Webflow.',
+      'sprints.card.b1':'Estrutura de oferta e copy para lançamento','sprints.card.b2':'Do protótipo no Figma à publicação no Webflow','sprints.card.b3':'Primeira turma preenchida no pré-lançamento','sprints.card.b4':'Página usada como modelo para futuras Sprints','sprints.card.cta':'Ver projeto no Behance ↗',
+      'behance.text':'Outros projetos, estudos e trabalhos visuais estão disponíveis no Behance.','behance.cta':'Ver mais no Behance <span class="arr">↗</span>',
+      'exp.label':'05 / Experiência','exp.label.meta':'12 anos · 6 empresas','exp.title':'Trajetória<span class="stop">.</span>',
+      'badge.destaque':'Destaque',
+      'lets.role':'Webflow Designer','lets.period':'dez 2025 / abr 2026 · 5 meses · Remoto',
+      'lets.p1':'Atuei na operação e evolução web da LET\'S, uma SaaS B2B de logística, cuidando de páginas institucionais, páginas de produto, landing pages e ajustes no site para apoiar marketing, vendas e geração de demanda.',
+      'lets.p2':'Trabalhei com Figma, Webflow, CMS, formulários e integrações com HubSpot, criando páginas mais claras, fáceis de manter e mais úteis para campanhas e abordagens comerciais.',
+      'lets.p3':'Também participei da estruturação de páginas de venda, melhorias em formulários, organização de componentes e protótipos para novas páginas de produto, com foco em clareza da oferta e conversão.',
+      'g4.role':'Web Designer Pleno','g4.period':'abr 2024 / fev 2025 · 11 meses · No local',
+      'g4.p1':'Atuei no time de Web Experience dentro de Martech/Growth, criando e evoluindo páginas de produto, landing pages, páginas de eventos, programas presenciais, materiais ricos e experiências digitais ligadas à captação.',
+      'g4.p2':'Recebia demandas de marketing e growth e transformava em páginas publicáveis, organizando conteúdo, hierarquia visual, CTA, formulários, responsividade e consistência com o ecossistema visual do G4.',
+      'g4.p3':'Trabalhei com CMS, ajustes de SEO técnico, FAQ estruturada, fluxos de captação, testes de variações visuais e colaboração com times de marketing, growth, produto, tecnologia e conteúdo.',
+      'kpit.role':'Coordenador de Marketing','kpit.period':'jun 2025 / out 2025 · 5 meses · Remoto',
+      'kpit.p1':'Coordenei uma operação de marketing e growth em uma campanha nacional, conectando conteúdo, copy, design, afiliados, influenciadores, lives e materiais de campanha.',
+      'kpit.p2':'Liderei designers, copywriters e editores de vídeo, organizei calendário editorial, ativações, sorteios e ações de engajamento para aquisição, audiência e rede de afiliados.',
+      'kpit.m1':'seguidores em < 1 mês','kpit.m2':'afiliados ativos','kpit.m3':'estados com OOH','kpit.m4':'pessoas lideradas',
+      'valid.role':'UX · Marketing & Growth','valid.period':'dez 2021 / nov 2023 · 1 ano 11 meses · Híbrido',
+      'valid.ux.role':'UX Designer','valid.ux.period':'jan 2023 / nov 2023 · 11 meses','valid.ux.p':'Projetos digitais com foco em UX, interface e identidade digital, incluindo produtos para grandes instituições e clientes governamentais.',
+      'valid.mkt.role':'Analista de Marketing & Growth','valid.mkt.period':'dez 2021 / dez 2022 · 1 ano 1 mês','valid.mkt.p':'Campanhas, geração de leads, design e materiais digitais para aquisição e comunicação de marca.',
+      'moon.role':'Designer Gráfico','moon.period':'fev 2021 / nov 2021 · 10 meses · Híbrido','moon.p':'Peças digitais, landing pages, apresentações e materiais de campanha para clientes B2B em uma agência focada no mercado contábil.',
+      'ituran.role':'Assistente de Marketing','ituran.period':'set 2018 / dez 2019 · 1 ano 4 meses · Híbrido','ituran.p':'Materiais digitais e institucionais para comunicação, campanhas e suporte às áreas internas de marketing e vendas.',
+      'stack.label':'06 / Stack','stack.label.meta':'Design · CRO · IA · Ferramentas','stack.title':'Stack<span class="stop">.</span>',
+      'stack.subtitle':'Ferramentas e habilidades que uso para criar, publicar e otimizar páginas, campanhas e experiências web. Chips pretos: core stack. Chips brancos: complementares.',
+      'stack.g1':'Web e páginas <span>/ 07</span>','stack.g2':'CRO e aquisição <span>/ 08</span>','stack.g3':'Copy e mensagem <span>/ 07</span>','stack.g4':'Design e UX/UI <span>/ 08</span>','stack.g5':'IA aplicada <span>/ 07</span>','stack.g6':'Operação <span>/ 06</span>',
+      'edu.label':'07 / Formação','edu.label.meta':'Graduação · Certificações','edu.title':'Educação<span class="stop">.</span>','edu.caption':'Formação complementar',
+      'edu.th.curso':'Curso','edu.th.escola':'Escola','edu.th.carga':'Carga',
+      'edu.course':'Formação em Publicidade e Propaganda, complementada por estudos em UX, Figma, Design System, Web Analytics, BI, estratégia digital e IA aplicada à criação de experiências web.',
+      'edu.degree':'2014 / 2017 · Bacharel',
+      'contact.label':'08 / Contato','contact.label.meta':'Em todos os canais','contact.title':'Vamos<br/>conversar<span class="stop">.</span>',
+      'contact.intro':'Estou disponível para oportunidades como Growth Web Designer, Web Designer, Webflow Designer ou Marketing Designer em empresas que precisam criar, otimizar e escalar sites, landing pages, páginas de produto e experiências web com foco em aquisição, conversão e crescimento. <span class="accent">Se sua empresa precisa de páginas que convertam de verdade, podemos conversar.</span>',
+      'contact.cv':'↓ Baixar currículo em PDF',
+      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026'
+    },
+    en: {
+      'nav.sobre':'About','nav.entregas':'Services','nav.projetos':'Projects','nav.experiencia':'Experience','nav.stack':'Stack','nav.formacao':'Education','nav.contato':'Contact','nav.cv':'↓ Download CV',
+      'hero.pill':'<strong>Available</strong> · Growth Web Design · CRO · Webflow',
+      'hero.tag':'Growth Web Designer for companies that need to turn pages into <em>acquisition, conversion and growth channels.</em>',
+      'hero.bio':'I have <b>12 years of experience</b> connecting design, marketing, product and communication. I create and optimize websites, landing pages and product pages combining strategy, CRO, copy, AI, Figma and Webflow to help companies communicate their offers more clearly and convert more.',
+      'hero.cta.primary':'See projects <span class="arr">↓</span>','hero.cta.secondary':'Get in touch <span class="arr">↗</span>',
+      'sobre.label':'02 / About','sobre.label.meta':'Bio · Principle','sobre.title':'About me<span class="stop">.</span>',
+      'sobre.p1':'I have 12 years of experience in design, marketing and product. I worked across campaigns, landing pages, interfaces, UX/UI, growth and communication before getting to where I am today.',
+      'sobre.p2':'Today I focus on Growth Web Design: creating and optimizing websites, landing pages and product pages for acquisition, campaigns and lead generation, using Figma, Webflow, CRO, copy and modern web tools.',
+      'sobre.p3':'AI is part of the process. I use it to generate hero variations, test copy angles, prototype sections faster and reach a first publishable version of a page sooner.',
+      'sobre.p4':'I enjoy working closely with marketing, growth and product teams, where delivery and strategy need to go hand in hand.',
+      'sobre.pullquote':'Pages that communicate well, convert better and are useful for the business.','sobre.label.tag':'Growth Web Design · CRO · Applied AI',
+      'svc.label':'03 / What I deliver','svc.label.meta':'Design · CRO · Copy','svc.title':'What I<br/>deliver<span class="stop">.</span>',
+      'svc.subtitle':'I create and optimize pages, websites and web flows for campaigns, launches and lead capture. From wireframe to live, with strategy, design, copy and AI.',
+      'svc.s1.title':'Growth Web Design','svc.s1.desc':'Creation and evolution of websites, landing pages, product pages and web experiences connected to acquisition, campaigns and conversion.',
+      'svc.s2.title':'Landing pages and campaign pages','svc.s2.desc':'Page structuring with copy, visual hierarchy, offer clarity, CTAs, forms and lead capture flows.',
+      'svc.s3.title':'CRO and conversion optimization','svc.s3.desc':'Page analysis, friction identification, improvement hypotheses and optimization of hero, offer, CTA, social proof and forms.',
+      'svc.s4.title':'Copy applied to web pages','svc.s4.desc':'Message organization, value proposition, arguments, objections, microcopy and narrative structure for clearer and more persuasive pages.',
+      'svc.s5.title':'AI applied to web production','svc.s5.desc':'Using AI to speed up research, wireframes, interface variations, copy, prototyping, assisted development and production scaling.',
+      'svc.s6.title':'Design systems, Webflow and CMS','svc.s6.desc':'Componentization, visual consistency, CMS, scalable pages and interface systems for marketing and growth teams.',
+      'proj.label':'04 / Projects','proj.label.meta':'Selected · 2024','proj.title':'Projects<span class="stop">.</span>',
+      'g4.card.cat':'Product page · Growth Web Design · Executive education','g4.card.client':'G4 Educação · 2024',
+      'g4.card.desc':'Redesign of a strategic page to better communicate the offer, organize value arguments and support acquisition campaigns for one of G4 Educação\'s main products.',
+      'g4.card.b1':'Conversion-oriented visual hierarchy','g4.card.b2':'Offer organization and sales arguments','g4.card.b3':'Responsive structure, published in high-demand environment','g4.card.b4':'Collaboration with Growth and Marketing team','g4.card.cta':'View on Behance ↗',
+      'sprints.card.cat':'Launch LP · Growth Web Design · Executive education','sprints.card.client':'G4 Educação · 2024',
+      'sprints.card.desc':'Launch landing page for a new G4 Educação product category, communicating an intensive in-person experience for founders and C-levels, with conversion-oriented copy and Webflow implementation.',
+      'sprints.card.b1':'Offer structure and copy for launch','sprints.card.b2':'From Figma prototype to Webflow publish','sprints.card.b3':'First cohort filled during pre-launch','sprints.card.b4':'Page used as template for future Sprints','sprints.card.cta':'View on Behance ↗',
+      'behance.text':'Other projects, studies and visual work are available on Behance.','behance.cta':'See more on Behance <span class="arr">↗</span>',
+      'exp.label':'05 / Experience','exp.label.meta':'12 years · 6 companies','exp.title':'Career<span class="stop">.</span>',
+      'badge.destaque':'Featured',
+      'lets.role':'Webflow Designer','lets.period':'Dec 2025 / Apr 2026 · 5 months · Remote',
+      'lets.p1':'I worked on the web operation and evolution at LET\'S, a B2B SaaS logistics company, managing institutional pages, product pages, landing pages and site adjustments to support marketing, sales and demand generation.',
+      'lets.p2':'I worked with Figma, Webflow, CMS, forms and HubSpot integrations, building pages that were clearer, easier to maintain and more useful for campaigns and commercial outreach.',
+      'lets.p3':'I also helped structure sales pages, improve forms, organize components and prototype new product pages, focused on offer clarity and conversion.',
+      'g4.role':'Mid-level Web Designer','g4.period':'Apr 2024 / Feb 2025 · 11 months · On-site',
+      'g4.p1':'I worked on the Web Experience team within Martech/Growth, creating and evolving product pages, landing pages, event pages, in-person programs, rich materials and digital experiences tied to lead acquisition.',
+      'g4.p2':'I received briefs from marketing and growth teams and turned them into publishable pages — organizing content, visual hierarchy, CTAs, forms, responsiveness and consistency with the G4 visual ecosystem.',
+      'g4.p3':'I worked with CMS, technical SEO, structured FAQs, acquisition flows, visual variation testing and collaboration with marketing, growth, product, tech and content teams.',
+      'kpit.role':'Marketing Coordinator','kpit.period':'Jun 2025 / Oct 2025 · 5 months · Remote',
+      'kpit.p1':'I coordinated a marketing and growth operation for a national campaign, connecting content, copy, design, affiliates, influencers, live events and campaign materials.',
+      'kpit.p2':'I led designers, copywriters and video editors, organized editorial calendars, activations, giveaways and engagement actions for acquisition, audience growth and affiliate network expansion.',
+      'kpit.m1':'followers in < 1 month','kpit.m2':'active affiliates','kpit.m3':'states with OOH','kpit.m4':'people led',
+      'valid.role':'UX · Marketing & Growth','valid.period':'Dec 2021 / Nov 2023 · 1 year 11 months · Hybrid',
+      'valid.ux.role':'UX Designer','valid.ux.period':'Jan 2023 / Nov 2023 · 11 months','valid.ux.p':'Digital projects focused on UX, interface and digital identity, including products for large institutions and government clients.',
+      'valid.mkt.role':'Marketing & Growth Analyst','valid.mkt.period':'Dec 2021 / Dec 2022 · 1 year 1 month','valid.mkt.p':'Campaigns, lead generation, design and digital materials for acquisition and brand communication.',
+      'moon.role':'Graphic Designer','moon.period':'Feb 2021 / Nov 2021 · 10 months · Hybrid','moon.p':'Digital pieces, landing pages, presentations and campaign materials for B2B clients at an agency focused on the accounting market.',
+      'ituran.role':'Marketing Assistant','ituran.period':'Sep 2018 / Dec 2019 · 1 year 4 months · Hybrid','ituran.p':'Digital and institutional materials for communication, campaigns and support to internal marketing and sales teams.',
+      'stack.label':'06 / Stack','stack.label.meta':'Design · CRO · AI · Tools','stack.title':'Stack<span class="stop">.</span>',
+      'stack.subtitle':'Tools and skills I use to create, publish and optimize pages, campaigns and web experiences. Black chips: core stack. White chips: complementary.',
+      'stack.g1':'Web & pages <span>/ 07</span>','stack.g2':'CRO & acquisition <span>/ 08</span>','stack.g3':'Copy & message <span>/ 07</span>','stack.g4':'Design & UX/UI <span>/ 08</span>','stack.g5':'Applied AI <span>/ 07</span>','stack.g6':'Operations <span>/ 06</span>',
+      'edu.label':'07 / Education','edu.label.meta':'Degree · Certifications','edu.title':'Education<span class="stop">.</span>','edu.caption':'Additional training',
+      'edu.th.curso':'Course','edu.th.escola':'School','edu.th.carga':'Hours',
+      'edu.course':'Degree in Advertising and Marketing, complemented by studies in UX, Figma, Design System, Web Analytics, BI, digital strategy and AI applied to web experience creation.',
+      'edu.degree':'2014 / 2017 · Bachelor\'s Degree',
+      'contact.label':'08 / Contact','contact.label.meta':'All channels','contact.title':'Let\'s<br/>talk<span class="stop">.</span>',
+      'contact.intro':'I\'m available for opportunities as a Growth Web Designer, Web Designer, Webflow Designer or Marketing Designer at companies that need to create, optimize and scale websites, landing pages, product pages and web experiences focused on acquisition, conversion and growth. <span class="accent">If your company needs pages that truly convert, let\'s talk.</span>',
+      'contact.cv':'↓ Download resume as PDF',
+      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026'
+    }
+  };
+
+  function setLanguage(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (i18n[lang] && i18n[lang][key] !== undefined) {
+        el.innerHTML = i18n[lang][key];
+      }
+    });
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var saved = localStorage.getItem('lang') || 'pt';
+    setLanguage(saved);
+    document.getElementById('btn-pt').addEventListener('click', function() { setLanguage('pt'); });
+    document.getElementById('btn-en').addEventListener('click', function() { setLanguage('en'); });
+  });
+
   // Mobile nav toggle
   (function () {
     var btn = document.getElementById('hambBtn');
