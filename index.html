@@ -1579,7 +1579,7 @@
       <li><a href="#contato" data-i18n="nav.contato">Contato</a></li>
     </ul>
     <div style="display:flex; align-items:center; gap:12px;">
-      <a href="cv-diogo-abilio.pdf" download class="btn-pdf print-hide" data-i18n="nav.cv">↓ Baixar CV</a>
+      <a href="cv-diogo-abilio.pdf" download class="btn-pdf print-hide" data-i18n="nav.cv" data-i18n-href="cv.href">↓ Baixar CV</a>
       <div class="lang-toggle print-hide">
         <button class="lang-btn active" data-lang="pt" id="btn-pt">PT</button>
         <span class="lang-sep">/</span>
@@ -2082,7 +2082,7 @@
       </div>
 
       <div class="cta-pdf-wrap print-hide">
-        <a href="cv-diogo-abilio.pdf" download class="cta-pdf" data-i18n="contact.cv">↓ Baixar currículo em PDF</a>
+        <a href="cv-diogo-abilio.pdf" download class="cta-pdf" data-i18n="contact.cv" data-i18n-href="cv.href">↓ Baixar currículo em PDF</a>
       </div>
     </div>
   </section>
@@ -2156,7 +2156,8 @@
       'contact.label':'08 / Contato','contact.label.meta':'Em todos os canais','contact.title':'Vamos<br/>conversar<span class="stop">.</span>',
       'contact.intro':'Estou disponível para oportunidades como Growth Web Designer, Web Designer, Webflow Designer ou Marketing Designer em empresas que precisam criar, otimizar e escalar sites, landing pages, páginas de produto e experiências web com foco em aquisição, conversão e crescimento. <span class="accent">Se sua empresa precisa de páginas que convertam de verdade, podemos conversar.</span>',
       'contact.cv':'↓ Baixar currículo em PDF',
-      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026'
+      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026',
+      'cv.href':'cv-diogo-abilio.pdf'
     },
     en: {
       'nav.sobre':'About','nav.entregas':'Services','nav.projetos':'Projects','nav.experiencia':'Experience','nav.stack':'Stack','nav.formacao':'Education','nav.contato':'Contact','nav.cv':'↓ Download CV',
@@ -2215,7 +2216,8 @@
       'contact.label':'08 / Contact','contact.label.meta':'All channels','contact.title':'Let\'s<br/>talk<span class="stop">.</span>',
       'contact.intro':'I\'m available for opportunities as a Growth Web Designer, Web Designer, Webflow Designer or Marketing Designer at companies that need to create, optimize and scale websites, landing pages, product pages and web experiences focused on acquisition, conversion and growth. <span class="accent">If your company needs pages that truly convert, let\'s talk.</span>',
       'contact.cv':'↓ Download resume as PDF',
-      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026'
+      'footer.text':'Diogo Abílio · Growth Web Designer · São Paulo, SP · 2026',
+      'cv.href':'cv-diogo-abilio-en.pdf'
     }
   };
 
@@ -2224,6 +2226,12 @@
       var key = el.getAttribute('data-i18n');
       if (i18n[lang] && i18n[lang][key] !== undefined) {
         el.innerHTML = i18n[lang][key];
+      }
+    });
+    document.querySelectorAll('[data-i18n-href]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-href');
+      if (i18n[lang] && i18n[lang][key] !== undefined) {
+        el.setAttribute('href', i18n[lang][key]);
       }
     });
     document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
