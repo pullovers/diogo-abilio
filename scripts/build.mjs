@@ -269,10 +269,10 @@ const process = [
 
 // Hero headline: one sentence per line, words rise in order, the accent word last.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
-const heroLine1 = ['Design', 'chama', 'atenção.'].map(heroWord).join(' ');
-const heroLine2 = ['Estratégia', 'transforma', 'atenção', 'em'].map((w, i) => heroWord(w, i + 3)).join(' ');
-const heroAccent = heroWord('<em class="serif accent hl">oportunidade<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 7);
-const heroSub = 'Crio páginas, posts e vídeos pensados para apresentar melhor seu negócio, conectar sua marca ao público e transformar interesse em oportunidades de venda.';
+const heroLine1 = ['Design', 'atrai.'].map(heroWord).join(' ');
+const heroLine2 = heroWord('Estratégia', 2);
+const heroAccent = heroWord('<em class="serif accent hl">converte<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 3);
+const heroSub = 'Crio sites, páginas de venda e conteúdos para transformar interesse em oportunidades para o seu negócio.';
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
@@ -284,7 +284,6 @@ const home = () => layout({
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container hero-grid">
     <div class="hero-text">
-      <p class="eyebrow fade-in">Oi, eu sou o Diogo.</p>
       <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2} ${heroAccent}</span></h1>
       <p class="hero-sub fade-in" style="--delay:500ms">${heroSub}</p>
       <div class="hero-cta fade-in" style="--delay:650ms">
