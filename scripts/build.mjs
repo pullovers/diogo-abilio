@@ -267,13 +267,16 @@ const process = [
   ['04', 'Testo e ajusto', 'Coloco no ar, olho os dados e melhoro.'],
 ];
 
-const heroWords = splitWords([['Bonito é fácil. Difícil é bonito que', false]], (w, i) =>
-  `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`);
-const vendeIndex = 7;
+// Hero headline: one sentence per line, words rise in order, the accent word last.
+const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
+const heroLine1 = ['Design', 'chama', 'atenção.'].map(heroWord).join(' ');
+const heroLine2 = ['Estratégia', 'transforma', 'atenção', 'em'].map((w, i) => heroWord(w, i + 3)).join(' ');
+const heroAccent = heroWord('<em class="serif accent hl">oportunidade<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 7);
+const heroSub = 'Crio páginas, posts e vídeos pensados para apresentar melhor seu negócio, conectar sua marca ao público e transformar interesse em oportunidades de venda.';
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
-  description: 'Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.',
+  description: heroSub,
   path: '/',
   og: '/og/home.png',
   home: true,
@@ -282,12 +285,14 @@ const home = () => layout({
   <div class="container hero-grid">
     <div class="hero-text">
       <p class="eyebrow fade-in">Oi, eu sou o Diogo.</p>
-      <h1 class="h1" id="hero-title">${heroWords} <span class="w"><span class="wi" style="--i:${vendeIndex}"><em class="serif accent vende">vende<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.</span></span></h1>
-      <p class="hero-sub fade-in" style="--delay:500ms">Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.</p>
+      <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2} ${heroAccent}</span></h1>
+      <p class="hero-sub fade-in" style="--delay:500ms">${heroSub}</p>
       <div class="hero-cta fade-in" style="--delay:650ms">
-        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
-        <p class="micro">Análise gratuita, em vídeo, sem compromisso.</p>
-        <a class="link-u" href="#servicos">Ou veja meus trabalhos ↓</a>
+        <div class="hero-actions">
+          <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise gratuita <span class="arr" aria-hidden="true">→</span></a>
+          <a class="link-u" href="#servicos">Ver meus trabalhos ↓</a>
+        </div>
+        <p class="micro">Em vídeo e sem compromisso.</p>
       </div>
     </div>
     <div class="hero-media" data-loop>
