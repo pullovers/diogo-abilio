@@ -244,15 +244,15 @@
 
   /* ===== HERO (DARK, STUDIO BACKDROP) ===== */
   .hero {
-    --name-size: min(17vw, 320px);
     position: relative;
     isolation: isolate;
     overflow: hidden;
     min-height: calc(100svh - 67px);
     display: flex;
     flex-direction: column;
-    padding-top: clamp(40px, 5vw, 88px);
-    padding-bottom: calc(var(--name-size) * 0.86 + clamp(20px, 2.5vw, 40px));
+    justify-content: center;
+    padding-top: clamp(48px, 6vw, 96px);
+    padding-bottom: clamp(48px, 6vw, 96px);
     background: #0B0A0A;
     color: var(--bg-alt);
   }
@@ -285,47 +285,6 @@
   .hero-head > *, .hero-body > * { max-width: 540px; }
   .hero-head > .hero-title { max-width: 640px; }
   .hero-body { margin-top: 24px; }
-
-  /* status pill */
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px 8px 12px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.01em;
-    color: rgba(255,255,255,0.85);
-    margin-bottom: 24px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .status-pill .live-dot {
-    position: relative;
-    width: 8px; height: 8px;
-    background: #4ADE80;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: 0 0 8px rgba(74,222,128,0.6);
-  }
-  .status-pill .live-dot::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: #4ADE80;
-    opacity: 0.35;
-    animation: pulse 2s ease-out infinite;
-  }
-  @keyframes pulse {
-    0%   { transform: scale(0.6); opacity: 0.5; }
-    100% { transform: scale(2);   opacity: 0;   }
-  }
-  .status-pill strong { font-weight: 600; color: var(--bg-alt); }
-  .status-pill .sep { color: rgba(255,255,255,0.3); }
 
   .hero-title {
     font-family: 'Oswald', 'Arial Narrow', sans-serif;
@@ -416,7 +375,7 @@
   .hero-contacts a:hover { color: var(--bg-alt); }
   .hero-contacts svg { width: 14px; height: 14px; }
 
-  /* stage: cut-out photo + giant name */
+  /* stage: cut-out photo */
   .hero-stage {
     position: absolute;
     inset: 0;
@@ -438,20 +397,23 @@
     filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5));
   }
   .hero-name {
-    position: absolute;
-    left: 0; right: 0;
-    bottom: 0;
-    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 18px;
     font-family: 'Oswald', 'Arial Narrow', sans-serif;
-    font-weight: 700;
-    font-size: var(--name-size);
-    line-height: 0.86;
-    letter-spacing: -0.005em;
+    font-weight: 500;
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    text-align: center;
-    white-space: nowrap;
     color: var(--bg-alt);
-    transform: translateY(0.06em);
+  }
+  .hero-name::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--red);
+    flex-shrink: 0;
   }
 
   /* ===== STATS STRIP (removed) ===== */
@@ -1117,7 +1079,7 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 960px) {
-    /* hero stacks: headline → photo + name → intro + CTAs */
+    /* hero stacks: name + headline → photo → intro + CTAs */
     .hero { min-height: 0; padding-top: clamp(36px, 8vw, 64px); padding-bottom: 48px; }
     .hero-head { order: 1; }
     .hero-stage {
@@ -1136,7 +1098,6 @@
       max-width: none;
       margin: 0 0 0 auto;
     }
-    .hero-name { font-size: 17vw; }
     .hero-body { order: 3; margin-top: 28px; }
     .hero-bg { background:
       radial-gradient(70% 45% at 70% 55%, rgba(125,23,20,0.55), transparent 70%),
@@ -1165,7 +1126,6 @@
     .contact-row { grid-template-columns: 90px 1fr; }
     .contact-row .arrow { display: none; }
     .pullquote { font-size: 18px; }
-    .status-pill { font-size: 11px; }
     .hero-ctas .btn-primary { flex: 1 1 100%; }
     .hero-ctas .btn-ghost { flex: 1 1 100%; justify-content: center; }
   }
@@ -1204,7 +1164,7 @@
     .metric { border-left: 1px solid #DCDCDC !important; padding-left: 5pt !important; border-top: 0 !important; padding-top: 0 !important; }
     .metric:first-child { border-left: 0 !important; padding-left: 0 !important; }
     nav.site-nav, .print-hide, .btn-pdf, .cta-pdf, .cta-pdf-wrap, .hamb,
-    .hero-ctas, .now-line, .status-pill, .hero-rule, .pullquote,
+    .hero-ctas, .now-line, .hero-rule, .pullquote,
     .section-head .rule, .section-head .label-gray, footer.site-foot,
     #contato, .exp-item .idx, .badge, .work-thumb, #servicos, .section-subtitle {
       display: none !important;
@@ -1236,13 +1196,11 @@
     }
     .hero { min-height: 0 !important; display: flex !important; flex-direction: column !important; }
     .hero-bg, .hero-photo, .hero-ctas { display: none !important; }
-    .hero-stage { order: 0 !important; position: static !important; padding: 0 14mm !important; }
-    .hero-head { order: 1 !important; }
-    .hero-body { order: 2 !important; margin-top: 3pt !important; }
+    .hero-stage, .hero-name::before { display: none !important; }
+    .hero-body { margin-top: 3pt !important; }
     .hero-name {
-      position: static !important;
-      transform: none !important;
-      text-align: left !important;
+      display: block !important;
+      letter-spacing: 0.005em !important;
       color: #F4F4F4 !important;
       font-size: 30pt !important;
       line-height: 0.95 !important;
@@ -1534,10 +1492,7 @@
     <div class="hero-bg" aria-hidden="true"></div>
 
     <div class="wrap hero-head">
-      <div class="status-pill" role="status">
-        <span class="live-dot" aria-hidden="true"></span>
-        <span data-i18n="hero.pill"><strong>Disponível</strong> para projetos <span class="sep">·</span> São Paulo</span>
-      </div>
+      <h1 class="hero-name">Diogo Abílio</h1>
       <p class="hero-title" data-i18n="hero.title">Growth Web Designer <em>para marcas que precisam converter</em></p>
     </div>
 
@@ -1546,7 +1501,6 @@
         <source srcset="foto-diogo-recorte.webp" type="image/webp" />
         <img class="hero-photo" src="foto-diogo-recorte.png" alt="Diogo Abílio. Retrato" width="1051" height="1254" fetchpriority="high" />
       </picture>
-      <h1 class="hero-name">Diogo Abílio</h1>
     </div>
 
     <div class="wrap hero-body">
@@ -2034,7 +1988,6 @@
   var i18n = {
     pt: {
       'nav.sobre':'Sobre','nav.entregas':'Entregas','nav.projetos':'Projetos','nav.experiencia':'Experiência','nav.stack':'Stack','nav.formacao':'Formação','nav.contato':'Contato','nav.cv':'↓ Baixar CV',
-      'hero.pill':'<strong>Disponível</strong> para projetos <span class="sep">·</span> São Paulo',
       'hero.title':'Growth Web Designer <em>para marcas que precisam converter</em>',
       'hero.tag':'Crio e otimizo sites e landing pages que transformam páginas em <em>canais de aquisição, conversão e crescimento.</em>',
       'hero.bio':'Tenho <b>12 anos de experiência</b> conectando design, marketing, produto e comunicação. Crio e otimizo sites, landing pages, páginas de produto e experiências web combinando estratégia, CRO, copy, IA, Figma e Webflow para ajudar empresas a comunicarem melhor suas ofertas e converterem mais.',
@@ -2095,7 +2048,6 @@
     },
     en: {
       'nav.sobre':'About','nav.entregas':'Services','nav.projetos':'Projects','nav.experiencia':'Experience','nav.stack':'Stack','nav.formacao':'Education','nav.contato':'Contact','nav.cv':'↓ Download CV',
-      'hero.pill':'<strong>Available</strong> for projects <span class="sep">·</span> São Paulo',
       'hero.title':'Growth Web Designer <em>for brands that need to convert</em>',
       'hero.tag':'I create and optimize websites and landing pages that turn pages into <em>acquisition, conversion and growth channels.</em>',
       'hero.bio':'I have <b>12 years of experience</b> connecting design, marketing, product and communication. I create and optimize websites, landing pages and product pages combining strategy, CRO, copy, AI, Figma and Webflow to help companies communicate their offers more clearly and convert more.',
