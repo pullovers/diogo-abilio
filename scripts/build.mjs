@@ -269,9 +269,9 @@ const process = [
 
 // Hero headline: one sentence per line, words rise in order, the accent word last.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
-const heroLine1 = ['Design', 'atrai.'].map(heroWord).join(' ');
-const heroLine2 = heroWord('Estratégia', 2);
-const heroAccent = heroWord('<em class="serif accent hl">converte<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 3);
+const heroLine1 = ['Seu', 'negócio', 'é', 'bom.'].map(heroWord).join(' ');
+const heroLine2 = ['Sua', 'comunicação', 'mostra'].map((w, i) => heroWord(w, i + 4)).join(' ');
+const heroAccent = heroWord('<em class="serif accent hl">isso<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>?', 7);
 const heroSub = 'Crio sites, páginas de venda e conteúdos para transformar interesse em oportunidades para o seu negócio.';
 
 const home = () => layout({
