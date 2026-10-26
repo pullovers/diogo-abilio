@@ -244,6 +244,8 @@
 
   /* ===== HERO (DARK, STUDIO BACKDROP) ===== */
   .hero {
+    /* photo tracks the content container (bleeding slightly past it), not the viewport edge */
+    --photo-right: max(0px, calc((100% - var(--maxw)) / 2 - 80px));
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -262,8 +264,8 @@
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(55% 65% at 74% 48%, rgba(125,23,20,0.55), transparent 70%),
-      radial-gradient(45% 55% at 18% 18%, rgba(255,255,255,0.07), transparent 70%),
+      radial-gradient(min(900px, 60vw) min(700px, 70vh) at calc(100% - var(--photo-right) - min(320px, 22vw)) 48%, rgba(125,23,20,0.55), transparent 70%),
+      radial-gradient(min(800px, 50vw) min(600px, 60vh) at calc((100% - var(--maxw)) / 2 + 10%) 15%, rgba(255,255,255,0.07), transparent 70%),
       linear-gradient(180deg, #161212 0%, #0B0A0A 100%);
   }
   .hero-bg::before {
@@ -282,8 +284,9 @@
   }
 
   .hero-head, .hero-body { position: relative; z-index: 3; width: 100%; }
-  .hero-head > *, .hero-body > * { max-width: 540px; }
-  .hero-head > .hero-title { max-width: 640px; }
+  /* copy column and photo split the width so they never overlap */
+  .hero-head > *, .hero-body > * { max-width: min(540px, 48vw); }
+  .hero-head > .hero-title { max-width: min(640px, 48vw); }
   .hero-body { margin-top: 24px; }
 
   .hero-title {
@@ -384,11 +387,11 @@
   }
   .hero-photo {
     position: absolute;
-    right: clamp(0px, 4vw, 96px);
+    right: var(--photo-right);
     bottom: 0;
     height: calc(100% - clamp(24px, 4vw, 64px));
     width: auto;
-    max-width: 52vw;
+    max-width: min(44vw, 640px);
     max-height: 940px;
     object-fit: contain;
     object-position: right bottom;
@@ -447,6 +450,10 @@
     padding-bottom: 18px;
   }
   .section-head .label { white-space: nowrap; }
+  @media (max-width: 640px) {
+    .section-head { flex-wrap: wrap; row-gap: 8px; }
+    .section-head .label-gray { white-space: normal; }
+  }
   .section-head .rule {
     flex: 1;
     height: 1px;
@@ -1099,6 +1106,7 @@
       margin: 0 0 0 auto;
     }
     .hero-body { order: 3; margin-top: 28px; }
+    .hero-head > *, .hero-body > *, .hero-head > .hero-title { max-width: 640px; }
     .hero-bg { background:
       radial-gradient(70% 45% at 70% 55%, rgba(125,23,20,0.55), transparent 70%),
       radial-gradient(60% 30% at 20% 8%, rgba(255,255,255,0.07), transparent 70%),
@@ -1115,11 +1123,14 @@
     .metric { padding-left: 0; border-left: 0; border-top: 1px solid rgba(125,23,20,0.25); padding-top: 12px; }
     .metric:first-child, .metric:nth-child(2) { border-top: 0; padding-top: 0; }
   }
-  @media (max-width: 720px) {
+  /* full nav doesn't fit below ~1100px: collapse to hamburger */
+  @media (max-width: 1100px) {
     .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg); flex-direction: column; align-items: flex-start; padding: 18px var(--pad-x); border-bottom: 1px solid var(--border); gap: 14px; }
     .nav-links.open { display: flex; }
     .nav-links li { width: 100%; }
     .hamb { display: flex; }
+  }
+  @media (max-width: 720px) {
     .btn-pdf { padding: 8px 12px; font-size: 9px; }
     .nav-mark span.fullname { display: none; }
     .works-grid { grid-template-columns: 1fr; }
