@@ -21,8 +21,38 @@ const services = readdirSync(join(root, 'content/servicos'))
 
 const ogFor = (name) => (existsSync(join(root, 'public/og', `${name}.png`)) ? `/og/${name}.png` : '/og/home.png');
 
+// Split a heading into word masks. Segments: [text, italic?]. Punctuation that
+// follows without a space sticks to the previous word.
+const splitWords = (segments, wrap) => {
+  const words = [];
+  let glue = false;
+  for (const [text, italic] of segments) {
+    const parts = text.split(/(\s+)/);
+    parts.forEach((p) => {
+      if (!p) return;
+      if (/^\s+$/.test(p)) { glue = false; return; }
+      const html = italic ? `<em class="serif">${esc(p)}</em>` : esc(p);
+      if (glue && words.length) words[words.length - 1] += html;
+      else words.push(html);
+      glue = true;
+    });
+  }
+  return words.map((w, i) => wrap(w, i)).join(' ');
+};
+const h2 = (id, segments, extra = '') =>
+  `<h2 class="h2 split${extra}" id="${id}">${splitWords(segments, (w) => `<span class="w"><span class="wi">${w}</span></span>`)}</h2>`;
+
+// ---------- icons ----------
+const icon = {
+  play: '<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M3 1.8v8.4L10 6z" fill="currentColor"/></svg>',
+  chat: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+  people: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg>',
+  growth: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><path d="M15 6h5v5"/></svg>',
+  ticket: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>',
+};
+
 // ---------- shared pieces ----------
-const layout = ({ title, description, path, og, body }) => `<!doctype html>
+const layout = ({ title, description, path, og, body, home = false }) => `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
@@ -31,7 +61,7 @@ const layout = ({ title, description, path, og, body }) => `<!doctype html>
 <meta name="description" content="${esc(description)}" />
 <link rel="canonical" href="${abs(path)}" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-<meta name="theme-color" content="#F5F2ED" />
+<meta name="theme-color" content="#0A0A0B" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="pt_BR" />
 <meta property="og:site_name" content="Diogo Abílio" />
@@ -46,8 +76,9 @@ const layout = ({ title, description, path, og, body }) => `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" />
-<link rel="stylesheet" href="/assets/styles.css" />
+${home ? '<link rel="preload" as="image" href="/images/diogo-cutout-760.webp" imagesrcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w" imagesizes="(max-width: 860px) 60vw, 460px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
 <script>document.documentElement.classList.add('js')</script>
+<script defer src="/assets/vendor/motion-11.18.2.js"></script>
 <script defer src="/assets/main.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -58,6 +89,7 @@ ${nav()}
 ${body}
 </main>
 ${footer()}
+<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" data-wa="flutuante">${icon.chat}Análise grátis</a>
 </body>
 </html>
 `;
@@ -66,9 +98,10 @@ const nav = () => `<header class="nav">
   <div class="container nav-inner">
     <a class="nav-logo" href="/">Diogo Abílio</a>
     <nav class="nav-links" id="menu" aria-label="Principal">
-      <a href="/#servicos">Serviços</a>
-      <a href="/#como-faco">Como faço</a>
-      <a href="/#sobre">Sobre</a>
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a href="/#servicos" data-spy="servicos">Serviços</a>
+      <a href="/#como-faco" data-spy="como-faco">Como faço</a>
+      <a href="/#sobre" data-spy="sobre">Sobre</a>
     </nav>
     <a class="btn btn-primary btn-sm" href="${waLink()}" target="_blank" rel="noopener" data-wa="nav">Análise grátis</a>
     <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
@@ -87,12 +120,12 @@ const footer = () => `<footer class="footer">
   </div>
 </footer>`;
 
-const finalCta = (origin, message) => `<section class="section" aria-labelledby="cta-title">
+const finalCta = (origin, message) => `<section class="section" id="cta-final" aria-labelledby="cta-title">
   <div class="container">
     <div class="cta-block reveal">
-      <h2 class="h2" id="cta-title">Me mostra o que você tem <em class="serif accent">hoje</em>.</h2>
+      ${h2('cta-title', [['Me mostra o que você tem ', false], ['hoje', true], ['.', false]])}
       <p class="lead">Eu gravo um vídeo curto mostrando o que está te custando venda. De graça, sem compromisso.</p>
-      <a class="btn btn-primary" href="${waLink(message)}" target="_blank" rel="noopener" data-wa="${origin}">Quero minha análise grátis <span class="arr" aria-hidden="true">→</span></a>
+      <a class="btn btn-primary magnetic" href="${waLink(message)}" target="_blank" rel="noopener" data-wa="${origin}">Quero minha análise grátis <span class="arr" aria-hidden="true">→</span></a>
       <p class="cta-contacts">
         <a href="mailto:${config.email}">${config.email}</a>
         <span aria-hidden="true">·</span>
@@ -105,6 +138,118 @@ const finalCta = (origin, message) => `<section class="section" aria-labelledby=
 </section>`;
 
 const pending = (text = 'Trabalho novo chegando') => `<div class="pending">${text}</div>`;
+
+// ---------- service card mockups ----------
+// A browser window showing one or more page images stacked like a long page.
+const browserFrame = (imgs, url, cls) => `<div class="browser ${cls}" aria-hidden="true">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">${esc(url)}</span></div>
+            <div class="browser-view"><div class="browser-page">${imgs.map((img) => `<img src="${img.src}" srcset="${img.srcset}" sizes="(max-width: 860px) 90vw, 700px" alt="" width="${img.width}" height="${img.height}" loading="lazy" decoding="async" />`).join('')}</div></div>
+          </div>`;
+
+const fanSvgs = [
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#1A1A1D"/><circle cx="72" cy="28" r="18" fill="#FF3B24"/><rect x="12" y="58" width="58" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="70" width="40" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="86" width="30" height="3" rx="1.5" fill="#9B978F"/></svg>',
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DC2F1A"/><rect x="12" y="14" width="22" height="3" rx="1.5" fill="#fff" opacity=".7"/><rect x="12" y="34" width="70" height="10" rx="2" fill="#fff"/><rect x="12" y="48" width="52" height="10" rx="2" fill="#fff"/><circle cx="80" cy="82" r="8" fill="none" stroke="#fff" stroke-width="2"/><path d="M77 82h6M80 79v6" stroke="#fff" stroke-width="2"/></svg>',
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#131315"/><path d="M0 25h100M0 50h100M0 75h100M25 0v100M50 0v100M75 0v100" stroke="rgba(255,255,255,.08)"/><rect x="12" y="12" width="38" height="38" rx="4" fill="#FF3B24"/><rect x="12" y="62" width="62" height="7" rx="2" fill="#F3F1ED"/><rect x="12" y="74" width="44" height="7" rx="2" fill="#F3F1ED"/></svg>',
+];
+const adSvg = '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DC2F1A"/><circle cx="74" cy="30" r="16" fill="#0A0A0B" opacity=".35"/><rect x="10" y="56" width="64" height="9" rx="2" fill="#fff"/><rect x="10" y="69" width="44" height="9" rx="2" fill="#fff"/><rect x="10" y="85" width="34" height="8" rx="4" fill="#0A0A0B"/></svg>';
+const plainPost = '<div class="post"><div class="post-head"><i></i><b></b></div><div class="post-media"></div></div>';
+const adPost = `<div class="post post--ad"><div class="post-head"><i></i><b></b><small>Patrocinado</small></div>${adSvg}</div>`;
+const frameSvgs = [
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#1A1A1D"/><circle cx="45" cy="62" r="22" fill="#26262A"/><rect x="18" y="112" width="54" height="7" rx="2" fill="#F3F1ED"/><rect x="26" y="123" width="38" height="7" rx="2" fill="#FF3B24"/></svg>',
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#DC2F1A"/><rect x="14" y="40" width="62" height="12" rx="2" fill="#fff"/><rect x="14" y="56" width="44" height="12" rx="2" fill="#fff"/><rect x="14" y="128" width="62" height="5" rx="2.5" fill="#fff" opacity=".5"/></svg>',
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#131315"/><path d="M10 120 L32 96 L50 108 L80 70" fill="none" stroke="#FF3B24" stroke-width="3" stroke-linecap="round"/><rect x="14" y="26" width="48" height="7" rx="2" fill="#F3F1ED"/><rect x="14" y="138" width="40" height="6" rx="2" fill="#9B978F"/></svg>',
+];
+
+const mockup = (s) => {
+  if (s.mockup === 'browser') {
+    // Front window: the full-page print when one exists, else every work image stacked.
+    const images = s.works.filter((w) => w.image).map((w) => w.image);
+    return `<div class="mock mock-browser">
+          ${images[1] ? browserFrame([images[1]], s.mockupUrl, 'browser--back') : ''}
+          ${browserFrame(s.print ? [s.print] : images, s.mockupUrl, 'browser--front')}
+        </div>`;
+  }
+  if (s.mockup === 'fan') {
+    return `<div class="mock mock-fan" data-loop aria-hidden="true"><div class="fan">${fanSvgs.join('')}</div><span class="badge">exemplo</span></div>`;
+  }
+  if (s.mockup === 'phone') {
+    const feed = [plainPost, adPost, plainPost, plainPost].join('');
+    return `<div class="mock mock-phone" data-loop aria-hidden="true"><div class="phone"><div class="feed">${feed}${feed}</div></div><span class="badge">exemplo</span></div>`;
+  }
+  if (s.mockup === 'timeline') {
+    const bars = Array.from({ length: 48 }, (_, k) => `<span style="--k:${(k * 7) % 13}"></span>`).join('');
+    return `<div class="mock mock-timeline" data-loop aria-hidden="true">
+          <div class="timeline-wrap">
+            <div class="frames">${frameSvgs.map((f) => `<div class="frame">${f}</div>`).join('')}</div>
+            <div class="track">${bars}</div>
+            <i class="playhead"></i>
+          </div>
+          <span class="badge">exemplo</span>
+        </div>`;
+  }
+  return `<div class="mock">${pending()}</div>`;
+};
+
+const serviceCard = (s) => `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
+        <span class="price-chip">${esc(s.price)}</span>
+        ${mockup(s)}
+        <div class="bcard-body">
+          <h3>${esc(s.name)}</h3>
+          <p>${esc(s.tagline)}</p>
+          <span class="card-link">Ver como faço <span class="arr" aria-hidden="true">→</span></span>
+        </div>
+      </a>`;
+
+// ---------- process illustrations ----------
+const ills = [
+  // 01 wireframe + magnifier + annotations
+  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
+    <rect class="svg-block" x="70" y="20" width="300" height="280" rx="12"/>
+    <rect class="svg-soft" x="90" y="40" width="70" height="8" rx="4"/><rect class="svg-soft" x="300" y="37" width="50" height="14" rx="7"/>
+    <rect class="svg-soft" x="90" y="72" width="180" height="14" rx="4"/><rect class="svg-soft" x="90" y="92" width="130" height="14" rx="4"/>
+    <rect class="svg-soft" x="90" y="118" width="200" height="6" rx="3"/><rect class="svg-soft" x="90" y="130" width="160" height="6" rx="3"/>
+    <rect x="90" y="150" width="76" height="20" rx="10" fill="rgba(255,59,36,.35)"/>
+    <rect class="svg-line" x="90" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="180" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="270" y="196" width="80" height="80" rx="8"/>
+    <g class="note note-1"><path class="svg-acc-line" d="M160 79 L66 52"/><circle class="svg-acc" cx="160" cy="79" r="4"/><rect class="svg-block" x="4" y="34" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="45" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="54" width="28" height="4" rx="2"/></g>
+    <g class="note note-2"><path class="svg-acc-line" d="M125 160 L66 182"/><circle class="svg-acc" cx="125" cy="160" r="4"/><rect class="svg-block" x="4" y="166" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="177" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="186" width="28" height="4" rx="2"/></g>
+    <g class="note note-3"><path class="svg-acc-line" d="M310 236 L374 262"/><circle class="svg-acc" cx="310" cy="236" r="4"/><rect class="svg-block" x="374" y="246" width="62" height="34" rx="8"/><rect class="svg-soft" x="383" y="257" width="40" height="4" rx="2"/><rect class="svg-soft" x="383" y="266" width="28" height="4" rx="2"/></g>
+    <g transform="translate(220 160)"><g class="mag"><circle r="24" fill="rgba(255,255,255,.05)" stroke="#F3F1ED" stroke-width="1.5"/><path d="M17 17 L34 34" stroke="#F3F1ED" stroke-width="3" stroke-linecap="round"/></g></g>
+  </svg>`,
+  // 02 flow that piles up before WhatsApp
+  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
+    <path class="svg-line" d="M60 150 H390"/>
+    ${[60, 170, 280, 390].map((x, i) => `<circle class="svg-block" cx="${x}" cy="150" r="22"/><text class="svg-text" x="${x}" y="200" text-anchor="middle">${['anúncio', 'página', 'WhatsApp', 'venda'][i]}</text>`).join('')}
+    <rect class="svg-soft" x="50" y="140" width="20" height="14" rx="3"/>
+    <rect class="svg-soft" x="160" y="140" width="20" height="20" rx="3"/>
+    <path d="M272 146 a8 8 0 1 1 3 12 l-6 3 2-5 a8 8 0 0 1 1-10z" fill="none" stroke="#9B978F" stroke-width="1.5"/>
+    <path d="M382 150 l5 5 10-11" fill="none" stroke="#9B978F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${[0, 1, 2, 3, 4].map((k) => `<circle class="svg-acc flow-dot" cx="60" cy="${150 + [-2, 3, -4, 1, 4][k]}" r="4" style="--k:${k};--stop:${[196, 204, 190, 200, 186][k]}px"/>`).join('')}
+    <circle cx="280" cy="150" r="30" fill="none" stroke="#FF3B24" stroke-width="1.5" class="node-alert"/>
+    <g class="node-alert"><path d="M280 88 L292 108 H268 Z" fill="none" stroke="#FF3B24" stroke-width="1.5" stroke-linejoin="round"/><path d="M280 96 v6" stroke="#FF3B24" stroke-width="1.5" stroke-linecap="round"/><circle cx="280" cy="105" r="1" fill="#FF3B24"/></g>
+  </svg>`,
+  // 03 blocks fly into a page grid + sparkle + timer
+  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
+    <rect class="svg-line" x="70" y="20" width="300" height="270" rx="12" stroke-dasharray="4 5"/>
+    ${[
+      [90, 40, 260, 16, -120, -60, -12], [90, 70, 160, 74, -160, 40, 8], [262, 70, 88, 74, 140, -50, 14],
+      [90, 160, 80, 64, -120, 140, -10], [180, 160, 80, 64, 20, 160, 12], [270, 160, 80, 64, 150, 120, -14], [90, 240, 96, 24, -100, 120, 6],
+    ].map(([x, y, w, h, fx, fy, fr], k) => `<rect class="${k === 1 || k === 6 ? '' : 'svg-block '}fly" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" ${k === 1 ? 'fill="rgba(255,59,36,.35)" stroke="#FF3B24"' : k === 6 ? 'fill="#DC2F1A"' : ''} style="--k:${k};--fx:${fx}px;--fy:${fy}px;--fr:${fr}deg"/>`).join('\n    ')}
+    <g transform="translate(392 34)"><path class="svg-acc sparkle" d="M0 -14 C2 -4 4 -2 14 0 C4 2 2 4 0 14 C-2 4 -4 2 -14 0 C-4 -2 -2 -4 0 -14Z"/></g>
+    <text class="svg-text-ink ill-timer" x="370" y="312" text-anchor="end">02:00</text>
+  </svg>`,
+  // 04 A/B test, B wins
+  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
+    <path class="svg-acc-line trend" d="M10 290 C 90 270, 120 230, 180 210 S 300 120, 430 40" opacity=".45"/>
+    <rect class="svg-block" x="60" y="40" width="140" height="150" rx="12"/><rect class="svg-block" x="240" y="40" width="140" height="150" rx="12"/>
+    <text class="svg-text-ink" x="76" y="66">A</text><text class="svg-text-ink" x="256" y="66">B</text>
+    <rect class="svg-soft" x="76" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="76" y="100" width="70" height="6" rx="3"/><rect class="svg-soft" x="76" y="150" width="60" height="18" rx="9"/>
+    <rect class="svg-soft" x="256" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="256" y="100" width="70" height="6" rx="3"/><rect x="256" y="150" width="60" height="18" rx="9" fill="rgba(255,59,36,.45)"/>
+    <path class="svg-line" d="M60 290 H380"/>
+    <rect class="bar bar-a" x="95" y="232" width="70" height="58" rx="4" fill="rgba(255,255,255,.18)"/>
+    <rect class="bar bar-b" x="275" y="200" width="70" height="90" rx="4" fill="#FF3B24"/>
+    <g class="win"><rect x="240" y="40" width="140" height="150" rx="12" fill="none" stroke="#FF3B24" stroke-width="1.5"/><circle cx="366" cy="54" r="11" fill="#FF3B24"/><path d="M361 54 l3.5 3.5 6.5-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+  </svg>`,
+];
 
 // ---------- home ----------
 const logos = ['G4 Educação', "LET'S", 'Valid', 'K.Pitaliza', 'Agência Moonflag', 'Ituran'];
@@ -123,43 +268,41 @@ const process = [
   ['04', 'Testo e ajusto', 'Coloco no ar, olho os dados e melhoro.'],
 ];
 
-const serviceCard = (s) => `<a class="service-card reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
-        <div class="card-media">${s.cardImage
-          ? `<img src="${s.cardImage.src}" srcset="${s.cardImage.srcset}" sizes="(max-width: 760px) 92vw, 560px" alt="${esc(s.cardImage.alt)}" loading="lazy" decoding="async" width="800" height="600" style="object-position:${s.cardImage.position || 'center'}" />`
-          : pending()}</div>
-        <div class="card-body">
-          <h3>${esc(s.name)}</h3>
-          <p>${esc(s.tagline)}</p>
-          <div class="card-foot">
-            <span class="price">${esc(s.price)}</span>
-            <span class="card-link">Ver como faço <span class="arr" aria-hidden="true">→</span></span>
-          </div>
-        </div>
-      </a>`;
+const heroWords = splitWords([['Bonito é fácil. Difícil é bonito que', false]], (w, i) =>
+  `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`);
+const vendeIndex = 7;
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
   description: 'Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.',
   path: '/',
   og: '/og/home.png',
-  body: `<section class="hero" aria-labelledby="hero-title">
+  home: true,
+  body: `<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div><div class="hero-lines"></div></div>
   <div class="container hero-grid">
     <div class="hero-text">
-      <p class="status"><span class="status-dot" aria-hidden="true"></span>Agenda aberta · 5 análises grátis por mês</p>
-      <p class="eyebrow">Oi, eu sou o Diogo.</p>
-      <h1 class="h1" id="hero-title">Bonito é fácil. Difícil é bonito que <em class="serif accent">vende</em>.</h1>
-      <p class="hero-sub">Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
+      <p class="status fade-in"><span class="status-dot" aria-hidden="true"></span>Agenda aberta · 5 análises grátis por mês</p>
+      <p class="eyebrow fade-in" style="--delay:60ms">Oi, eu sou o Diogo.</p>
+      <h1 class="h1" id="hero-title">${heroWords} <span class="w"><span class="wi" style="--i:${vendeIndex}"><em class="serif accent vende">vende<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.</span></span></h1>
+      <p class="hero-sub fade-in" style="--delay:500ms">Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.</p>
+      <div class="hero-cta fade-in" style="--delay:650ms">
+        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
         <p class="micro">Análise gratuita, em vídeo, sem compromisso.</p>
         <a class="link-u" href="#servicos">Ou veja meus trabalhos ↓</a>
       </div>
     </div>
-    <div class="hero-media">
-      <figure class="photo-card">
-        <img src="/img/foto-diogo-800.webp" srcset="/img/foto-diogo-480.webp 480w, /img/foto-diogo-800.webp 800w" sizes="(max-width: 860px) 92vw, 400px" width="800" height="1000" alt="Foto de Diogo Abílio" fetchpriority="high" decoding="async" />
-        <figcaption class="photo-tag">São Paulo · atendimento remoto</figcaption>
-      </figure>
+    <div class="hero-media" data-loop>
+      <div class="portrait">
+        <div class="p-glow" aria-hidden="true"></div>
+        <div class="p-ring" aria-hidden="true"></div>
+        <img class="p-img" src="/images/diogo-cutout-760.webp" srcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w" sizes="(max-width: 860px) 60vw, 460px" width="760" height="907" alt="Foto de Diogo Abílio" fetchpriority="high" decoding="async" />
+      </div>
+      <ul class="float-cards" aria-label="Exemplos do que eu faço">
+        <li class="fc fc-a"><div class="fc-in"><img class="fc-thumb" src="/img/g4-gestao-200.webp" alt="" width="200" height="106" decoding="async" />Landing page</div></li>
+        <li class="fc fc-b"><div class="fc-in"><span class="fc-icon">${icon.play}</span>Vídeo · 0:15</div></li>
+        <li class="fc fc-c"><div class="fc-in"><svg class="fc-chart" viewBox="0 0 64 32" aria-hidden="true"><path d="M2 28 L16 20 L28 23 L42 11 L62 4"/></svg>Testado e ajustado</div></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -178,11 +321,11 @@ const home = () => layout({
 
 <section class="section" id="servicos" aria-labelledby="servicos-title">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="label">Serviços</span>
-      <h2 class="h2" id="servicos-title">O que eu faço, e como fica <em class="serif">na prática</em>.</h2>
+      ${h2('servicos-title', [['O que eu faço, e como fica ', false], ['na prática', true], ['.', false]])}
     </div>
-    <div class="services-grid" data-stagger>
+    <div class="bento-services" data-stagger>
       ${services.map(serviceCard).join('\n      ')}
     </div>
   </div>
@@ -190,36 +333,57 @@ const home = () => layout({
 
 <section class="section" id="como-faco" aria-labelledby="como-title">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="label">Como eu trabalho</span>
-      <h2 class="h2" id="como-title">Primeiro eu entendo. Depois eu <em class="serif">desenho</em>.</h2>
+      ${h2('como-title', [['Primeiro eu entendo. Depois eu ', false], ['desenho', true], ['.', false]])}
     </div>
-    <ol class="steps" data-stagger>
-      ${process.map(([n, t, p]) => `<li class="step reveal"><span class="step-num">${n}</span><h3>${t}</h3><p>${p}</p></li>`).join('\n      ')}
-    </ol>
+    <div class="process">
+      <div class="steps-list">
+        <span class="steps-progress" aria-hidden="true"><span></span></span>
+        <ol class="steps-ol">
+        ${process.map(([n, t, p], i) => `<li class="pstep${i === 0 ? ' is-active' : ''}" data-step="${i}">
+          <div class="step-ill-m card-base" data-loop aria-hidden="true">${ills[i]}</div>
+          <span class="step-num">${n}</span><h3>${t}</h3><p>${p}</p>
+        </li>`).join('\n        ')}
+        </ol>
+      </div>
+      <div class="process-panel card-base" aria-hidden="true" data-loop>
+        <div class="ill-stack">
+          ${ills.map((svg, i) => `<div class="ill${i === 0 ? ' is-active' : ''}" data-ill="${i}">${svg}</div>`).join('\n          ')}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section" id="sobre" aria-labelledby="sobre-title">
-  <div class="container about-grid">
-    <div class="about-text reveal">
+  <div class="container bento-about" data-stagger>
+    <div class="b-about card-base spot reveal">
       <span class="label">Sobre</span>
-      <h2 class="h2" id="sobre-title">Prazer, Diogo.</h2>
+      ${h2('sobre-title', [['Prazer, Diogo.', false]])}
       <p class="lead">Sou publicitário e designer, com [X] anos entre agência, startup e escola de negócios. No G4 Educação, fiz páginas de produto e de lançamento. Hoje atendo empresas direto, sem intermediário.</p>
-      <ul class="numbers">
-        <li><span class="num-val">8</span><span class="num-cap">pessoas lideradas em campanha nacional</span></li>
-        <li><span class="num-val">50K</span><span class="num-cap">seguidores em menos de 1 mês</span></li>
-        <li><span class="num-val">1ª</span><span class="num-cap">turma do G4 Sprints lotada antes do lançamento</span></li>
-      </ul>
+      <svg class="signature" viewBox="0 0 150 70" aria-hidden="true"><text x="4" y="54">Diogo</text></svg>
     </div>
-    <div class="reveal">
+    <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas em campanha nacional</span></div>
+    <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês</span></div>
+    <div class="b-num b-n3 card-base spot reveal"><span class="b-icon">${icon.ticket}</span><span class="num-val" data-count="1" data-suffix="ª">1ª</span><span class="num-cap">turma do G4 Sprints lotada antes do lançamento</span></div>
+    <div class="b-edu card-base spot reveal">
+      <h3>Publicidade e Propaganda (FMU)</h3>
+      <ul class="chips"><li>UX</li><li>Design System</li><li>Web Analytics</li></ul>
+    </div>
+    <div class="b-career card-base spot reveal">
       <h3 class="sr-only">Trajetória</h3>
-      <ul class="career">
-        ${career.map(([c, r, y]) => `<li><span class="co">${esc(c)}</span><span class="role">${esc(r)}</span><span class="yrs">${y}</span></li>`).join('\n        ')}
-      </ul>
-      <p class="edu">Publicidade e Propaganda (FMU) + cursos de UX, Design System e Web Analytics</p>
-      <a class="link-u cv-link" href="${config.cv}" download data-cv="sobre">Baixar CV completo ↓</a>
+      <div class="career-wrap">
+        <span class="career-dot" aria-hidden="true"></span>
+        <ul class="career">
+        ${career.map(([c, r, y]) => `<li tabindex="0"><div class="career-row"><span class="co">${esc(c)}</span><span class="yrs">${y}</span></div><div class="career-role"><span>${esc(r)}</span></div></li>`).join('\n        ')}
+        </ul>
+      </div>
     </div>
+    <a class="b-cv card-base spot reveal" href="${config.cv}" download data-cv="sobre">
+      <span class="doc" aria-hidden="true"><span class="doc-sheet doc-sheet--back"></span><span class="doc-sheet doc-sheet--front"><i></i><i></i><i></i><i></i><i></i></span></span>
+      <span class="link-u">Baixar CV completo ↓</span>
+    </a>
   </div>
 </section>
 
@@ -255,19 +419,20 @@ const servicePage = (s) => layout({
   path: `/servicos/${s.slug}`,
   og: ogFor(s.slug),
   body: `<section class="svc-top" aria-labelledby="svc-title">
+  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div><div class="hero-lines"></div></div>
   <div class="container">
     <a class="back" href="/#servicos">← Voltar</a>
     <h1 class="h1" id="svc-title">${esc(s.name)}</h1>
     <p class="lead">${esc(s.tagline)}</p>
     <span class="price">${esc(s.price)}</span>
-    <a class="btn btn-primary" href="${waLink(s.whatsappMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
+    <a class="btn btn-primary magnetic" href="${waLink(s.whatsappMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
   </div>
 </section>
 
 <section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
   <div class="container">
     <div class="section-head">
-      <h2 class="h2" id="trabalho-title">O trabalho</h2>
+      ${h2('trabalho-title', [['O trabalho', false]])}
     </div>
     ${s.works.map(work).join('\n    ')}
   </div>
@@ -275,8 +440,8 @@ const servicePage = (s) => layout({
 
 <section class="section" style="padding-top:0" aria-labelledby="recebe-title">
   <div class="container">
-    <div class="section-head reveal">
-      <h2 class="h2" id="recebe-title">O que você recebe</h2>
+    <div class="section-head">
+      ${h2('recebe-title', [['O que você recebe', false]])}
     </div>
     <ul class="receive" data-stagger>
       ${s.deliverables.map((d) => `<li class="reveal">${esc(d)}</li>`).join('\n      ')}
@@ -286,8 +451,8 @@ const servicePage = (s) => layout({
 
 <section class="section" style="padding-top:0" aria-labelledby="funciona-title">
   <div class="container">
-    <div class="section-head reveal">
-      <h2 class="h2" id="funciona-title">Como funciona</h2>
+    <div class="section-head">
+      ${h2('funciona-title', [['Como funciona', false]])}
     </div>
     <ol class="how" data-stagger>
       ${s.steps.map((st, i) => `<li class="step reveal"><span class="step-num">0${i + 1}</span><h3>${esc(st.title)}</h3><p>${esc(st.text)}</p></li>`).join('\n      ')}
@@ -298,8 +463,8 @@ const servicePage = (s) => layout({
 
 <section class="section" style="padding-top:0" aria-labelledby="faq-title">
   <div class="container">
-    <div class="section-head reveal">
-      <h2 class="h2" id="faq-title">Perguntas rápidas</h2>
+    <div class="section-head">
+      ${h2('faq-title', [['Perguntas rápidas', false]])}
     </div>
     <div class="faq reveal">
       ${s.faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('\n      ')}

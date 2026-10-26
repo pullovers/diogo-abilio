@@ -1,6 +1,8 @@
 {
   "slug": "edicao-de-video",
   "order": 4,
+  "bento": "wide",
+  "mockup": "timeline",
   "name": "Edição de vídeo",
   "tagline": "Vídeos curtos, com ritmo, legenda e gancho nos primeiros 3 segundos.",
   "price": "a partir de R$ [definir]",

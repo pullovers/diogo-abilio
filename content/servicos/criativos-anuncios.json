@@ -1,6 +1,8 @@
 {
   "slug": "criativos-anuncios",
   "order": 3,
+  "bento": "small",
+  "mockup": "phone",
   "name": "Criativos para anúncios",
   "tagline": "Anúncio que chama o cliente certo, não só clique barato.",
   "price": "a partir de R$ [definir]",

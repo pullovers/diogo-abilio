@@ -1,6 +1,8 @@
 {
   "slug": "landing-pages",
   "order": 1,
+  "bento": "large",
+  "mockup": "browser",
   "name": "Landing pages",
   "tagline": "Página que explica rápido, passa confiança e faz o visitante chamar no WhatsApp.",
   "price": "a partir de R$ [definir]",
@@ -24,9 +26,21 @@
         "alt": "Página G4 Gestão & Estratégia"
       },
       "notes": [
-        { "x": 14, "y": 46, "text": "Organizei a oferta e os argumentos de venda em blocos fáceis de ler." },
-        { "x": 18, "y": 64, "text": "Hierarquia visual que leva o olho até o botão de aplicar." },
-        { "x": 12, "y": 14, "text": "Estrutura responsiva, publicada num momento de alta demanda." }
+        {
+          "x": 14,
+          "y": 46,
+          "text": "Organizei a oferta e os argumentos de venda em blocos fáceis de ler."
+        },
+        {
+          "x": 18,
+          "y": 64,
+          "text": "Hierarquia visual que leva o olho até o botão de aplicar."
+        },
+        {
+          "x": 12,
+          "y": 14,
+          "text": "Estrutura responsiva, publicada num momento de alta demanda."
+        }
       ]
     },
     {
@@ -41,10 +55,26 @@
         "alt": "Página de lançamento G4 Sprints"
       },
       "notes": [
-        { "x": 87, "y": 9, "text": "Estrutura de oferta e copy pensadas para o lançamento." },
-        { "x": 85, "y": 42, "text": "Do protótipo no Figma à publicação no Webflow." },
-        { "x": 77, "y": 63, "text": "A primeira turma lotou ainda no pré-lançamento." },
-        { "x": 72, "y": 86, "text": "A página virou modelo para as próximas Sprints." }
+        {
+          "x": 87,
+          "y": 9,
+          "text": "Estrutura de oferta e copy pensadas para o lançamento."
+        },
+        {
+          "x": 85,
+          "y": 42,
+          "text": "Do protótipo no Figma à publicação no Webflow."
+        },
+        {
+          "x": 77,
+          "y": 63,
+          "text": "A primeira turma lotou ainda no pré-lançamento."
+        },
+        {
+          "x": 72,
+          "y": 86,
+          "text": "A página virou modelo para as próximas Sprints."
+        }
       ]
     }
   ],
@@ -55,14 +85,33 @@
     "[O que você recebe 4]"
   ],
   "steps": [
-    { "title": "[Passo 1]", "text": "[Descreva o primeiro passo]" },
-    { "title": "[Passo 2]", "text": "[Descreva o segundo passo]" },
-    { "title": "[Passo 3]", "text": "[Descreva o terceiro passo]" }
+    {
+      "title": "[Passo 1]",
+      "text": "[Descreva o primeiro passo]"
+    },
+    {
+      "title": "[Passo 2]",
+      "text": "[Descreva o segundo passo]"
+    },
+    {
+      "title": "[Passo 3]",
+      "text": "[Descreva o terceiro passo]"
+    }
   ],
   "deadline": "[definir]",
   "faq": [
-    { "q": "Quanto custa?", "a": "[Resposta]" },
-    { "q": "Em quanto tempo fica pronto?", "a": "[Resposta]" },
-    { "q": "Posso pedir ajustes?", "a": "[Resposta]" }
-  ]
+    {
+      "q": "Quanto custa?",
+      "a": "[Resposta]"
+    },
+    {
+      "q": "Em quanto tempo fica pronto?",
+      "a": "[Resposta]"
+    },
+    {
+      "q": "Posso pedir ajustes?",
+      "a": "[Resposta]"
+    }
+  ],
+  "mockupUrl": "g4educacao.com"
 }

@@ -1,6 +1,8 @@
 {
   "slug": "criativos-redes-sociais",
   "order": 2,
+  "bento": "small",
+  "mockup": "fan",
   "name": "Posts para redes sociais",
   "tagline": "Posts e carrosséis que fazem a pessoa parar, entender e lembrar de você.",
   "price": "a partir de R$ [definir]",
