@@ -27,7 +27,7 @@ const base = (inner) => `<!doctype html><html><head><meta charset="utf-8">
 
 const homeHtml = base(`
   <div class="brand">Diogo Abílio</div>
-  <h1 style="position:absolute;left:72px;top:150px;width:640px;font-size:68px;line-height:1.04;letter-spacing:-0.04em;font-weight:600">Seu negócio é bom.<br>Sua comunicação<br>mostra <span class="serif">isso</span>?</h1>
+  <h1 style="position:absolute;left:72px;top:150px;width:640px;font-size:68px;line-height:1.04;letter-spacing:-0.04em;font-weight:600">Seu negócio é bom.<br>Sua <span class="serif" style="text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:10px">comunicação</span><br>mostra isso?</h1>
   <img src="${img('img/foto-diogo-800.webp')}" style="position:absolute;right:72px;top:64px;width:400px;height:502px;object-fit:cover;border-radius:24px">
 `);
 

@@ -270,8 +270,8 @@ const process = [
 // Hero headline: one sentence per line, words rise in order, the accent word last.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
 const heroLine1 = ['Seu', 'negócio', 'é', 'bom.'].map(heroWord).join(' ');
-const heroLine2 = ['Sua', 'comunicação', 'mostra'].map((w, i) => heroWord(w, i + 4)).join(' ');
-const heroAccent = heroWord('<em class="serif accent hl">isso<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>?', 7);
+const heroAccent = heroWord('<em class="serif accent hl">comunicação<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 5);
+const heroLine2 = [heroWord('Sua', 4), heroAccent, heroWord('mostra', 6), heroWord('isso?', 7)].join(' ');
 const heroSub = 'Crio sites, páginas de venda e conteúdos para transformar interesse em oportunidades para o seu negócio.';
 
 const home = () => layout({
@@ -284,7 +284,7 @@ const home = () => layout({
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container hero-grid">
     <div class="hero-text">
-      <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2} ${heroAccent}</span></h1>
+      <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2}</span></h1>
       <p class="hero-sub fade-in" style="--delay:500ms">${heroSub}</p>
       <div class="hero-cta fade-in" style="--delay:650ms">
         <div class="hero-actions">
