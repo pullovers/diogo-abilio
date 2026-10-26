@@ -44,7 +44,6 @@ const h2 = (id, segments, extra = '') =>
 
 // ---------- icons ----------
 const icon = {
-  play: '<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M3 1.8v8.4L10 6z" fill="currentColor"/></svg>',
   chat: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>',
   people: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg>',
   growth: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><path d="M15 6h5v5"/></svg>',
@@ -76,7 +75,7 @@ const layout = ({ title, description, path, og, body, home = false }) => `<!doct
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" />
-${home ? '<link rel="preload" as="image" href="/images/diogo-cutout-760.webp" imagesrcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w" imagesizes="(max-width: 860px) 60vw, 460px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
+${home ? '<link rel="preload" as="image" href="/images/diogo-cutout-760.webp" imagesrcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w, /images/diogo-cutout-1050.webp 1050w" imagesizes="(max-width: 860px) 70vw, 660px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
 <script>document.documentElement.classList.add('js')</script>
 <script defer src="/assets/vendor/motion-11.18.2.js"></script>
 <script defer src="/assets/main.js"></script>
@@ -279,11 +278,10 @@ const home = () => layout({
   og: '/og/home.png',
   home: true,
   body: `<section class="hero" id="hero" aria-labelledby="hero-title">
-  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div><div class="hero-lines"></div></div>
+  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container hero-grid">
     <div class="hero-text">
-      <p class="status fade-in"><span class="status-dot" aria-hidden="true"></span>Agenda aberta · 5 análises grátis por mês</p>
-      <p class="eyebrow fade-in" style="--delay:60ms">Oi, eu sou o Diogo.</p>
+      <p class="eyebrow fade-in">Oi, eu sou o Diogo.</p>
       <h1 class="h1" id="hero-title">${heroWords} <span class="w"><span class="wi" style="--i:${vendeIndex}"><em class="serif accent vende">vende<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.</span></span></h1>
       <p class="hero-sub fade-in" style="--delay:500ms">Eu crio suas páginas, posts e vídeos. Mas, antes de abrir qualquer tela, eu entendo seu negócio e por que o cliente ainda não comprou.</p>
       <div class="hero-cta fade-in" style="--delay:650ms">
@@ -295,14 +293,8 @@ const home = () => layout({
     <div class="hero-media" data-loop>
       <div class="portrait">
         <div class="p-glow" aria-hidden="true"></div>
-        <div class="p-ring" aria-hidden="true"></div>
-        <img class="p-img" src="/images/diogo-cutout-760.webp" srcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w" sizes="(max-width: 860px) 60vw, 460px" width="760" height="907" alt="Foto de Diogo Abílio" fetchpriority="high" decoding="async" />
+        <img class="p-img" src="/images/diogo-cutout-760.webp" srcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w, /images/diogo-cutout-1050.webp 1050w" sizes="(max-width: 860px) 70vw, 660px" width="760" height="907" alt="Foto de Diogo Abílio" fetchpriority="high" decoding="async" />
       </div>
-      <ul class="float-cards" aria-label="Exemplos do que eu faço">
-        <li class="fc fc-a"><div class="fc-in"><img class="fc-thumb" src="/img/g4-gestao-200.webp" alt="" width="200" height="106" decoding="async" />Landing page</div></li>
-        <li class="fc fc-b"><div class="fc-in"><span class="fc-icon">${icon.play}</span>Vídeo · 0:15</div></li>
-        <li class="fc fc-c"><div class="fc-in"><svg class="fc-chart" viewBox="0 0 64 32" aria-hidden="true"><path d="M2 28 L16 20 L28 23 L42 11 L62 4"/></svg>Testado e ajustado</div></li>
-      </ul>
     </div>
   </div>
 </section>
@@ -419,7 +411,7 @@ const servicePage = (s) => layout({
   path: `/servicos/${s.slug}`,
   og: ogFor(s.slug),
   body: `<section class="svc-top" aria-labelledby="svc-title">
-  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div><div class="hero-lines"></div></div>
+  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container">
     <a class="back" href="/#servicos">← Voltar</a>
     <h1 class="h1" id="svc-title">${esc(s.name)}</h1>
