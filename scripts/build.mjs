@@ -75,7 +75,7 @@ const layout = ({ title, description, path, og, body, home = false }) => `<!doct
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" />
-${home ? '<link rel="preload" as="image" href="/images/diogo-cutout-760.webp" imagesrcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w, /images/diogo-cutout-1050.webp 1050w" imagesizes="(max-width: 860px) 70vw, 660px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
+${home ? '<link rel="preload" as="image" href="/images/diogo-float-1200.webp" imagesrcset="/images/diogo-float-800.webp 800w, /images/diogo-float-1200.webp 1200w, /images/diogo-float-1774.webp 1774w" imagesizes="(max-width: 860px) 100vw, 1120px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
 <script>document.documentElement.classList.add('js')</script>
 <script defer src="/assets/vendor/motion-11.18.2.js"></script>
 <script defer src="/assets/main.js"></script>
@@ -146,17 +146,17 @@ const browserFrame = (imgs, url, cls) => `<div class="browser ${cls}" aria-hidde
           </div>`;
 
 const fanSvgs = [
-  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#1A1A1D"/><circle cx="72" cy="28" r="18" fill="#FF3B24"/><rect x="12" y="58" width="58" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="70" width="40" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="86" width="30" height="3" rx="1.5" fill="#9B978F"/></svg>',
-  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DC2F1A"/><rect x="12" y="14" width="22" height="3" rx="1.5" fill="#fff" opacity=".7"/><rect x="12" y="34" width="70" height="10" rx="2" fill="#fff"/><rect x="12" y="48" width="52" height="10" rx="2" fill="#fff"/><circle cx="80" cy="82" r="8" fill="none" stroke="#fff" stroke-width="2"/><path d="M77 82h6M80 79v6" stroke="#fff" stroke-width="2"/></svg>',
-  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#131315"/><path d="M0 25h100M0 50h100M0 75h100M25 0v100M50 0v100M75 0v100" stroke="rgba(255,255,255,.08)"/><rect x="12" y="12" width="38" height="38" rx="4" fill="#FF3B24"/><rect x="12" y="62" width="62" height="7" rx="2" fill="#F3F1ED"/><rect x="12" y="74" width="44" height="7" rx="2" fill="#F3F1ED"/></svg>',
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#1A1A1D"/><circle cx="72" cy="28" r="18" fill="#A970FF"/><rect x="12" y="58" width="58" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="70" width="40" height="8" rx="2" fill="#F3F1ED"/><rect x="12" y="86" width="30" height="3" rx="1.5" fill="#9B978F"/></svg>',
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#8B3DFF"/><rect x="12" y="14" width="22" height="3" rx="1.5" fill="#fff" opacity=".7"/><rect x="12" y="34" width="70" height="10" rx="2" fill="#fff"/><rect x="12" y="48" width="52" height="10" rx="2" fill="#fff"/><circle cx="80" cy="82" r="8" fill="none" stroke="#fff" stroke-width="2"/><path d="M77 82h6M80 79v6" stroke="#fff" stroke-width="2"/></svg>',
+  '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#131315"/><path d="M0 25h100M0 50h100M0 75h100M25 0v100M50 0v100M75 0v100" stroke="rgba(255,255,255,.08)"/><rect x="12" y="12" width="38" height="38" rx="4" fill="#A970FF"/><rect x="12" y="62" width="62" height="7" rx="2" fill="#F3F1ED"/><rect x="12" y="74" width="44" height="7" rx="2" fill="#F3F1ED"/></svg>',
 ];
-const adSvg = '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#DC2F1A"/><circle cx="74" cy="30" r="16" fill="#0A0A0B" opacity=".35"/><rect x="10" y="56" width="64" height="9" rx="2" fill="#fff"/><rect x="10" y="69" width="44" height="9" rx="2" fill="#fff"/><rect x="10" y="85" width="34" height="8" rx="4" fill="#0A0A0B"/></svg>';
+const adSvg = '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#8B3DFF"/><circle cx="74" cy="30" r="16" fill="#0A0A0B" opacity=".35"/><rect x="10" y="56" width="64" height="9" rx="2" fill="#fff"/><rect x="10" y="69" width="44" height="9" rx="2" fill="#fff"/><rect x="10" y="85" width="34" height="8" rx="4" fill="#0A0A0B"/></svg>';
 const plainPost = '<div class="post"><div class="post-head"><i></i><b></b></div><div class="post-media"></div></div>';
 const adPost = `<div class="post post--ad"><div class="post-head"><i></i><b></b><small>Patrocinado</small></div>${adSvg}</div>`;
 const frameSvgs = [
-  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#1A1A1D"/><circle cx="45" cy="62" r="22" fill="#26262A"/><rect x="18" y="112" width="54" height="7" rx="2" fill="#F3F1ED"/><rect x="26" y="123" width="38" height="7" rx="2" fill="#FF3B24"/></svg>',
-  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#DC2F1A"/><rect x="14" y="40" width="62" height="12" rx="2" fill="#fff"/><rect x="14" y="56" width="44" height="12" rx="2" fill="#fff"/><rect x="14" y="128" width="62" height="5" rx="2.5" fill="#fff" opacity=".5"/></svg>',
-  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#131315"/><path d="M10 120 L32 96 L50 108 L80 70" fill="none" stroke="#FF3B24" stroke-width="3" stroke-linecap="round"/><rect x="14" y="26" width="48" height="7" rx="2" fill="#F3F1ED"/><rect x="14" y="138" width="40" height="6" rx="2" fill="#9B978F"/></svg>',
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#1A1A1D"/><circle cx="45" cy="62" r="22" fill="#26262A"/><rect x="18" y="112" width="54" height="7" rx="2" fill="#F3F1ED"/><rect x="26" y="123" width="38" height="7" rx="2" fill="#A970FF"/></svg>',
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#8B3DFF"/><rect x="14" y="40" width="62" height="12" rx="2" fill="#fff"/><rect x="14" y="56" width="44" height="12" rx="2" fill="#fff"/><rect x="14" y="128" width="62" height="5" rx="2.5" fill="#fff" opacity=".5"/></svg>',
+  '<svg viewBox="0 0 90 160" preserveAspectRatio="xMidYMid slice"><rect width="90" height="160" fill="#131315"/><path d="M10 120 L32 96 L50 108 L80 70" fill="none" stroke="#A970FF" stroke-width="3" stroke-linecap="round"/><rect x="14" y="26" width="48" height="7" rx="2" fill="#F3F1ED"/><rect x="14" y="138" width="40" height="6" rx="2" fill="#9B978F"/></svg>',
 ];
 
 const mockup = (s) => {
@@ -207,7 +207,7 @@ const ills = [
     <rect class="svg-soft" x="90" y="40" width="70" height="8" rx="4"/><rect class="svg-soft" x="300" y="37" width="50" height="14" rx="7"/>
     <rect class="svg-soft" x="90" y="72" width="180" height="14" rx="4"/><rect class="svg-soft" x="90" y="92" width="130" height="14" rx="4"/>
     <rect class="svg-soft" x="90" y="118" width="200" height="6" rx="3"/><rect class="svg-soft" x="90" y="130" width="160" height="6" rx="3"/>
-    <rect x="90" y="150" width="76" height="20" rx="10" fill="rgba(255,59,36,.35)"/>
+    <rect x="90" y="150" width="76" height="20" rx="10" fill="rgba(139,61,255,.35)"/>
     <rect class="svg-line" x="90" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="180" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="270" y="196" width="80" height="80" rx="8"/>
     <g class="note note-1"><path class="svg-acc-line" d="M160 79 L66 52"/><circle class="svg-acc" cx="160" cy="79" r="4"/><rect class="svg-block" x="4" y="34" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="45" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="54" width="28" height="4" rx="2"/></g>
     <g class="note note-2"><path class="svg-acc-line" d="M125 160 L66 182"/><circle class="svg-acc" cx="125" cy="160" r="4"/><rect class="svg-block" x="4" y="166" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="177" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="186" width="28" height="4" rx="2"/></g>
@@ -223,8 +223,8 @@ const ills = [
     <path d="M272 146 a8 8 0 1 1 3 12 l-6 3 2-5 a8 8 0 0 1 1-10z" fill="none" stroke="#9B978F" stroke-width="1.5"/>
     <path d="M382 150 l5 5 10-11" fill="none" stroke="#9B978F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     ${[0, 1, 2, 3, 4].map((k) => `<circle class="svg-acc flow-dot" cx="60" cy="${150 + [-2, 3, -4, 1, 4][k]}" r="4" style="--k:${k};--stop:${[196, 204, 190, 200, 186][k]}px"/>`).join('')}
-    <circle cx="280" cy="150" r="30" fill="none" stroke="#FF3B24" stroke-width="1.5" class="node-alert"/>
-    <g class="node-alert"><path d="M280 88 L292 108 H268 Z" fill="none" stroke="#FF3B24" stroke-width="1.5" stroke-linejoin="round"/><path d="M280 96 v6" stroke="#FF3B24" stroke-width="1.5" stroke-linecap="round"/><circle cx="280" cy="105" r="1" fill="#FF3B24"/></g>
+    <circle cx="280" cy="150" r="30" fill="none" stroke="#A970FF" stroke-width="1.5" class="node-alert"/>
+    <g class="node-alert"><path d="M280 88 L292 108 H268 Z" fill="none" stroke="#A970FF" stroke-width="1.5" stroke-linejoin="round"/><path d="M280 96 v6" stroke="#A970FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="280" cy="105" r="1" fill="#A970FF"/></g>
   </svg>`,
   // 03 blocks fly into a page grid + sparkle + timer
   `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
@@ -232,7 +232,7 @@ const ills = [
     ${[
       [90, 40, 260, 16, -120, -60, -12], [90, 70, 160, 74, -160, 40, 8], [262, 70, 88, 74, 140, -50, 14],
       [90, 160, 80, 64, -120, 140, -10], [180, 160, 80, 64, 20, 160, 12], [270, 160, 80, 64, 150, 120, -14], [90, 240, 96, 24, -100, 120, 6],
-    ].map(([x, y, w, h, fx, fy, fr], k) => `<rect class="${k === 1 || k === 6 ? '' : 'svg-block '}fly" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" ${k === 1 ? 'fill="rgba(255,59,36,.35)" stroke="#FF3B24"' : k === 6 ? 'fill="#DC2F1A"' : ''} style="--k:${k};--fx:${fx}px;--fy:${fy}px;--fr:${fr}deg"/>`).join('\n    ')}
+    ].map(([x, y, w, h, fx, fy, fr], k) => `<rect class="${k === 1 || k === 6 ? '' : 'svg-block '}fly" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" ${k === 1 ? 'fill="rgba(139,61,255,.35)" stroke="#A970FF"' : k === 6 ? 'fill="#8B3DFF"' : ''} style="--k:${k};--fx:${fx}px;--fy:${fy}px;--fr:${fr}deg"/>`).join('\n    ')}
     <g transform="translate(392 34)"><path class="svg-acc sparkle" d="M0 -14 C2 -4 4 -2 14 0 C4 2 2 4 0 14 C-2 4 -4 2 -14 0 C-4 -2 -2 -4 0 -14Z"/></g>
     <text class="svg-text-ink ill-timer" x="370" y="312" text-anchor="end">02:00</text>
   </svg>`,
@@ -242,11 +242,11 @@ const ills = [
     <rect class="svg-block" x="60" y="40" width="140" height="150" rx="12"/><rect class="svg-block" x="240" y="40" width="140" height="150" rx="12"/>
     <text class="svg-text-ink" x="76" y="66">A</text><text class="svg-text-ink" x="256" y="66">B</text>
     <rect class="svg-soft" x="76" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="76" y="100" width="70" height="6" rx="3"/><rect class="svg-soft" x="76" y="150" width="60" height="18" rx="9"/>
-    <rect class="svg-soft" x="256" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="256" y="100" width="70" height="6" rx="3"/><rect x="256" y="150" width="60" height="18" rx="9" fill="rgba(255,59,36,.45)"/>
+    <rect class="svg-soft" x="256" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="256" y="100" width="70" height="6" rx="3"/><rect x="256" y="150" width="60" height="18" rx="9" fill="rgba(139,61,255,.45)"/>
     <path class="svg-line" d="M60 290 H380"/>
     <rect class="bar bar-a" x="95" y="232" width="70" height="58" rx="4" fill="rgba(255,255,255,.18)"/>
-    <rect class="bar bar-b" x="275" y="200" width="70" height="90" rx="4" fill="#FF3B24"/>
-    <g class="win"><rect x="240" y="40" width="140" height="150" rx="12" fill="none" stroke="#FF3B24" stroke-width="1.5"/><circle cx="366" cy="54" r="11" fill="#FF3B24"/><path d="M361 54 l3.5 3.5 6.5-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <rect class="bar bar-b" x="275" y="200" width="70" height="90" rx="4" fill="#A970FF"/>
+    <g class="win"><rect x="240" y="40" width="140" height="150" rx="12" fill="none" stroke="#A970FF" stroke-width="1.5"/><circle cx="366" cy="54" r="11" fill="#A970FF"/><path d="M361 54 l3.5 3.5 6.5-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
   </svg>`,
 ];
 
@@ -267,12 +267,13 @@ const process = [
   ['04', 'Testo e ajusto', 'Coloco no ar, olho os dados e melhoro.'],
 ];
 
-// Hero headline: one sentence per line, words rise in order, the accent word last.
+// Hero headline: two balanced lines, words rise in order after the photo floats in.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
-const heroLine1 = ['Seu', 'negócio', 'é', 'bom.'].map(heroWord).join(' ');
-const heroAccent = heroWord('<em class="serif accent hl">comunicação<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 5);
-const heroLine2 = [heroWord('Sua', 4), heroAccent, heroWord('mostra', 6), heroWord('isso?', 7)].join(' ');
-const heroSub = 'Crio sites, páginas de venda e conteúdos para transformar interesse em oportunidades para o seu negócio.';
+const heroWords = (words, start) => words.map((w, k) => heroWord(w, start + k)).join(' ');
+const heroLine1 = `${heroWords(['Me', 'deixe', 'destravar', 'a'], 0)} ${heroWord('<span class="grad">criatividade</span>', 4)}`;
+const heroLucrar = heroWord('<em class="lucrar hl">lucrar<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 11);
+const heroLine2 = `${heroWords(['da', 'sua', 'empresa', 'e', 'fazer', 'você'], 5)} ${heroLucrar} ${heroWords(['com', 'isso.'], 12)}`;
+const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir além. Depois, penso e coloco em prática o que faz sentido agora: vídeos, conteúdos, campanhas ou um site que ajude você a vender mais.';
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
@@ -282,23 +283,23 @@ const home = () => layout({
   home: true,
   body: `<section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
-  <div class="container hero-grid">
-    <div class="hero-text">
-      <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2}</span></h1>
-      <p class="hero-sub fade-in" style="--delay:500ms">${heroSub}</p>
-      <div class="hero-cta fade-in" style="--delay:650ms">
-        <div class="hero-actions">
-          <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise gratuita <span class="arr" aria-hidden="true">→</span></a>
-          <a class="link-u" href="#servicos">Ver meus trabalhos ↓</a>
-        </div>
-        <p class="micro">Em vídeo e sem compromisso.</p>
+  <div class="float-stage" data-loop>
+    <div class="float-glow" aria-hidden="true"></div>
+    <div class="float-parallax">
+      <div class="float-bob">
+        <img class="float-img" src="/images/diogo-float-1200.webp" srcset="/images/diogo-float-800.webp 800w, /images/diogo-float-1200.webp 1200w, /images/diogo-float-1774.webp 1774w" sizes="(max-width: 860px) 100vw, 1120px" width="1774" height="887" alt="Diogo Abílio flutuando, com luz saindo da cabeça" fetchpriority="high" decoding="async" />
       </div>
     </div>
-    <div class="hero-media" data-loop>
-      <div class="portrait">
-        <div class="p-glow" aria-hidden="true"></div>
-        <img class="p-img" src="/images/diogo-cutout-760.webp" srcset="/images/diogo-cutout-440.webp 440w, /images/diogo-cutout-760.webp 760w, /images/diogo-cutout-1050.webp 1050w" sizes="(max-width: 860px) 70vw, 660px" width="760" height="907" alt="Foto de Diogo Abílio" fetchpriority="high" decoding="async" />
+  </div>
+  <div class="container hero-text">
+    <h1 class="h1 hero-title" id="hero-title"><span class="h1-line">${heroLine1}</span> <span class="h1-line">${heroLine2}</span></h1>
+    <p class="hero-sub fade-in" style="--delay:1300ms">${heroSub}</p>
+    <div class="hero-actions fade-in" style="--delay:1500ms">
+      <div class="cta-col">
+        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise gratuita <span class="arr" aria-hidden="true">→</span></a>
+        <p class="micro">Em vídeo e sem compromisso.</p>
       </div>
+      <a class="link-u" href="#servicos">Ver meus trabalhos ↓</a>
     </div>
   </div>
 </section>
