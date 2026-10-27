@@ -100,11 +100,10 @@
   var splits = $$('.split');
   splits.forEach(markLines);
   if (reduce) {
-    $$('.reveal, .split, .label, .signature').forEach(function (el) { el.classList.add('in'); });
+    $$('.reveal, .split').forEach(function (el) { el.classList.add('in'); });
   } else {
     inView('.reveal', function (el) { el.classList.add('in'); });
     inView('.split', function (el) { el.classList.add('in'); });
-    inView('.label', function (el) { el.classList.add('in'); });
   }
 
   // ---------- pause loops off screen ----------
@@ -230,7 +229,7 @@
     requestAnimationFrame(tick);
   }
 
-  // ---------- about: counters, signature, sliding dot on career ----------
+  // ---------- about: counters and sliding dot on career ----------
   $$('[data-count]').forEach(function (el) {
     var to = +el.dataset.count, suffix = el.dataset.suffix || '';
     if (reduce) return;
@@ -240,7 +239,6 @@
       else el.textContent = to + suffix;
     });
   });
-  inView('.signature', function (el) { el.classList.add('in'); });
   var dot = $('.career-dot');
   if (dot) {
     var items = $$('.career li');

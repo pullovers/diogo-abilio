@@ -359,7 +359,6 @@ const home = () => layout({
       <span class="label">Sobre</span>
       ${h2('sobre-title', [['Prazer, Diogo.', false]])}
       <p class="lead">Sou publicitário e designer, com [X] anos entre agência, startup e escola de negócios. No G4 Educação, fiz páginas de produto e de lançamento. Hoje atendo empresas direto, sem intermediário.</p>
-      <svg class="signature" viewBox="0 0 150 70" aria-hidden="true"><text x="4" y="54">Diogo</text></svg>
     </div>
     <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas em campanha nacional</span></div>
     <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês</span></div>

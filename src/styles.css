@@ -11,7 +11,7 @@
   --accent-glow: rgba(139, 61, 255, 0.35);
   --accent-btn: #8B3DFF;      /* button fill: white text passes AA (5.0:1) */
   --accent-btn-hover: #7B2FF7;
-  --gold: #D4B872;            /* muted gold for the money word */
+  --gold: #E6C25E;            /* warm gold for the money word */
   --grad: linear-gradient(95deg, #CF97FF 0%, #A970FF 45%, #8B3DFF 100%);
   --green: #2FBF71;
 
@@ -87,28 +87,41 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   text-wrap: balance;
 }
 .serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.h2 .serif {
+  background: var(--grad);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  padding: 0 .1em 0 .02em;      /* room for the italic overhang so the clip doesn't cut it */
+  margin: 0 -.1em 0 -.02em;
+}
 .accent { color: var(--accent); }
+/* section label: a quiet outlined pill, always secondary to the H2 below it */
 .label {
   display: flex;
+  width: fit-content;
   align-items: center;
   gap: 8px;
+  padding: 5px 12px 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .02);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.4;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .label::before {
   content: '';
-  width: 16px; height: 1px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
   background: var(--accent);
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform .6s var(--ease-out) .1s;
+  opacity: .7;
+  flex-shrink: 0;
 }
-.label.in::before, .in > .label::before, .in .label::before { transform: scaleX(1); }
 .lead { color: var(--muted); font-size: 18px; line-height: 1.6; }
 .section-head { margin-bottom: 48px; max-width: 760px; }
 
@@ -387,7 +400,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ===== LOGOS (full-bleed marquee) ===== */
 .logos { padding-block: 8px 0; }
-.logos .label { justify-content: center; }
+.logos .label { margin-inline: auto; }
 .marquee {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
@@ -693,9 +706,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .b-about { grid-area: about; position: relative; padding: 36px; }
 .b-about .h2 { margin-bottom: 20px; }
 .b-about .lead { max-width: 48ch; }
-.signature { position: absolute; right: 28px; bottom: 18px; width: 150px; height: 70px; overflow: visible; }
-.signature text { font: italic 400 58px var(--font-serif); fill: transparent; stroke: var(--accent); stroke-width: .9; stroke-dasharray: 420; stroke-dashoffset: 420; transition: stroke-dashoffset 2.4s var(--ease-out) .2s, fill .8s ease 2s; }
-.in .signature text, .signature.in text { stroke-dashoffset: 0; fill: rgba(139, 61, 255, .9); }
 .b-num { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 220px; }
 .b-n1 { grid-area: n1; } .b-n2 { grid-area: n2; } .b-n3 { grid-area: n3; }
 .num-val { display: block; font-weight: 600; font-size: clamp(48px, 6vw, 72px); line-height: 1; letter-spacing: -0.03em; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
@@ -766,7 +776,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 600px) {
   .bento-about { grid-template-columns: 1fr; grid-template-areas: "about" "n1" "n2" "n3" "career" "edu" "cv"; }
   .bento-about > * { padding: 24px; }
-  .b-about { padding: 28px 24px 96px; }
+  .b-about { padding: 28px 24px; }
   .b-num { min-height: 170px; }
   .b-cv { flex-direction: row; align-items: center; }
   .doc { margin: 0; width: 64px; height: 80px; order: 2; }
@@ -913,8 +923,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal, .js .split:not(.in) .wi, .hero h1 .wi { opacity: 1; transform: none; }
   .hl path, .trend { stroke-dashoffset: 0; }
-  .label::before { transform: scaleX(1); }
-  .signature text { stroke-dashoffset: 0; fill: rgba(139, 61, 255, .9); }
   .float-parallax, .hero-texture { transform: none !important; }
   .fade-in { opacity: 1; transform: none; }
   .flow-dot { transform: translateX(var(--stop)); }
