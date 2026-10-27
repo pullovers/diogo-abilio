@@ -246,6 +246,26 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
 }
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+/* the backdrop dissolves into the page at the bottom, no hard seam */
+.hero-bg::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, transparent, var(--bg)); }
+/* collage texture: framed at the edges, faded behind the photo and copy, drifting slowly */
+.hero-texture {
+  position: absolute;
+  inset: -3%;
+  background: url('/images/hero-texture-1672.webp') center / cover no-repeat;
+  opacity: .55;
+  filter: hue-rotate(14deg) saturate(.95);
+  -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
+          mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
+  transform: translate3d(calc(var(--px, 0) * -10px), calc(var(--py, 0) * -8px), 0);
+  transition: transform 1.4s var(--ease-out);
+}
+.hero-texture { animation: textureIn 1.6s ease-out both, breathe 30s ease-in-out 1.6s infinite alternate; }
+@keyframes textureIn { from { opacity: 0; } to { opacity: .55; } }
+@keyframes breathe { from { scale: 1; } to { scale: 1.06; } }
+@media (max-width: 860px) {
+  .hero-texture { background-image: url('/images/hero-texture-1000.webp'); opacity: .45; }
+}
 .hero-wash {
   position: absolute; inset: 0;
   /* black stage; only a deep lilac haze creeping in from the edges */
@@ -344,6 +364,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 8px; }
   .cta-col { align-items: stretch; }
   .cta-col .btn { justify-content: center; }
+  .hero-actions .link-u { align-self: center; }
 }
 
 /* ===== LOGOS (full-bleed marquee) ===== */
@@ -876,7 +897,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hl path, .trend { stroke-dashoffset: 0; }
   .label::before { transform: scaleX(1); }
   .signature text { stroke-dashoffset: 0; fill: rgba(139, 61, 255, .9); }
-  .float-parallax { transform: none !important; }
+  .float-parallax, .hero-texture { transform: none !important; }
   .fade-in { opacity: 1; transform: none; }
   .flow-dot { transform: translateX(var(--stop)); }
   .marquee { -webkit-mask-image: none; mask-image: none; }

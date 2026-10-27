@@ -282,7 +282,7 @@ const home = () => layout({
   og: '/og/home.png',
   home: true,
   body: `<section class="hero" id="hero" aria-labelledby="hero-title">
-  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
+  <div class="hero-bg" aria-hidden="true" data-loop><div class="hero-texture"></div><div class="hero-wash"></div></div>
   <div class="float-stage" data-loop>
     <div class="float-glow" aria-hidden="true"></div>
     <div class="float-parallax">
