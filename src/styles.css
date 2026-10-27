@@ -248,19 +248,19 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 /* the backdrop dissolves into the page at the bottom, no hard seam */
 .hero-bg::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, transparent, var(--bg)); }
-/* collage texture: framed at the edges, faded behind the photo and copy. Shown close to
-   its native 2000px size (no zoom) so it stays sharp; AVIF with a WebP fallback. */
+/* collage texture: framed at the edges, faded behind the photo and copy. Source is 4K;
+   each breakpoint loads the smallest file that still covers the screen at its pixel density
+   (AVIF with WebP fallback). The purple tint is baked into the files. */
 .hero-texture {
   position: absolute;
   inset: -12px;                 /* just enough room for the cursor drift */
-  background-image: url('/images/hero-texture-2000.webp');
-  background-image: image-set(url('/images/hero-texture-2000.avif') type('image/avif'), url('/images/hero-texture-2000.webp') type('image/webp'));
+  background-image: url('/images/hero-texture-1920.webp');
+  background-image: image-set(url('/images/hero-texture-1920.avif') type('image/avif'), url('/images/hero-texture-1920.webp') type('image/webp'));
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   --tex-op: .55;
   opacity: var(--tex-op);
-  filter: hue-rotate(14deg) saturate(.95);
   -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
           mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
   transform: translate3d(calc(var(--px, 0) * -10px), calc(var(--py, 0) * -8px), 0);
@@ -268,12 +268,21 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   animation: textureIn 1.6s ease-out both;
 }
 @keyframes textureIn { from { opacity: 0; } to { opacity: var(--tex-op); } }
+@media (min-width: 1700px), (min-width: 1100px) and (min-resolution: 1.4dppx) {
+  .hero-texture { background-image: url('/images/hero-texture-2560.webp'); background-image: image-set(url('/images/hero-texture-2560.avif') type('image/avif'), url('/images/hero-texture-2560.webp') type('image/webp')); }
+}
+@media (min-width: 2400px), (min-width: 1300px) and (min-resolution: 1.4dppx) {
+  .hero-texture { background-image: url('/images/hero-texture-3840.webp'); background-image: image-set(url('/images/hero-texture-3840.avif') type('image/avif'), url('/images/hero-texture-3840.webp') type('image/webp')); }
+}
 @media (max-width: 860px) {
   .hero-texture {
     background-image: url('/images/hero-texture-1000.webp');
     background-image: image-set(url('/images/hero-texture-1000.avif') type('image/avif'), url('/images/hero-texture-1000.webp') type('image/webp'));
     --tex-op: .45;
   }
+}
+@media (max-width: 860px) and (min-resolution: 2dppx) {
+  .hero-texture { background-image: url('/images/hero-texture-2000.webp'); background-image: image-set(url('/images/hero-texture-2000.avif') type('image/avif'), url('/images/hero-texture-2000.webp') type('image/webp')); }
 }
 .hero-wash {
   position: absolute; inset: 0;
