@@ -189,14 +189,114 @@ const mockup = (s) => {
   return `<div class="mock">${pending()}</div>`;
 };
 
-const serviceCard = (s) => `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
-        <span class="price-chip">${esc(s.price)}</span>
-        ${mockup(s)}
-        <div class="bcard-body">
+// ---------- carousel case: fanned cover on the card, slides + strategy in a dialog ----------
+const pad2 = (n) => String(n).padStart(2, '0');
+const slide = (c, n, w) => `${c.dir}/${pad2(n)}-${w}.webp`;
+const expandIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+const arrowIcon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+const funnelStages = [['Topo', 'reconhecimento'], ['Meio', 'consideração'], ['Fundo', 'conversão']];
+
+// Cover: slide 1 in front, slides 2–5 tucked behind; they open into a fan on hover.
+const carouselCover = (c) => `<div class="mock mock-carousel">
+          <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
+            <span class="sr-only">Abrir o carrossel da ${esc(c.brand)} e a estratégia por trás dele</span>
+            <span class="cfan" aria-hidden="true">
+              ${[5, 4, 3, 2, 1].map((n) => `<img src="${slide(c, n, 560)}" alt="" width="560" height="700" loading="lazy" decoding="async" data-n="${n}" />`).join('')}
+            </span>
+            <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${c.count} slides</span>
+          </button>
+          <span class="badge">${esc(funnelStages[c.stage][0].toLowerCase())} de funil</span>
+        </div>`;
+
+const caseDialog = (s) => {
+  const c = s.carousel;
+  const n = Array.from({ length: c.count }, (_, i) => i + 1);
+  return `<dialog class="case" id="case-${c.id}" aria-labelledby="case-${c.id}-title" data-lenis-prevent>
+  <div class="case-shell">
+    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
+    <div class="case-viewer">
+      <div class="case-track" tabindex="0" role="region" aria-label="Slides do carrossel">
+        ${n.map((k) => `<figure class="case-slide"><img src="${slide(c, k, 1122)}" srcset="${slide(c, k, 560)} 560w, ${slide(c, k, 1122)} 1122w" sizes="(max-width: 860px) 90vw, 560px" width="1122" height="1402" alt="Slide ${k} de ${c.count}. ${esc(c.arc[k - 1])}" loading="lazy" decoding="async" /></figure>`).join('\n        ')}
+      </div>
+      <div class="case-bar">
+        <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(c.count)}</span>
+        <div class="case-thumbs">
+          ${n.map((k) => `<button type="button" data-go="${k - 1}" aria-label="Ir para o slide ${k}"${k === 1 ? ' aria-current="true"' : ''}><img src="${slide(c, k, 240)}" alt="" width="240" height="300" loading="lazy" decoding="async" /></button>`).join('')}
+        </div>
+        <div class="case-arrows">
+          <button type="button" class="case-prev" aria-label="Slide anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="Próximo slide">${arrowIcon('M9 18l6-6-6-6')}</button>
+        </div>
+      </div>
+    </div>
+    <div class="case-info">
+      <span class="label">${esc(c.kicker)}</span>
+      <h2 class="case-title" id="case-${c.id}-title">${esc(c.brand)}: ${esc(c.title)}</h2>
+      <p class="case-lead">${esc(c.lead)}</p>
+
+      <div class="case-grid">
+        <dl class="case-facts">
+          ${c.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n          ')}
+        </dl>
+        <div class="case-funnel">
+          <span class="case-h">Etapa do funil</span>
+          <ol>
+            ${funnelStages.map(([t, sub], i) => `<li${i === c.stage ? ' class="is-on" aria-current="step"' : ''}><b>${t}</b><small>${sub}</small></li>`).join('')}
+          </ol>
+        </div>
+      </div>
+
+      <section class="case-block">
+        <h3 class="case-h">A estratégia</h3>
+        <ul class="case-strategy">
+          ${c.strategy.map(([t, p]) => `<li><b>${esc(t)}</b><p>${esc(p)}</p></li>`).join('\n          ')}
+        </ul>
+      </section>
+
+      <section class="case-block">
+        <h3 class="case-h">Slide a slide</h3>
+        <ol class="case-arc">
+          ${c.arc.map((t, i) => `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${pad2(i + 1)}</span><span>${esc(t)}</span></button></li>`).join('\n          ')}
+        </ol>
+      </section>
+
+      <section class="case-block">
+        <h3 class="case-h">O que a gente mede</h3>
+        <ul class="case-metrics">
+          ${c.metrics.map(([t, p]) => `<li><b>${esc(t)}</b><span>${esc(p)}</span></li>`).join('\n          ')}
+        </ul>
+        <p class="case-next-step"><span class="case-h">E depois?</span>${esc(c.next)}</p>
+      </section>
+
+      <p class="case-why">${esc(c.why)}</p>
+
+      <div class="case-cta">
+        <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">Quero um carrossel assim <span class="arr" aria-hidden="true">→</span></a>
+        <a class="link-u" href="/servicos/${s.slug}">Ver o serviço completo</a>
+      </div>
+    </div>
+  </div>
+</dialog>`;
+};
+
+const cardBody = (s, link) => `<div class="bcard-body">
           <h3>${esc(s.name)}</h3>
           <p>${esc(s.tagline)}</p>
-          <span class="card-link">Ver como faço <span class="arr" aria-hidden="true">→</span></span>
-        </div>
+          ${link}
+        </div>`;
+const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</span>';
+// Cards with a carousel case hold a button (opens the dialog) and a link, so the
+// card itself can't be one big <a>: the link stretches over the card instead.
+const serviceCard = (s) => s.carousel
+  ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
+        <span class="price-chip">${esc(s.price)}</span>
+        ${carouselCover(s.carousel)}
+        ${cardBody(s, `<a class="card-link card-stretch" href="/servicos/${s.slug}">${cardLinkInner}</a>`)}
+      </article>`
+  : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
+        <span class="price-chip">${esc(s.price)}</span>
+        ${mockup(s)}
+        ${cardBody(s, `<span class="card-link">${cardLinkInner}</span>`)}
       </a>`;
 
 // ---------- process illustrations ----------
@@ -383,7 +483,8 @@ const home = () => layout({
   </div>
 </section>
 
-${finalCta('cta-final')}`,
+${finalCta('cta-final')}
+${services.filter((s) => s.carousel).map(caseDialog).join('\n')}`,
 });
 
 // ---------- service page ----------

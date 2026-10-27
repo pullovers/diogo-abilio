@@ -67,5 +67,69 @@
       "q": "Posso pedir ajustes?",
       "a": "[Resposta]"
     }
-  ]
+  ],
+  "carousel": {
+    "id": "vaie",
+    "dir": "/images/carrossel-vaie",
+    "count": 7,
+    "brand": "Vaiê",
+    "title": "Se o Brasil tivesse mais ferrovias, sua encomenda chegaria mais rápido?",
+    "kicker": "Carrossel estratégico · 7 slides",
+    "lead": "Um carrossel que não vende nada. E é exatamente por isso que ele funciona: faz quem ainda não conhece a Vaiê parar, aprender algo e lembrar de quem contou.",
+    "facts": [
+      [
+        "Marca",
+        "Vaiê, empresa brasileira de entregas"
+      ],
+      [
+        "Para quem",
+        "Empreendedores que dependem da entrega para faturar: lojas, e-commerces e pequenos negócios"
+      ],
+      [
+        "Formato",
+        "Carrossel de 7 slides para Instagram e LinkedIn"
+      ]
+    ],
+    "strategy": [
+      [
+        "Assunto em alta como porta de entrada",
+        "Logo depois das eleições, infraestrutura e o futuro do país estão na conversa. O gancho pega carona nesse debate e atrai quem nunca ouviu falar da marca."
+      ],
+      [
+        "Educa, não oferece",
+        "O conteúdo fala de geografia, política e logística no nível macro. Nenhum slide vende frete ou pede contato. A marca aparece só como cenário: na caixa, na van."
+      ],
+      [
+        "Termina no empreendedor",
+        "Os últimos slides trazem o assunto para a rotina de quem empreende e fecham com o posicionamento: a Vaiê entende o seu caminho."
+      ]
+    ],
+    "arc": [
+      "Gancho: uma pergunta que todo mundo acha que sabe responder",
+      "Contexto: a escolha histórica pelas rodovias",
+      "Quebra a resposta fácil: trilho novo não sai do papel tão rápido",
+      "Aprofunda: trilho pronto não significa entrega rápida",
+      "Mostra o caminho inteiro, da fábrica até a porta do cliente",
+      "Vira o espelho: a rotina de quem empreende no Brasil",
+      "Assinatura: posicionamento da marca, sem oferta"
+    ],
+    "metrics": [
+      [
+        "Alcance em não seguidores",
+        "quantas pessoas novas viram a marca"
+      ],
+      [
+        "Compartilhamentos e salvamentos",
+        "sinal de que o conteúdo teve valor"
+      ],
+      [
+        "Novos seguidores e visitas ao perfil",
+        "quem quis saber quem estava falando"
+      ]
+    ],
+    "next": "Quem interagiu entra no público de remarketing. Os conteúdos de meio de funil chegam para alguém que já conhece a Vaiê, e cada venda custa menos.",
+    "why": "A maioria das empresas só publica oferta. Sem topo de funil, todo anúncio fala com um estranho.",
+    "stage": 0,
+    "waMessage": "Oi Diogo, vi o carrossel da Vaiê no seu site e quero um carrossel estratégico assim"
+  }
 }

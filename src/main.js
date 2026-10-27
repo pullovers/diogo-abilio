@@ -247,6 +247,63 @@
     if (items[0]) moveDot(items[0]);
   }
 
+  // ---------- carousel case dialog: swipeable slides synced with the "slide a slide" list ----------
+  $$('[data-open-case]').forEach(function (opener) {
+    var dlg = document.getElementById(opener.getAttribute('aria-controls'));
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var track = $('.case-track', dlg);
+    var slides = $$('.case-slide', dlg);
+    var thumbs = $$('.case-thumbs [data-go]', dlg);
+    var arc = $$('.case-arc [data-go]', dlg);
+    var count = $('.case-count b', dlg);
+    var prev = $('.case-prev', dlg), next = $('.case-next', dlg);
+    var current = -1;
+
+    function update(i) {
+      if (i === current) return;
+      current = i;
+      count.textContent = String(i + 1).padStart(2, '0');
+      thumbs.forEach(function (t, k) { if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+      arc.forEach(function (a, k) { a.classList.toggle('is-active', k === i); });
+      prev.disabled = i === 0;
+      next.disabled = i === slides.length - 1;
+    }
+    function go(i, instant) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: i * track.clientWidth, behavior: instant || reduce ? 'auto' : 'smooth' });
+      update(i);
+    }
+    var ticking = 0;
+    track.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = requestAnimationFrame(function () { ticking = 0; update(Math.round(track.scrollLeft / track.clientWidth)); });
+    }, { passive: true });
+    $$('[data-go]', dlg).forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.go); }); });
+    prev.addEventListener('click', function () { go(current - 1); });
+    next.addEventListener('click', function () { go(current + 1); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
+    });
+    // click on the backdrop closes
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('close', function () {
+      root.classList.remove('modal-open');
+      if (window.__lenis) window.__lenis.start();
+    });
+    window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
+
+    opener.addEventListener('click', function () {
+      if (window.__lenis) window.__lenis.stop();
+      root.classList.add('modal-open');
+      dlg.showModal();
+      current = -1;
+      go(0, true);
+      $$('.case-shell, .case-info', dlg).forEach(function (el) { el.scrollTop = 0; });
+      window.va('event', { name: 'Case Open', data: { case: dlg.id } });
+    });
+  });
+
   // ---------- floating WhatsApp (mobile): after the hero, gone at the final CTA ----------
   var wa = $('.wa-float');
   var heroEl = $('.hero, .svc-top'), cta = $('#cta-final');
