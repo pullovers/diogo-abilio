@@ -293,12 +293,35 @@
     });
     window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
 
+    // metric tabs (now / months later): sliding pill, arrow keys move between tabs
+    var tabs = $$('[role="tab"]', dlg);
+    var tablist = $('[role="tablist"]', dlg);
+    function selectTab(t, focus) {
+      tabs.forEach(function (x, k) {
+        var on = x === t;
+        x.setAttribute('aria-selected', String(on));
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+        if (on) tablist.style.setProperty('--tab', k);
+      });
+      if (focus) t.focus();
+    }
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { selectTab(t); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault(); e.stopPropagation();
+        selectTab(tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+      });
+    });
+
     opener.addEventListener('click', function () {
       if (window.__lenis) window.__lenis.stop();
       root.classList.add('modal-open');
       dlg.showModal();
       current = -1;
       go(0, true);
+      if (tabs[0]) selectTab(tabs[0]);
       $$('.case-shell, .case-info', dlg).forEach(function (el) { el.scrollTop = 0; });
       window.va('event', { name: 'Case Open', data: { case: dlg.id } });
     });

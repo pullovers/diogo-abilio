@@ -75,60 +75,82 @@
     "brand": "Vaiê",
     "title": "Se o Brasil tivesse mais ferrovias, sua encomenda chegaria mais rápido?",
     "kicker": "Carrossel estratégico · 7 slides",
-    "lead": "Um carrossel que não vende nada. E é exatamente por isso que ele funciona: faz quem ainda não conhece a Vaiê parar, aprender algo e lembrar de quem contou.",
+    "lead": "Um carrossel de reconhecimento de marca. Ele faz quem ainda não conhece a Vaiê parar, aprender algo e guardar o nome de quem contou. É esse terreno que deixa as próximas vendas mais rápidas e mais baratas.",
     "facts": [
       [
         "Marca",
-        "Vaiê, empresa brasileira de entregas"
+        "Vaiê, entregas"
       ],
       [
         "Para quem",
-        "Empreendedores que dependem da entrega para faturar: lojas, e-commerces e pequenos negócios"
+        "Empreendedores que dependem da entrega para faturar"
       ],
       [
         "Formato",
-        "Carrossel de 7 slides para Instagram e LinkedIn"
+        "7 slides · Instagram e LinkedIn"
       ]
     ],
     "strategy": [
       [
-        "Assunto em alta como porta de entrada",
-        "Logo depois das eleições, infraestrutura e o futuro do país estão na conversa. O gancho pega carona nesse debate e atrai quem nunca ouviu falar da marca."
+        "Assunto em alta",
+        "Pega carona no debate sobre infraestrutura depois das eleições para chegar a quem nunca ouviu falar da marca."
       ],
       [
-        "Educa, não oferece",
-        "O conteúdo fala de geografia, política e logística no nível macro. Nenhum slide vende frete ou pede contato. A marca aparece só como cenário: na caixa, na van."
+        "Educa antes de oferecer",
+        "Geografia, política e logística no nível macro. A marca aparece no cenário, na caixa e na van."
       ],
       [
-        "Termina no empreendedor",
-        "Os últimos slides trazem o assunto para a rotina de quem empreende e fecham com o posicionamento: a Vaiê entende o seu caminho."
+        "Fecha no empreendedor",
+        "Os últimos slides trazem o tema para a rotina de quem empreende e assinam o posicionamento."
       ]
     ],
     "arc": [
-      "Gancho: uma pergunta que todo mundo acha que sabe responder",
-      "Contexto: a escolha histórica pelas rodovias",
-      "Quebra a resposta fácil: trilho novo não sai do papel tão rápido",
-      "Aprofunda: trilho pronto não significa entrega rápida",
-      "Mostra o caminho inteiro, da fábrica até a porta do cliente",
-      "Vira o espelho: a rotina de quem empreende no Brasil",
-      "Assinatura: posicionamento da marca, sem oferta"
+      "Gancho: a pergunta que todo mundo acha que sabe responder",
+      "Contexto: o país escolheu as rodovias",
+      "Quebra a resposta fácil: trilho novo leva anos",
+      "Aprofunda: trilho pronto não é entrega rápida",
+      "O caminho inteiro, da fábrica à porta do cliente",
+      "O espelho: a rotina de quem empreende",
+      "Assinatura da marca, sem oferta"
     ],
     "metrics": [
-      [
-        "Alcance em não seguidores",
-        "quantas pessoas novas viram a marca"
-      ],
-      [
-        "Compartilhamentos e salvamentos",
-        "sinal de que o conteúdo teve valor"
-      ],
-      [
-        "Novos seguidores e visitas ao perfil",
-        "quem quis saber quem estava falando"
-      ]
+      {
+        "tab": "Primeiras semanas",
+        "items": [
+          [
+            "Alcance em não seguidores",
+            "gente nova conhecendo a marca"
+          ],
+          [
+            "Compartilhamentos e salvamentos",
+            "sinal de que o conteúdo teve valor"
+          ],
+          [
+            "Novos seguidores",
+            "quem quis continuar ouvindo"
+          ]
+        ]
+      },
+      {
+        "tab": "Em 3 a 6 meses",
+        "items": [
+          [
+            "Ciclo de venda mais curto",
+            "o cliente chega sabendo quem é a Vaiê"
+          ],
+          [
+            "CAC menor",
+            "conquistar quem já confia custa menos"
+          ],
+          [
+            "Menos atrito na escolha",
+            "na hora de decidir, a marca conhecida sai na frente"
+          ]
+        ],
+        "note": "Quando o conteúdo de meio de funil chegar, ele fala com quem já conhece a Vaiê. A conversa começa do meio, não do zero."
+      }
     ],
-    "next": "Quem interagiu entra no público de remarketing. Os conteúdos de meio de funil chegam para alguém que já conhece a Vaiê, e cada venda custa menos.",
-    "why": "A maioria das empresas só publica oferta. Sem topo de funil, todo anúncio fala com um estranho.",
+    "why": "A gente compra mais fácil o doce do primo confeiteiro do que o de um desconhecido. Topo de funil faz da sua marca esse primo.",
     "stage": 0,
     "waMessage": "Oi Diogo, vi o carrossel da Vaiê no seu site e quero um carrossel estratégico assim"
   }

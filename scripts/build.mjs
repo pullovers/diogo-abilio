@@ -208,6 +208,24 @@ const carouselCover = (c) => `<div class="mock mock-carousel">
           <span class="badge">${esc(funnelStages[c.stage][0].toLowerCase())} de funil</span>
         </div>`;
 
+// Funnel: three tapered layers, the active one lit; dots keep dropping into the top
+// (new people arriving), a light sweeps across the active layer.
+const funnelLayers = ['M6 34 H234 L210 84 H30 Z', 'M36 92 H204 L184 136 H56 Z', 'M62 144 H178 L162 184 H78 Z'];
+const funnelSvg = (c) => {
+  const label = funnelStages.map(([t, sub], i) => `${t}, ${sub}${i === c.stage ? ' (este carrossel)' : ''}`).join('; ');
+  return `<svg class="funnel" viewBox="0 0 240 190" role="img" aria-label="Funil de vendas: ${esc(label)}">
+            <defs>
+              <linearGradient id="fg-${c.id}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#CF97FF"/><stop offset=".5" stop-color="#A970FF"/><stop offset="1" stop-color="#7B2FF7"/></linearGradient>
+              <linearGradient id="fs-${c.id}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+              <clipPath id="fc-${c.id}"><path d="${funnelLayers[c.stage]}"/></clipPath>
+            </defs>
+            <g class="funnel-drops">${[[40, 0], [78, 1.1], [112, .5], [146, 1.6], [180, .3], [204, 1.3], [96, 2]].map(([x, d]) => `<circle cx="${x}" cy="10" r="2.6" style="--d:${d}s"/>`).join('')}</g>
+            ${funnelLayers.map((d, i) => `<path class="fl${i === c.stage ? ' is-on' : ''}" d="${d}" style="--k:${i}"${i === c.stage ? ` fill="url(#fg-${c.id})"` : ''}/>`).join('')}
+            <g clip-path="url(#fc-${c.id})"><rect class="funnel-sweep" x="-80" y="30" width="70" height="60" fill="url(#fs-${c.id})"/></g>
+            ${funnelStages.map(([t, sub], i) => { const y = [58, 113, 163][i]; return `<g class="fl-text${i === c.stage ? ' is-on' : ''}" style="--k:${i}"><text x="120" y="${y}" text-anchor="middle" class="fl-t">${t}</text><text x="120" y="${y + 14}" text-anchor="middle" class="fl-s">${sub.toUpperCase()}</text></g>`; }).join('')}
+          </svg>`;
+};
+
 const caseDialog = (s) => {
   const c = s.carousel;
   const n = Array.from({ length: c.count }, (_, i) => i + 1);
@@ -230,47 +248,51 @@ const caseDialog = (s) => {
       </div>
     </div>
     <div class="case-info">
-      <span class="label">${esc(c.kicker)}</span>
-      <h2 class="case-title" id="case-${c.id}-title">${esc(c.brand)}: ${esc(c.title)}</h2>
-      <p class="case-lead">${esc(c.lead)}</p>
+      <span class="label ci" style="--i:0">${esc(c.kicker)}</span>
+      <h2 class="case-title ci" style="--i:1" id="case-${c.id}-title">${esc(c.brand)}: ${esc(c.title)}</h2>
+      <p class="case-lead ci" style="--i:2">${esc(c.lead)}</p>
 
-      <div class="case-grid">
+      <div class="case-grid ci" style="--i:3">
         <dl class="case-facts">
           ${c.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n          ')}
         </dl>
         <div class="case-funnel">
           <span class="case-h">Etapa do funil</span>
-          <ol>
-            ${funnelStages.map(([t, sub], i) => `<li${i === c.stage ? ' class="is-on" aria-current="step"' : ''}><b>${t}</b><small>${sub}</small></li>`).join('')}
-          </ol>
+          ${funnelSvg(c)}
         </div>
       </div>
 
-      <section class="case-block">
+      <section class="case-block ci" style="--i:4">
         <h3 class="case-h">A estratégia</h3>
-        <ul class="case-strategy">
-          ${c.strategy.map(([t, p]) => `<li><b>${esc(t)}</b><p>${esc(p)}</p></li>`).join('\n          ')}
-        </ul>
+        <ol class="case-strategy">
+          ${c.strategy.map(([t, p], i) => `<li><span class="n">${pad2(i + 1)}</span><div><b>${esc(t)}</b><p>${esc(p)}</p></div></li>`).join('\n          ')}
+        </ol>
       </section>
 
-      <section class="case-block">
+      <section class="case-block ci" style="--i:5">
         <h3 class="case-h">Slide a slide</h3>
         <ol class="case-arc">
           ${c.arc.map((t, i) => `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${pad2(i + 1)}</span><span>${esc(t)}</span></button></li>`).join('\n          ')}
         </ol>
       </section>
 
-      <section class="case-block">
+      <section class="case-block ci" style="--i:6">
         <h3 class="case-h">O que a gente mede</h3>
-        <ul class="case-metrics">
-          ${c.metrics.map(([t, p]) => `<li><b>${esc(t)}</b><span>${esc(p)}</span></li>`).join('\n          ')}
-        </ul>
-        <p class="case-next-step"><span class="case-h">E depois?</span>${esc(c.next)}</p>
+        <div class="case-tabs" role="tablist" aria-label="Prazo das métricas">
+          <span class="case-tabs-pill" aria-hidden="true"></span>
+          ${c.metrics.map((m, i) => `<button type="button" role="tab" id="case-${c.id}-tab-${i}" aria-controls="case-${c.id}-panel-${i}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}>${esc(m.tab)}</button>`).join('')}
+        </div>
+        ${c.metrics.map((m, i) => `<div class="case-panel" role="tabpanel" id="case-${c.id}-panel-${i}" aria-labelledby="case-${c.id}-tab-${i}"${i ? ' hidden' : ''}>
+          <ul class="case-metrics">
+            ${m.items.map(([t, p]) => `<li><b>${esc(t)}</b><span>${esc(p)}</span></li>`).join('\n            ')}
+          </ul>
+          ${m.note ? `<p class="case-note">${esc(m.note)}</p>` : ''}
+        </div>`).join('\n        ')}
       </section>
 
-      <p class="case-why">${esc(c.why)}</p>
+      <p class="case-why ci" style="--i:7">${esc(c.why)}</p>
 
-      <div class="case-cta">
+      <div class="case-cta ci" style="--i:8">
         <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">Quero um carrossel assim <span class="arr" aria-hidden="true">→</span></a>
         <a class="link-u" href="/servicos/${s.slug}">Ver o serviço completo</a>
       </div>
