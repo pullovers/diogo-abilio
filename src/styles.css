@@ -248,23 +248,32 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 /* the backdrop dissolves into the page at the bottom, no hard seam */
 .hero-bg::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, transparent, var(--bg)); }
-/* collage texture: framed at the edges, faded behind the photo and copy, drifting slowly */
+/* collage texture: framed at the edges, faded behind the photo and copy. Shown close to
+   its native 2000px size (no zoom) so it stays sharp; AVIF with a WebP fallback. */
 .hero-texture {
   position: absolute;
-  inset: -3%;
-  background: url('/images/hero-texture-1672.webp') center / cover no-repeat;
-  opacity: .55;
+  inset: -12px;                 /* just enough room for the cursor drift */
+  background-image: url('/images/hero-texture-2000.webp');
+  background-image: image-set(url('/images/hero-texture-2000.avif') type('image/avif'), url('/images/hero-texture-2000.webp') type('image/webp'));
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  --tex-op: .55;
+  opacity: var(--tex-op);
   filter: hue-rotate(14deg) saturate(.95);
   -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
           mask-image: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(0, 0, 0, .18) 30%, #000 92%);
   transform: translate3d(calc(var(--px, 0) * -10px), calc(var(--py, 0) * -8px), 0);
   transition: transform 1.4s var(--ease-out);
+  animation: textureIn 1.6s ease-out both;
 }
-.hero-texture { animation: textureIn 1.6s ease-out both, breathe 30s ease-in-out 1.6s infinite alternate; }
-@keyframes textureIn { from { opacity: 0; } to { opacity: .55; } }
-@keyframes breathe { from { scale: 1; } to { scale: 1.06; } }
+@keyframes textureIn { from { opacity: 0; } to { opacity: var(--tex-op); } }
 @media (max-width: 860px) {
-  .hero-texture { background-image: url('/images/hero-texture-1000.webp'); opacity: .45; }
+  .hero-texture {
+    background-image: url('/images/hero-texture-1000.webp');
+    background-image: image-set(url('/images/hero-texture-1000.avif') type('image/avif'), url('/images/hero-texture-1000.webp') type('image/webp'));
+    --tex-op: .45;
+  }
 }
 .hero-wash {
   position: absolute; inset: 0;
