@@ -428,10 +428,10 @@ const process = [
 // Hero headline: two balanced lines, words rise in order after the photo floats in.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
 const heroWords = (words, start) => words.map((w, k) => heroWord(w, start + k)).join(' ');
-const heroLine1 = heroWords(['Eu', 'descubro', 'onde', 'sua', 'empresa'], 0);
-const heroResolvo = heroWord('<em class="lucrar hl">resolvo<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 9);
-const heroLine2 = `${heroWord('está', 5)} ${heroWord('<span class="grad">perdendo</span>', 6)} ${heroWord('<span class="grad">venda</span>.', 7)} ${heroWord('Depois,', 8)} ${heroResolvo}`;
-const heroSub = 'Analiso seu funil, do anúncio ao WhatsApp, acho onde o cliente desiste e coloco em prática o que resolve: página, conteúdo, vídeo ou anúncio.';
+const heroLine1 = `${heroWords(['Me', 'deixe', 'destravar', 'a'], 0)} ${heroWord('<span class="grad">criatividade</span>', 4)}`;
+const heroLucrar = heroWord('<em class="lucrar hl">lucrar<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 11);
+const heroLine2 = `${heroWords(['da', 'sua', 'empresa', 'e', 'fazer', 'você'], 5)} ${heroLucrar} ${heroWords(['com', 'isso.'], 12)}`;
+const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir além. Depois, penso e coloco em prática o que faz sentido agora: vídeos, conteúdos, campanhas ou um site que ajude você a vender mais.';
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
@@ -454,10 +454,10 @@ const home = () => layout({
     <p class="hero-sub fade-in" style="--delay:1300ms">${heroSub}</p>
     <div class="hero-actions fade-in" style="--delay:1500ms">
       <div class="cta-col">
-        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise grátis <span class="arr" aria-hidden="true">→</span></a>
-        <p class="micro">Me manda o link do seu site ou Instagram. Em até 48h você recebe um vídeo de 5 minutos mostrando onde está perdendo venda.</p>
+        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise gratuita <span class="arr" aria-hidden="true">→</span></a>
+        <p class="micro">Em vídeo e sem compromisso.</p>
       </div>
-      <a class="link-u" href="#servicos">Ver serviços ↓</a>
+      <a class="link-u" href="#servicos">Ver meus trabalhos ↓</a>
     </div>
   </div>
 </section>
