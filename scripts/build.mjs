@@ -419,8 +419,8 @@ const career = [
   ['Ituran Brasil', 'Assistente de Marketing', '2018 a 2019', 'Materiais e campanhas do time de marketing'],
 ];
 const process = [
-  ['01', 'Olho os números', 'Antes de abrir qualquer tela, entendo seu negócio, seus números e quem compra de você.'],
-  ['02', 'Acho o que trava', 'Descubro em que ponto o cliente desiste de comprar.'],
+  ['01', 'Olho os números', 'Antes de criar qualquer material, entendo seu negócio, seus números e quem compra de você.'],
+  ['02', 'Investigo e descubro os gargalos', 'Encontro o ponto em que o cliente desiste de comprar.'],
   ['03', 'Entrego rápido', 'A IA cuida da parte repetitiva, então você recebe em dias o que levaria semanas. A estratégia continua comigo.'],
   ['04', 'Testo e ajusto', 'Coloco no ar, olho os dados e melhoro.'],
 ];
@@ -428,7 +428,7 @@ const process = [
 // Hero headline: two balanced lines, words rise in order after the photo floats in.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
 const heroWords = (words, start) => words.map((w, k) => heroWord(w, start + k)).join(' ');
-const heroLine1 = `${heroWords(['Me', 'deixe', 'destravar', 'a'], 0)} ${heroWord('<span class="grad">criatividade</span>', 4)}`;
+const heroLine1 = `${heroWords(['Deixe-me', 'destravar', 'a'], 0)} ${heroWord('<span class="grad">criatividade</span>', 4)}`;
 const heroLucrar = heroWord('<em class="lucrar hl">lucrar<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 11);
 const heroLine2 = `${heroWords(['da', 'sua', 'empresa', 'e', 'fazer', 'você'], 5)} ${heroLucrar} ${heroWords(['com', 'isso.'], 12)}`;
 const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir além. Depois, penso e coloco em prática o que faz sentido agora: vídeos, conteúdos, campanhas ou um site que ajude você a vender mais.';
@@ -478,7 +478,7 @@ const home = () => layout({
   <div class="container">
     <div class="section-head">
       <span class="label">Serviços</span>
-      ${h2('servicos-title', [['Do primeiro clique à venda. ', false], ['Onde eu entro', true], ['.', false]])}
+      ${h2('servicos-title', [['Da primeira impressão à venda. ', false], ['Onde eu entro', true], ['.', false]])}
     </div>
     <div class="bento-services" data-stagger>
       ${services.map(serviceCard).join('\n      ')}
@@ -490,7 +490,7 @@ const home = () => layout({
   <div class="container">
     <div class="section-head">
       <span class="label">Como eu trabalho</span>
-      ${h2('como-title', [['Primeiro eu entendo. Depois eu ', false], ['desenho', true], ['.', false]])}
+      ${h2('como-title', [['Primeiro eu entendo. Depois eu ', false], ['implemento', true], ['.', false]])}
     </div>
     <div class="process">
       <div class="steps-list">

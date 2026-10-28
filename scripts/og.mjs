@@ -32,7 +32,7 @@ const base = (inner) => `<!doctype html><html><head><meta charset="utf-8">
 const homeHtml = base(`
   <div class="brand" style="position:absolute;left:72px;top:48px">Diogo Abílio</div>
   <img src="${img('images/diogo-float-1200.webp')}" style="position:absolute;left:50%;top:40px;width:760px;margin-left:-380px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))">
-  <h1 style="position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:46px;line-height:1.1;letter-spacing:-0.035em;font-weight:600">Me deixe destravar a <span class="grad">criatividade</span><br>da sua empresa e fazer você <span class="gold">lucrar</span> com isso.</h1>
+  <h1 style="position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:46px;line-height:1.1;letter-spacing:-0.035em;font-weight:600">Deixe-me destravar a <span class="grad">criatividade</span><br>da sua empresa e fazer você <span class="gold">lucrar</span> com isso.</h1>
 `);
 
 const serviceHtml = (s) => {
