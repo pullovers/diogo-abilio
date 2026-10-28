@@ -5,7 +5,7 @@
   "mockup": "browser",
   "name": "Landing pages",
   "tagline": "Página que explica rápido, passa confiança e faz o visitante chamar no WhatsApp.",
-  "price": "a partir de R$ [definir]",
+  "price": "a partir de R$ 3.500",
   "whatsappMessage": "Oi Diogo, vim pela página de landing pages",
   "cardImage": {
     "src": "/img/g4-gestao-800.webp",
@@ -26,35 +26,19 @@
         "height": 742,
         "alt": "Primeira dobra do site da Arbitralis no desktop"
       },
-      "mobile": {
-        "src": "/img/arbitralis-mobile-390.webp",
-        "srcset": "/img/arbitralis-mobile-390.webp 390w, /img/arbitralis-mobile-780.webp 780w",
-        "width": 390,
-        "height": 844,
-        "alt": "Primeira dobra do site da Arbitralis no celular"
-      },
-      "notes": [
-        {
-          "x": 32,
-          "y": 27,
-          "text": "O selo diz para quem é a página antes mesmo do título: imobiliárias e escritórios."
+      "preview": {
+        "desktop": {
+          "src": "/img/arbitralis-full-1200.webp",
+          "srcset": "/img/arbitralis-full-800.webp 800w, /img/arbitralis-full-1200.webp 1200w",
+          "width": 1200,
+          "height": 5854
         },
-        {
-          "x": 34,
-          "y": 66,
-          "text": "O título promete o resultado, rapidez e previsibilidade, em vez de explicar o que é arbitragem."
-        },
-        {
-          "x": 56,
-          "y": 33,
-          "text": "O card do procedimento mostra as etapas do caso e tira o medo de um processo desconhecido."
-        },
-        {
-          "x": 40,
-          "y": 93,
-          "text": "Dois caminhos: falar com um especialista ou simular a economia, para quem ainda está avaliando."
+        "mobile": {
+          "src": "/img/arbitralis-full-mobile-600.webp",
+          "width": 600,
+          "height": 15918
         }
-      ]
+      }
     },
     {
       "title": "G4 Gestão & Estratégia",
@@ -67,23 +51,7 @@
         "height": 742,
         "alt": "Página G4 Gestão & Estratégia"
       },
-      "notes": [
-        {
-          "x": 14,
-          "y": 46,
-          "text": "Organizei a oferta e os argumentos de venda em blocos fáceis de ler."
-        },
-        {
-          "x": 18,
-          "y": 64,
-          "text": "Hierarquia visual que leva o olho até o botão de aplicar."
-        },
-        {
-          "x": 12,
-          "y": 14,
-          "text": "Estrutura responsiva, publicada num momento de alta demanda."
-        }
-      ]
+      "behance": "https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia"
     },
     {
       "title": "G4 Sprints",
@@ -96,63 +64,56 @@
         "height": 742,
         "alt": "Página de lançamento G4 Sprints"
       },
-      "notes": [
-        {
-          "x": 87,
-          "y": 9,
-          "text": "Estrutura de oferta e copy pensadas para o lançamento."
-        },
-        {
-          "x": 85,
-          "y": 42,
-          "text": "Do protótipo no Figma à publicação no Webflow."
-        },
-        {
-          "x": 77,
-          "y": 63,
-          "text": "A primeira turma lotou ainda no pré-lançamento."
-        },
-        {
-          "x": 72,
-          "y": 86,
-          "text": "A página virou modelo para as próximas Sprints."
-        }
-      ]
+      "behance": "https://www.behance.net/gallery/250374505/Pagina-G4-Sprints-Lancamento-de-Produto"
     }
   ],
   "deliverables": [
-    "[O que você recebe 1]",
-    "[O que você recebe 2]",
-    "[O que você recebe 3]",
-    "[O que você recebe 4]"
+    "Diagnóstico do seu cliente, da oferta e das objeções antes de desenhar",
+    "Estrutura e copy da página, seção por seção",
+    "Design para desktop e celular",
+    "Página publicada no seu domínio, rápida e com SEO básico",
+    "Botões de WhatsApp e formulário com conversões configuradas",
+    "30 dias de ajustes depois que a página vai ao ar"
   ],
   "steps": [
     {
-      "title": "[Passo 1]",
-      "text": "[Descreva o primeiro passo]"
+      "title": "Diagnóstico",
+      "text": "Uma conversa de 45 minutos sobre seu negócio, seu cliente e o que a página precisa vender."
     },
     {
-      "title": "[Passo 2]",
-      "text": "[Descreva o segundo passo]"
+      "title": "Estrutura, copy e design",
+      "text": "Você aprova a estrutura e o texto primeiro. Depois, desenho as telas de desktop e celular."
     },
     {
-      "title": "[Passo 3]",
-      "text": "[Descreva o terceiro passo]"
+      "title": "Publicação e ajustes",
+      "text": "Coloco a página no ar, configuro as conversões e acompanho os primeiros dados para ajustar."
     }
   ],
-  "deadline": "[definir]",
+  "deadline": "2 a 3 semanas a partir da aprovação da estrutura",
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "[Resposta]"
+      "a": "Projetos começam em R$ 3.500. O valor final depende do número de seções e das integrações. Você recebe a proposta fechada depois do diagnóstico, sem surpresa no meio do caminho."
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "[Resposta]"
+      "a": "De 2 a 3 semanas a partir da aprovação da estrutura. Se houver data de lançamento, o cronograma é montado de trás para frente."
     },
     {
       "q": "Posso pedir ajustes?",
-      "a": "[Resposta]"
+      "a": "Sim. São duas rodadas de ajustes no design e mais 30 dias de ajustes pequenos depois que a página vai ao ar."
+    },
+    {
+      "q": "Preciso ter o texto pronto?",
+      "a": "Não. A copy faz parte do trabalho. Você me conta o que sabe do seu cliente e do seu produto, e eu escrevo."
+    },
+    {
+      "q": "Onde a página fica hospedada?",
+      "a": "No Webflow ou na Vercel, com o seu domínio e a conta no seu nome. Você não depende de mim para manter a página no ar."
+    },
+    {
+      "q": "Como é o pagamento?",
+      "a": "50% para começar e 50% na entrega, por Pix ou transferência."
     }
   ],
   "mockupUrl": "g4educacao.com"

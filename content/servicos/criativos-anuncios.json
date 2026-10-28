@@ -5,67 +5,53 @@
   "mockup": "phone",
   "name": "Criativos para anúncios",
   "tagline": "Anúncio que chama o cliente certo, não só clique barato.",
-  "price": "a partir de R$ [definir]",
+  "price": "a partir de R$ 900 por pacote",
   "whatsappMessage": "Oi Diogo, vim pela página de criativos para anúncios",
   "cardImage": null,
-  "works": [
-    {
-      "title": "[Nome do trabalho]",
-      "client": "[Cliente · ano]",
-      "summary": "[Uma frase sobre o trabalho]",
-      "image": null,
-      "notes": [
-        {
-          "x": 22,
-          "y": 26,
-          "text": "[Por que fiz assim: ponto 1]"
-        },
-        {
-          "x": 70,
-          "y": 38,
-          "text": "[Por que fiz assim: ponto 2]"
-        },
-        {
-          "x": 36,
-          "y": 72,
-          "text": "[Por que fiz assim: ponto 3]"
-        }
-      ]
-    }
-  ],
+  "works": [],
   "deliverables": [
-    "[O que você recebe 1]",
-    "[O que você recebe 2]",
-    "[O que você recebe 3]",
-    "[O que você recebe 4]"
+    "6 criativos por pacote: 3 ângulos de mensagem em 2 formatos",
+    "Versões para feed (4:5) e para stories e Reels (9:16)",
+    "Copy do anúncio: texto principal, título e chamada",
+    "Ângulos pensados a partir das objeções do seu cliente",
+    "Arquivos prontos para Meta Ads e Google Ads",
+    "Uma rodada de ajustes"
   ],
   "steps": [
     {
-      "title": "[Passo 1]",
-      "text": "[Descreva o primeiro passo]"
+      "title": "Briefing",
+      "text": "Entendo a oferta, o público e o que já foi testado, para não repetir o que não funcionou."
     },
     {
-      "title": "[Passo 2]",
-      "text": "[Descreva o segundo passo]"
+      "title": "Ângulos e criação",
+      "text": "Defino os ângulos de mensagem e crio as peças em cada formato."
     },
     {
-      "title": "[Passo 3]",
-      "text": "[Descreva o terceiro passo]"
+      "title": "Teste e nova leva",
+      "text": "Com os dados da campanha, vejo qual ângulo ganhou e proponho a próxima leva."
     }
   ],
-  "deadline": "[definir]",
+  "deadline": "até 7 dias úteis a partir do briefing",
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "[Resposta]"
+      "a": "O pacote com 6 criativos começa em R$ 900. Também dá para fechar um plano mensal com novas levas para testar."
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "[Resposta]"
+      "a": "Em até 7 dias úteis a partir do briefing."
     },
     {
       "q": "Posso pedir ajustes?",
-      "a": "[Resposta]"
+      "a": "Sim. Uma rodada de ajustes está inclusa em cada pacote."
+    },
+    {
+      "q": "Você gerencia as campanhas?",
+      "a": "Meu foco é o criativo e a mensagem. Se você já tem gestor de tráfego, trabalho junto com ele para ler os resultados e criar a próxima leva."
+    },
+    {
+      "q": "Os criativos podem ser em vídeo?",
+      "a": "Sim. Podem ser estáticos ou vídeos curtos. Para vídeos mais longos, veja o serviço de edição de vídeo."
     }
   ]
 }

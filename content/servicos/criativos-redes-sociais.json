@@ -5,67 +5,53 @@
   "mockup": "fan",
   "name": "Posts para redes sociais",
   "tagline": "Posts e carrosséis que fazem a pessoa parar, entender e lembrar de você.",
-  "price": "a partir de R$ [definir]",
+  "price": "a partir de R$ 1.200 por mês",
   "whatsappMessage": "Oi Diogo, vim pela página de posts para redes sociais",
   "cardImage": null,
-  "works": [
-    {
-      "title": "[Nome do trabalho]",
-      "client": "[Cliente · ano]",
-      "summary": "[Uma frase sobre o trabalho]",
-      "image": null,
-      "notes": [
-        {
-          "x": 22,
-          "y": 26,
-          "text": "[Por que fiz assim: ponto 1]"
-        },
-        {
-          "x": 70,
-          "y": 38,
-          "text": "[Por que fiz assim: ponto 2]"
-        },
-        {
-          "x": 36,
-          "y": 72,
-          "text": "[Por que fiz assim: ponto 3]"
-        }
-      ]
-    }
-  ],
+  "works": [],
   "deliverables": [
-    "[O que você recebe 1]",
-    "[O que você recebe 2]",
-    "[O que você recebe 3]",
-    "[O que você recebe 4]"
+    "Planejamento do mês com o papel de cada post no funil",
+    "4 carrosséis estratégicos por mês, com roteiro e design",
+    "Legenda e chamada para cada post",
+    "Arquivos prontos para Instagram e LinkedIn",
+    "Uma rodada de ajustes por post",
+    "Conversa mensal sobre o que funcionou e o que muda"
   ],
   "steps": [
     {
-      "title": "[Passo 1]",
-      "text": "[Descreva o primeiro passo]"
+      "title": "Imersão",
+      "text": "Entendo sua marca, seu público e em que etapa do funil cada conteúdo precisa atuar."
     },
     {
-      "title": "[Passo 2]",
-      "text": "[Descreva o segundo passo]"
+      "title": "Pauta e roteiro",
+      "text": "Você aprova a pauta do mês e os roteiros antes de eu desenhar qualquer slide."
     },
     {
-      "title": "[Passo 3]",
-      "text": "[Descreva o terceiro passo]"
+      "title": "Design e entrega",
+      "text": "Entrego os posts prontos para publicar e, no fim do mês, olho os números com você."
     }
   ],
-  "deadline": "[definir]",
+  "deadline": "primeira entrega em até 10 dias úteis",
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "[Resposta]"
+      "a": "O plano mensal começa em R$ 1.200 com 4 carrosséis. Dá para aumentar a quantidade ou fazer um projeto avulso."
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "[Resposta]"
+      "a": "A primeira leva fica pronta em até 10 dias úteis. Depois, os posts de cada mês chegam antes do mês começar."
     },
     {
       "q": "Posso pedir ajustes?",
-      "a": "[Resposta]"
+      "a": "Sim. Uma rodada de ajustes por post está inclusa."
+    },
+    {
+      "q": "Você publica os posts?",
+      "a": "A publicação fica com você ou com o seu time. Entrego tudo pronto, com legenda e no formato certo de cada rede."
+    },
+    {
+      "q": "Tem fidelidade?",
+      "a": "Não. O plano é mensal e pode ser pausado com 15 dias de aviso."
     }
   ],
   "case": {

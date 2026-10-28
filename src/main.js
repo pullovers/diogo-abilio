@@ -258,10 +258,51 @@
     }, { rootMargin: '100px' }).observe(v);
   });
 
+  // tabs with a sliding pill (--tab on the tablist); arrow keys move between tabs
+  function tabset(tablist, onSelect) {
+    var tabs = $$('[role="tab"]', tablist);
+    function select(t, focus) {
+      tabs.forEach(function (x, k) {
+        var on = x === t;
+        x.setAttribute('aria-selected', String(on));
+        x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+        if (on) tablist.style.setProperty('--tab', k);
+      });
+      if (focus) t.focus();
+      if (onSelect) onSelect(t);
+    }
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { select(t); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault(); e.stopPropagation();
+        select(tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+      });
+    });
+    return { tabs: tabs, select: select };
+  }
+
+  // ---------- full-page preview (service page): desktop / phone, each scrolls on its own ----------
+  $$('[data-preview]').forEach(function (pv) {
+    var ts = tabset($('[role="tablist"]', pv), function (t) {
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      var sc = $('.lp-scroll', panel); if (sc) sc.scrollTop = 0;
+    });
+    // phones see the phone version first: the desktop print is too small to read there
+    if (window.matchMedia('(max-width: 860px)').matches) ts.select(ts.tabs[1]);
+  });
+
   // ---------- case dialog: carousel (swipeable slides) or video (scenes), synced with the list ----------
+  // A dialog can have several openers (card cover, a button on the service page); it is set up once.
+  var caseOpen = {};
   $$('[data-open-case]').forEach(function (opener) {
-    var dlg = document.getElementById(opener.getAttribute('aria-controls'));
-    if (!dlg || typeof dlg.showModal !== 'function') return;
+    var id = opener.getAttribute('aria-controls');
+    if (!(id in caseOpen)) caseOpen[id] = setupCase(document.getElementById(id));
+    if (caseOpen[id]) opener.addEventListener('click', caseOpen[id]);
+  });
+  function setupCase(dlg) {
+    if (!dlg || typeof dlg.showModal !== 'function') return null;
     var track = $('.case-track', dlg);
     var video = $('.case-video', dlg);
     var times = video ? dlg.dataset.times.split(',').map(Number) : null;
@@ -320,29 +361,10 @@
     });
     if (!video) window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
 
-    // metric tabs (now / months later): sliding pill, arrow keys move between tabs
-    var tabs = $$('[role="tab"]', dlg);
-    var tablist = $('[role="tablist"]', dlg);
-    function selectTab(t, focus) {
-      tabs.forEach(function (x, k) {
-        var on = x === t;
-        x.setAttribute('aria-selected', String(on));
-        x.tabIndex = on ? 0 : -1;
-        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-        if (on) tablist.style.setProperty('--tab', k);
-      });
-      if (focus) t.focus();
-    }
-    tabs.forEach(function (t, k) {
-      t.addEventListener('click', function () { selectTab(t); });
-      t.addEventListener('keydown', function (e) {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        e.preventDefault(); e.stopPropagation();
-        selectTab(tabs[(k + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
-      });
-    });
+    // metric tabs (now / months later)
+    var metricTabs = tabset($('[role="tablist"]', dlg));
 
-    opener.addEventListener('click', function () {
+    return function open() {
       if (window.__lenis) window.__lenis.stop();
       root.classList.add('modal-open');
       dlg.showModal();
@@ -352,11 +374,11 @@
         video.currentTime = 0;
         var p = video.play(); if (p && p.catch) p.catch(function () {});
       }
-      if (tabs[0]) selectTab(tabs[0]);
+      if (metricTabs.tabs[0]) metricTabs.select(metricTabs.tabs[0]);
       $$('.case-shell, .case-info', dlg).forEach(function (el) { el.scrollTop = 0; });
       window.va('event', { name: 'Case Open', data: { case: dlg.id } });
-    });
-  });
+    };
+  }
 
   // ---------- floating WhatsApp (mobile): after the hero, gone at the final CTA ----------
   var wa = $('.wa-float');

@@ -5,67 +5,53 @@
   "mockup": "timeline",
   "name": "Edição de vídeo",
   "tagline": "Vídeos curtos, com ritmo, legenda e gancho nos primeiros 3 segundos.",
-  "price": "a partir de R$ [definir]",
+  "price": "a partir de R$ 400 por vídeo",
   "whatsappMessage": "Oi Diogo, vim pela página de edição de vídeo",
   "cardImage": null,
-  "works": [
-    {
-      "title": "[Nome do trabalho]",
-      "client": "[Cliente · ano]",
-      "summary": "[Uma frase sobre o trabalho]",
-      "image": null,
-      "notes": [
-        {
-          "x": 22,
-          "y": 26,
-          "text": "[Por que fiz assim: ponto 1]"
-        },
-        {
-          "x": 70,
-          "y": 38,
-          "text": "[Por que fiz assim: ponto 2]"
-        },
-        {
-          "x": 36,
-          "y": 72,
-          "text": "[Por que fiz assim: ponto 3]"
-        }
-      ]
-    }
-  ],
+  "works": [],
   "deliverables": [
-    "[O que você recebe 1]",
-    "[O que você recebe 2]",
-    "[O que você recebe 3]",
-    "[O que você recebe 4]"
+    "Edição com ritmo, cortes e gancho nos primeiros 3 segundos",
+    "Legendas e textos na tela, para quem assiste sem som",
+    "Motion design e trilha livre de direitos",
+    "Versão vertical (9:16) para Reels, TikTok e Shorts",
+    "Capa do vídeo",
+    "Duas rodadas de ajustes"
   ],
   "steps": [
     {
-      "title": "[Passo 1]",
-      "text": "[Descreva o primeiro passo]"
+      "title": "Objetivo e roteiro",
+      "text": "Definimos o objetivo do vídeo e a etapa do funil. Se ainda não há material gravado, ajudo com o roteiro."
     },
     {
-      "title": "[Passo 2]",
-      "text": "[Descreva o segundo passo]"
+      "title": "Edição",
+      "text": "Monto o vídeo com cortes, legendas, motion e trilha."
     },
     {
-      "title": "[Passo 3]",
-      "text": "[Descreva o terceiro passo]"
+      "title": "Ajustes e entrega",
+      "text": "Duas rodadas de ajustes e os arquivos finais no formato de cada rede."
     }
   ],
-  "deadline": "[definir]",
+  "deadline": "até 5 dias úteis por vídeo",
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "[Resposta]"
+      "a": "Vídeos curtos começam em R$ 400. Peças com motion design completo, como o vídeo da Nimbo Fibra, têm orçamento próprio."
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "[Resposta]"
+      "a": "Em até 5 dias úteis por vídeo, depois de receber o material."
     },
     {
       "q": "Posso pedir ajustes?",
-      "a": "[Resposta]"
+      "a": "Sim. Duas rodadas de ajustes estão inclusas."
+    },
+    {
+      "q": "Preciso gravar?",
+      "a": "Você pode mandar o material bruto gravado no celular. Sem gravação, dá para fazer o vídeo só com texto e animação."
+    },
+    {
+      "q": "Vocês fazem pacotes?",
+      "a": "Sim. Pacotes mensais de vídeos saem com valor menor por vídeo."
     }
   ],
   "case": {

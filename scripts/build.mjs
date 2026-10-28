@@ -515,7 +515,7 @@ const home = () => layout({
     <div class="b-about card-base spot reveal">
       <span class="label">Sobre</span>
       ${h2('sobre-title', [['Prazer, Diogo.', false]])}
-      <p class="lead">Sou publicitário e designer, com [X] anos entre agência, startup e escola de negócios. No G4 Educação, fiz páginas de produto e de lançamento. Hoje atendo empresas direto, sem intermediário.</p>
+      <p class="lead">Sou publicitário e designer, com 8 anos entre agência, startup e escola de negócios. No G4 Educação, fiz páginas de produto e de lançamento. Hoje atendo empresas direto, sem intermediário.</p>
     </div>
     <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas em campanha nacional</span></div>
     <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês</span></div>
@@ -545,29 +545,59 @@ ${services.filter((s) => s.case).map(caseDialog).join('\n')}`,
 });
 
 // ---------- service page ----------
-const work = (w) => `<article class="work reveal${w.mobile ? ' work--mobile' : ''}">
+const extLink = (href, text) => `<a class="btn btn-outline btn-sm" href="${href}" target="_blank" rel="noopener">${text} <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>`;
+// Full-page preview: the whole page scrolls inside a browser frame (desktop) or a phone (mobile).
+const pagePreview = (w, id) => `<div class="lp-preview" data-preview>
+        <div class="lp-bar">
+          <div class="lp-tabs" role="tablist" aria-label="Versão da página">
+            <span class="lp-tabs-pill" aria-hidden="true"></span>
+            <button type="button" role="tab" id="${id}-tab-d" aria-controls="${id}-d" aria-selected="true">Desktop</button>
+            <button type="button" role="tab" id="${id}-tab-m" aria-controls="${id}-m" aria-selected="false" tabindex="-1">Celular</button>
+          </div>
+          <span class="lp-hint" aria-hidden="true">Role dentro da tela para ver a página inteira</span>
+        </div>
+        <div class="lp-panel" role="tabpanel" id="${id}-d" aria-labelledby="${id}-tab-d">
+          <div class="lp-browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">${esc(new URL(w.url).host)}</span></div>
+            <div class="lp-scroll" tabindex="0" aria-label="Página inteira no desktop, role para ver" data-lenis-prevent>
+              <img src="${w.preview.desktop.src}" srcset="${w.preview.desktop.srcset}" sizes="(max-width: 1240px) 92vw, 1120px" width="${w.preview.desktop.width}" height="${w.preview.desktop.height}" alt="Página inteira da ${esc(w.title)} no desktop" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+        <div class="lp-panel" role="tabpanel" id="${id}-m" aria-labelledby="${id}-tab-m" hidden>
+          <div class="lp-phone">
+            <div class="lp-scroll" tabindex="0" aria-label="Página inteira no celular, role para ver" data-lenis-prevent>
+              <img src="${w.preview.mobile.src}" width="${w.preview.mobile.width}" height="${w.preview.mobile.height}" alt="Página inteira da ${esc(w.title)} no celular" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+const work = (w, i) => `<article class="work reveal">
       <div class="work-head">
         <h3>${esc(w.title)}</h3>
         <span class="client">${esc(w.client)}</span>
         <p>${esc(w.summary)}</p>
-        ${w.url ? `<a class="link-u work-live" href="${w.url}" target="_blank" rel="noopener">Ver o site no ar <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>` : ''}
+        ${w.url || w.behance ? `<div class="work-actions">${w.url ? extLink(w.url, 'Ver o site no ar') : ''}${w.behance ? extLink(w.behance, 'Ver o case completo no Behance') : ''}</div>` : ''}
       </div>
-      <div class="work-body">
-        <figure class="work-figure">
-          ${w.image
-            ? `<img src="${w.image.src}" srcset="${w.image.srcset}" sizes="(max-width: 860px) 92vw, 780px" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="lazy" decoding="async" />`
-            : pending()}
-          ${w.mobile ? `<img class="work-mobile" src="${w.mobile.src}" srcset="${w.mobile.srcset}" sizes="(max-width: 860px) 28vw, 160px" width="${w.mobile.width}" height="${w.mobile.height}" alt="${esc(w.mobile.alt)}" loading="lazy" decoding="async" />` : ''}
-          ${w.notes.map((n, i) => `<span class="marker" style="left:${n.x}%;top:${n.y}%" aria-hidden="true">${i + 1}</span>`).join('')}
-        </figure>
-        <div class="why">
-          <span class="label">Por que fiz assim</span>
-          <ol>
-            ${w.notes.map((n, i) => `<li><span class="n" aria-hidden="true">${i + 1}</span><span>${esc(n.text)}</span></li>`).join('\n            ')}
-          </ol>
-        </div>
-      </div>
+      ${w.preview
+        ? pagePreview(w, `pv-${i}`)
+        : `<figure class="work-figure"><img src="${w.image.src}" srcset="${w.image.srcset}" sizes="(max-width: 1240px) 92vw, 1120px" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="lazy" decoding="async" /></figure>`}
     </article>`;
+
+// Service pages of posts and video show their case: cover + the same dialog as the home.
+const caseFeature = (s) => {
+  const c = s.case;
+  return `<div class="case-feature card-base reveal">
+      <div class="case-feature-media">${isVideo(c) ? videoCover(c) : carouselCover(c)}</div>
+      <div class="case-feature-body">
+        <span class="label">${esc(c.kicker)}</span>
+        <h3>${esc(c.brand)}: ${esc(c.title)}</h3>
+        <p>${esc(c.lead)}</p>
+        <button class="btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>${isVideo(c) ? 'Assistir e ver a estratégia' : 'Ver os slides e a estratégia'} <span class="arr" aria-hidden="true">→</span></button>
+      </div>
+    </div>`;
+};
 
 const servicePage = (s) => layout({
   title: `${s.name} · Diogo Abílio`,
@@ -585,15 +615,16 @@ const servicePage = (s) => layout({
   </div>
 </section>
 
-<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
+${s.works.length || s.case ? `<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
   <div class="container">
     <div class="section-head">
-      ${h2('trabalho-title', [['O trabalho', false]])}
+      ${h2('trabalho-title', [[s.works.length > 1 ? 'Os trabalhos' : 'O trabalho', false]])}
     </div>
+    ${s.case ? caseFeature(s) : ''}
     ${s.works.map(work).join('\n    ')}
   </div>
 </section>
-
+` : ''}
 <section class="section" style="padding-top:0" aria-labelledby="recebe-title">
   <div class="container">
     <div class="section-head">
@@ -628,7 +659,8 @@ const servicePage = (s) => layout({
   </div>
 </section>
 
-${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}`,
+${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}
+${s.case ? caseDialog(s) : ''}`,
 });
 
 // ---------- write ----------
