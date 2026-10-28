@@ -123,7 +123,7 @@ const finalCta = (origin, message) => `<section class="section" id="cta-final" a
   <div class="container">
     <div class="cta-block reveal">
       ${h2('cta-title', [['Me mostra o que você tem ', false], ['hoje', true], ['.', false]])}
-      <p class="lead">Eu gravo um vídeo curto mostrando o que está te custando venda. De graça, sem compromisso.</p>
+      <p class="lead">Eu gravo um vídeo curto mostrando onde você está perdendo vendas. De graça, sem compromisso.</p>
       <a class="btn btn-primary magnetic" href="${waLink(message)}" target="_blank" rel="noopener" data-wa="${origin}">Quero minha análise grátis <span class="arr" aria-hidden="true">→</span></a>
       <p class="cta-contacts">
         <a href="mailto:${config.email}">${config.email}</a>
@@ -337,6 +337,7 @@ const caseDialog = (s) => {
 };
 
 const cardBody = (s, link) => `<div class="bcard-body">
+          <span class="label">${esc(s.label)}</span>
           <h3>${esc(s.name)}</h3>
           <p>${esc(s.tagline)}</p>
           ${link}
@@ -410,31 +411,31 @@ const ills = [
 // ---------- home ----------
 const logos = ['G4 Educação', "LET'S", 'Valid', 'K.Pitaliza', 'Agência Moonflag', 'Ituran'];
 const career = [
-  ["LET'S", 'Webflow Designer', '2025 a 2026'],
-  ['K.Pitaliza Tecnologia', 'Coordenador de Marketing', '2025'],
-  ['G4 Educação', 'Web Designer Pleno', '2024 a 2025'],
-  ['Valid', 'UX Designer e Analista de Marketing & Growth', '2021 a 2023'],
-  ['Agência Moonflag', 'Designer Gráfico', '2021'],
-  ['Ituran Brasil', 'Assistente de Marketing', '2018 a 2019'],
+  ["LET'S", 'Webflow Designer', '2025 a 2026', 'Site, páginas de produto e landing pages de uma SaaS B2B de logística'],
+  ['K.Pitaliza Tecnologia', 'Coordenador de Marketing', '2025', 'Campanha nacional com Claudia Leitte, liderando um time de 8 pessoas'],
+  ['G4 Educação', 'Web Designer Pleno', '2024 a 2025', 'Páginas de produto e de lançamento no Webflow, como G4 Gestão e G4 Sprints'],
+  ['Valid', 'UX Designer e Analista de Marketing & Growth', '2021 a 2023', 'UX de produtos digitais e campanhas de geração de leads'],
+  ['Agência Moonflag', 'Designer Gráfico', '2021', 'Peças gráficas e digitais para os clientes da agência'],
+  ['Ituran Brasil', 'Assistente de Marketing', '2018 a 2019', 'Materiais e campanhas do time de marketing'],
 ];
 const process = [
-  ['01', 'Entendo antes de desenhar', 'Olho seu negócio, seus números e seu cliente antes de abrir qualquer tela.'],
+  ['01', 'Olho os números', 'Antes de abrir qualquer tela, entendo seu negócio, seus números e quem compra de você.'],
   ['02', 'Acho o que trava', 'Descubro em que ponto o cliente desiste de comprar.'],
-  ['03', 'Produzo rápido com IA', 'Uso IA para acelerar a produção, não para pensar por mim.'],
+  ['03', 'Entrego rápido', 'A IA cuida da parte repetitiva, então você recebe em dias o que levaria semanas. A estratégia continua comigo.'],
   ['04', 'Testo e ajusto', 'Coloco no ar, olho os dados e melhoro.'],
 ];
 
 // Hero headline: two balanced lines, words rise in order after the photo floats in.
 const heroWord = (w, i) => `<span class="w"><span class="wi" style="--i:${i}">${w}</span></span>`;
 const heroWords = (words, start) => words.map((w, k) => heroWord(w, start + k)).join(' ');
-const heroLine1 = `${heroWords(['Me', 'deixe', 'destravar', 'a'], 0)} ${heroWord('<span class="grad">criatividade</span>', 4)}`;
-const heroLucrar = heroWord('<em class="lucrar hl">lucrar<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>', 11);
-const heroLine2 = `${heroWords(['da', 'sua', 'empresa', 'e', 'fazer', 'você'], 5)} ${heroLucrar} ${heroWords(['com', 'isso.'], 12)}`;
-const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir além. Depois, penso e coloco em prática o que faz sentido agora: vídeos, conteúdos, campanhas ou um site que ajude você a vender mais.';
+const heroLine1 = heroWords(['Eu', 'descubro', 'onde', 'sua', 'empresa'], 0);
+const heroResolvo = heroWord('<em class="lucrar hl">resolvo<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 50 4, 120 4, 196 10"/></svg></em>.', 9);
+const heroLine2 = `${heroWord('está', 5)} ${heroWord('<span class="grad">perdendo</span>', 6)} ${heroWord('<span class="grad">venda</span>.', 7)} ${heroWord('Depois,', 8)} ${heroResolvo}`;
+const heroSub = 'Analiso seu funil, do anúncio ao WhatsApp, acho onde o cliente desiste e coloco em prática o que resolve: página, conteúdo, vídeo ou anúncio.';
 
 const home = () => layout({
   title: 'Diogo Abílio · Design e marketing que vendem',
-  description: heroSub,
+  description: 'Analiso seu funil, acho onde o cliente desiste e coloco em prática o que resolve: páginas, conteúdo, vídeo e anúncios. Designer e estrategista em São Paulo.',
   path: '/',
   og: '/og/home.png',
   home: true,
@@ -453,10 +454,10 @@ const home = () => layout({
     <p class="hero-sub fade-in" style="--delay:1300ms">${heroSub}</p>
     <div class="hero-actions fade-in" style="--delay:1500ms">
       <div class="cta-col">
-        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise gratuita <span class="arr" aria-hidden="true">→</span></a>
-        <p class="micro">Em vídeo e sem compromisso.</p>
+        <a class="btn btn-primary magnetic" href="${waLink()}" target="_blank" rel="noopener" data-wa="hero">Quero minha análise grátis <span class="arr" aria-hidden="true">→</span></a>
+        <p class="micro">Me manda o link do seu site ou Instagram. Em até 48h você recebe um vídeo de 5 minutos mostrando onde está perdendo venda.</p>
       </div>
-      <a class="link-u" href="#servicos">Ver meus trabalhos ↓</a>
+      <a class="link-u" href="#servicos">Ver serviços ↓</a>
     </div>
   </div>
 </section>
@@ -477,7 +478,7 @@ const home = () => layout({
   <div class="container">
     <div class="section-head">
       <span class="label">Serviços</span>
-      ${h2('servicos-title', [['O que eu faço, e como fica ', false], ['na prática', true], ['.', false]])}
+      ${h2('servicos-title', [['Do primeiro clique à venda. ', false], ['Onde eu entro', true], ['.', false]])}
     </div>
     <div class="bento-services" data-stagger>
       ${services.map(serviceCard).join('\n      ')}
@@ -515,21 +516,21 @@ const home = () => layout({
     <div class="b-about card-base spot reveal">
       <span class="label">Sobre</span>
       ${h2('sobre-title', [['Prazer, Diogo.', false]])}
-      <p class="lead">Sou publicitário e designer, com 8 anos entre agência, startup e escola de negócios. No G4 Educação, fiz páginas de produto e de lançamento. Hoje atendo empresas direto, sem intermediário.</p>
+      <p class="lead">Sou publicitário e designer. Passei 8 anos do lado de dentro: em agência, em startup e no G4 Educação, onde fiz páginas de produto e de lançamento. Hoje atendo empresas direto, então quem pensa a estratégia é quem executa.</p>
     </div>
-    <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas em campanha nacional</span></div>
-    <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês</span></div>
-    <div class="b-num b-n3 card-base spot reveal"><span class="b-icon">${icon.ticket}</span><span class="num-val" data-count="1" data-suffix="ª">1ª</span><span class="num-cap">turma do G4 Sprints lotada antes do lançamento</span></div>
+    <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas na campanha nacional da K.Pitaliza com Claudia Leitte</span></div>
+    <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês no Instagram da K.Pitaliza, começando do zero</span></div>
+    <div class="b-num b-n3 card-base spot reveal"><span class="b-icon">${icon.ticket}</span><span class="num-val" data-count="1" data-suffix="ª">1ª</span><span class="num-cap">turma do G4 Sprints lotada, com a página de lançamento que eu desenhei</span></div>
     <div class="b-edu card-base spot reveal">
-      <h3>Publicidade e Propaganda (FMU)</h3>
-      <ul class="chips"><li>UX</li><li>Design System</li><li>Web Analytics</li></ul>
+      <div><span class="label">Formação</span><h3>Publicidade e Propaganda (FMU)</h3></div>
+      <div><span class="label">Especialidades</span><ul class="chips"><li>UX</li><li>Design System</li><li>Web Analytics</li></ul></div>
     </div>
     <div class="b-career card-base spot reveal">
       <h3 class="sr-only">Trajetória</h3>
       <div class="career-wrap">
         <span class="career-dot" aria-hidden="true"></span>
         <ul class="career">
-        ${career.map(([c, r, y]) => `<li tabindex="0"><div class="career-row"><span class="co">${esc(c)}</span><span class="yrs">${y}</span></div><div class="career-role"><span>${esc(r)}</span></div></li>`).join('\n        ')}
+        ${career.map(([c, r, y, d]) => `<li tabindex="0"><div class="career-row"><span class="co">${esc(c)}</span><span class="yrs">${y}</span></div><div class="career-role"><span><b>${esc(r)}</b>. ${esc(d)}.</span></div></li>`).join('\n        ')}
         </ul>
       </div>
     </div>
@@ -594,13 +595,14 @@ const caseFeature = (s) => {
         <span class="label">${esc(c.kicker)}</span>
         <h3>${esc(c.brand)}: ${esc(c.title)}</h3>
         <p>${esc(c.lead)}</p>
+        ${c.scope ? `<p class="case-scope">${esc(c.scope)}</p>` : ''}
         <button class="btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>${isVideo(c) ? 'Assistir e ver a estratégia' : 'Ver os slides e a estratégia'} <span class="arr" aria-hidden="true">→</span></button>
       </div>
     </div>`;
 };
 
 const servicePage = (s) => layout({
-  title: `${s.name} · Diogo Abílio`,
+  title: `${s.seoTitle} · Diogo Abílio`,
   description: s.tagline,
   path: `/servicos/${s.slug}`,
   og: ogFor(s.slug),
@@ -608,10 +610,14 @@ const servicePage = (s) => layout({
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container">
     <a class="back" href="/#servicos">← Voltar</a>
+    <span class="label">${esc(s.label)}</span>
     <h1 class="h1" id="svc-title">${esc(s.name)}</h1>
     <p class="lead">${esc(s.tagline)}</p>
     <span class="price">${esc(s.price)}</span>
-    <a class="btn btn-primary magnetic" href="${waLink(s.whatsappMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}">Me mostra onde estou perdendo venda <span class="arr" aria-hidden="true">→</span></a>
+    <div class="svc-actions">
+      <a class="btn btn-primary magnetic" href="${waLink(s.quoteMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}">${esc(s.cta)} <span class="arr" aria-hidden="true">→</span></a>
+      <a class="link-u" href="${waLink(s.whatsappMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}-analise">Prefiro a análise grátis primeiro</a>
+    </div>
   </div>
 </section>
 

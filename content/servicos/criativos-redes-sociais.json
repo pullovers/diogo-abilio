@@ -3,9 +3,13 @@
   "order": 2,
   "bento": "small",
   "mockup": "fan",
-  "name": "Posts para redes sociais",
-  "tagline": "Posts e carrosséis que fazem a pessoa parar, entender e lembrar de você.",
+  "label": "Posts e carrosséis",
+  "name": "Conteúdo que faz sua marca ser lembrada",
+  "seoTitle": "Carrosséis para Instagram e LinkedIn que fazem sua marca ser lembrada",
+  "tagline": "Carrosséis que fazem a pessoa parar, aprender algo e guardar seu nome.",
   "price": "a partir de R$ 1.200 por mês",
+  "cta": "Quero conteúdo assim para minha marca",
+  "quoteMessage": "Oi Diogo, quero conteúdo assim para minha marca",
   "whatsappMessage": "Oi Diogo, vim pela página de posts para redes sociais",
   "cardImage": null,
   "works": [],
@@ -39,7 +43,7 @@
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "A primeira leva fica pronta em até 10 dias úteis. Depois, os posts de cada mês chegam antes do mês começar."
+      "a": "A primeira leva fica pronta em até 10 dias úteis. Depois, os posts de cada mês chegam antes do início do mês."
     },
     {
       "q": "Posso pedir ajustes?",
@@ -51,7 +55,7 @@
     },
     {
       "q": "Tem fidelidade?",
-      "a": "Não. O plano é mensal e pode ser pausado com 15 dias de aviso."
+      "a": "Não. O plano é mensal e dá para cancelar ou pausar com 15 dias de aviso."
     }
   ],
   "case": {
@@ -137,7 +141,7 @@
         "note": "Quando o conteúdo de meio de funil chegar, ele fala com quem já conhece a Vaiê. A conversa começa do meio, não do zero."
       }
     ],
-    "why": "A gente compra mais fácil o doce do primo confeiteiro do que o de um desconhecido. Topo de funil faz da sua marca esse primo.",
+    "why": "A gente compra com mais facilidade o doce do primo confeiteiro do que o de um desconhecido. Topo de funil faz da sua marca esse primo.",
     "stage": 0,
     "waMessage": "Oi Diogo, vi o carrossel da Vaiê no seu site e quero um carrossel estratégico assim"
   }

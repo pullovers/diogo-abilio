@@ -487,6 +487,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
 }
 .bcard-body { padding: 22px 24px 24px; }
+.bcard-body .label { margin-bottom: 12px; }
 .bcard-body h3 { font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 8px; }
 .bcard-body p { color: var(--muted); font-size: 17px; margin-bottom: 18px; max-width: 46ch; }
 .card-link { font-weight: 500; font-size: 16px; display: inline-flex; gap: 6px; }
@@ -985,6 +986,8 @@ html.modal-open { overflow: hidden; }
 
 .b-edu { grid-area: edu; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
 .b-edu h3 { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; }
+.b-edu .label { margin-bottom: 12px; }
+.career-role b { font-weight: 600; color: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface-2); font: 400 13px/1.3 var(--font-mono); }
 
@@ -1110,9 +1113,16 @@ html.modal-open { overflow: hidden; }
 .svc-top { position: relative; isolation: isolate; padding-top: calc(var(--nav-h) + 48px); padding-bottom: 56px; }
 .back { display: inline-flex; gap: 8px; font-size: 16px; text-decoration: none; color: var(--muted); margin-bottom: 32px; }
 .back:hover { color: var(--ink); }
-.svc-top .h1 { margin-bottom: 20px; }
+.svc-top .h1 { margin-bottom: 20px; max-width: 18ch; text-wrap: balance; }
 .svc-top .lead { font-size: 20px; max-width: 40ch; margin-bottom: 24px; }
 .svc-top .price { display: block; font-size: 15px; margin-bottom: 28px; }
+.svc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+.svc-actions .link-u { color: var(--muted); }
+.svc-actions .link-u:hover { color: var(--ink); }
+@media (max-width: 560px) {
+  .svc-actions { flex-direction: column; align-items: stretch; }
+  .svc-actions .link-u { align-self: center; }
+}
 .work + .work { margin-top: 96px; }
 .work-head { margin-bottom: 24px; max-width: 720px; }
 .work-head h3 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 6px; }
@@ -1165,6 +1175,7 @@ html.modal-open { overflow: hidden; }
 .case-feature-body .label { margin-bottom: 18px; }
 .case-feature-body h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
 .case-feature-body p { color: var(--muted); margin-bottom: 24px; max-width: 52ch; }
+.case-feature-body .case-scope { font: 400 13px/1.5 var(--font-mono); color: var(--muted); margin-top: -12px; }
 @media (max-width: 860px) {
   .case-feature { grid-template-columns: 1fr; }
   .case-feature-body { padding: 8px 20px 28px; }

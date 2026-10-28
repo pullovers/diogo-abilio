@@ -3,16 +3,20 @@
   "order": 3,
   "bento": "small",
   "mockup": "timeline",
-  "name": "Edição de vídeo",
-  "tagline": "Vídeos curtos, com ritmo, legenda e gancho nos primeiros 3 segundos.",
+  "label": "Edição de vídeo",
+  "name": "Vídeos que prendem até o fim",
+  "seoTitle": "Edição de vídeos curtos que prendem até o fim",
+  "tagline": "Ritmo, legenda e gancho nos primeiros 3 segundos, para quem rola o feed sem som.",
   "price": "a partir de R$ 400 por vídeo",
+  "cta": "Quero editar meus vídeos",
+  "quoteMessage": "Oi Diogo, quero editar meus vídeos",
   "whatsappMessage": "Oi Diogo, vim pela página de edição de vídeo",
   "cardImage": null,
   "works": [],
   "deliverables": [
     "Edição com ritmo, cortes e gancho nos primeiros 3 segundos",
     "Legendas e textos na tela, para quem assiste sem som",
-    "Motion design e trilha livre de direitos",
+    "Motion design e trilha licenciada, sem custo extra",
     "Versão vertical (9:16) para Reels, TikTok e Shorts",
     "Capa do vídeo",
     "Duas rodadas de ajustes"
@@ -28,7 +32,7 @@
     },
     {
       "title": "Ajustes e entrega",
-      "text": "Duas rodadas de ajustes e os arquivos finais no formato de cada rede."
+      "text": "Duas rodadas de ajustes e o arquivo final em 9:16, pronto para Reels, TikTok e Shorts."
     }
   ],
   "deadline": "até 5 dias úteis por vídeo",
@@ -39,7 +43,7 @@
     },
     {
       "q": "Em quanto tempo fica pronto?",
-      "a": "Em até 5 dias úteis por vídeo, depois de receber o material."
+      "a": "Em até 5 dias úteis por vídeo, a partir do dia em que eu recebo o material."
     },
     {
       "q": "Posso pedir ajustes?",
@@ -50,7 +54,7 @@
       "a": "Você pode mandar o material bruto gravado no celular. Sem gravação, dá para fazer o vídeo só com texto e animação."
     },
     {
-      "q": "Vocês fazem pacotes?",
+      "q": "Você faz pacotes?",
       "a": "Sim. Pacotes mensais de vídeos saem com valor menor por vídeo."
     }
   ],
@@ -68,7 +72,7 @@
       "posterSmall": "/images/nimbo/poster-540.webp",
       "duration": 45
     },
-    "lead": "Um vídeo de consideração para quem já conhece a Nimbo e está comparando provedores. Em vez de disputar megas, ele muda a pergunta: a internet certa depende da planta da casa, da rotina de quem mora nela e do suporte quando você precisa.",
+    "lead": "Um vídeo de consideração para quem já conhece a Nimbo e está comparando provedores. Em vez de disputar megas, ele muda a pergunta: a internet certa depende da planta da casa, da rotina de quem mora nela e do suporte quando você precisar.",
     "facts": [
       [
         "Marca",
@@ -87,7 +91,7 @@
     "strategy": [
       [
         "Muda o critério da comparação",
-        "Se todas vendem fibra e muitos megas, a Nimbo entra na disputa olhando para o que as outras ignoram: ambientes, rotina e suporte."
+        "Se todas as operadoras vendem fibra e muitos megas, a Nimbo entra na disputa olhando para o que as outras ignoram: ambientes, rotina e suporte."
       ],
       [
         "Produto com valor para a casa",
@@ -167,6 +171,7 @@
     ],
     "why": "Quando todo mundo compete por megas, quem muda a pergunta sai na frente.",
     "waMessage": "Oi Diogo, vi o vídeo da Nimbo Fibra no seu site e quero um vídeo estratégico assim",
-    "cta": "Quero um vídeo assim"
+    "cta": "Quero um vídeo assim",
+    "scope": "Exemplo de peça com motion completo (orçamento sob medida)"
   }
 }

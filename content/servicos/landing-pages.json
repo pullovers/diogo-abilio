@@ -3,9 +3,13 @@
   "order": 1,
   "bento": "large",
   "mockup": "browser",
-  "name": "Landing pages",
+  "label": "Landing page",
+  "name": "Páginas que transformam visita em cliente",
+  "seoTitle": "Landing pages que transformam visita em cliente",
   "tagline": "Página que explica rápido, passa confiança e faz o visitante chamar no WhatsApp.",
   "price": "a partir de R$ 3.500",
+  "cta": "Quero um orçamento de landing page",
+  "quoteMessage": "Oi Diogo, quero um orçamento de landing page",
   "whatsappMessage": "Oi Diogo, vim pela página de landing pages",
   "cardImage": {
     "src": "/img/g4-gestao-800.webp",
@@ -17,7 +21,7 @@
     {
       "title": "Arbitralis",
       "client": "Redesign conceitual · 2026",
-      "summary": "Redesign do site de uma câmara de arbitragem 100% digital. O desafio era explicar um serviço jurídico pouco conhecido para imobiliárias e escritórios de advocacia, com etapas claras, um simulador de custos e dois caminhos de contato.",
+      "summary": "Redesign do site de uma câmara de arbitragem 100% digital. O desafio era explicar a imobiliárias e escritórios de advocacia um serviço jurídico pouco conhecido, com etapas claras, um simulador de custos e dois caminhos de contato.",
       "url": "https://arbitralis-redesign-fq9g.vercel.app/",
       "image": {
         "src": "/img/arbitralis-1400.webp",
@@ -43,7 +47,7 @@
     {
       "title": "G4 Gestão & Estratégia",
       "client": "G4 Educação · 2024",
-      "summary": "Redesign de uma página importante do G4 Educação, para comunicar melhor a oferta e apoiar as campanhas do produto.",
+      "summary": "Redesign da página de vendas do programa Gestão & Estratégia, para deixar a oferta mais clara e sustentar as campanhas pagas do produto.",
       "image": {
         "src": "/img/g4-gestao-1400.webp",
         "srcset": "/img/g4-gestao-800.webp 800w, /img/g4-gestao-1400.webp 1400w",
@@ -56,7 +60,7 @@
     {
       "title": "G4 Sprints",
       "client": "G4 Educação · 2024",
-      "summary": "Página de lançamento de um produto novo do G4: uma experiência presencial intensiva para fundadores e C-levels, feita no Webflow.",
+      "summary": "Página de lançamento, feita no Webflow, de um produto novo do G4: uma experiência presencial intensiva para fundadores e C-levels.",
       "image": {
         "src": "/img/g4-sprints-1400.webp",
         "srcset": "/img/g4-sprints-800.webp 800w, /img/g4-sprints-1400.webp 1400w",
@@ -73,7 +77,7 @@
     "Design para desktop e celular",
     "Página publicada no seu domínio, rápida e com SEO básico",
     "Botões de WhatsApp e formulário com conversões configuradas",
-    "30 dias de ajustes depois que a página vai ao ar"
+    "Duas rodadas de ajustes no design e 30 dias de ajustes pequenos depois que a página vai ao ar"
   ],
   "steps": [
     {

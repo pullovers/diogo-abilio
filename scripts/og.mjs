@@ -32,16 +32,18 @@ const base = (inner) => `<!doctype html><html><head><meta charset="utf-8">
 const homeHtml = base(`
   <div class="brand" style="position:absolute;left:72px;top:48px">Diogo Abílio</div>
   <img src="${img('images/diogo-float-1200.webp')}" style="position:absolute;left:50%;top:40px;width:760px;margin-left:-380px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))">
-  <h1 style="position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:46px;line-height:1.1;letter-spacing:-0.035em;font-weight:600">Me deixe destravar a <span class="grad">criatividade</span><br>da sua empresa e fazer você <span class="gold">lucrar</span> com isso.</h1>
+  <h1 style="position:absolute;left:0;right:0;bottom:56px;text-align:center;font-size:46px;line-height:1.1;letter-spacing:-0.035em;font-weight:600">Eu descubro onde sua empresa<br>está <span class="grad">perdendo venda</span>. Depois, <span class="gold">resolvo</span>.</h1>
 `);
 
 const serviceHtml = (s) => {
   const media = s.cardImage
     ? `<div style="position:absolute;right:72px;top:156px;width:600px;height:318px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.16)"><img src="${img(s.cardImage.src.replace(/^\//, '').replace('-800', '-1400'))}" style="width:100%;height:100%;object-fit:cover"></div>`
-    : `<div style="position:absolute;right:72px;top:64px;width:520px;height:502px;display:grid;place-items:center;background:#131315;border:2px dashed rgba(255,255,255,.16);border-radius:20px" class="mono">Trabalho novo chegando</div>`;
+    : '';
+  const width = s.cardImage ? 420 : 900;
   return base(`
   <div class="brand">Diogo Abílio</div>
-  <h1 style="position:absolute;left:72px;top:186px;width:${s.cardImage ? 400 : 470}px;font-size:72px;line-height:1.02;letter-spacing:-0.03em;font-weight:600">${s.name}</h1>
+  <div class="mono" style="position:absolute;left:72px;top:150px">${s.label}</div>
+  <h1 style="position:absolute;left:72px;top:196px;width:${width}px;font-size:${s.cardImage ? 52 : 76}px;line-height:1.04;letter-spacing:-0.03em;font-weight:600">${s.name}</h1>
   <div class="mono" style="position:absolute;left:72px;bottom:64px;color:#F3F1ED">${s.price}</div>
   ${media}
 `);
