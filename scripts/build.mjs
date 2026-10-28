@@ -189,14 +189,22 @@ const mockup = (s) => {
   return `<div class="mock">${pending()}</div>`;
 };
 
-// ---------- carousel case: fanned cover on the card, slides + strategy in a dialog ----------
+// ---------- portfolio cases: a cover on the service card, the piece + strategy in a dialog ----------
+// Two kinds: "carousel" (slides) and "video" (vertical video split into scenes).
 const pad2 = (n) => String(n).padStart(2, '0');
 const slide = (c, n, w) => `${c.dir}/${pad2(n)}-${w}.webp`;
+const sceneThumb = (c, n) => c.video.thumbs.replace('{n}', pad2(n));
+const clock = (t) => `${pad2(Math.floor(t / 60))}:${pad2(t % 60)}`;
 const expandIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>';
 const arrowIcon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
 const funnelStages = [['Topo', 'reconhecimento'], ['Meio', 'consideração'], ['Fundo', 'conversão']];
+const isVideo = (c) => c.type === 'video';
+// one line per slide or scene; scenes carry their start time
+const caseSteps = (c) => (isVideo(c) ? c.scenes.map(([t, text]) => ({ t, text })) : c.arc.map((text) => ({ text })));
+const stageBadge = (c) => `<span class="badge">${esc(funnelStages[c.stage][0].toLowerCase())} de funil</span>`;
 
-// Cover: slide 1 in front, slides 2–5 tucked behind; they open into a fan on hover.
+// Carousel cover: slide 1 in front, slides 2–5 tucked behind; they open into a fan on hover.
 const carouselCover = (c) => `<div class="mock mock-carousel">
           <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
             <span class="sr-only">Abrir o carrossel da ${esc(c.brand)} e a estratégia por trás dele</span>
@@ -205,45 +213,72 @@ const carouselCover = (c) => `<div class="mock mock-carousel">
             </span>
             <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${c.count} slides</span>
           </button>
-          <span class="badge">${esc(funnelStages[c.stage][0].toLowerCase())} de funil</span>
+          ${stageBadge(c)}
+        </div>`;
+
+// Video cover: a muted highlight loop in a vertical frame, two scene cards behind it.
+const videoCover = (c) => `<div class="mock mock-video">
+          <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
+            <span class="sr-only">Assistir ao vídeo da ${esc(c.brand)} e ver a estratégia por trás dele</span>
+            <span class="vstage" aria-hidden="true">
+              <img class="vside vside--l" src="${sceneThumb(c, 2)}" alt="" width="240" height="427" loading="lazy" decoding="async" />
+              <img class="vside vside--r" src="${sceneThumb(c, 6)}" alt="" width="240" height="427" loading="lazy" decoding="async" />
+              <span class="vphone">
+                <video class="vprev" muted loop playsinline preload="none" poster="${c.video.posterSmall}" data-src="${c.video.preview}"></video>
+                <span class="vplay">${playIcon}</span>
+              </span>
+            </span>
+            <span class="cfan-hint" aria-hidden="true">${playIcon}Assistir<span class="hint-extra"> com som · ${c.video.duration} s</span></span>
+          </button>
+          ${stageBadge(c)}
         </div>`;
 
 // Funnel: three tapered layers, the active one lit; dots keep dropping into the top
 // (new people arriving), a light sweeps across the active layer.
 const funnelLayers = ['M6 34 H234 L210 84 H30 Z', 'M36 92 H204 L184 136 H56 Z', 'M62 144 H178 L162 184 H78 Z'];
 const funnelSvg = (c) => {
-  const label = funnelStages.map(([t, sub], i) => `${t}, ${sub}${i === c.stage ? ' (este carrossel)' : ''}`).join('; ');
+  const label = funnelStages.map(([t, sub], i) => `${t}, ${sub}${i === c.stage ? ' (esta peça)' : ''}`).join('; ');
   return `<svg class="funnel" viewBox="0 0 240 190" role="img" aria-label="Funil de vendas: ${esc(label)}">
             <defs>
               <linearGradient id="fg-${c.id}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#CF97FF"/><stop offset=".5" stop-color="#A970FF"/><stop offset="1" stop-color="#7B2FF7"/></linearGradient>
               <linearGradient id="fs-${c.id}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
               <clipPath id="fc-${c.id}"><path d="${funnelLayers[c.stage]}"/></clipPath>
             </defs>
-            <g class="funnel-drops">${[[40, 0], [78, 1.1], [112, .5], [146, 1.6], [180, .3], [204, 1.3], [96, 2]].map(([x, d]) => `<circle cx="${x}" cy="10" r="2.6" style="--d:${d}s"/>`).join('')}</g>
+            ${c.stage === 0 ? `<g class="funnel-drops">${[[40, 0], [78, 1.1], [112, .5], [146, 1.6], [180, .3], [204, 1.3], [96, 2]].map(([x, d]) => `<circle cx="${x}" cy="10" r="2.6" style="--d:${d}s"/>`).join('')}</g>` : ''}
             ${funnelLayers.map((d, i) => `<path class="fl${i === c.stage ? ' is-on' : ''}" d="${d}" style="--k:${i}"${i === c.stage ? ` fill="url(#fg-${c.id})"` : ''}/>`).join('')}
-            <g clip-path="url(#fc-${c.id})"><rect class="funnel-sweep" x="-80" y="30" width="70" height="60" fill="url(#fs-${c.id})"/></g>
+            <g clip-path="url(#fc-${c.id})"><rect class="funnel-sweep" x="-80" y="${[30, 88, 140][c.stage]}" width="70" height="60" fill="url(#fs-${c.id})"/></g>
             ${funnelStages.map(([t, sub], i) => { const y = [58, 113, 163][i]; return `<g class="fl-text${i === c.stage ? ' is-on' : ''}" style="--k:${i}"><text x="120" y="${y}" text-anchor="middle" class="fl-t">${t}</text><text x="120" y="${y + 14}" text-anchor="middle" class="fl-s">${sub.toUpperCase()}</text></g>`; }).join('')}
           </svg>`;
 };
 
+const carouselViewer = (c, steps) => `<div class="case-track" tabindex="0" role="region" aria-label="Slides do carrossel">
+        ${steps.map((st, i) => `<figure class="case-slide"><img src="${slide(c, i + 1, 1122)}" srcset="${slide(c, i + 1, 560)} 560w, ${slide(c, i + 1, 1122)} 1122w" sizes="(max-width: 860px) 90vw, 560px" width="1122" height="1402" alt="Slide ${i + 1} de ${steps.length}. ${esc(st.text)}" loading="lazy" decoding="async" /></figure>`).join('\n        ')}
+      </div>`;
+const videoViewer = (c) => `<div class="case-track case-track--video">
+        <figure class="case-slide"><video class="case-video" controls playsinline preload="none" poster="${c.video.poster}" aria-label="Vídeo ${esc(c.brand)}: ${esc(c.title)}, com legendas na imagem">
+          <source src="${c.video.src720}" type="video/mp4" media="(max-width: 860px)" />
+          <source src="${c.video.src1080}" type="video/mp4" />
+        </video></figure>
+      </div>`;
+
 const caseDialog = (s) => {
-  const c = s.carousel;
-  const n = Array.from({ length: c.count }, (_, i) => i + 1);
-  return `<dialog class="case" id="case-${c.id}" aria-labelledby="case-${c.id}-title" data-lenis-prevent>
+  const c = s.case;
+  const video = isVideo(c);
+  const steps = caseSteps(c);
+  const unit = video ? 'cena' : 'slide';
+  return `<dialog class="case case--${c.type}" id="case-${c.id}" aria-labelledby="case-${c.id}-title" data-lenis-prevent${video ? ` data-times="${steps.map((st) => st.t).join(',')}"` : ''}>
   <div class="case-shell">
     <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
     <div class="case-viewer">
-      <div class="case-track" tabindex="0" role="region" aria-label="Slides do carrossel">
-        ${n.map((k) => `<figure class="case-slide"><img src="${slide(c, k, 1122)}" srcset="${slide(c, k, 560)} 560w, ${slide(c, k, 1122)} 1122w" sizes="(max-width: 860px) 90vw, 560px" width="1122" height="1402" alt="Slide ${k} de ${c.count}. ${esc(c.arc[k - 1])}" loading="lazy" decoding="async" /></figure>`).join('\n        ')}
-      </div>
+      ${video ? videoViewer(c) : carouselViewer(c, steps)}
       <div class="case-bar">
-        <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(c.count)}</span>
+        <span class="case-count" aria-live="polite">${video ? '<small>cena</small> ' : ''}<b>01</b> / ${pad2(steps.length)}</span>
         <div class="case-thumbs">
-          ${n.map((k) => `<button type="button" data-go="${k - 1}" aria-label="Ir para o slide ${k}"${k === 1 ? ' aria-current="true"' : ''}><img src="${slide(c, k, 240)}" alt="" width="240" height="300" loading="lazy" decoding="async" /></button>`).join('')}
+          ${steps.map((st, i) => `<button type="button" data-go="${i}" aria-label="Ir para ${video ? 'a' : 'o'} ${unit} ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}><img src="${video ? sceneThumb(c, i + 1) : slide(c, i + 1, 240)}" alt="" width="240" height="${video ? 427 : 300}" loading="lazy" decoding="async" /></button>`).join('')}
         </div>
         <div class="case-arrows">
-          <button type="button" class="case-prev" aria-label="Slide anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
-          <button type="button" class="case-next" aria-label="Próximo slide">${arrowIcon('M9 18l6-6-6-6')}</button>
+          <button type="button" class="case-prev" aria-label="${video ? 'Cena anterior' : 'Slide anterior'}" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="${video ? 'Próxima cena' : 'Próximo slide'}">${arrowIcon('M9 18l6-6-6-6')}</button>
         </div>
       </div>
     </div>
@@ -270,15 +305,15 @@ const caseDialog = (s) => {
       </section>
 
       <section class="case-block ci" style="--i:5">
-        <h3 class="case-h">Slide a slide</h3>
+        <h3 class="case-h">${video ? 'Cena a cena' : 'Slide a slide'}</h3>
         <ol class="case-arc">
-          ${c.arc.map((t, i) => `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${pad2(i + 1)}</span><span>${esc(t)}</span></button></li>`).join('\n          ')}
+          ${steps.map((st, i) => `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${video ? clock(st.t) : pad2(i + 1)}</span><span>${esc(st.text)}</span></button></li>`).join('\n          ')}
         </ol>
       </section>
 
       <section class="case-block ci" style="--i:6">
         <h3 class="case-h">O que a gente mede</h3>
-        <div class="case-tabs" role="tablist" aria-label="Prazo das métricas">
+        <div class="case-tabs" role="tablist" aria-label="Momento das métricas">
           <span class="case-tabs-pill" aria-hidden="true"></span>
           ${c.metrics.map((m, i) => `<button type="button" role="tab" id="case-${c.id}-tab-${i}" aria-controls="case-${c.id}-panel-${i}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}>${esc(m.tab)}</button>`).join('')}
         </div>
@@ -293,7 +328,7 @@ const caseDialog = (s) => {
       <p class="case-why ci" style="--i:7">${esc(c.why)}</p>
 
       <div class="case-cta ci" style="--i:8">
-        <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">Quero um carrossel assim <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">${esc(c.cta || 'Quero um carrossel assim')} <span class="arr" aria-hidden="true">→</span></a>
         <a class="link-u" href="/servicos/${s.slug}">Ver o serviço completo</a>
       </div>
     </div>
@@ -307,12 +342,12 @@ const cardBody = (s, link) => `<div class="bcard-body">
           ${link}
         </div>`;
 const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</span>';
-// Cards with a carousel case hold a button (opens the dialog) and a link, so the
-// card itself can't be one big <a>: the link stretches over the card instead.
-const serviceCard = (s) => s.carousel
+// Cards with a case hold a button (opens the dialog) and a link, so the card
+// itself can't be one big <a>: the link stretches over the card instead.
+const serviceCard = (s) => s.case
   ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
         <span class="price-chip">${esc(s.price)}</span>
-        ${carouselCover(s.carousel)}
+        ${isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
         ${cardBody(s, `<a class="card-link card-stretch" href="/servicos/${s.slug}">${cardLinkInner}</a>`)}
       </article>`
   : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
@@ -506,7 +541,7 @@ const home = () => layout({
 </section>
 
 ${finalCta('cta-final')}
-${services.filter((s) => s.carousel).map(caseDialog).join('\n')}`,
+${services.filter((s) => s.case).map(caseDialog).join('\n')}`,
 });
 
 // ---------- service page ----------

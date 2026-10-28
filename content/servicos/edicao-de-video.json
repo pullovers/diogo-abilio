@@ -67,5 +67,121 @@
       "q": "Posso pedir ajustes?",
       "a": "[Resposta]"
     }
-  ]
+  ],
+  "case": {
+    "type": "video",
+    "id": "nimbo",
+    "brand": "Nimbo Fibra",
+    "title": "Sua casa não cabe num número",
+    "kicker": "Vídeo estratégico · 45 s",
+    "video": {
+      "src1080": "/videos/nimbo/nimbo-fibra-1080.mp4",
+      "src720": "/videos/nimbo/nimbo-fibra-720.mp4",
+      "preview": "/videos/nimbo/nimbo-preview.mp4",
+      "poster": "/images/nimbo/poster-1080.webp",
+      "posterSmall": "/images/nimbo/poster-540.webp",
+      "thumbs": "/images/nimbo/cena-{n}-240.webp",
+      "duration": 45
+    },
+    "lead": "Um vídeo de consideração para quem já conhece a Nimbo e está comparando provedores. Em vez de disputar megas, ele muda a pergunta: a internet certa depende da planta da casa, da rotina de quem mora nela e do suporte quando você precisa.",
+    "facts": [
+      [
+        "Marca",
+        "Nimbo Fibra, internet residencial"
+      ],
+      [
+        "Para quem",
+        "Quem já conhece a marca e está comparando provedores"
+      ],
+      [
+        "Formato",
+        "Motion design vertical · 45 s · voz e legendas"
+      ]
+    ],
+    "stage": 1,
+    "strategy": [
+      [
+        "Muda o critério da comparação",
+        "Se todas vendem fibra e muitos megas, a Nimbo entra na disputa olhando para o que as outras ignoram: ambientes, rotina e suporte."
+      ],
+      [
+        "Produto com valor para a casa",
+        "Fala de roteador, Wi-Fi e estrutura, sempre do ponto de vista de quem mora: onde o aparelho fica e o que cada cômodo precisa."
+      ],
+      [
+        "Marca presente, sem CTA",
+        "Sem preço, sem “assine já”. A Nimbo aparece como um jeito de pensar a escolha, para entrar na lista de quem está decidindo."
+      ]
+    ],
+    "scenes": [
+      [
+        0,
+        "A pergunta certa: sua casa não cabe num número"
+      ],
+      [
+        4,
+        "Além da velocidade: megas contam, mas não contam tudo"
+      ],
+      [
+        11,
+        "Ambientes: a planta muda o caminho do Wi-Fi"
+      ],
+      [
+        17,
+        "Usos: uma casa, várias rotinas"
+      ],
+      [
+        23,
+        "Apoio: suporte também faz parte da escolha"
+      ],
+      [
+        29,
+        "O olhar Nimbo: primeiro a casa, depois o plano"
+      ],
+      [
+        39,
+        "Assinatura: sua casa antes dos megas"
+      ]
+    ],
+    "metrics": [
+      {
+        "tab": "Na veiculação",
+        "items": [
+          [
+            "Retenção até os 29 s",
+            "quem ficou até a Nimbo mostrar o seu jeito de pensar"
+          ],
+          [
+            "Vídeo assistido até o fim",
+            "quem chegou à assinatura da marca"
+          ],
+          [
+            "Salvamentos e compartilhamentos",
+            "sinal de que o critério novo fez sentido"
+          ]
+        ]
+      },
+      {
+        "tab": "Na decisão",
+        "items": [
+          [
+            "Nimbo na lista de opções",
+            "pesquisa: quais provedoras você consideraria?"
+          ],
+          [
+            "Visitas à página de planos",
+            "quem foi ver por conta própria, sem ser chamado"
+          ],
+          [
+            "Conversa de venda mais qualificada",
+            "o cliente chega falando da casa, não só de megas"
+          ]
+        ],
+        "note": "Consideração se mede comparando quem viu o vídeo com quem não viu. O plano começa por uma linha de base e testa uma mudança por vez."
+      }
+    ],
+    "why": "Quando todo mundo compete por megas, quem muda a pergunta sai na frente.",
+    "waMessage": "Oi Diogo, vi o vídeo da Nimbo Fibra no seu site e quero um vídeo estratégico assim",
+    "cta": "Quero um vídeo assim"
+  }
 }

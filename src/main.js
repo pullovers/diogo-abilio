@@ -247,12 +247,25 @@
     if (items[0]) moveDot(items[0]);
   }
 
-  // ---------- carousel case dialog: swipeable slides synced with the "slide a slide" list ----------
+  // ---------- video case cover: muted highlight loop plays only while on screen ----------
+  $$('.vprev').forEach(function (v) {
+    if (reduce) return;            // keep the poster
+    new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) {
+        if (!v.src) { v.src = v.dataset.src; }
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      } else v.pause();
+    }, { rootMargin: '100px' }).observe(v);
+  });
+
+  // ---------- case dialog: carousel (swipeable slides) or video (scenes), synced with the list ----------
   $$('[data-open-case]').forEach(function (opener) {
     var dlg = document.getElementById(opener.getAttribute('aria-controls'));
     if (!dlg || typeof dlg.showModal !== 'function') return;
     var track = $('.case-track', dlg);
-    var slides = $$('.case-slide', dlg);
+    var video = $('.case-video', dlg);
+    var times = video ? dlg.dataset.times.split(',').map(Number) : null;
+    var total = video ? times.length : $$('.case-slide', dlg).length;
     var thumbs = $$('.case-thumbs [data-go]', dlg);
     var arc = $$('.case-arc [data-go]', dlg);
     var count = $('.case-count b', dlg);
@@ -266,22 +279,34 @@
       thumbs.forEach(function (t, k) { if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
       arc.forEach(function (a, k) { a.classList.toggle('is-active', k === i); });
       prev.disabled = i === 0;
-      next.disabled = i === slides.length - 1;
+      next.disabled = i === total - 1;
     }
+    // video: jump to the scene start and keep playing; carousel: scroll to the slide
     function go(i, instant) {
-      i = Math.max(0, Math.min(slides.length - 1, i));
-      track.scrollTo({ left: i * track.clientWidth, behavior: instant || reduce ? 'auto' : 'smooth' });
+      i = Math.max(0, Math.min(total - 1, i));
+      if (video) {
+        if (!instant) { video.currentTime = times[i] + 0.05; var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      } else track.scrollTo({ left: i * track.clientWidth, behavior: instant || reduce ? 'auto' : 'smooth' });
       update(i);
     }
-    var ticking = 0;
-    track.addEventListener('scroll', function () {
-      if (ticking) return;
-      ticking = requestAnimationFrame(function () { ticking = 0; update(Math.round(track.scrollLeft / track.clientWidth)); });
-    }, { passive: true });
+    if (video) {
+      video.addEventListener('timeupdate', function () {
+        var i = 0;
+        times.forEach(function (t, k) { if (video.currentTime >= t) i = k; });
+        update(i);
+      });
+    } else {
+      var ticking = 0;
+      track.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = requestAnimationFrame(function () { ticking = 0; update(Math.round(track.scrollLeft / track.clientWidth)); });
+      }, { passive: true });
+    }
     $$('[data-go]', dlg).forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.go); }); });
     prev.addEventListener('click', function () { go(current - 1); });
     next.addEventListener('click', function () { go(current + 1); });
     dlg.addEventListener('keydown', function (e) {
+      if (e.target === video) return;   // native seek keys
       if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
     });
@@ -289,9 +314,10 @@
     dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
     dlg.addEventListener('close', function () {
       root.classList.remove('modal-open');
+      if (video) video.pause();
       if (window.__lenis) window.__lenis.start();
     });
-    window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
+    if (!video) window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
 
     // metric tabs (now / months later): sliding pill, arrow keys move between tabs
     var tabs = $$('[role="tab"]', dlg);
@@ -321,6 +347,10 @@
       dlg.showModal();
       current = -1;
       go(0, true);
+      if (video) {
+        video.currentTime = 0;
+        var p = video.play(); if (p && p.catch) p.catch(function () {});
+      }
       if (tabs[0]) selectTab(tabs[0]);
       $$('.case-shell, .case-info', dlg).forEach(function (el) { el.scrollTop = 0; });
       window.va('event', { name: 'Case Open', data: { case: dlg.id } });

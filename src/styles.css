@@ -589,6 +589,44 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .carousel-open:hover .cfan-hint { background: var(--accent-btn); border-color: var(--accent-btn); }
 .mock-carousel .badge { pointer-events: none; z-index: 3; }
 
+/* video case cover: muted highlight loop in a vertical frame, two scenes fanned behind */
+.mock-video, .bcard--wide .mock-video { min-height: 440px; background: radial-gradient(55% 70% at 50% 55%, rgba(139, 61, 255, .26), transparent 72%), var(--surface-2); }
+.vstage { position: relative; height: 80%; aspect-ratio: 9 / 16; }
+.vphone {
+  position: absolute; inset: 0; z-index: 2;
+  border-radius: 18px; overflow: hidden; background: #F2EEE8;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .95), 0 0 50px -12px var(--accent-glow), 0 0 0 1px rgba(255, 255, 255, .1);
+  transition: transform .6s var(--ease-out);
+}
+.vprev { display: block; width: 100%; height: 100%; object-fit: cover; }
+.vside {
+  position: absolute; top: 8%; left: 0; width: 100%; height: 84%;
+  object-fit: cover; border-radius: 12px;
+  box-shadow: 0 18px 36px -14px rgba(0, 0, 0, .9);
+  filter: brightness(.45);
+  transform-origin: 50% 130%;
+  transition: transform .6s var(--ease-out), filter .4s ease;
+}
+.vside--l { transform: translateX(-34%) rotate(-7deg) scale(.86); }
+.vside--r { transform: translateX(34%) rotate(7deg) scale(.86); }
+.carousel-open:hover .vside, .carousel-open:focus-visible .vside { filter: brightness(.8); }
+.carousel-open:hover .vside--l, .carousel-open:focus-visible .vside--l { transform: translateX(-66%) rotate(-12deg) scale(.88); }
+.carousel-open:hover .vside--r, .carousel-open:focus-visible .vside--r { transform: translateX(66%) rotate(12deg) scale(.88); }
+.carousel-open:hover .vphone, .carousel-open:focus-visible .vphone { transform: translateY(-2%) scale(1.03); }
+.vplay {
+  position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: rgba(139, 61, 255, .92); color: #fff;
+  box-shadow: 0 10px 30px -6px var(--accent-glow), 0 0 0 8px rgba(139, 61, 255, .18);
+  opacity: 0; transform: scale(.8);
+  transition: opacity .3s ease, transform .4s var(--ease-out);
+}
+.vplay svg { width: 22px; height: 22px; margin-left: 3px; }
+.carousel-open:hover .vplay, .carousel-open:focus-visible .vplay { opacity: 1; transform: none; }
+.mock-video .cfan-hint svg { width: 11px; height: 11px; }
+.mock-video .badge { pointer-events: none; z-index: 3; }
+@media (max-width: 480px) { .hint-extra { display: none; } }
+
 /* carousel case dialog */
 html.modal-open { overflow: hidden; }
 .case {
@@ -628,6 +666,13 @@ html.modal-open { overflow: hidden; }
 }
 .case-track::-webkit-scrollbar { display: none; }
 .case-slide { flex: 0 0 100%; margin: 0; scroll-snap-align: center; container-type: size; display: grid; place-items: center; }
+.case-video {
+  display: block; width: min(100cqw, 100cqh * .5625); height: auto; aspect-ratio: 9 / 16;
+  border-radius: 14px; background: #000;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(255, 255, 255, .06);
+}
+.case--video .case-thumbs button { width: 26px; aspect-ratio: 9 / 16; }
+.case-count small { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
 .case-slide img {
   width: min(100cqw, 100cqh * .8);
   height: auto;
@@ -744,10 +789,13 @@ html.modal-open { overflow: hidden; }
 }
 @media (max-width: 860px) {
   .mock-carousel { min-height: 380px; }
+  .mock-video, .bcard--wide .mock-video { min-height: 460px; }
+  .vstage { height: 70%; margin-top: 10%; }
   .cfan { height: 66%; margin-top: 6%; }
   .case-metrics li { grid-template-columns: 1fr; }
   .case { width: 100%; height: 100dvh; border-radius: 0; border: 0; }
   .case-shell { display: block; overflow-y: auto; overscroll-behavior: contain; }
+  .case--video .case-viewer { height: min(86svh, 178vw + 96px); }
   .case-viewer { height: min(78svh, 128vw + 96px); padding: 56px 16px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
   .case-thumbs { display: none; }
   .case-info { overflow: visible; padding: 32px 20px 40px; }

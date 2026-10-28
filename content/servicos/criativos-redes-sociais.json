@@ -68,7 +68,8 @@
       "a": "[Resposta]"
     }
   ],
-  "carousel": {
+  "case": {
+    "type": "carousel",
     "id": "vaie",
     "dir": "/images/carrossel-vaie",
     "count": 7,
