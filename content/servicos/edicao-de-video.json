@@ -1,7 +1,7 @@
 {
   "slug": "edicao-de-video",
-  "order": 4,
-  "bento": "wide",
+  "order": 3,
+  "bento": "small",
   "mockup": "timeline",
   "name": "Edição de vídeo",
   "tagline": "Vídeos curtos, com ritmo, legenda e gancho nos primeiros 3 segundos.",
@@ -80,7 +80,6 @@
       "preview": "/videos/nimbo/nimbo-preview.mp4",
       "poster": "/images/nimbo/poster-1080.webp",
       "posterSmall": "/images/nimbo/poster-540.webp",
-      "thumbs": "/images/nimbo/cena-{n}-240.webp",
       "duration": 45
     },
     "lead": "Um vídeo de consideração para quem já conhece a Nimbo e está comparando provedores. Em vez de disputar megas, ele muda a pergunta: a internet certa depende da planta da casa, da rotina de quem mora nela e do suporte quando você precisa.",

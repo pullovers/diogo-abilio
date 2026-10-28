@@ -193,9 +193,9 @@ const mockup = (s) => {
 // Two kinds: "carousel" (slides) and "video" (vertical video split into scenes).
 const pad2 = (n) => String(n).padStart(2, '0');
 const slide = (c, n, w) => `${c.dir}/${pad2(n)}-${w}.webp`;
-const sceneThumb = (c, n) => c.video.thumbs.replace('{n}', pad2(n));
 const clock = (t) => `${pad2(Math.floor(t / 60))}:${pad2(t % 60)}`;
 const expandIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+const muteIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>';
 const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>';
 const arrowIcon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
 const funnelStages = [['Topo', 'reconhecimento'], ['Meio', 'consideração'], ['Fundo', 'conversão']];
@@ -216,19 +216,15 @@ const carouselCover = (c) => `<div class="mock mock-carousel">
           ${stageBadge(c)}
         </div>`;
 
-// Video cover: a muted highlight loop in a vertical frame, two scene cards behind it.
+// Video cover: a plain vertical Reels screen with the muted highlight loop running.
 const videoCover = (c) => `<div class="mock mock-video">
           <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
             <span class="sr-only">Assistir ao vídeo da ${esc(c.brand)} e ver a estratégia por trás dele</span>
-            <span class="vstage" aria-hidden="true">
-              <img class="vside vside--l" src="${sceneThumb(c, 2)}" alt="" width="240" height="427" loading="lazy" decoding="async" />
-              <img class="vside vside--r" src="${sceneThumb(c, 6)}" alt="" width="240" height="427" loading="lazy" decoding="async" />
-              <span class="vphone">
-                <video class="vprev" muted loop playsinline preload="none" poster="${c.video.posterSmall}" data-src="${c.video.preview}"></video>
-                <span class="vplay">${playIcon}</span>
-              </span>
+            <span class="vphone" aria-hidden="true">
+              <video class="vprev" muted loop playsinline preload="none" poster="${c.video.posterSmall}" data-src="${c.video.preview}"></video>
+              <span class="vmute">${muteIcon}</span>
             </span>
-            <span class="cfan-hint" aria-hidden="true">${playIcon}Assistir<span class="hint-extra"> com som · ${c.video.duration} s</span></span>
+            <span class="cfan-hint" aria-hidden="true">${playIcon}Assistir com som</span>
           </button>
           ${stageBadge(c)}
         </div>`;
@@ -265,22 +261,21 @@ const caseDialog = (s) => {
   const c = s.case;
   const video = isVideo(c);
   const steps = caseSteps(c);
-  const unit = video ? 'cena' : 'slide';
   return `<dialog class="case case--${c.type}" id="case-${c.id}" aria-labelledby="case-${c.id}-title" data-lenis-prevent${video ? ` data-times="${steps.map((st) => st.t).join(',')}"` : ''}>
   <div class="case-shell">
     <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
     <div class="case-viewer">
-      ${video ? videoViewer(c) : carouselViewer(c, steps)}
+      ${video ? videoViewer(c) : `${carouselViewer(c, steps)}
       <div class="case-bar">
-        <span class="case-count" aria-live="polite">${video ? '<small>cena</small> ' : ''}<b>01</b> / ${pad2(steps.length)}</span>
+        <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(steps.length)}</span>
         <div class="case-thumbs">
-          ${steps.map((st, i) => `<button type="button" data-go="${i}" aria-label="Ir para ${video ? 'a' : 'o'} ${unit} ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}><img src="${video ? sceneThumb(c, i + 1) : slide(c, i + 1, 240)}" alt="" width="240" height="${video ? 427 : 300}" loading="lazy" decoding="async" /></button>`).join('')}
+          ${steps.map((st, i) => `<button type="button" data-go="${i}" aria-label="Ir para o slide ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}><img src="${slide(c, i + 1, 240)}" alt="" width="240" height="300" loading="lazy" decoding="async" /></button>`).join('')}
         </div>
         <div class="case-arrows">
-          <button type="button" class="case-prev" aria-label="${video ? 'Cena anterior' : 'Slide anterior'}" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
-          <button type="button" class="case-next" aria-label="${video ? 'Próxima cena' : 'Próximo slide'}">${arrowIcon('M9 18l6-6-6-6')}</button>
+          <button type="button" class="case-prev" aria-label="Slide anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="Próximo slide">${arrowIcon('M9 18l6-6-6-6')}</button>
         </div>
-      </div>
+      </div>`}
     </div>
     <div class="case-info">
       <span class="label ci" style="--i:0">${esc(c.kicker)}</span>
@@ -307,7 +302,10 @@ const caseDialog = (s) => {
       <section class="case-block ci" style="--i:5">
         <h3 class="case-h">${video ? 'Cena a cena' : 'Slide a slide'}</h3>
         <ol class="case-arc">
-          ${steps.map((st, i) => `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${video ? clock(st.t) : pad2(i + 1)}</span><span>${esc(st.text)}</span></button></li>`).join('\n          ')}
+          ${steps.map((st, i) => (video
+            // scenes are read-only; the highlight follows playback
+            ? `<li><span class="arc-row${i === 0 ? ' is-active' : ''}"><span class="n">${clock(st.t)}</span><span>${esc(st.text)}</span></span></li>`
+            : `<li><button type="button" data-go="${i}"${i === 0 ? ' class="is-active"' : ''}><span class="n">${pad2(i + 1)}</span><span>${esc(st.text)}</span></button></li>`)).join('\n          ')}
         </ol>
       </section>
 

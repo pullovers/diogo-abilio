@@ -267,7 +267,7 @@
     var times = video ? dlg.dataset.times.split(',').map(Number) : null;
     var total = video ? times.length : $$('.case-slide', dlg).length;
     var thumbs = $$('.case-thumbs [data-go]', dlg);
-    var arc = $$('.case-arc [data-go]', dlg);
+    var arc = $$('.case-arc [data-go], .case-arc .arc-row', dlg);
     var count = $('.case-count b', dlg);
     var prev = $('.case-prev', dlg), next = $('.case-next', dlg);
     var current = -1;
@@ -275,11 +275,10 @@
     function update(i) {
       if (i === current) return;
       current = i;
-      count.textContent = String(i + 1).padStart(2, '0');
+      if (count) count.textContent = String(i + 1).padStart(2, '0');
       thumbs.forEach(function (t, k) { if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
       arc.forEach(function (a, k) { a.classList.toggle('is-active', k === i); });
-      prev.disabled = i === 0;
-      next.disabled = i === total - 1;
+      if (prev) { prev.disabled = i === 0; next.disabled = i === total - 1; }
     }
     // video: jump to the scene start and keep playing; carousel: scroll to the slide
     function go(i, instant) {
@@ -303,10 +302,12 @@
       }, { passive: true });
     }
     $$('[data-go]', dlg).forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.go); }); });
-    prev.addEventListener('click', function () { go(current - 1); });
-    next.addEventListener('click', function () { go(current + 1); });
+    if (prev) {
+      prev.addEventListener('click', function () { go(current - 1); });
+      next.addEventListener('click', function () { go(current + 1); });
+    }
     dlg.addEventListener('keydown', function (e) {
-      if (e.target === video) return;   // native seek keys
+      if (video) return;   // video: the player's own keys only
       if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
     });
