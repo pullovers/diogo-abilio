@@ -409,7 +409,8 @@ const ills = [
 ];
 
 // ---------- home ----------
-const logos = ['G4 Educação', "LET'S", 'Valid', 'K.Pitaliza', 'Agência Moonflag', 'Ituran'];
+const logos = ['G4 Educação', "LET'S", 'Valid', 'Agência Moonflag', 'Ituran'];
+const logoItem = (l) => `<li${l === 'G4 Educação' ? ' class="is-key"' : ''}>${esc(l)}</li>`;
 const career = [
   ["LET'S", 'Webflow Designer', '2025 a 2026', 'Site, páginas de produto e landing pages de uma SaaS B2B de logística'],
   ['K.Pitaliza Tecnologia', 'Coordenador de Marketing', '2025', 'Campanha nacional com Claudia Leitte, liderando um time de 8 pessoas'],
@@ -468,8 +469,8 @@ const home = () => layout({
   </div>
   <div class="marquee">
     <div class="marquee-track">
-      <ul class="marquee-list">${logos.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-      <ul class="marquee-list" aria-hidden="true">${logos.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
+      <ul class="marquee-list">${logos.map(logoItem).join('')}</ul>
+      <ul class="marquee-list" aria-hidden="true">${logos.map(logoItem).join('')}</ul>
     </div>
   </div>
 </section>

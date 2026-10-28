@@ -172,11 +172,11 @@
   var track = $('.marquee-track');
   if (track && !reduce) {
     var lists = $$('.marquee-list', track);
-    var base = $$('li', lists[0]).map(function (li) { return li.textContent; });
+    var base = $$('li', lists[0]);
     function fill() {
       while (lists[0].scrollWidth < window.innerWidth + 200) {
         lists.forEach(function (l) {
-          base.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; li.className = 'dup'; li.setAttribute('aria-hidden', 'true'); l.appendChild(li); });
+          base.forEach(function (src) { var li = src.cloneNode(true); li.classList.add('dup'); li.setAttribute('aria-hidden', 'true'); l.appendChild(li); });
         });
       }
     }

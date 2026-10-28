@@ -418,6 +418,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   transition: color .2s ease;
 }
 .marquee-list li:hover { color: var(--ink); }
+/* G4 Educação: a quiet highlight, brighter ink and a small glowing accent dot */
+.marquee-list li.is-key { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); }
+.marquee-list li.is-key::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px 2px rgba(139, 61, 255, .55); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ===== SPOTLIGHT (shared by bento cards) ===== */
