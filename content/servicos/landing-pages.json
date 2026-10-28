@@ -15,6 +15,48 @@
   },
   "works": [
     {
+      "title": "Arbitralis",
+      "client": "Redesign conceitual · 2026",
+      "summary": "Redesign do site de uma câmara de arbitragem 100% digital. O desafio era explicar um serviço jurídico pouco conhecido para imobiliárias e escritórios de advocacia, com etapas claras, um simulador de custos e dois caminhos de contato.",
+      "url": "https://arbitralis-redesign-fq9g.vercel.app/",
+      "image": {
+        "src": "/img/arbitralis-1400.webp",
+        "srcset": "/img/arbitralis-800.webp 800w, /img/arbitralis-1400.webp 1400w",
+        "width": 1400,
+        "height": 742,
+        "alt": "Primeira dobra do site da Arbitralis no desktop"
+      },
+      "mobile": {
+        "src": "/img/arbitralis-mobile-390.webp",
+        "srcset": "/img/arbitralis-mobile-390.webp 390w, /img/arbitralis-mobile-780.webp 780w",
+        "width": 390,
+        "height": 844,
+        "alt": "Primeira dobra do site da Arbitralis no celular"
+      },
+      "notes": [
+        {
+          "x": 32,
+          "y": 27,
+          "text": "O selo diz para quem é a página antes mesmo do título: imobiliárias e escritórios."
+        },
+        {
+          "x": 34,
+          "y": 66,
+          "text": "O título promete o resultado, rapidez e previsibilidade, em vez de explicar o que é arbitragem."
+        },
+        {
+          "x": 56,
+          "y": 33,
+          "text": "O card do procedimento mostra as etapas do caso e tira o medo de um processo desconhecido."
+        },
+        {
+          "x": 40,
+          "y": 93,
+          "text": "Dois caminhos: falar com um especialista ou simular a economia, para quem ainda está avaliando."
+        }
+      ]
+    },
+    {
       "title": "G4 Gestão & Estratégia",
       "client": "G4 Educação · 2024",
       "summary": "Redesign de uma página importante do G4 Educação, para comunicar melhor a oferta e apoiar as campanhas do produto.",

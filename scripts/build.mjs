@@ -162,10 +162,12 @@ const frameSvgs = [
 const mockup = (s) => {
   if (s.mockup === 'browser') {
     // Front window: the full-page print when one exists, else every work image stacked.
-    const images = s.works.filter((w) => w.image).map((w) => w.image);
+    const shown = s.works.filter((w) => w.image);
+    const images = shown.map((w) => w.image);
+    const host = (w) => (w && w.url ? new URL(w.url).host : s.mockupUrl);
     return `<div class="mock mock-browser">
-          ${images[1] ? browserFrame([images[1]], s.mockupUrl, 'browser--back') : ''}
-          ${browserFrame(s.print ? [s.print] : images, s.mockupUrl, 'browser--front')}
+          ${images[1] ? browserFrame([images[1]], host(shown[1]), 'browser--back') : ''}
+          ${browserFrame(s.print ? [s.print] : images, host(shown[0]), 'browser--front')}
         </div>`;
   }
   if (s.mockup === 'fan') {
@@ -543,17 +545,19 @@ ${services.filter((s) => s.case).map(caseDialog).join('\n')}`,
 });
 
 // ---------- service page ----------
-const work = (w) => `<article class="work reveal">
+const work = (w) => `<article class="work reveal${w.mobile ? ' work--mobile' : ''}">
       <div class="work-head">
         <h3>${esc(w.title)}</h3>
         <span class="client">${esc(w.client)}</span>
         <p>${esc(w.summary)}</p>
+        ${w.url ? `<a class="link-u work-live" href="${w.url}" target="_blank" rel="noopener">Ver o site no ar <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>` : ''}
       </div>
       <div class="work-body">
         <figure class="work-figure">
           ${w.image
             ? `<img src="${w.image.src}" srcset="${w.image.srcset}" sizes="(max-width: 860px) 92vw, 780px" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="lazy" decoding="async" />`
             : pending()}
+          ${w.mobile ? `<img class="work-mobile" src="${w.mobile.src}" srcset="${w.mobile.srcset}" sizes="(max-width: 860px) 28vw, 160px" width="${w.mobile.width}" height="${w.mobile.height}" alt="${esc(w.mobile.alt)}" loading="lazy" decoding="async" />` : ''}
           ${w.notes.map((n, i) => `<span class="marker" style="left:${n.x}%;top:${n.y}%" aria-hidden="true">${i + 1}</span>`).join('')}
         </figure>
         <div class="why">
