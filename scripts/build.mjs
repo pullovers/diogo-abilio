@@ -175,6 +175,7 @@ const mockup = (s) => {
     const main = s.works.find((w) => w.preview);
     return `<div class="mock mock-show" data-loop>
           ${browserFrame([main.preview.desktop], new URL(main.url).host, 'browser--front')}
+          ${main.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
           <div class="show-phones" aria-hidden="true">
             ${s.phones.map((ph, i) => `<div class="show-phone show-phone--${i + 1}"><div class="show-screen"><img src="${ph.src}" alt="" width="${ph.width}" height="${ph.height}" loading="lazy" decoding="async" /></div></div>`).join('\n            ')}
           </div>
@@ -238,6 +239,7 @@ const videoCover = (c) => `<div class="mock mock-video">
             </span>
             <span class="cfan-hint" aria-hidden="true">${playIcon}Assistir com som</span>
           </button>
+          ${c.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
           ${stageBadge(c)}
         </div>`;
 
@@ -292,6 +294,7 @@ const caseDialog = (s) => {
     <div class="case-info">
       <span class="label ci" style="--i:0">${esc(c.kicker)}</span>
       <h2 class="case-title ci" style="--i:1" id="case-${c.id}-title">${esc(c.brand)}: ${esc(c.title)}</h2>
+      ${c.note ? `<p class="case-context ci" style="--i:1">${esc(c.note)}</p>` : ''}
       <p class="case-lead ci" style="--i:2">${esc(c.lead)}</p>
 
       <div class="case-grid ci" style="--i:3">
@@ -322,7 +325,7 @@ const caseDialog = (s) => {
       </section>
 
       <section class="case-block ci" style="--i:6">
-        <h3 class="case-h">O que a gente mede</h3>
+        <h3 class="case-h">${c.authorial ? 'Como eu mediria' : 'O que a gente mede'}</h3>
         <div class="case-tabs" role="tablist" aria-label="Momento das métricas">
           <span class="case-tabs-pill" aria-hidden="true"></span>
           ${c.metrics.map((m, i) => `<button type="button" role="tab" id="case-${c.id}-tab-${i}" aria-controls="case-${c.id}-panel-${i}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}>${esc(m.tab)}</button>`).join('')}
@@ -651,6 +654,8 @@ const work = (w, i) => `<article class="work reveal">
       <div class="work-head">
         <h3>${esc(w.title)}</h3>
         <span class="client">${esc(w.client)}</span>
+        ${w.note ? `<p class="work-context">${esc(w.note)}</p>` : ''}
+        ${w.result ? `<p class="work-result"><b>${esc(w.result.value)}</b><span>${esc(w.result.text)}</span></p>` : ''}
         <p>${esc(w.summary)}</p>
         ${w.url || w.behance ? `<div class="work-actions">${w.url ? extLink(w.url, 'Ver o site no ar') : ''}${w.behance ? extLink(w.behance, 'Ver o case completo no Behance') : ''}</div>` : ''}
       </div>

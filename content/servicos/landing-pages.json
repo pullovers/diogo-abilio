@@ -22,8 +22,38 @@
   },
   "works": [
     {
+      "title": "G4 Sprints",
+      "client": "G4 Educação · 2024",
+      "summary": "Página de lançamento, feita no Webflow, de um produto novo do G4: uma experiência presencial intensiva para fundadores e C-levels.",
+      "image": {
+        "src": "/img/g4-sprints-1400.webp",
+        "srcset": "/img/g4-sprints-800.webp 800w, /img/g4-sprints-1400.webp 1400w",
+        "width": 1400,
+        "height": 742,
+        "alt": "Página de lançamento G4 Sprints"
+      },
+      "behance": "https://www.behance.net/gallery/250374505/Pagina-G4-Sprints-Lancamento-de-Produto",
+      "result": {
+        "value": "1ª",
+        "text": "turma lotada antes do lançamento"
+      }
+    },
+    {
+      "title": "G4 Gestão & Estratégia",
+      "client": "G4 Educação · 2024",
+      "summary": "Redesign da página de vendas do programa Gestão & Estratégia, para deixar a oferta mais clara e sustentar as campanhas pagas do produto.",
+      "image": {
+        "src": "/img/g4-gestao-1400.webp",
+        "srcset": "/img/g4-gestao-800.webp 800w, /img/g4-gestao-1400.webp 1400w",
+        "width": 1400,
+        "height": 742,
+        "alt": "Página G4 Gestão & Estratégia"
+      },
+      "behance": "https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia"
+    },
+    {
       "title": "Arbitralis",
-      "client": "Redesign conceitual · 2026",
+      "client": "Projeto autoral · 2026",
       "summary": "Redesign do site de uma câmara de arbitragem 100% digital. O desafio era explicar a imobiliárias e escritórios de advocacia um serviço jurídico pouco conhecido, com etapas claras, um simulador de custos e dois caminhos de contato.",
       "url": "https://arbitralis-redesign-fq9g.vercel.app/",
       "image": {
@@ -45,33 +75,9 @@
           "width": 600,
           "height": 15918
         }
-      }
-    },
-    {
-      "title": "G4 Gestão & Estratégia",
-      "client": "G4 Educação · 2024",
-      "summary": "Redesign da página de vendas do programa Gestão & Estratégia, para deixar a oferta mais clara e sustentar as campanhas pagas do produto.",
-      "image": {
-        "src": "/img/g4-gestao-1400.webp",
-        "srcset": "/img/g4-gestao-800.webp 800w, /img/g4-gestao-1400.webp 1400w",
-        "width": 1400,
-        "height": 742,
-        "alt": "Página G4 Gestão & Estratégia"
       },
-      "behance": "https://www.behance.net/gallery/225357133/Redesign-de-LP-G4-Gestao-Estratgia"
-    },
-    {
-      "title": "G4 Sprints",
-      "client": "G4 Educação · 2024",
-      "summary": "Página de lançamento, feita no Webflow, de um produto novo do G4: uma experiência presencial intensiva para fundadores e C-levels.",
-      "image": {
-        "src": "/img/g4-sprints-1400.webp",
-        "srcset": "/img/g4-sprints-800.webp 800w, /img/g4-sprints-1400.webp 1400w",
-        "width": 1400,
-        "height": 742,
-        "alt": "Página de lançamento G4 Sprints"
-      },
-      "behance": "https://www.behance.net/gallery/250374505/Pagina-G4-Sprints-Lancamento-de-Produto"
+      "authorial": true,
+      "note": "Projeto autoral: escolhi uma marca real com um problema real de comunicação e redesenhei como eu faria."
     }
   ],
   "deliverables": [
@@ -100,7 +106,7 @@
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "Depende do número de seções e das integrações. Você recebe a proposta fechada depois do diagnóstico, sem surpresa no meio do caminho."
+      "a": "Depende do escopo. Na análise gratuita eu entendo o que você precisa e te passo um valor fechado."
     },
     {
       "q": "Em quanto tempo fica pronto?",

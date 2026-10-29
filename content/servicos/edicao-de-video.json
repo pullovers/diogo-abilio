@@ -38,7 +38,7 @@
   "faq": [
     {
       "q": "Quanto custa?",
-      "a": "Depende da duração e da quantidade de vídeos. Peças com motion design completo, como o vídeo da Nimbo Fibra, têm orçamento próprio. Você recebe a proposta fechada antes de começar."
+      "a": "Depende do escopo. Na análise gratuita eu entendo o que você precisa e te passo um valor fechado."
     },
     {
       "q": "Em quanto tempo fica pronto?",
@@ -71,6 +71,8 @@
       "posterSmall": "/images/nimbo/poster-540.webp",
       "duration": 45
     },
+    "authorial": true,
+    "note": "Projeto autoral com marca fictícia, criado para mostrar como penso um vídeo de consideração.",
     "lead": "Um vídeo de consideração para quem já conhece a Nimbo e está comparando provedores. Em vez de disputar megas, ele muda a pergunta: a internet certa depende da planta da casa, da rotina de quem mora nela e do suporte quando você precisar.",
     "facts": [
       [
