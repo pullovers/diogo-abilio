@@ -2,7 +2,11 @@
   "slug": "landing-pages",
   "order": 1,
   "bento": "large",
-  "mockup": "browser",
+  "mockup": "showcase",
+  "phones": [
+    { "src": "/img/g4-gestao-full-540.webp", "width": 545, "height": 1994, "alt": "Página G4 Gestão & Estratégia" },
+    { "src": "/img/g4-sprints-full-540.webp", "width": 540, "height": 1515, "alt": "Página G4 Sprints" }
+  ],
   "label": "Landing page",
   "name": "Páginas que transformam visita em cliente",
   "seoTitle": "Landing pages que transformam visita em cliente",

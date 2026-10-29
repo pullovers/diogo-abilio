@@ -172,6 +172,16 @@ const mockup = (s) => {
           ${browserFrame(s.print ? [s.print] : images, host(shown[0]), 'browser--front')}
         </div>`;
   }
+  if (s.mockup === 'showcase') {
+    // The main page full size in a browser, the other two on phones that keep scrolling.
+    const main = s.works.find((w) => w.preview);
+    return `<div class="mock mock-show" data-loop>
+          ${browserFrame([main.preview.desktop], new URL(main.url).host, 'browser--front')}
+          <div class="show-phones" aria-hidden="true">
+            ${s.phones.map((ph, i) => `<div class="show-phone show-phone--${i + 1}"><div class="show-screen"><img src="${ph.src}" alt="" width="${ph.width}" height="${ph.height}" loading="lazy" decoding="async" /></div></div>`).join('\n            ')}
+          </div>
+        </div>`;
+  }
   if (s.mockup === 'fan') {
     return `<div class="mock mock-fan" data-loop aria-hidden="true"><div class="fan">${fanSvgs.join('')}</div><span class="badge">exemplo</span></div>`;
   }
