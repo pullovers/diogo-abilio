@@ -387,7 +387,15 @@ const ills = [
   // and dies where it breaks, between the chat and the sale
   `<div class="sc sc-path">
     <figure class="sc-paper sc-p sc-p-ad"><div class="sc-torn"><img src="/images/anuncios-gm/04-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async" /></div><figcaption>anúncio</figcaption></figure>
-    <figure class="sc-paper sc-p sc-p-page"><div class="sc-torn"><img src="/images/processo/pagina-640.webp" alt="" width="640" height="800" loading="lazy" decoding="async" /></div><figcaption>página</figcaption></figure>
+    <figure class="sc-paper sc-p sc-p-page"><div class="sc-torn gm-page">
+      <div class="gm-nav"><img src="/images/logos/guilherme-machado.webp" alt="" width="83" height="40" loading="lazy" decoding="async" /><span class="gm-btn gm-btn-sm">Inscreva-se</span></div>
+      <img class="gm-hero" src="/images/processo/gm-hero-480.webp" alt="" width="480" height="186" loading="lazy" decoding="async" />
+      <div class="gm-kick">Líder de Alta Performance</div>
+      <div class="gm-h">Você é o <em>melhor vendedor</em> da sua imobiliária?</div>
+      <div class="gm-sub">Em 2 dias, o time vende sem depender de você no balcão.</div>
+      <span class="gm-btn">Quero minha vaga</span>
+      <div class="gm-meta"><span>14 e 15 de dezembro</span><span>São Paulo</span></div>
+    </div><figcaption>página</figcaption></figure>
     <figure class="sc-paper sc-p sc-p-chat"><div class="chat">
       <div class="chat-top"><i></i><b>Cliente</b><small>online</small></div>
       <p class="in">Oi! Vi o anúncio</p><p class="in">Quanto custa?</p>

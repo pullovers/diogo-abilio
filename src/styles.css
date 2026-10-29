@@ -886,7 +886,8 @@ html.modal-open { overflow: hidden; }
 
 /* scenes: a 4:3 stage that fits its panel; pieces are sized off the stage width (cqw) */
 .ill, .step-ill-m { container-type: size; }
-.sc { position: relative; width: min(100cqw, 133.33cqh); aspect-ratio: 4 / 3; container-type: inline-size; }
+/* text-size-adjust: phones must not boost the tiny print inside the pieces */
+.sc { position: relative; width: min(100cqw, 133.33cqh); aspect-ratio: 4 / 3; container-type: inline-size; -webkit-text-size-adjust: none; text-size-adjust: none; }
 .sc-paper { position: absolute; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .75)) drop-shadow(0 0 1px rgba(255, 255, 255, .25)); }
 /* torn bottom edge on printed pieces; grain sits on top of the print */
 .sc-torn { position: relative; overflow: hidden; border-radius: 3px 3px 0 0;
@@ -951,6 +952,18 @@ html.modal-open { overflow: hidden; }
 .sc-p-chat { left: 51%; top: 34.7%; width: 22%; transform: rotate(-2deg); }
 .sc-p-sale { left: 78%; top: 46.7%; width: 18%; transform: rotate(3deg); animation: sale-dim 8s ease infinite; }
 @keyframes sale-dim { 0%, 46% { opacity: 1; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .75)); } 56%, 94% { opacity: .38; filter: grayscale(1) drop-shadow(0 18px 22px rgba(0, 0, 0, .75)); } 100% { opacity: 1; } }
+/* the campaign's landing page, drawn in the ad's look (dark, orange, same event photo) */
+.gm-page { container-type: inline-size; background: #0E0E10; padding-bottom: 2.2cqw; text-align: left; }
+.gm-nav { display: flex; align-items: center; justify-content: space-between; padding: 4cqw 5cqw; }
+.gm-nav img { width: 17cqw; height: auto; display: block; }
+.gm-btn { display: inline-block; background: #F26A1B; color: #fff; font: 700 4.6cqw/1 var(--font-sans); padding: 3.4cqw 6cqw; border-radius: 1.6cqw; margin: 0 5cqw; }
+.gm-btn-sm { font-size: 3.4cqw; padding: 2.2cqw 3.6cqw; margin: 0; }
+.gm-hero { display: block; width: 100%; height: auto; }
+.gm-kick { margin: 5cqw 5cqw 2cqw; font: 600 3.6cqw/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: #F26A1B; }
+.gm-h { margin: 0 5cqw 3cqw; font: 800 8.4cqw/1.02 var(--font-sans); letter-spacing: -.02em; text-transform: uppercase; color: #fff; }
+.gm-h em { font-style: normal; color: #F26A1B; }
+.gm-sub { margin: 0 5cqw 5cqw; font: 400 4.2cqw/1.3 var(--font-sans); color: rgba(255, 255, 255, .72); }
+.gm-meta { display: flex; gap: 4cqw; margin: 5cqw 5cqw 0; padding-top: 3.4cqw; border-top: 1px solid rgba(255, 255, 255, .14); font: 500 3.4cqw/1 var(--font-mono); color: rgba(255, 255, 255, .6); }
 .chat { border-radius: 1.6cqw; overflow: hidden; background: #0B141A; padding-bottom: 1.6cqw; box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 0 22px 2px rgba(139, 61, 255, .35); }
 .chat-top { display: flex; align-items: center; gap: 1cqw; padding: 1.4cqw 1.6cqw; background: #1F2C33; margin-bottom: 1.6cqw; }
 .chat-top i { width: 3.2cqw; height: 3.2cqw; border-radius: 50%; background: linear-gradient(140deg, #CF97FF, #8B3DFF); flex: none; }
