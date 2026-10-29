@@ -1071,7 +1071,7 @@ html.modal-open { overflow: hidden; }
 .about-photo { position: relative; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
 /* small card on the photo: open to a full-time role, not only projects */
 .hire-card {
-  position: absolute; left: 0; bottom: 14%; z-index: 2;
+  position: absolute; left: 0; top: 37%; z-index: 2;   /* just under the elbow of the arm holding the mug */
   display: flex; flex-direction: column; gap: 8px; width: min(250px, 62%); padding: 14px 16px 15px;
   border-radius: 14px; border: 1px solid var(--line-strong);
   background: rgba(19, 19, 21, .72); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
@@ -1101,7 +1101,7 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 960px) {
   .about-hero { grid-template-columns: 1fr; gap: 40px; }
   .about-visual { width: min(100%, 480px); margin-inline: auto; }
-  .hire-card { bottom: 8%; width: min(230px, 64%); padding: 12px 14px 13px; }
+  .hire-card { width: min(230px, 64%); padding: 12px 14px 13px; }
   .hire-card b { font-size: 14px; }
 }
 @media (max-width: 600px) {
