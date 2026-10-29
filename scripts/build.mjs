@@ -227,6 +227,7 @@ const carouselCover = (c) => `<div class="mock mock-carousel">
             <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${c.count} slides</span>
           </button>
           ${stageBadge(c)}
+          ${c.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
         </div>`;
 
 // Video cover: a plain vertical Reels screen with the muted highlight loop running.
