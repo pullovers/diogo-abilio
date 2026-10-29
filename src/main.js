@@ -184,7 +184,7 @@
     window.addEventListener('resize', fill);
   }
 
-  // ---------- process: active step, progress bar, timer ----------
+  // ---------- process: active step, progress bar ----------
   var steps = $$('.pstep');
   var ills = $$('.ill');
   var progress = $('.steps-progress');
@@ -192,10 +192,13 @@
   function activate(i) {
     steps.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
     ills.forEach(function (il, k) {
+      // a scene that comes on starts its loop from the top
+      if (k === i && !il.classList.contains('is-active') && il.getAnimations) {
+        il.getAnimations({ subtree: true }).forEach(function (a) { a.currentTime = 0; });
+      }
       il.classList.toggle('is-active', k === i);
       il.classList.toggle('paused', k !== i);
     });
-    if (i === 2) runTimer($('.ill[data-ill="2"] .ill-timer'));
   }
   if (steps.length) {
     var stepIO = new IntersectionObserver(function (entries) {
@@ -212,22 +215,8 @@
     if (M.scroll && !reduce) M.scroll(updateProgress);
     else { window.addEventListener('scroll', updateProgress, { passive: true }); }
     updateProgress();
-    // mobile: each inline illustration runs while on screen, timer included
-    inView('.step-ill-m', function (el) { runTimer($('.ill-timer', el)); return function () {}; });
   }
-  function runTimer(el) {
-    if (!el || reduce || el.__running) return;
-    el.__running = true;
-    var start = performance.now();
-    function tick(now) {
-      var t = ((now - start) % 6000) / 6000;          // follows the 6s fly-in loop
-      var secs = Math.round(Math.min(1, t / 0.35) * 120);
-      el.textContent = '0' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0');
-      if (el.closest('.paused')) { el.__running = false; return; }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
+
 
   // ---------- about: counters and sliding dot on career ----------
   $$('[data-count]').forEach(function (el) {

@@ -361,53 +361,80 @@ const serviceCard = (s) => s.case || s.gallery
 
 // ---------- process illustrations ----------
 const ills = [
-  // 01 wireframe + magnifier + annotations
-  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
-    <rect class="svg-block" x="70" y="20" width="300" height="280" rx="12"/>
-    <rect class="svg-soft" x="90" y="40" width="70" height="8" rx="4"/><rect class="svg-soft" x="300" y="37" width="50" height="14" rx="7"/>
-    <rect class="svg-soft" x="90" y="72" width="180" height="14" rx="4"/><rect class="svg-soft" x="90" y="92" width="130" height="14" rx="4"/>
-    <rect class="svg-soft" x="90" y="118" width="200" height="6" rx="3"/><rect class="svg-soft" x="90" y="130" width="160" height="6" rx="3"/>
-    <rect x="90" y="150" width="76" height="20" rx="10" fill="rgba(139,61,255,.35)"/>
-    <rect class="svg-line" x="90" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="180" y="196" width="80" height="80" rx="8"/><rect class="svg-line" x="270" y="196" width="80" height="80" rx="8"/>
-    <g class="note note-1"><path class="svg-acc-line" d="M160 79 L66 52"/><circle class="svg-acc" cx="160" cy="79" r="4"/><rect class="svg-block" x="4" y="34" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="45" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="54" width="28" height="4" rx="2"/></g>
-    <g class="note note-2"><path class="svg-acc-line" d="M125 160 L66 182"/><circle class="svg-acc" cx="125" cy="160" r="4"/><rect class="svg-block" x="4" y="166" width="62" height="34" rx="8"/><rect class="svg-soft" x="13" y="177" width="40" height="4" rx="2"/><rect class="svg-soft" x="13" y="186" width="28" height="4" rx="2"/></g>
-    <g class="note note-3"><path class="svg-acc-line" d="M310 236 L374 262"/><circle class="svg-acc" cx="310" cy="236" r="4"/><rect class="svg-block" x="374" y="246" width="62" height="34" rx="8"/><rect class="svg-soft" x="383" y="257" width="40" height="4" rx="2"/><rect class="svg-soft" x="383" y="266" width="28" height="4" rx="2"/></g>
-    <g transform="translate(220 160)"><g class="mag"><circle r="24" fill="rgba(255,255,255,.05)" stroke="#F3F1ED" stroke-width="1.5"/><path d="M17 17 L34 34" stroke="#F3F1ED" stroke-width="3" stroke-linecap="round"/></g></g>
-  </svg>`,
-  // 02 flow that piles up before WhatsApp
-  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
-    <path class="svg-line" d="M60 150 H390"/>
-    ${[60, 170, 280, 390].map((x, i) => `<circle class="svg-block" cx="${x}" cy="150" r="22"/><text class="svg-text" x="${x}" y="200" text-anchor="middle">${['anúncio', 'página', 'WhatsApp', 'venda'][i]}</text>`).join('')}
-    <rect class="svg-soft" x="50" y="140" width="20" height="14" rx="3"/>
-    <rect class="svg-soft" x="160" y="140" width="20" height="20" rx="3"/>
-    <path d="M272 146 a8 8 0 1 1 3 12 l-6 3 2-5 a8 8 0 0 1 1-10z" fill="none" stroke="#9B978F" stroke-width="1.5"/>
-    <path d="M382 150 l5 5 10-11" fill="none" stroke="#9B978F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    ${[0, 1, 2, 3, 4].map((k) => `<circle class="svg-acc flow-dot" cx="60" cy="${150 + [-2, 3, -4, 1, 4][k]}" r="4" style="--k:${k};--stop:${[196, 204, 190, 200, 186][k]}px"/>`).join('')}
-    <circle cx="280" cy="150" r="30" fill="none" stroke="#A970FF" stroke-width="1.5" class="node-alert"/>
-    <g class="node-alert"><path d="M280 88 L292 108 H268 Z" fill="none" stroke="#A970FF" stroke-width="1.5" stroke-linejoin="round"/><path d="M280 96 v6" stroke="#A970FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="280" cy="105" r="1" fill="#A970FF"/></g>
-  </svg>`,
-  // 03 blocks fly into a page grid + sparkle + timer
-  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
-    <rect class="svg-line" x="70" y="20" width="300" height="270" rx="12" stroke-dasharray="4 5"/>
-    ${[
-      [90, 40, 260, 16, -120, -60, -12], [90, 70, 160, 74, -160, 40, 8], [262, 70, 88, 74, 140, -50, 14],
-      [90, 160, 80, 64, -120, 140, -10], [180, 160, 80, 64, 20, 160, 12], [270, 160, 80, 64, 150, 120, -14], [90, 240, 96, 24, -100, 120, 6],
-    ].map(([x, y, w, h, fx, fy, fr], k) => `<rect class="${k === 1 || k === 6 ? '' : 'svg-block '}fly" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" ${k === 1 ? 'fill="rgba(139,61,255,.35)" stroke="#A970FF"' : k === 6 ? 'fill="#8B3DFF"' : ''} style="--k:${k};--fx:${fx}px;--fy:${fy}px;--fr:${fr}deg"/>`).join('\n    ')}
-    <g transform="translate(392 34)"><path class="svg-acc sparkle" d="M0 -14 C2 -4 4 -2 14 0 C4 2 2 4 0 14 C-2 4 -4 2 -14 0 C-4 -2 -2 -4 0 -14Z"/></g>
-    <text class="svg-text-ink ill-timer" x="370" y="312" text-anchor="end">02:00</text>
-  </svg>`,
-  // 04 A/B test, B wins
-  `<svg viewBox="0 0 440 320" class="ill-anim" aria-hidden="true">
-    <path class="svg-acc-line trend" d="M10 290 C 90 270, 120 230, 180 210 S 300 120, 430 40" opacity=".45"/>
-    <rect class="svg-block" x="60" y="40" width="140" height="150" rx="12"/><rect class="svg-block" x="240" y="40" width="140" height="150" rx="12"/>
-    <text class="svg-text-ink" x="76" y="66">A</text><text class="svg-text-ink" x="256" y="66">B</text>
-    <rect class="svg-soft" x="76" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="76" y="100" width="70" height="6" rx="3"/><rect class="svg-soft" x="76" y="150" width="60" height="18" rx="9"/>
-    <rect class="svg-soft" x="256" y="82" width="100" height="10" rx="3"/><rect class="svg-soft" x="256" y="100" width="70" height="6" rx="3"/><rect x="256" y="150" width="60" height="18" rx="9" fill="rgba(139,61,255,.45)"/>
-    <path class="svg-line" d="M60 290 H380"/>
-    <rect class="bar bar-a" x="95" y="232" width="70" height="58" rx="4" fill="rgba(255,255,255,.18)"/>
-    <rect class="bar bar-b" x="275" y="200" width="70" height="90" rx="4" fill="#A970FF"/>
-    <g class="win"><rect x="240" y="40" width="140" height="150" rx="12" fill="none" stroke="#A970FF" stroke-width="1.5"/><circle cx="366" cy="54" r="11" fill="#A970FF"/><path d="M361 54 l3.5 3.5 6.5-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
-  </svg>`,
+  // 01 a real landing page on the desk: a lens reads it and stops on the button,
+  // gold marks circle what it found, the funnel chart beside it shows where it drops
+  `<div class="sc sc-look">
+    <div class="sc-paper sc-page">
+      <div class="sc-torn"><img src="/images/processo/pagina-640.webp" alt="" width="640" height="800" loading="lazy" decoding="async" /></div>
+      <svg class="sc-marks" viewBox="0 0 100 125" preserveAspectRatio="none">
+        <path class="mk mk-under" pathLength="1" d="M5.5 40.2 C 12 39.2, 22 40.6, 33.5 39.4"/>
+        <path class="mk mk-ring" pathLength="1" d="M27.4 46.6 C 26.8 51.6, 15 53.2, 6.2 51.6 C 0.6 50.4, 0.8 45.8, 6 44.6 C 13 43, 24.6 43.2, 27.8 45.8"/>
+      </svg>
+      <div class="sc-lens"><img src="/images/processo/pagina-1200.webp" alt="" width="1200" height="1500" loading="lazy" decoding="async" /></div>
+    </div>
+    <div class="sc-paper sc-chart">
+      <svg viewBox="0 0 160 100">
+        <path class="ch-grid" d="M12 20 H150 M12 46 H150 M12 72 H150"/>
+        <path class="ch-area" d="M12 78 C 30 70, 46 60, 64 50 S 96 34, 108 32 L 122 74 L 150 78 V 90 H 12 Z"/>
+        <path class="ch-line" pathLength="1" d="M12 78 C 30 70, 46 60, 64 50 S 96 34, 108 32 L 122 74 L 150 78"/>
+        <circle class="ch-dot" cx="122" cy="74" r="3.2"/>
+        <path class="mk mk-chart" pathLength="1" d="M131 70 C 133 61, 124 56, 116 59 C 108 62, 109 72, 116 76.5 C 122 80, 132 78, 131 70"/>
+      </svg>
+      <span class="sc-note">onde cai?</span>
+    </div>
+  </div>`,
+  // 02 the buying journey pinned on the desk with real pieces; a signal runs the thread
+  // and dies where it breaks, between the chat and the sale
+  `<div class="sc sc-path">
+    <figure class="sc-paper sc-p sc-p-ad"><div class="sc-torn"><img src="/images/anuncios-gm/04-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async" /></div><figcaption>anúncio</figcaption></figure>
+    <figure class="sc-paper sc-p sc-p-page"><div class="sc-torn"><img src="/images/processo/pagina-640.webp" alt="" width="640" height="800" loading="lazy" decoding="async" /></div><figcaption>página</figcaption></figure>
+    <figure class="sc-paper sc-p sc-p-chat"><div class="chat">
+      <div class="chat-top"><i></i><b>Cliente</b><small>online</small></div>
+      <p class="in">Oi! Vi o anúncio</p><p class="in">Quanto custa?</p>
+      <p class="typing"><i></i><i></i><i></i></p>
+    </div><figcaption>WhatsApp</figcaption></figure>
+    <figure class="sc-paper sc-p sc-p-sale"><div class="sc-torn receipt">
+      <span class="rc-ok"></span><b>Pedido confirmado</b><small>Pagamento aprovado</small>
+      <span class="rc-row"></span><span class="rc-row"></span><span class="rc-row short"></span>
+    </div><figcaption>venda</figcaption></figure>
+    <svg class="sc-thread" viewBox="0 0 400 300">
+      <path class="th" d="M56 104 C 92 72, 120 66, 152 80 C 186 94, 214 92, 248 110 C 258 115, 268 119, 278 123"/>
+      <path class="th" d="M300 126 C 318 130, 332 138, 348 146"/>
+      <path class="th" d="M278 123 c 4 3, 5 7, 2 10 M300 126 c -5 -1, -7 4, -4 7"/>
+      <path class="th-pulse" pathLength="1" d="M56 104 C 92 72, 120 66, 152 80 C 186 94, 214 92, 248 110 C 258 115, 268 119, 278 123"/>
+      ${[[56, 104], [152, 80], [248, 110], [348, 146]].map(([x, y]) => `<circle class="pin" cx="${x}" cy="${y}" r="3.4"/>`).join('')}
+      <circle class="th-spark" cx="278" cy="123" r="5"/>
+      <path class="mk mk-break" pathLength="1" d="M307 113 C 312 130, 296 143, 282 141 C 266 139, 266 117, 280 111 C 292 106, 304 109, 309 117"/>
+    </svg>
+    <span class="sc-note sc-note-break">trava aqui</span>
+  </div>`,
+  // 03 a real carousel slide assembles from its layers, then the rest of the set fans out
+  `<div class="sc sc-build">
+    <div class="sc-deck">
+      <div class="sc-paper sc-slide sc-slide-3"><div class="sc-torn"><img src="/images/carrossel-vaie/03-560.webp" alt="" width="560" height="700" loading="lazy" decoding="async" /></div></div>
+      <div class="sc-paper sc-slide sc-slide-2"><div class="sc-torn"><img src="/images/carrossel-vaie/02-560.webp" alt="" width="560" height="700" loading="lazy" decoding="async" /></div></div>
+      <div class="sc-slide sc-slide-1">
+        <span class="ly ly-base"></span>
+        <img class="ly ly-photo" src="/images/carrossel-vaie/01-560.webp" alt="" width="560" height="700" loading="lazy" decoding="async" />
+        <img class="ly ly-title" src="/images/carrossel-vaie/01-560.webp" alt="" width="560" height="700" loading="lazy" decoding="async" />
+        <svg class="sc-guides" viewBox="0 0 100 125" preserveAspectRatio="none"><path d="M-14 0 H114 M-14 125 H114 M0 -12 V137 M100 -12 V137 M-14 50 H114"/></svg>
+        <svg class="sc-check" viewBox="0 0 40 40"><path class="mk" pathLength="1" d="M9 21 L 17 29 L 32 11"/></svg>
+      </div>
+    </div>
+  </div>`,
+  // 04 two real versions of the same campaign side by side: the headline differs,
+  // the chosen one comes forward (no numbers: this shows the comparison, not a result)
+  `<div class="sc sc-ab">
+    <div class="sc-paper sc-v sc-v-a"><div class="sc-torn"><img src="/images/anuncios-gm/01-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async" /></div>
+      <svg class="sc-marks" viewBox="0 0 100 125" preserveAspectRatio="none"><path class="mk mk-a" pathLength="1" d="M96 13 C 99 22, 80 32, 60 31 C 40 30, 33 21, 38 13 C 43 6, 70 4, 92 8 C 97 9, 99 12, 97 16"/></svg>
+      <span class="sc-tag">A</span></div>
+    <div class="sc-paper sc-v sc-v-b"><div class="sc-torn"><img src="/images/anuncios-gm/02-480.webp" alt="" width="480" height="600" loading="lazy" decoding="async" /></div>
+      <svg class="sc-marks" viewBox="0 0 100 125" preserveAspectRatio="none"><path class="mk mk-b" pathLength="1" d="M60 34 C 64 52, 46 66, 22 65 C 2 64, -2 48, 4 38 C 10 29, 40 26, 58 30 C 62 31, 63 34, 61 38"/></svg>
+      <span class="sc-tag">B</span>
+      <svg class="sc-check" viewBox="0 0 40 40"><path class="mk" pathLength="1" d="M9 21 L 17 29 L 32 11"/></svg></div>
+    <svg class="sc-thread sc-arrow" viewBox="0 0 400 300"><path class="mk mk-arrow" pathLength="1" d="M142 60 C 170 22, 226 22, 248 78 M239 72 L 248 78 L 253 68"/></svg>
+    <span class="sc-note sc-note-ab">outro ângulo</span>
+  </div>`,
 ];
 
 // ---------- structured data (schema.org) ----------
