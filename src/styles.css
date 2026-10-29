@@ -552,6 +552,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .bcard:hover .fan svg:nth-child(3) { transform: translateX(34%) rotate(12deg); }
 
 /* carousel case cover: slide 1 in front, the rest tucked behind, fan open on hover */
+button.card-link { padding: 0; border: 0; background: none; color: inherit; font-family: inherit; cursor: pointer; text-align: left; }
 .card-stretch::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
 .mock-carousel {
   min-height: 360px;
@@ -1242,20 +1243,6 @@ html.modal-open { overflow: hidden; }
   .lp-browser .lp-scroll { height: 60svh; }
 }
 
-/* a portfolio case shown on its service page */
-.case-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 8px 40px; overflow: hidden; }
-.case-feature + .work { margin-top: 96px; }
-.case-feature-media { display: flex; align-self: stretch; }
-.case-feature-media .mock { margin: 12px; }
-.case-feature-body { padding: 32px 40px 32px 0; }
-.case-feature-body .label { margin-bottom: 18px; }
-.case-feature-body h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; }
-.case-feature-body p { color: var(--muted); margin-bottom: 24px; max-width: 52ch; }
-.case-feature-body .case-scope { font: 400 13px/1.5 var(--font-mono); color: var(--muted); margin-top: -12px; }
-@media (max-width: 860px) {
-  .case-feature { grid-template-columns: 1fr; }
-  .case-feature-body { padding: 8px 20px 28px; }
-}
 .receive { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; max-width: 900px; }
 .receive li { display: flex; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); }
 .receive li::before { content: '✓'; color: var(--accent); font-weight: 600; }
@@ -1296,8 +1283,7 @@ html.modal-open { overflow: hidden; }
   .sc-v-b { transform: rotate(1deg) scale(1.05); }
 }
 
-/* ad gallery (ads page): a hand of cards that opens up on hover */
-.ads-feature { overflow: hidden; container-type: inline-size; }
+/* ad gallery (home card): a hand of cards that opens up on hover */
 /* cards are sized and spread off the container width, so the fan fits any box */
 .ads-deck {
   position: relative; display: flex; justify-content: center; align-items: center;
@@ -1324,18 +1310,10 @@ html.modal-open { overflow: hidden; }
 .mock-ads .ads-deck { position: absolute; inset: 0; height: auto; }
 .mock-ads .cfan-hint { z-index: 3; pointer-events: none; }
 .mock-ads:hover .cfan-hint { background: var(--accent-btn); border-color: var(--accent-btn); }
-.ads-feature-body { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; padding: 8px 40px 36px; }
-.ads-feature-body .label { margin-bottom: 18px; }
-.ads-feature-body h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; }
-.ads-feature-body p { color: var(--muted); max-width: 56ch; }
-.ads-feature-side { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
-.ads-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.ads-tags li { padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font: 400 12px/1.2 var(--font-mono); color: var(--muted); }
 @media (max-width: 860px) {
   .ads-deck { height: clamp(280px, 62vw, 420px); }
   .ads-deck:hover .ads-card { --spread: min(8cqw, 92px); filter: none; }
   .mock-ads { min-height: 320px; }
-  .ads-feature-body { grid-template-columns: 1fr; padding: 4px 20px 28px; }
 }
 
 /* ad dialog: 4:5 and 9:16 pieces share the viewer; the info panel follows the piece */

@@ -64,5 +64,6 @@ const render = (name, html) => {
 render('home', homeHtml);
 for (const f of readdirSync(join(root, 'content/servicos')).filter((f) => f.endsWith('.json'))) {
   const s = JSON.parse(readFileSync(join(root, 'content/servicos', f), 'utf8'));
+  if (s.case || s.gallery) continue;   // opens in a dialog on the home, no page of its own
   render(s.slug, serviceHtml(s));
 }

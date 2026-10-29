@@ -4,5 +4,22 @@
   "installCommand": "",
   "framework": null,
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/servicos/criativos-redes-sociais",
+      "destination": "/#servicos",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/edicao-de-video",
+      "destination": "/#servicos",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/criativos-anuncios",
+      "destination": "/#servicos",
+      "permanent": true
+    }
+  ]
 }

@@ -19,6 +19,8 @@ const services = readdirSync(join(root, 'content/servicos'))
   .map((f) => JSON.parse(readFileSync(join(root, 'content/servicos', f), 'utf8')))
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
+// Services with a case or an ad gallery open in a dialog on the home; only the others get a page.
+const hasPage = (s) => !s.case && !s.gallery;
 const ogFor = (name) => (existsSync(join(root, 'public/og', `${name}.png`)) ? `/og/${name}.png` : '/og/home.png');
 
 // Split a heading into word masks. Segments: [text, italic?]. Punctuation that
@@ -338,7 +340,6 @@ const caseDialog = (s) => {
 
       <div class="case-cta ci" style="--i:8">
         <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">${esc(c.cta || 'Quero um carrossel assim')} <span class="arr" aria-hidden="true">→</span></a>
-        <a class="link-u" href="/servicos/${s.slug}">Ver o serviço completo</a>
       </div>
     </div>
   </div>
@@ -352,12 +353,13 @@ const cardBody = (s, link) => `<div class="bcard-body">
           ${link}
         </div>`;
 const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</span>';
-// Cards with a case hold a button (opens the dialog) and a link, so the card
-// itself can't be one big <a>: the link stretches over the card instead.
+// Cards with a case or a gallery open its dialog: the cover and the stretched
+// "Ver como faço" button are all openers. The others link to their page.
+const dialogId = (s) => `case-${(s.case || s.gallery).id}`;
 const serviceCard = (s) => s.case || s.gallery
   ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
         ${s.gallery ? adsCover(s.gallery) : isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
-        ${cardBody(s, `<a class="card-link card-stretch" href="/servicos/${s.slug}">${cardLinkInner}</a>`)}
+        ${cardBody(s, `<button class="card-link card-stretch" type="button" aria-haspopup="dialog" aria-controls="${dialogId(s)}" data-open-case>${cardLinkInner}</button>`)}
       </article>`
   : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
         ${mockup(s)}
@@ -663,23 +665,8 @@ const work = (w, i) => `<article class="work reveal">
         : `<figure class="work-figure"><img src="${w.image.src}" srcset="${w.image.srcset}" sizes="(max-width: 1240px) 92vw, 1120px" width="${w.image.width}" height="${w.image.height}" alt="${esc(w.image.alt)}" loading="lazy" decoding="async" /></figure>`}
     </article>`;
 
-// Service pages of posts and video show their case: cover + the same dialog as the home.
-const caseFeature = (s) => {
-  const c = s.case;
-  return `<div class="case-feature card-base reveal">
-      <div class="case-feature-media">${isVideo(c) ? videoCover(c) : carouselCover(c)}</div>
-      <div class="case-feature-body">
-        <span class="label">${esc(c.kicker)}</span>
-        <h3>${esc(c.brand)}: ${esc(c.title)}</h3>
-        <p>${esc(c.lead)}</p>
-        ${c.scope ? `<p class="case-scope">${esc(c.scope)}</p>` : ''}
-        <button class="btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>${isVideo(c) ? 'Assistir e ver a estratégia' : 'Ver os slides e a estratégia'} <span class="arr" aria-hidden="true">→</span></button>
-      </div>
-    </div>`;
-};
-
-// Ad gallery (ads page): the pieces fanned out like a hand of cards; any card opens
-// the dialog on that piece, and the info panel follows the piece on screen.
+// Ad gallery: the pieces fanned out like a hand of cards on the home card; any card
+// opens the dialog on that piece, and the info panel follows the piece on screen.
 const adImg = (g, i, w) => `${g.dir}/${pad2(i + 1)}-${w}.webp`;
 const adSize = (it) => (it.ratio === '916' ? [1080, 1920] : [1080, 1350]);
 const adsDeck = (g) => {
@@ -696,24 +683,6 @@ const adsCover = (g) => `<div class="mock mock-ads">
           ${adsDeck(g)}
           <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${g.items.length} anúncios</span>
         </div>`;
-const adsFeature = (g) => {
-  const n = g.items.length;
-  return `<div class="ads-feature card-base reveal">
-      ${adsDeck(g)}
-      <div class="ads-feature-body">
-        <div>
-          <span class="label">${esc(g.kicker)}</span>
-          <h3>${esc(g.brand)}: ${esc(g.title)}</h3>
-          <p>${esc(g.lead)}</p>
-        </div>
-        <div class="ads-feature-side">
-          <ul class="ads-tags">${[...new Set(g.items.map((it) => it.campaign))].map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
-          <button class="btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="case-${g.id}" data-open-case data-start="0">Ver os ${n} anúncios e a estratégia <span class="arr" aria-hidden="true">→</span></button>
-        </div>
-      </div>
-    </div>`;
-};
-
 const adsDialog = (s) => {
   const g = s.gallery;
   const n = g.items.length;
@@ -784,13 +753,11 @@ const servicePage = (s) => layout({
   </div>
 </section>
 
-${s.works.length || s.case || s.gallery ? `<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
+${s.works.length ? `<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
   <div class="container">
     <div class="section-head">
-      ${h2('trabalho-title', [[s.gallery ? 'Os anúncios' : s.works.length > 1 ? 'Os trabalhos' : 'O trabalho', false]])}
+      ${h2('trabalho-title', [[s.works.length > 1 ? 'Os trabalhos' : 'O trabalho', false]])}
     </div>
-    ${s.case ? caseFeature(s) : ''}
-    ${s.gallery ? adsFeature(s.gallery) : ''}
     ${s.works.map(work).join('\n    ')}
   </div>
 </section>
@@ -830,8 +797,7 @@ ${s.works.length || s.case || s.gallery ? `<section class="section" style="paddi
 </section>
 
 ${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}
-${s.case ? caseDialog(s) : ''}
-${s.gallery ? adsDialog(s) : ''}`,
+`,
 });
 
 // ---------- write ----------
@@ -842,13 +808,13 @@ cpSync(join(root, 'src/styles.css'), join(out, 'assets/styles.css'));
 cpSync(join(root, 'src/main.js'), join(out, 'assets/main.js'));
 
 writeFileSync(join(out, 'index.html'), home());
-for (const s of services) {
+for (const s of services.filter(hasPage)) {
   mkdirSync(join(out, 'servicos', s.slug), { recursive: true });
   writeFileSync(join(out, 'servicos', s.slug, 'index.html'), servicePage(s));
 }
 // crawl files: everything is indexable; the sitemap lists the home and each service page
 const today = new Date().toISOString().slice(0, 10);
-const urls = ['/', ...services.map((s) => `/servicos/${s.slug}`)];
+const urls = ['/', ...services.filter(hasPage).map((s) => `/servicos/${s.slug}`)];
 writeFileSync(join(out, 'robots.txt'), `User-agent: *
 Allow: /
 
@@ -859,4 +825,4 @@ writeFileSync(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 ${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${today}</lastmod><priority>${u === '/' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
 </urlset>
 `);
-console.log(`Built home + ${services.length} service pages → dist/`);
+console.log(`Built home + ${services.filter(hasPage).length} service pages → dist/`);
