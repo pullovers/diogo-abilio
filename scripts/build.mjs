@@ -51,7 +51,7 @@ const icon = {
 };
 
 // ---------- shared pieces ----------
-const layout = ({ title, description, path, og, body, home = false }) => `<!doctype html>
+const layout = ({ title, description, path, og, body, home = false, schema }) => `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
@@ -72,7 +72,8 @@ const layout = ({ title, description, path, og, body, home = false }) => `<!doct
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="${abs(og)}" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+${schema ? `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
+` : ''}<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" />
 ${home ? '<link rel="preload" as="image" href="/images/diogo-float-1200.webp" imagesrcset="/images/diogo-float-800.webp 800w, /images/diogo-float-1200.webp 1200w, /images/diogo-float-1774.webp 1774w" imagesizes="(max-width: 860px) 100vw, 1120px" fetchpriority="high" />\n' : ''}<link rel="stylesheet" href="/assets/styles.css" />
@@ -408,6 +409,45 @@ const ills = [
   </svg>`,
 ];
 
+// ---------- structured data (schema.org) ----------
+// Tells search engines who the person behind the site is, so name searches
+// ("Diogo Abilio designer estratégico") resolve to this page.
+const personId = abs('/#diogo');
+const person = () => ({
+  '@type': 'Person',
+  '@id': personId,
+  name: 'Diogo Abílio',
+  alternateName: ['Diogo Abilio', 'Diogo Abílio Designer'],
+  jobTitle: 'Designer estratégico',
+  description: 'Designer estratégico e estrategista de marketing em São Paulo. Analisa o funil, encontra onde o cliente desiste e cria páginas, conteúdo, vídeo e anúncios que vendem.',
+  url: abs('/'),
+  image: abs('/images/diogo-cutout-760.webp'),
+  email: `mailto:${config.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'São Paulo', addressRegion: 'SP', addressCountry: 'BR' },
+  knowsAbout: ['Design estratégico', 'Branding', 'Estratégia de marketing', 'Funil de vendas', 'Landing pages', 'Webflow', 'UX design', 'Criativos para anúncios', 'Conteúdo para redes sociais', 'Vídeo'],
+  knowsLanguage: ['pt-BR', 'en'],
+  sameAs: [config.linkedin, config.instagram],
+});
+const homeSchema = () => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    person(),
+    { '@type': 'WebSite', '@id': abs('/#site'), url: abs('/'), name: 'Diogo Abílio', inLanguage: 'pt-BR', publisher: { '@id': personId } },
+    { '@type': 'ProfilePage', '@id': abs('/#page'), url: abs('/'), name: 'Diogo Abílio · Designer estratégico', inLanguage: 'pt-BR', isPartOf: { '@id': abs('/#site') }, mainEntity: { '@id': personId } },
+  ],
+});
+const serviceSchema = (s) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    person(),
+    { '@type': 'Service', name: s.seoTitle, description: s.tagline, url: abs(`/servicos/${s.slug}`), areaServed: 'BR', provider: { '@id': personId } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: abs('/') },
+      { '@type': 'ListItem', position: 2, name: s.seoTitle, item: abs(`/servicos/${s.slug}`) },
+    ] },
+  ],
+});
+
 // ---------- home ----------
 // Light silhouettes exported at 3x (Moonflag a bit less); w x h is the display size, tuned per mark so they read the same size.
 const logos = [
@@ -443,11 +483,12 @@ const heroLine2 = `${heroWords(['da', 'sua', 'empresa', 'e', 'fazer', 'você'], 
 const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir além. Depois, penso e coloco em prática o que faz sentido agora: vídeos, conteúdos, campanhas ou um site que ajude você a vender mais.';
 
 const home = () => layout({
-  title: 'Diogo Abílio · Design e marketing que vendem',
-  description: 'Analiso seu funil, acho onde o cliente desiste e coloco em prática o que resolve: páginas, conteúdo, vídeo e anúncios. Designer e estrategista em São Paulo.',
+  title: 'Diogo Abílio · Designer estratégico | Design e marketing que vendem',
+  description: 'Designer estratégico em São Paulo: analiso seu funil, acho onde o cliente desiste e coloco em prática o que resolve com páginas, conteúdo, vídeo e anúncios.',
   path: '/',
   og: '/og/home.png',
   home: true,
+  schema: homeSchema(),
   body: `<section class="hero" id="hero" aria-labelledby="hero-title">
   <div class="hero-bg" aria-hidden="true" data-loop><div class="hero-texture"></div><div class="hero-wash"></div></div>
   <div class="float-stage" data-loop>
@@ -702,6 +743,7 @@ const servicePage = (s) => layout({
   description: s.tagline,
   path: `/servicos/${s.slug}`,
   og: ogFor(s.slug),
+  schema: serviceSchema(s),
   body: `<section class="svc-top" aria-labelledby="svc-title">
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container">
@@ -779,4 +821,17 @@ for (const s of services) {
   mkdirSync(join(out, 'servicos', s.slug), { recursive: true });
   writeFileSync(join(out, 'servicos', s.slug, 'index.html'), servicePage(s));
 }
+// crawl files: everything is indexable; the sitemap lists the home and each service page
+const today = new Date().toISOString().slice(0, 10);
+const urls = ['/', ...services.map((s) => `/servicos/${s.slug}`)];
+writeFileSync(join(out, 'robots.txt'), `User-agent: *
+Allow: /
+
+Sitemap: ${abs('/sitemap.xml')}
+`);
+writeFileSync(join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${today}</lastmod><priority>${u === '/' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
+</urlset>
+`);
 console.log(`Built home + ${services.length} service pages → dist/`);
