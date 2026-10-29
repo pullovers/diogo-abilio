@@ -1062,105 +1062,31 @@ html.modal-open { overflow: hidden; }
   .step-ill-m { display: grid; place-items: center; }
 }
 
-/* ===== ABOUT BENTO ===== */
+/* ===== ABOUT ===== */
 /* about: the photo on a torn-paper collage (the opening's texture), copy beside it */
-.about-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; margin-bottom: 72px; }
-.about-visual { position: relative; max-width: 500px; }
+.about-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(40px, 5vw, 80px); align-items: center; }
+.about-visual { position: relative; max-width: 540px; }
 .about-visual::before { content: ''; position: absolute; left: 10%; top: 18%; width: 80%; height: 70%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
 .about-paper { position: absolute; left: -14%; top: -4%; width: 88%; height: auto; transform: rotate(-5deg); opacity: .95; }
 .about-photo { position: relative; width: 86%; height: auto; margin-left: 10%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
-.about-copy .h2 { margin-bottom: 28px; }
-.about-text p { color: var(--muted); font-size: 18px; line-height: 1.65; max-width: 56ch; }
-.about-text p + p { margin-top: 20px; }
+.about-copy .h2 { margin-bottom: 32px; font-size: clamp(48px, 6.2vw, 92px); line-height: 1; }
+/* the first paragraph opens big in ink; the rest reads a step down, still brighter than body copy */
+.about-text p { color: rgba(243, 241, 237, .74); font-size: clamp(18px, 1.35vw, 20px); line-height: 1.7; max-width: 54ch; text-wrap: pretty; }
+.about-text p:first-child { color: var(--ink); font-size: clamp(21px, 1.85vw, 26px); line-height: 1.45; letter-spacing: -0.012em; max-width: 30ch; }
+.about-text p + p { margin-top: 22px; }
 .about-text b { color: var(--ink); font-weight: 600; }
+.about-text .hl-acc { color: var(--accent); }
+.about-sign { display: flex; align-items: center; gap: 10px; margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 54ch; font: 400 13px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.about-sign::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px 2px rgba(139, 61, 255, .55); }
 
-.bento-about {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-areas:
-    "n1 n2 n3"
-    "career career edu"
-    "career career cv";
-  gap: 20px;
-}
-.bento-about > * { padding: 28px; }
-.b-num { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 220px; }
-.b-n1 { grid-area: n1; } .b-n2 { grid-area: n2; } .b-n3 { grid-area: n3; }
-.num-val { display: block; font-weight: 600; font-size: clamp(48px, 6vw, 72px); line-height: 1; letter-spacing: -0.03em; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
-.num-cap { font-size: 16px; line-height: 1.45; color: var(--muted); max-width: 22ch; }
-.b-icon { position: absolute; top: 24px; right: 24px; width: 28px; height: 28px; color: var(--muted); }
-.b-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-
-.b-career { grid-area: career; }
-.career-wrap { position: relative; margin-top: 6px; }
-.career-dot {
-  position: absolute; left: 0; top: 0;
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--accent); box-shadow: 0 0 10px var(--accent);
-  transform: translateY(var(--dot-y, 24px));
-  transition: transform .45s var(--ease-out);
-}
-.career li { border-bottom: 1px solid var(--line); padding-left: 22px; outline: none; }
-.career li:last-child { border-bottom: 0; }
-.career-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; }
-.career .co { font-weight: 600; font-size: 17px; }
-.career .yrs { font: 400 13px/1.9 var(--font-mono); color: var(--muted); white-space: nowrap; }
-.career-role { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease-out); }
-.career-role > span { overflow: hidden; color: var(--muted); font-size: 16px; }
-.career li:hover .career-role, .career li:focus-visible .career-role, .career li:focus-within .career-role { grid-template-rows: 1fr; }
-.career li:hover .career-role > span, .career li:focus-visible .career-role > span { padding-bottom: 14px; }
-.career li:focus-visible { box-shadow: inset 2px 0 0 var(--accent); }
-@media (hover: none) {
-  .career-role { grid-template-rows: 1fr; }
-  .career-role > span { padding-bottom: 14px; }
-  .career-dot { display: none; }
-}
-
-.b-edu { grid-area: edu; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; }
-.b-edu h3 { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; }
-.b-edu .label { margin-bottom: 12px; }
-.career-role b { font-weight: 600; color: var(--ink); }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips li { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface-2); font: 400 13px/1.3 var(--font-mono); }
-
-.b-cv { grid-area: cv; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; text-decoration: none; color: var(--ink); }
-.doc { position: relative; width: 96px; height: 120px; margin: 24px auto 0; }
-.doc-sheet {
-  position: absolute; inset: 0;
-  border-radius: 8px;
-  border: 1px solid var(--line-strong);
-  background: var(--surface-2);
-  transition: transform .45s var(--ease-out);
-}
-.doc-sheet--back { transform: rotate(-6deg) translate(-6px, 4px); opacity: .5; }
-.doc-sheet--front { display: flex; flex-direction: column; gap: 7px; padding: 18px 14px; }
-.doc-sheet--front i { height: 3px; border-radius: 3px; background: var(--line-strong); }
-.doc-sheet--front i:first-child { width: 60%; background: var(--accent); }
-.doc-sheet--front i:nth-child(3) { width: 80%; }
-.doc-sheet--front i:nth-child(5) { width: 70%; }
-.b-cv:hover .doc-sheet--front { transform: translateY(-10px) rotate(3deg); }
-.b-cv .link-u { align-self: flex-start; }
-.b-cv:hover .link-u::after { transform: scaleX(1); }
 
 @media (max-width: 960px) {
-  .bento-about {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      "n1 n2"
-      "n3 edu"
-      "career career"
-      "cv cv";
-  }
-  .about-hero { grid-template-columns: 1fr; gap: 40px; margin-bottom: 56px; }
+  .about-hero { grid-template-columns: 1fr; gap: 40px; }
   .about-visual { width: min(100%, 420px); margin-inline: auto; }
 }
 @media (max-width: 600px) {
-  .bento-about { grid-template-columns: 1fr; grid-template-areas: "n1" "n2" "n3" "career" "edu" "cv"; }
-  .bento-about > * { padding: 24px; }
+  .about-text p:first-child { font-size: 20px; }
   .about-text p { font-size: 17px; }
-  .b-num { min-height: 170px; }
-  .b-cv { flex-direction: row; align-items: center; }
-  .doc { margin: 0; width: 64px; height: 80px; order: 2; }
 }
 
 /* ===== FINAL CTA ===== */

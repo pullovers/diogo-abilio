@@ -45,9 +45,6 @@ const h2 = (id, segments, extra = '') =>
 // ---------- icons ----------
 const icon = {
   chat: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>',
-  people: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.8.3 5 2.7 5 5.8"/></svg>',
-  growth: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><path d="M15 6h5v5"/></svg>',
-  ticket: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>',
 };
 
 // ---------- shared pieces ----------
@@ -503,14 +500,6 @@ const logos = [
   { name: 'Ituran', file: 'ituran', w: 78, h: 36 },
 ];
 const logoItem = (l) => `<li${l.key ? ' class="is-key"' : ''}><img src="/images/logos/${l.file}.webp" alt="${esc(l.name)}" width="${l.w}" height="${l.h}" style="--h:${l.h}px" loading="lazy" decoding="async" /></li>`;
-const career = [
-  ["LET'S", 'Webflow Designer', '2025 a 2026', 'Site, páginas de produto e landing pages de uma SaaS B2B de logística'],
-  ['K.Pitaliza Tecnologia', 'Coordenador de Marketing', '2025', 'Campanha nacional com Claudia Leitte, liderando um time de 8 pessoas'],
-  ['G4 Educação', 'Web Designer Pleno', '2024 a 2025', 'Páginas de produto e de lançamento no Webflow, como G4 Gestão e G4 Sprints'],
-  ['Valid', 'UX Designer e Analista de Marketing & Growth', '2021 a 2023', 'UX de produtos digitais e campanhas de geração de leads'],
-  ['Agência Moonflag', 'Designer Gráfico', '2021', 'Peças gráficas e digitais para os clientes da agência'],
-  ['Ituran Brasil', 'Assistente de Marketing', '2018 a 2019', 'Materiais e campanhas do time de marketing'],
-];
 const process = [
   ['01', 'Olho os números', 'Antes de criar qualquer material, entendo seu negócio, seus números e quem compra de você.'],
   ['02', 'Investigo e descubro os gargalos', 'Encontro o ponto em que o cliente desiste de comprar.'],
@@ -606,8 +595,7 @@ const home = () => layout({
 </section>
 
 <section class="section" id="sobre" aria-labelledby="sobre-title">
-  <div class="container">
-  <div class="about-hero">
+  <div class="container about-hero">
     <div class="about-visual reveal">
       <img class="about-paper" src="/images/sobre/papel-rasgado-520.webp" srcset="/images/sobre/papel-rasgado-520.webp 520w, /images/sobre/papel-rasgado-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="820" alt="" loading="lazy" decoding="async" />
       <img class="about-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" loading="lazy" decoding="async" />
@@ -616,34 +604,12 @@ const home = () => layout({
       <span class="label">Sobre mim</span>
       ${h2('sobre-title', [['Prazer, ', false], ['Diogo.', true]])}
       <div class="about-text">
-        <p>Sou publicitário e designer. Nos meus <b>+12 anos de experiência</b>, fui conectando áreas que hoje fazem parte do mesmo trabalho: comunicação, marketing e experiência digital. Gosto de criar, investigar e entender por que uma ideia merece sair do papel.</p>
+        <p>Sou publicitário e designer. Nos meus <b class="hl-acc">+12 anos de experiência</b>, fui conectando áreas que hoje fazem parte do mesmo trabalho: comunicação, marketing e experiência digital. Gosto de criar, investigar e entender por que uma ideia merece sair do papel.</p>
         <p>Passei pela <b>Agência Moonflag</b>, pela <b>Valid</b> e pelo <b>G4 Educação</b>, trabalhando com design gráfico, marketing, experiência do usuário e páginas digitais. Essa trajetória ampliou meu repertório para olhar um projeto por diferentes perspectivas, da mensagem que chama atenção à experiência de quem chega para conhecer uma empresa.</p>
         <p>Hoje, trago esse olhar para os projetos em que me envolvo. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática. Posso entrar em uma entrega específica ou acompanhar um desafio mais amplo, sempre buscando entender onde meu trabalho pode contribuir.</p>
       </div>
+      <p class="about-sign">Diogo Abílio <span aria-hidden="true">·</span> São Paulo</p>
     </div>
-  </div>
-  <div class="bento-about" data-stagger>
-    <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas na campanha nacional da K.Pitaliza com Claudia Leitte</span></div>
-    <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês no Instagram da K.Pitaliza, começando do zero</span></div>
-    <div class="b-num b-n3 card-base spot reveal"><span class="b-icon">${icon.ticket}</span><span class="num-val" data-count="1" data-suffix="ª">1ª</span><span class="num-cap">turma do G4 Sprints lotada, com a página de lançamento que eu desenhei</span></div>
-    <div class="b-edu card-base spot reveal">
-      <div><span class="label">Formação</span><h3>Publicidade e Propaganda (FMU)</h3></div>
-      <div><span class="label">Especialidades</span><ul class="chips"><li>UX</li><li>Design System</li><li>Web Analytics</li></ul></div>
-    </div>
-    <div class="b-career card-base spot reveal">
-      <h3 class="sr-only">Trajetória</h3>
-      <div class="career-wrap">
-        <span class="career-dot" aria-hidden="true"></span>
-        <ul class="career">
-        ${career.map(([c, r, y, d]) => `<li tabindex="0"><div class="career-row"><span class="co">${esc(c)}</span><span class="yrs">${y}</span></div><div class="career-role"><span><b>${esc(r)}</b>. ${esc(d)}.</span></div></li>`).join('\n        ')}
-        </ul>
-      </div>
-    </div>
-    <a class="b-cv card-base spot reveal" href="${config.cv}" download data-cv="sobre">
-      <span class="doc" aria-hidden="true"><span class="doc-sheet doc-sheet--back"></span><span class="doc-sheet doc-sheet--front"><i></i><i></i><i></i><i></i><i></i></span></span>
-      <span class="link-u">Baixar CV completo ↓</span>
-    </a>
-  </div>
   </div>
 </section>
 

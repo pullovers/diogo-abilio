@@ -218,24 +218,6 @@
   }
 
 
-  // ---------- about: counters and sliding dot on career ----------
-  $$('[data-count]').forEach(function (el) {
-    var to = +el.dataset.count, suffix = el.dataset.suffix || '';
-    if (reduce) return;
-    el.textContent = '0' + suffix;
-    inView(el, function () {
-      if (M.animate) M.animate(0, to, { duration: 1.4, ease: [0.22, 1, 0.36, 1], onUpdate: function (v) { el.textContent = Math.round(v) + suffix; } });
-      else el.textContent = to + suffix;
-    });
-  });
-  var dot = $('.career-dot');
-  if (dot) {
-    var items = $$('.career li');
-    function moveDot(li) { dot.style.setProperty('--dot-y', (li.offsetTop + 24) + 'px'); }
-    items.forEach(function (li) { li.addEventListener('pointerenter', function () { moveDot(li); }); li.addEventListener('focus', function () { moveDot(li); }); });
-    if (items[0]) moveDot(items[0]);
-  }
-
   // ---------- video case cover: muted highlight loop plays only while on screen ----------
   $$('.vprev').forEach(function (v) {
     if (reduce) return;            // keep the poster
