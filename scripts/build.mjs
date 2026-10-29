@@ -548,7 +548,7 @@ const home = () => layout({
 
 <section class="logos" aria-labelledby="logos-title">
   <div class="container">
-    <h2 class="label" id="logos-title">Empresas por onde passei</h2>
+    <h2 class="label" id="logos-title">Empresas e marcas com quem trabalhei</h2>
   </div>
   <div class="marquee">
     <div class="marquee-track">
