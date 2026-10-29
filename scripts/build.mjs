@@ -409,10 +409,16 @@ const ills = [
 ];
 
 // ---------- home ----------
-const logos = ['G4 Educação', { name: 'Guilherme Machado', src: '/images/logos/guilherme-machado.webp', w: 200, h: 96 }, "LET'S", 'Valid', 'Agência Moonflag', 'Ituran'];
-const logoItem = (l) => typeof l === 'object'
-  ? `<li class="is-img"><img src="${l.src}" alt="${esc(l.name)}" width="${l.w}" height="${l.h}" loading="lazy" decoding="async" /></li>`
-  : `<li${l === 'G4 Educação' ? ' class="is-key"' : ''}>${esc(l)}</li>`;
+// Light silhouettes exported at 3x (Moonflag a bit less); w x h is the display size, tuned per mark so they read the same size.
+const logos = [
+  { name: 'G4 Educação', file: 'g4', w: 86, h: 34, key: true },
+  { name: 'Guilherme Machado', file: 'guilherme-machado', w: 83, h: 40 },
+  { name: "LET'S", file: 'lets', w: 75, h: 24 },
+  { name: 'Valid', file: 'valid', w: 78, h: 24 },
+  { name: 'Agência Moonflag', file: 'moonflag', w: 117, h: 21 },
+  { name: 'Ituran', file: 'ituran', w: 78, h: 36 },
+];
+const logoItem = (l) => `<li${l.key ? ' class="is-key"' : ''}><img src="/images/logos/${l.file}.webp" alt="${esc(l.name)}" width="${l.w}" height="${l.h}" style="--h:${l.h}px" loading="lazy" decoding="async" /></li>`;
 const career = [
   ["LET'S", 'Webflow Designer', '2025 a 2026', 'Site, páginas de produto e landing pages de uma SaaS B2B de logística'],
   ['K.Pitaliza Tecnologia', 'Coordenador de Marketing', '2025', 'Campanha nacional com Claudia Leitte, liderando um time de 8 pessoas'],
