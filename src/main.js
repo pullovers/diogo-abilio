@@ -364,7 +364,8 @@
     if (!video) window.addEventListener('resize', function () { if (dlg.open) go(current, true); });
 
     // metric tabs (now / months later)
-    var metricTabs = tabset($('[role="tablist"]', dlg));
+    var tablist = $('[role="tablist"]', dlg);   // the ad gallery has none
+    var metricTabs = tablist ? tabset(tablist) : { tabs: [] };
 
     return function open(e) {
       if (window.__lenis) window.__lenis.stop();

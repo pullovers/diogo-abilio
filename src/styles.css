@@ -1219,28 +1219,33 @@ html.modal-open { overflow: hidden; }
 }
 
 /* ad gallery (ads page): a hand of cards that opens up on hover */
-.ads-feature { overflow: hidden; }
+.ads-feature { overflow: hidden; container-type: inline-size; }
+/* cards are sized and spread off the container width, so the fan fits any box */
 .ads-deck {
   position: relative; display: flex; justify-content: center; align-items: center;
-  height: clamp(300px, 34vw, 440px);
+  height: clamp(280px, 34vw, 440px);
   background: radial-gradient(60% 70% at 50% 60%, rgba(139, 61, 255, .22), transparent 72%);
-  --spread: clamp(38px, 6.4vw, 92px);
+  --spread: min(8cqw, 92px);
 }
 .ads-card {
-  position: absolute; left: 50%; top: 50%;
-  height: 72%; padding: 0; border: 0; border-radius: 10px; overflow: hidden;
-  background: #111; cursor: pointer;
+  position: absolute; left: 50%; top: 50%; z-index: 2;
+  height: min(72%, 52cqw); padding: 0; border: 0; border-radius: 10px; overflow: hidden;
+  background: #111; cursor: zoom-in;
   transform: translate(-50%, -50%) translateX(calc(var(--k) * var(--spread))) translateY(calc(var(--k) * var(--k) * 3px)) rotate(calc(var(--k) * 4deg));
   box-shadow: 0 24px 50px -20px rgba(0, 0, 0, .95), 0 0 0 1px rgba(255, 255, 255, .08);
   transition: transform .6s var(--ease-out), box-shadow .4s ease, filter .4s ease;
 }
 .ads-card img { display: block; height: 100%; width: auto; }
-.ads-deck:hover .ads-card { --spread: clamp(44px, 7.4vw, 108px); filter: brightness(.7); }
+.ads-deck:hover .ads-card { --spread: min(8.8cqw, 104px); filter: brightness(.7); }
 .ads-deck .ads-card:hover, .ads-deck .ads-card:focus-visible {
   z-index: 20; filter: none;
   transform: translate(-50%, -50%) translateX(calc(var(--k) * var(--spread))) translateY(-8%) rotate(0deg) scale(1.12);
   box-shadow: 0 30px 60px -18px rgba(0, 0, 0, .95), 0 0 50px -8px var(--accent-glow), 0 0 0 1px rgba(255, 255, 255, .14);
 }
+.mock-ads { container-type: inline-size; z-index: 2; min-height: 380px; background: var(--surface-2); }
+.mock-ads .ads-deck { position: absolute; inset: 0; height: auto; }
+.mock-ads .cfan-hint { z-index: 3; pointer-events: none; }
+.mock-ads:hover .cfan-hint { background: var(--accent-btn); border-color: var(--accent-btn); }
 .ads-feature-body { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px 48px; align-items: end; padding: 8px 40px 36px; }
 .ads-feature-body .label { margin-bottom: 18px; }
 .ads-feature-body h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; }
@@ -1249,9 +1254,9 @@ html.modal-open { overflow: hidden; }
 .ads-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .ads-tags li { padding: 7px 12px; border: 1px solid var(--line-strong); border-radius: 999px; font: 400 12px/1.2 var(--font-mono); color: var(--muted); }
 @media (max-width: 860px) {
-  .ads-deck { height: clamp(280px, 62vw, 420px); --spread: 6.2vw; }
-  .ads-deck:hover .ads-card { --spread: 6.2vw; filter: none; }
-  .ads-card { height: 62%; }
+  .ads-deck { height: clamp(280px, 62vw, 420px); }
+  .ads-deck:hover .ads-card { --spread: min(8cqw, 92px); filter: none; }
+  .mock-ads { min-height: 320px; }
   .ads-feature-body { grid-template-columns: 1fr; padding: 4px 20px 28px; }
 }
 
@@ -1266,3 +1271,5 @@ html.modal-open { overflow: hidden; }
 .ad-camp { color: var(--muted); }
 .ad-angle { font-size: clamp(22px, 1.9vw, 26px); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 10px; }
 .ad-text { color: var(--muted); font-size: 16px; line-height: 1.6; max-width: 54ch; margin-bottom: 20px; }
+.bcard--wide .mock-ads { min-height: 400px; }
+@media (max-width: 860px) { .bcard--wide .mock-ads { min-height: 320px; } }

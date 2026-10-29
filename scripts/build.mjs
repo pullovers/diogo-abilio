@@ -345,10 +345,10 @@ const cardBody = (s, link) => `<div class="bcard-body">
 const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</span>';
 // Cards with a case hold a button (opens the dialog) and a link, so the card
 // itself can't be one big <a>: the link stretches over the card instead.
-const serviceCard = (s) => s.case
+const serviceCard = (s) => s.case || s.gallery
   ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
         <span class="price-chip">${esc(s.price)}</span>
-        ${isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
+        ${s.gallery ? adsCover(s.gallery) : isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
         ${cardBody(s, `<a class="card-link card-stretch" href="/servicos/${s.slug}">${cardLinkInner}</a>`)}
       </article>`
   : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
@@ -543,7 +543,8 @@ const home = () => layout({
 </section>
 
 ${finalCta('cta-final')}
-${services.filter((s) => s.case).map(caseDialog).join('\n')}`,
+${services.filter((s) => s.case).map(caseDialog).join('\n')}
+${services.filter((s) => s.gallery).map(adsDialog).join('\n')}`,
 });
 
 // ---------- service page ----------
@@ -606,15 +607,24 @@ const caseFeature = (s) => {
 // the dialog on that piece, and the info panel follows the piece on screen.
 const adImg = (g, i, w) => `${g.dir}/${pad2(i + 1)}-${w}.webp`;
 const adSize = (it) => (it.ratio === '916' ? [1080, 1920] : [1080, 1350]);
-const adsFeature = (g) => {
+const adsDeck = (g) => {
   const n = g.items.length;
-  return `<div class="ads-feature card-base reveal">
-      <div class="ads-deck" style="--n:${n}">
+  return `<div class="ads-deck">
         ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<button class="ads-card" type="button" style="--k:${(i - (n - 1) / 2).toFixed(1)}" aria-haspopup="dialog" aria-controls="case-${g.id}" data-open-case data-start="${i}">
           <img src="${adImg(g, i, 480)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" />
           <span class="sr-only">Abrir o anúncio ${i + 1}: ${esc(it.angle)}</span>
         </button>`; }).join('\n        ')}
-      </div>
+      </div>`;
+};
+// Home card cover: the deck alone, no client name (that lives in the dialog).
+const adsCover = (g) => `<div class="mock mock-ads">
+          ${adsDeck(g)}
+          <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${g.items.length} anúncios</span>
+        </div>`;
+const adsFeature = (g) => {
+  const n = g.items.length;
+  return `<div class="ads-feature card-base reveal">
+      ${adsDeck(g)}
       <div class="ads-feature-body">
         <div>
           <span class="label">${esc(g.kicker)}</span>
