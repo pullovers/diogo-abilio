@@ -606,12 +606,23 @@ const home = () => layout({
 </section>
 
 <section class="section" id="sobre" aria-labelledby="sobre-title">
-  <div class="container bento-about" data-stagger>
-    <div class="b-about card-base spot reveal">
-      <span class="label">Sobre</span>
-      ${h2('sobre-title', [['Prazer, Diogo.', false]])}
-      <p class="lead">Sou publicitário e designer. Passei 8 anos do lado de dentro: em agência, em startup e no G4 Educação, onde fiz páginas de produto e de lançamento. Hoje atendo empresas direto, então quem pensa a estratégia é quem executa.</p>
+  <div class="container">
+  <div class="about-hero">
+    <div class="about-visual reveal">
+      <img class="about-paper" src="/images/sobre/papel-rasgado-520.webp" srcset="/images/sobre/papel-rasgado-520.webp 520w, /images/sobre/papel-rasgado-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="820" alt="" loading="lazy" decoding="async" />
+      <img class="about-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" loading="lazy" decoding="async" />
     </div>
+    <div class="about-copy">
+      <span class="label">Sobre mim</span>
+      ${h2('sobre-title', [['Prazer, ', false], ['Diogo.', true]])}
+      <div class="about-text">
+        <p>Sou publicitário e designer. Nos meus <b>+12 anos de experiência</b>, fui conectando áreas que hoje fazem parte do mesmo trabalho: comunicação, marketing e experiência digital. Gosto de criar, investigar e entender por que uma ideia merece sair do papel.</p>
+        <p>Passei pela <b>Agência Moonflag</b>, pela <b>Valid</b> e pelo <b>G4 Educação</b>, trabalhando com design gráfico, marketing, experiência do usuário e páginas digitais. Essa trajetória ampliou meu repertório para olhar um projeto por diferentes perspectivas, da mensagem que chama atenção à experiência de quem chega para conhecer uma empresa.</p>
+        <p>Hoje, trago esse olhar para os projetos em que me envolvo. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática. Posso entrar em uma entrega específica ou acompanhar um desafio mais amplo, sempre buscando entender onde meu trabalho pode contribuir.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bento-about" data-stagger>
     <div class="b-num b-n1 card-base spot reveal"><span class="b-icon">${icon.people}</span><span class="num-val" data-count="8">8</span><span class="num-cap">pessoas lideradas na campanha nacional da K.Pitaliza com Claudia Leitte</span></div>
     <div class="b-num b-n2 card-base spot reveal"><span class="b-icon">${icon.growth}</span><span class="num-val" data-count="50" data-suffix="K">50K</span><span class="num-cap">seguidores em menos de 1 mês no Instagram da K.Pitaliza, começando do zero</span></div>
     <div class="b-num b-n3 card-base spot reveal"><span class="b-icon">${icon.ticket}</span><span class="num-val" data-count="1" data-suffix="ª">1ª</span><span class="num-cap">turma do G4 Sprints lotada, com a página de lançamento que eu desenhei</span></div>
@@ -632,6 +643,7 @@ const home = () => layout({
       <span class="doc" aria-hidden="true"><span class="doc-sheet doc-sheet--back"></span><span class="doc-sheet doc-sheet--front"><i></i><i></i><i></i><i></i><i></i></span></span>
       <span class="link-u">Baixar CV completo ↓</span>
     </a>
+  </div>
   </div>
 </section>
 

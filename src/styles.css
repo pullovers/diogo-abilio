@@ -1063,19 +1063,27 @@ html.modal-open { overflow: hidden; }
 }
 
 /* ===== ABOUT BENTO ===== */
+/* about: the photo on a torn-paper collage (the opening's texture), copy beside it */
+.about-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 56px; align-items: center; margin-bottom: 72px; }
+.about-visual { position: relative; max-width: 500px; }
+.about-visual::before { content: ''; position: absolute; left: 10%; top: 18%; width: 80%; height: 70%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
+.about-paper { position: absolute; left: -14%; top: -4%; width: 88%; height: auto; transform: rotate(-5deg); opacity: .95; }
+.about-photo { position: relative; width: 86%; height: auto; margin-left: 10%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
+.about-copy .h2 { margin-bottom: 28px; }
+.about-text p { color: var(--muted); font-size: 18px; line-height: 1.65; max-width: 56ch; }
+.about-text p + p { margin-top: 20px; }
+.about-text b { color: var(--ink); font-weight: 600; }
+
 .bento-about {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-areas:
-    "about about n1"
-    "n2 n3 edu"
+    "n1 n2 n3"
+    "career career edu"
     "career career cv";
   gap: 20px;
 }
 .bento-about > * { padding: 28px; }
-.b-about { grid-area: about; position: relative; padding: 36px; }
-.b-about .h2 { margin-bottom: 20px; }
-.b-about .lead { max-width: 48ch; }
 .b-num { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 220px; }
 .b-n1 { grid-area: n1; } .b-n2 { grid-area: n2; } .b-n3 { grid-area: n3; }
 .num-val { display: block; font-weight: 600; font-size: clamp(48px, 6vw, 72px); line-height: 1; letter-spacing: -0.03em; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
@@ -1138,17 +1146,18 @@ html.modal-open { overflow: hidden; }
   .bento-about {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
-      "about about"
       "n1 n2"
       "n3 edu"
       "career career"
       "cv cv";
   }
+  .about-hero { grid-template-columns: 1fr; gap: 40px; margin-bottom: 56px; }
+  .about-visual { width: min(100%, 420px); margin-inline: auto; }
 }
 @media (max-width: 600px) {
-  .bento-about { grid-template-columns: 1fr; grid-template-areas: "about" "n1" "n2" "n3" "career" "edu" "cv"; }
+  .bento-about { grid-template-columns: 1fr; grid-template-areas: "n1" "n2" "n3" "career" "edu" "cv"; }
   .bento-about > * { padding: 24px; }
-  .b-about { padding: 28px 24px; }
+  .about-text p { font-size: 17px; }
   .b-num { min-height: 170px; }
   .b-cv { flex-direction: row; align-items: center; }
   .doc { margin: 0; width: 64px; height: 80px; order: 2; }
