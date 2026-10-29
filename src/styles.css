@@ -523,7 +523,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* landing pages card: the Arbitralis page in a browser, the two G4 pages on phones */
 /* phones are sized off the card's width and height (cq units), so they fit wide-and-short cards too */
 .mock-show { background: transparent; border: 0; min-height: 360px; padding: 26px 26px 0 40px; container-type: size; }
-.mock-show .browser--front { margin-right: 18%; }
 .show-phones { position: absolute; right: 22px; bottom: 18px; display: flex; align-items: flex-end; justify-content: flex-end; }
 .show-phone {
   position: relative; flex: none; width: min(24cqw, 34cqh); aspect-ratio: 9 / 19; padding: 5px; border-radius: 26px;
@@ -843,7 +842,6 @@ html.modal-open { overflow: hidden; }
   .bcard--wide .mock { margin: 12px 12px 0; }
   .mock-browser { min-height: 260px; padding: 22px 18px 0 22px; }
   .mock-show { min-height: 300px; padding: 22px 18px 0 22px; }
-  .mock-show .browser--front { margin-right: 22%; }
   .show-phones { right: 12px; bottom: 12px; }
   .show-phone { padding: 3px; border-radius: 11px; }
   .show-phone::before { top: 5px; height: 4px; }
