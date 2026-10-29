@@ -349,12 +349,10 @@ const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</
 // itself can't be one big <a>: the link stretches over the card instead.
 const serviceCard = (s) => s.case || s.gallery
   ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
-        <span class="price-chip">${esc(s.price)}</span>
         ${s.gallery ? adsCover(s.gallery) : isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
         ${cardBody(s, `<a class="card-link card-stretch" href="/servicos/${s.slug}">${cardLinkInner}</a>`)}
       </article>`
   : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
-        <span class="price-chip">${esc(s.price)}</span>
         ${mockup(s)}
         ${cardBody(s, `<span class="card-link">${cardLinkInner}</span>`)}
       </a>`;
@@ -787,7 +785,6 @@ const servicePage = (s) => layout({
     <span class="label">${esc(s.label)}</span>
     <h1 class="h1" id="svc-title">${esc(s.name)}</h1>
     <p class="lead">${esc(s.tagline)}</p>
-    <span class="price">${esc(s.price)}</span>
     <div class="svc-actions">
       <a class="btn btn-primary magnetic" href="${waLink(s.quoteMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}">${esc(s.cta)} <span class="arr" aria-hidden="true">→</span></a>
       <a class="link-u" href="${waLink(s.whatsappMessage)}" target="_blank" rel="noopener" data-wa="servico-${s.slug}-analise">Prefiro a análise grátis primeiro</a>

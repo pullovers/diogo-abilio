@@ -44,7 +44,6 @@ const serviceHtml = (s) => {
   <div class="brand">Diogo Abílio</div>
   <div class="mono" style="position:absolute;left:72px;top:150px">${s.label}</div>
   <h1 style="position:absolute;left:72px;top:196px;width:${width}px;font-size:${s.cardImage ? 52 : 76}px;line-height:1.04;letter-spacing:-0.03em;font-weight:600">${s.name}</h1>
-  <div class="mono" style="position:absolute;left:72px;bottom:64px;color:#F3F1ED">${s.price}</div>
   ${media}
 `);
 };
