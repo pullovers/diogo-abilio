@@ -309,6 +309,7 @@
     var total = video ? times.length : $$('.case-slide', dlg).length;
     var thumbs = $$('.case-thumbs [data-go]', dlg);
     var arc = $$('.case-arc [data-go], .case-arc .arc-row', dlg);
+    var panels = $$('[data-panel]', dlg);   // ad gallery: one info panel per piece
     var count = $('.case-count b', dlg);
     var prev = $('.case-prev', dlg), next = $('.case-next', dlg);
     var current = -1;
@@ -319,6 +320,7 @@
       if (count) count.textContent = String(i + 1).padStart(2, '0');
       thumbs.forEach(function (t, k) { if (k === i) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
       arc.forEach(function (a, k) { a.classList.toggle('is-active', k === i); });
+      panels.forEach(function (p, k) { p.hidden = k !== i; });
       if (prev) { prev.disabled = i === 0; next.disabled = i === total - 1; }
     }
     // video: jump to the scene start and keep playing; carousel: scroll to the slide
@@ -364,12 +366,12 @@
     // metric tabs (now / months later)
     var metricTabs = tabset($('[role="tablist"]', dlg));
 
-    return function open() {
+    return function open(e) {
       if (window.__lenis) window.__lenis.stop();
       root.classList.add('modal-open');
       dlg.showModal();
       current = -1;
-      go(0, true);
+      go(e && e.currentTarget.dataset.start ? +e.currentTarget.dataset.start : 0, true);
       if (video) {
         video.currentTime = 0;
         var p = video.play(); if (p && p.catch) p.catch(function () {});

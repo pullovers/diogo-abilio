@@ -57,5 +57,106 @@
       "q": "Os criativos podem ser em vídeo?",
       "a": "Sim. Podem ser estáticos ou vídeos curtos. Para vídeos mais longos, veja o serviço de edição de vídeo."
     }
-  ]
+  ],
+  "gallery": {
+    "id": "anuncios-gm",
+    "dir": "/images/anuncios-gm",
+    "kicker": "Criativos para anúncios",
+    "brand": "Guilherme Machado",
+    "title": "8 anúncios, 2 campanhas, o mesmo público",
+    "lead": "Para donos de imobiliária: uma isca gratuita para captar o lead e uma imersão presencial para quem já está pronto para comprar. Cada peça ataca uma objeção diferente.",
+    "facts": [
+      [
+        "Cliente",
+        "Guilherme Machado, IQR Educação"
+      ],
+      [
+        "Para quem fala",
+        "Donos e gestores de imobiliária"
+      ],
+      [
+        "Campanhas",
+        "Kit Raio-X do Funil e imersão Líder de Alta Performance"
+      ],
+      [
+        "Formatos",
+        "Feed 4:5 e Stories 9:16"
+      ]
+    ],
+    "waMessage": "Oi Diogo, vi os anúncios do Guilherme Machado e quero criativos assim",
+    "items": [
+      {
+        "ratio": "45",
+        "format": "Feed 4:5",
+        "campaign": "Kit Raio-X do Funil",
+        "product": "Kit Raio-X do Funil (material gratuito)",
+        "stage": 0,
+        "angle": "Autoridade e material na mão",
+        "text": "Abre com o Guilherme e o nome da palestra que o público já conhece, e mostra o kit aberto: checklist, calculadora, mapa da objeção e plano de 30 dias. A pessoa vê o que vai receber antes de clicar."
+      },
+      {
+        "ratio": "45",
+        "format": "Feed 4:5",
+        "campaign": "Kit Raio-X do Funil",
+        "product": "Kit Raio-X do Funil (material gratuito)",
+        "stage": 0,
+        "angle": "A conta que muda a pergunta",
+        "text": "1,15 multiplicado cinco vezes dá 2,01. Melhorar 15% em cada etapa dobra a venda sem comprar um lead a mais. A peça tira o dono da ideia de que o problema é falta de lead."
+      },
+      {
+        "ratio": "45",
+        "format": "Feed 4:5",
+        "campaign": "Kit Raio-X do Funil",
+        "product": "Kit Raio-X do Funil (material gratuito)",
+        "stage": 0,
+        "angle": "A cena que todo dono já viu",
+        "text": "Uma conversa de WhatsApp em que a visita morre na frente de quem lê. Mostra um erro concreto do corretor e promete os outros quatro pontos do funil dentro do kit."
+      },
+      {
+        "ratio": "45",
+        "format": "Feed 4:5",
+        "campaign": "Líder de Alta Performance",
+        "product": "Imersão Líder de Alta Performance (2 dias, presencial em São Paulo)",
+        "stage": 1,
+        "angle": "Provocação de identidade",
+        "text": "Elogia e vira o jogo: se o dono é o melhor vendedor, a empresa depende dele. Fala com quem ainda vende no balcão e apresenta a imersão como saída."
+      },
+      {
+        "ratio": "916",
+        "format": "Stories e Reels 9:16",
+        "campaign": "Líder de Alta Performance",
+        "product": "Imersão Líder de Alta Performance (2 dias, presencial em São Paulo)",
+        "stage": 1,
+        "angle": "Ferramenta, não palestra",
+        "text": "Separa a imersão de mais um evento motivacional mostrando o que se leva para casa: o plano de ação de 60 dias e mais de 20 ferramentas para usar com o time."
+      },
+      {
+        "ratio": "916",
+        "format": "Stories e Reels 9:16",
+        "campaign": "Líder de Alta Performance",
+        "product": "Imersão Líder de Alta Performance (2 dias, presencial em São Paulo)",
+        "stage": 2,
+        "angle": "Responder a objeção",
+        "text": "Coloca na tela a dúvida que trava a inscrição, \"como eu paro 2 dias?\", e responde no tom do Guilherme: se você não pode sair, a operação já depende demais de você."
+      },
+      {
+        "ratio": "916",
+        "format": "Stories e Reels 9:16",
+        "campaign": "Líder de Alta Performance",
+        "product": "Imersão Líder de Alta Performance (2 dias, presencial em São Paulo)",
+        "stage": 2,
+        "angle": "Urgência de calendário",
+        "text": "Usa a data da turma como prazo real: quem começa a organizar o time em janeiro já começou atrasado. Última turma do ano, com aplicações no lote zero."
+      },
+      {
+        "ratio": "916",
+        "format": "Stories e Reels 9:16",
+        "campaign": "Líder de Alta Performance",
+        "product": "Imersão Líder de Alta Performance (2 dias, presencial em São Paulo)",
+        "stage": 2,
+        "angle": "Processo, não motivação",
+        "text": "Peça da turma de outubro. Lista o conteúdo (funil, forecast, CRM, rituais, 1:1, cadência) para mostrar que são 2 dias de método, com data e cidade já no anúncio."
+      }
+    ]
+  }
 }

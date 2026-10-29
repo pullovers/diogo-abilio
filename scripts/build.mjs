@@ -602,6 +602,83 @@ const caseFeature = (s) => {
     </div>`;
 };
 
+// Ad gallery (ads page): the pieces fanned out like a hand of cards; any card opens
+// the dialog on that piece, and the info panel follows the piece on screen.
+const adImg = (g, i, w) => `${g.dir}/${pad2(i + 1)}-${w}.webp`;
+const adSize = (it) => (it.ratio === '916' ? [1080, 1920] : [1080, 1350]);
+const adsFeature = (g) => {
+  const n = g.items.length;
+  return `<div class="ads-feature card-base reveal">
+      <div class="ads-deck" style="--n:${n}">
+        ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<button class="ads-card" type="button" style="--k:${(i - (n - 1) / 2).toFixed(1)}" aria-haspopup="dialog" aria-controls="case-${g.id}" data-open-case data-start="${i}">
+          <img src="${adImg(g, i, 480)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" />
+          <span class="sr-only">Abrir o anúncio ${i + 1}: ${esc(it.angle)}</span>
+        </button>`; }).join('\n        ')}
+      </div>
+      <div class="ads-feature-body">
+        <div>
+          <span class="label">${esc(g.kicker)}</span>
+          <h3>${esc(g.brand)}: ${esc(g.title)}</h3>
+          <p>${esc(g.lead)}</p>
+        </div>
+        <div class="ads-feature-side">
+          <ul class="ads-tags">${[...new Set(g.items.map((it) => it.campaign))].map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+          <button class="btn btn-outline btn-sm" type="button" aria-haspopup="dialog" aria-controls="case-${g.id}" data-open-case data-start="0">Ver os ${n} anúncios e a estratégia <span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </div>`;
+};
+
+const adsDialog = (s) => {
+  const g = s.gallery;
+  const n = g.items.length;
+  return `<dialog class="case case--ads" id="case-${g.id}" aria-labelledby="case-${g.id}-title" data-lenis-prevent>
+  <div class="case-shell">
+    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
+    <div class="case-viewer">
+      <div class="case-track" tabindex="0" role="region" aria-label="Anúncios">
+        ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<figure class="case-slide"><img class="r${it.ratio}" src="${adImg(g, i, 1080)}" srcset="${adImg(g, i, 480)} 480w, ${adImg(g, i, 1080)} 1080w" sizes="(max-width: 860px) 90vw, 560px" width="${w}" height="${h}" alt="Anúncio ${i + 1} de ${n}, ${esc(it.campaign)}: ${esc(it.angle)}" loading="lazy" decoding="async" /></figure>`; }).join('\n        ')}
+      </div>
+      <div class="case-bar">
+        <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(n)}</span>
+        <div class="case-thumbs">
+          ${g.items.map((it, i) => `<button type="button" data-go="${i}" aria-label="Ver anúncio ${i + 1}"${i ? '' : ' aria-current="true"'}><img src="${adImg(g, i, 480)}" alt="" width="36" height="45" loading="lazy" /></button>`).join('')}
+        </div>
+        <div class="case-arrows">
+          <button type="button" class="case-prev" aria-label="Anúncio anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="Próximo anúncio">${arrowIcon('M9 18l6-6-6-6')}</button>
+        </div>
+      </div>
+    </div>
+    <div class="case-info">
+      <span class="label ci" style="--i:0">${esc(g.kicker)}</span>
+      <h2 class="case-title ci" style="--i:1" id="case-${g.id}-title">${esc(g.brand)}: ${esc(g.title)}</h2>
+      <p class="case-lead ci" style="--i:2">${esc(g.lead)}</p>
+      ${g.items.map((it, i) => `<section class="ad-panel ci" style="--i:3" data-panel="${i}"${i ? ' hidden' : ''}>
+        <div class="ad-head"><span class="ad-num">${pad2(i + 1)} / ${pad2(n)}</span><span class="ad-camp">${esc(it.campaign)}</span></div>
+        <h3 class="ad-angle">${esc(it.angle)}</h3>
+        <p class="ad-text">${esc(it.text)}</p>
+        <div class="case-grid">
+          <dl class="case-facts">
+            <div><dt>Cliente</dt><dd>${esc(g.facts[0][1])}</dd></div>
+            <div><dt>Para quem fala</dt><dd>${esc(g.facts[1][1])}</dd></div>
+            <div><dt>Produto</dt><dd>${esc(it.product)}</dd></div>
+            <div><dt>Formato</dt><dd>${esc(it.format)}</dd></div>
+          </dl>
+          <div class="case-funnel">
+            <span class="case-h">Etapa do funil</span>
+            ${funnelSvg({ id: `${g.id}-${i}`, stage: it.stage })}
+          </div>
+        </div>
+      </section>`).join('\n      ')}
+      <div class="case-cta ci" style="--i:5">
+        <a class="btn btn-primary" href="${waLink(g.waMessage)}" target="_blank" rel="noopener" data-wa="case-${g.id}">Quero criativos assim <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</dialog>`;
+};
+
 const servicePage = (s) => layout({
   title: `${s.seoTitle} · Diogo Abílio`,
   description: s.tagline,
@@ -622,12 +699,13 @@ const servicePage = (s) => layout({
   </div>
 </section>
 
-${s.works.length || s.case ? `<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
+${s.works.length || s.case || s.gallery ? `<section class="section" style="padding-top:0" aria-labelledby="trabalho-title">
   <div class="container">
     <div class="section-head">
-      ${h2('trabalho-title', [[s.works.length > 1 ? 'Os trabalhos' : 'O trabalho', false]])}
+      ${h2('trabalho-title', [[s.gallery ? 'Os anúncios' : s.works.length > 1 ? 'Os trabalhos' : 'O trabalho', false]])}
     </div>
     ${s.case ? caseFeature(s) : ''}
+    ${s.gallery ? adsFeature(s.gallery) : ''}
     ${s.works.map(work).join('\n    ')}
   </div>
 </section>
@@ -667,7 +745,8 @@ ${s.works.length || s.case ? `<section class="section" style="padding-top:0" ari
 </section>
 
 ${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}
-${s.case ? caseDialog(s) : ''}`,
+${s.case ? caseDialog(s) : ''}
+${s.gallery ? adsDialog(s) : ''}`,
 });
 
 // ---------- write ----------
