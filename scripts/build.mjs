@@ -58,6 +58,7 @@ const layout = ({ title, description, path, og, body, home = false, schema }) =>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="${abs(path)}" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#0A0A0B" />
@@ -484,7 +485,7 @@ const heroSub = 'Primeiro, eu entendo seu negócio e onde seu marketing pode ir 
 
 const home = () => layout({
   title: 'Diogo Abílio · Designer estratégico | Design e marketing que vendem',
-  description: 'Designer estratégico em São Paulo: analiso seu funil, acho onde o cliente desiste e coloco em prática o que resolve com páginas, conteúdo, vídeo e anúncios.',
+  description: 'Designer estratégico em São Paulo: acho onde o cliente desiste no seu funil e resolvo com páginas, conteúdo, vídeo e anúncios.',
   path: '/',
   og: '/og/home.png',
   home: true,
