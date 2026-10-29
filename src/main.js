@@ -29,8 +29,6 @@
   document.addEventListener('click', function (e) {
     var wa = e.target.closest('[data-wa]');
     if (wa) window.va('event', { name: 'WhatsApp Click', data: { origin: wa.dataset.wa, page: location.pathname } });
-    var cv = e.target.closest('[data-cv]');
-    if (cv) window.va('event', { name: 'CV Download', data: { origin: cv.dataset.cv, page: location.pathname } });
   });
 
   // ---------- smooth scroll (desktop, motion allowed) ----------

@@ -1069,24 +1069,6 @@ html.modal-open { overflow: hidden; }
 .about-visual { position: relative; max-width: 640px; }
 .about-visual::before { content: ''; position: absolute; left: 6%; top: 12%; width: 88%; height: 76%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
 .about-photo { position: relative; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
-/* small card on the photo: open to a full-time role, not only projects */
-.hire-card {
-  position: absolute; left: 0; top: 37%; z-index: 2;   /* just under the elbow of the arm holding the mug */
-  display: flex; flex-direction: column; gap: 8px; width: min(250px, 62%); padding: 14px 16px 15px;
-  border-radius: 14px; border: 1px solid var(--line-strong);
-  background: rgba(19, 19, 21, .72); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .9), 0 0 30px -12px var(--accent-glow);
-  color: var(--ink); text-decoration: none; transform: rotate(-2deg);
-  transition: transform .35s var(--ease-out), border-color .3s ease;
-}
-.hire-card:hover { transform: rotate(0deg) translateY(-3px); border-color: rgba(169, 112, 255, .55); }
-.hire-tag { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--green); }
-.hire-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 0 rgba(47, 191, 113, .6); animation: hire-pulse 2s ease-out infinite; }
-@keyframes hire-pulse { 0% { box-shadow: 0 0 0 0 rgba(47, 191, 113, .55); } 70%, 100% { box-shadow: 0 0 0 7px rgba(47, 191, 113, 0); } }
-.hire-card b { font-weight: 600; font-size: 15px; line-height: 1.35; letter-spacing: -0.005em; }
-.hire-link { font-size: 13px; color: var(--accent); }
-.hire-card:hover .hire-link .arr { transform: translateX(3px); }
-.hire-link .arr { display: inline-block; transition: transform .3s var(--ease-out); }
 .about-copy .h2 { margin-bottom: 32px; font-size: clamp(48px, 6.2vw, 92px); line-height: 1; }
 /* the first paragraph opens big in ink; the rest reads a step down, still brighter than body copy */
 .about-text p { color: rgba(243, 241, 237, .74); font-size: clamp(18px, 1.35vw, 20px); line-height: 1.7; max-width: 54ch; text-wrap: pretty; }
@@ -1101,8 +1083,6 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 960px) {
   .about-hero { grid-template-columns: 1fr; gap: 40px; }
   .about-visual { width: min(100%, 480px); margin-inline: auto; }
-  .hire-card { width: min(230px, 64%); padding: 12px 14px 13px; }
-  .hire-card b { font-size: 14px; }
 }
 @media (max-width: 600px) {
   .about-text p:first-child { font-size: 20px; }
