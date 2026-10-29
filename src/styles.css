@@ -1063,12 +1063,11 @@ html.modal-open { overflow: hidden; }
 }
 
 /* ===== ABOUT ===== */
-/* about: the photo on a torn-paper collage (the opening's texture), copy beside it */
-.about-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(40px, 5vw, 80px); align-items: center; }
-.about-visual { position: relative; max-width: 540px; }
-.about-visual::before { content: ''; position: absolute; left: 10%; top: 18%; width: 80%; height: 70%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
-.about-paper { position: absolute; left: -14%; top: -4%; width: 88%; height: auto; transform: rotate(-5deg); opacity: .95; }
-.about-photo { position: relative; width: 86%; height: auto; margin-left: 10%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
+/* about: the photo in a soft purple glow, copy beside it */
+.about-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 80px); align-items: center; }
+.about-visual { position: relative; max-width: 640px; }
+.about-visual::before { content: ''; position: absolute; left: 6%; top: 12%; width: 88%; height: 76%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
+.about-photo { position: relative; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
 .about-copy .h2 { margin-bottom: 32px; font-size: clamp(48px, 6.2vw, 92px); line-height: 1; }
 /* the first paragraph opens big in ink; the rest reads a step down, still brighter than body copy */
 .about-text p { color: rgba(243, 241, 237, .74); font-size: clamp(18px, 1.35vw, 20px); line-height: 1.7; max-width: 54ch; text-wrap: pretty; }
@@ -1082,7 +1081,7 @@ html.modal-open { overflow: hidden; }
 
 @media (max-width: 960px) {
   .about-hero { grid-template-columns: 1fr; gap: 40px; }
-  .about-visual { width: min(100%, 420px); margin-inline: auto; }
+  .about-visual { width: min(100%, 480px); margin-inline: auto; }
 }
 @media (max-width: 600px) {
   .about-text p:first-child { font-size: 20px; }

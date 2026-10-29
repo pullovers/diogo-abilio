@@ -597,8 +597,7 @@ const home = () => layout({
 <section class="section" id="sobre" aria-labelledby="sobre-title">
   <div class="container about-hero">
     <div class="about-visual reveal">
-      <img class="about-paper" src="/images/sobre/papel-rasgado-520.webp" srcset="/images/sobre/papel-rasgado-520.webp 520w, /images/sobre/papel-rasgado-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="820" alt="" loading="lazy" decoding="async" />
-      <img class="about-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 860px) 80vw, 460px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" loading="lazy" decoding="async" />
+      <img class="about-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 860px) 90vw, 580px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" loading="lazy" decoding="async" />
     </div>
     <div class="about-copy">
       <span class="label">Sobre mim</span>
