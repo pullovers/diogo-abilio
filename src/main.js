@@ -110,7 +110,8 @@
   var loopIO = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { e.target.classList.toggle('paused', !e.isIntersecting); });
   });
-  $$('[data-loop]').forEach(function (el) { el.classList.add('paused'); loopIO.observe(el); });
+  // work cards (animated scenes, ad decks) and the logo marquee loop forever too
+  $$('[data-loop], .bcard, .marquee').forEach(function (el) { el.classList.add('paused'); loopIO.observe(el); });
 
   // ---------- hero parallax ----------
   var hero = $('.hero');

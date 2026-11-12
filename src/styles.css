@@ -643,8 +643,12 @@ html.modal-open { overflow: hidden; }
   overflow: hidden;
   box-shadow: 0 40px 120px -40px rgba(0, 0, 0, .9), 0 0 0 1px rgba(169, 112, 255, .08);
 }
-.case::backdrop { background: rgba(5, 5, 6, .8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-.case[open] { animation: caseIn .5s var(--ease-out); }
+/* No backdrop blur: re-blurring the whole page every frame made opening and swiping slow. */
+.case::backdrop { background: rgba(5, 5, 6, .9); }
+/* While a dialog is open, freeze every looping animation behind it (cards, marquee, glows). */
+.modal-open body :not(.case, .case *),
+.modal-open body :not(.case, .case *)::before,
+.modal-open body :not(.case, .case *)::after { animation-play-state: paused !important; }.case[open] { animation: caseIn .5s var(--ease-out); }
 .case[open]::backdrop { animation: fadeIn .4s ease; }
 @keyframes caseIn { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
 @keyframes fadeIn { from { opacity: 0; } }
