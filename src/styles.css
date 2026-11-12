@@ -188,9 +188,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   transition: background-color .25s ease, border-color .25s ease;
 }
 .nav.is-scrolled, .nav.is-open {
-  background: rgba(10, 10, 11, 0.8);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  /* solid instead of backdrop blur: blurring the page under a fixed bar on every scroll frame is costly on big screens */
+  background: rgba(10, 10, 11, 0.94);
   border-bottom-color: var(--line);
 }
 .nav-inner { height: 100%; display: flex; align-items: center; gap: 24px; }
@@ -314,8 +313,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   width: 52%; aspect-ratio: 2.6 / 1;
   translate: -50% -50%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(150, 80, 255, .55), rgba(110, 50, 230, .18) 60%, rgba(110, 50, 230, 0));
-  filter: blur(36px);
+  background: radial-gradient(closest-side, rgba(150, 80, 255, .5), rgba(110, 50, 230, .2) 50%, rgba(110, 50, 230, .06) 78%, rgba(110, 50, 230, 0));
   animation: glow 6s ease-in-out infinite;
 }
 @keyframes glow { 0%, 100% { opacity: .6; transform: scale(.95); } 50% { opacity: 1; transform: scale(1.05); } }
@@ -624,7 +622,7 @@ button.card-link { padding: 0; border: 0; background: none; color: inherit; font
 .badge--autoral {
   display: inline-flex; align-items: center; gap: 7px; left: 12px; top: 12px; bottom: auto;
   color: var(--ink); text-transform: uppercase; letter-spacing: .08em; font-size: 10.5px;
-  background: rgba(10, 10, 11, .82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  background: rgba(10, 10, 11, .9);
 }
 .badge--autoral::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 .mock-show .badge--autoral { top: auto; left: 52px; bottom: 16px; z-index: 3; }
@@ -650,7 +648,7 @@ html.modal-open { overflow: hidden; }
 .modal-open body :not(.case, .case *)::before,
 .modal-open body :not(.case, .case *)::after { animation-play-state: paused !important; }.case[open] { animation: caseIn .5s var(--ease-out); }
 .case[open]::backdrop { animation: fadeIn .4s ease; }
-@keyframes caseIn { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes caseIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @keyframes fadeIn { from { opacity: 0; } }
 .case-shell { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); height: 100%; }
 
@@ -711,7 +709,7 @@ html.modal-open { overflow: hidden; }
 .case-arrows button:disabled { opacity: .3; cursor: default; }
 .case-arrows svg, .case-close svg { width: 18px; height: 18px; }
 .case-close-form { position: absolute; top: 16px; right: 16px; z-index: 5; margin: 0; }
-.case-close { background: rgba(19, 19, 21, .85); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.case-close { background: rgba(19, 19, 21, .92); }
 
 .case-info { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 44px 48px 40px; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
 .case-info > * + * { margin-top: 28px; }
@@ -729,7 +727,7 @@ html.modal-open { overflow: hidden; }
 .funnel { display: block; width: 100%; height: auto; margin-top: 2px; overflow: visible; }
 .funnel .fl { transform-box: fill-box; transform-origin: center; }
 .funnel .fl:not(.is-on) { fill: rgba(255, 255, 255, .035); stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 4; }
-.funnel .fl.is-on { stroke: none; filter: drop-shadow(0 8px 18px rgba(139, 61, 255, .55)); animation: flGlow 3.2s ease-in-out infinite; }
+.funnel .fl.is-on { stroke: none; filter: drop-shadow(0 8px 22px rgba(150, 80, 255, .7)); }
 .fl-t { font: 600 14px var(--font-sans); fill: var(--muted); }
 .fl-s { font: 400 7.5px var(--font-mono); letter-spacing: .08em; fill: var(--muted); opacity: .75; }
 .fl-text.is-on .fl-t { fill: #fff; font-size: 16px; }
@@ -741,7 +739,7 @@ html.modal-open { overflow: hidden; }
 @keyframes flGlow { 50% { filter: drop-shadow(0 8px 26px rgba(169, 112, 255, .85)); } }
 /* layers build top-down when the dialog opens */
 .case[open] .funnel .fl, .case[open] .fl-text { animation: flIn .7s var(--ease-out) backwards; animation-delay: calc(450ms + var(--k) * 120ms); }
-.case[open] .funnel .fl.is-on { animation: flIn .7s var(--ease-out) backwards 450ms, flGlow 3.2s ease-in-out infinite 1.2s; }
+.case[open] .funnel .fl.is-on { animation: flIn .7s var(--ease-out) backwards 450ms; }
 @keyframes flIn { from { opacity: 0; transform: translateY(-10px) scaleX(.85); } }
 
 /* info panel: blocks rise in order when the dialog opens */
@@ -925,7 +923,7 @@ html.modal-open { overflow: hidden; }
 @property --lx { syntax: '<number>'; inherits: true; initial-value: .76; }
 @property --ly { syntax: '<number>'; inherits: true; initial-value: .24; }
 .sc-look::before { content: ''; position: absolute; left: 6%; top: 4%; width: 60%; height: 90%; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(139, 61, 255, .38), transparent); filter: blur(10px); }
+  background: radial-gradient(closest-side, rgba(139, 61, 255, .38), transparent); }
 .sc-page { left: 9%; top: 5%; width: 50%; transform: rotate(-3deg); container-type: inline-size; }
 .sc-marks { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .sc-lens {
@@ -1041,7 +1039,7 @@ html.modal-open { overflow: hidden; }
 .sc-slide-3 { z-index: 1; --to: translate(32cqw, 4cqw) rotate(10deg); animation-name: fan-3; }
 @keyframes fan-2 { 0%, 38% { opacity: 0; transform: none; } 42% { opacity: 1; transform: none; } 54%, 94% { opacity: 1; transform: var(--to); } 100% { opacity: 0; transform: var(--to); } }
 @keyframes fan-3 { 0%, 42% { opacity: 0; transform: none; } 46% { opacity: 1; transform: none; } 60%, 94% { opacity: 1; transform: var(--to); } 100% { opacity: 0; transform: var(--to); } }
-.sc-build::before { content: ''; position: absolute; left: 14%; top: 4%; width: 74%; height: 92%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .32), transparent); filter: blur(10px); }
+.sc-build::before { content: ''; position: absolute; left: 14%; top: 4%; width: 74%; height: 92%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .32), transparent); }
 
 /* 04 two real versions of one campaign; the headline differs and the chosen one steps forward */
 .sc-v { width: 36%; container-type: inline-size; }
@@ -1080,7 +1078,7 @@ html.modal-open { overflow: hidden; }
 /* about: the photo in a soft purple glow, copy beside it */
 .about-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 80px); align-items: center; }
 .about-visual { position: relative; max-width: 640px; }
-.about-visual::before { content: ''; position: absolute; left: 6%; top: 12%; width: 88%; height: 76%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); filter: blur(20px); }
+.about-visual::before { content: ''; position: absolute; left: 6%; top: 12%; width: 88%; height: 76%; border-radius: 50%; background: radial-gradient(closest-side, rgba(139, 61, 255, .45), transparent); }
 .about-photo { position: relative; width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
 .about-copy .h2 { margin-bottom: 32px; font-size: clamp(48px, 6.2vw, 92px); line-height: 1; }
 /* the first paragraph opens big in ink; the rest reads a step down, still brighter than body copy */
@@ -1116,13 +1114,12 @@ html.modal-open { overflow: hidden; }
 .cta-block::before {
   content: '';
   position: absolute;
-  left: 50%; bottom: -55%;
-  width: 90%; aspect-ratio: 2 / 1;
+  left: 50%; bottom: -75%;
+  width: 120%; aspect-ratio: 2 / 1;
   translate: -50% 0;
   z-index: -1;
-  border-radius: 50%;
-  background: var(--accent-glow);
-  filter: blur(90px);
+  /* a soft gradient instead of filter: blur(90px), which is very costly to paint on big screens */
+  background: radial-gradient(closest-side, rgba(139, 61, 255, .34), rgba(139, 61, 255, .16) 55%, rgba(139, 61, 255, 0));
 }
 .cta-block .h2 { margin-bottom: 20px; }
 .cta-block .lead { max-width: 44ch; margin: 0 auto 36px; }
