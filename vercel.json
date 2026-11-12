@@ -21,6 +21,16 @@
   ],
   "redirects": [
     {
+      "source": "/resume",
+      "destination": "/curriculo/en",
+      "permanent": false
+    },
+    {
+      "source": "/en/curriculo",
+      "destination": "/curriculo/en",
+      "permanent": false
+    },
+    {
       "source": "/servicos/criativos-redes-sociais",
       "destination": "/#servicos",
       "permanent": true

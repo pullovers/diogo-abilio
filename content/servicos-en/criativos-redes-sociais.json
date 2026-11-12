@@ -1,0 +1,52 @@
+{
+  "label": "Posts & carousels",
+  "name": "Content that makes your brand memorable",
+  "tagline": "Carousels that make people stop, learn something and remember your name.",
+  "case": {
+    "title": "If Brazil had more railways, would your package arrive faster?",
+    "kicker": "Strategic carousel · 7 slides",
+    "note": "Personal project, created to show how I approach a brand awareness carousel. Slides in Portuguese.",
+    "lead": "A brand awareness carousel. It makes people who don’t know Vaiê yet stop, learn something and remember who told them. That groundwork is what makes the next sales faster and cheaper.",
+    "facts": [
+      ["Brand", "Vaiê, deliveries"],
+      ["Audience", "Entrepreneurs whose revenue depends on deliveries"],
+      ["Format", "7 slides · Instagram and LinkedIn"]
+    ],
+    "strategy": [
+      ["Trending topic", "Rides the post-election debate on infrastructure to reach people who have never heard of the brand."],
+      ["Educate before selling", "Geography, politics and logistics at a macro level. The brand shows up in the scenery, on the box and on the van."],
+      ["Lands on the entrepreneur", "The last slides bring the topic into a business owner’s daily routine and sign off with the brand positioning."]
+    ],
+    "arc": [
+      "Hook: the question everyone thinks they can answer",
+      "Context: the country chose highways",
+      "Breaks the easy answer: new tracks take years",
+      "Goes deeper: finished tracks don’t mean fast delivery",
+      "The whole journey, from factory to the customer’s door",
+      "The mirror: a business owner’s routine",
+      "Brand sign-off, no offer"
+    ],
+    "metrics": [
+      {
+        "tab": "First weeks",
+        "items": [
+          ["Reach among non-followers", "new people discovering the brand"],
+          ["Shares and saves", "a sign the content was valuable"],
+          ["New followers", "people who wanted to keep listening"]
+        ]
+      },
+      {
+        "tab": "In 3 to 6 months",
+        "items": [
+          ["Shorter sales cycle", "customers arrive already knowing Vaiê"],
+          ["Lower CAC", "winning over people who already trust you costs less"],
+          ["Less friction in the choice", "when it’s time to decide, the familiar brand wins"]
+        ],
+        "note": "When middle-of-funnel content arrives, it talks to people who already know Vaiê. The conversation starts in the middle, not from zero."
+      }
+    ],
+    "why": "It’s easier to buy cake from a cousin who bakes than from a stranger. Top-of-funnel content makes your brand that cousin.",
+    "cta": "I want a carousel like this",
+    "waMessage": "Hi Diogo, I saw the Vaiê carousel on your website and I’d like a strategic carousel like that"
+  }
+}

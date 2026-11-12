@@ -1,0 +1,75 @@
+{
+  "label": "Ad creatives",
+  "name": "Ads that bring in buyers",
+  "tagline": "Not just cheap clicks: messaging built around your customer’s objections.",
+  "gallery": {
+    "kicker": "Ad creatives",
+    "title": "8 ads, 2 campaigns, the same audience",
+    "lead": "For real estate agency owners: a free lead magnet to capture leads and an in-person immersion for those ready to buy. Each piece tackles a different objection. Ads in Portuguese.",
+    "facts": [
+      ["Client", "Guilherme Machado, IQR Educação"],
+      ["Audience", "Real estate agency owners and managers"],
+      ["Campaigns", "Funnel X-Ray Kit and the High-Performance Leader immersion"],
+      ["Formats", "Feed 4:5 and Stories 9:16"]
+    ],
+    "waMessage": "Hi Diogo, I saw the Guilherme Machado ads on your website and I’d like ads like those",
+    "items": [
+      {
+        "format": "Feed 4:5",
+        "campaign": "Funnel X-Ray Kit",
+        "product": "Funnel X-Ray Kit (free material)",
+        "angle": "Authority and the material in hand",
+        "text": "Opens with Guilherme and the name of the talk his audience already knows, and shows the kit laid out: checklist, calculator, objection map and 30-day plan. People see what they’ll get before they click."
+      },
+      {
+        "format": "Feed 4:5",
+        "campaign": "Funnel X-Ray Kit",
+        "product": "Funnel X-Ray Kit (free material)",
+        "angle": "The math that changes the question",
+        "text": "1.15 multiplied five times equals 2.01. Improving each stage by 15% doubles sales without buying a single extra lead. The piece moves owners away from the idea that the problem is a lack of leads."
+      },
+      {
+        "format": "Feed 4:5",
+        "campaign": "Funnel X-Ray Kit",
+        "product": "Funnel X-Ray Kit (free material)",
+        "angle": "The scene every owner has seen",
+        "text": "A WhatsApp conversation where the property viewing falls apart in front of the reader. It shows one concrete agent mistake and promises the other four funnel points inside the kit."
+      },
+      {
+        "format": "Feed 4:5",
+        "campaign": "High-Performance Leader",
+        "product": "High-Performance Leader immersion (2 days, in person in São Paulo)",
+        "angle": "Identity provocation",
+        "text": "Starts with a compliment and flips it: if the owner is the best salesperson, the company depends on them. It speaks to owners who still sell at the front desk and presents the immersion as the way out."
+      },
+      {
+        "format": "Stories & Reels 9:16",
+        "campaign": "High-Performance Leader",
+        "product": "High-Performance Leader immersion (2 days, in person in São Paulo)",
+        "angle": "A toolkit, not a talk",
+        "text": "Sets the immersion apart from yet another motivational event by showing what you take home: the 60-day action plan and 20+ tools to use with the team."
+      },
+      {
+        "format": "Stories & Reels 9:16",
+        "campaign": "High-Performance Leader",
+        "product": "High-Performance Leader immersion (2 days, in person in São Paulo)",
+        "angle": "Answering the objection",
+        "text": "Puts the doubt that stalls sign-ups on screen, “how can I step away for 2 days?”, and answers in Guilherme’s tone: if you can’t step away, the operation already depends on you too much."
+      },
+      {
+        "format": "Stories & Reels 9:16",
+        "campaign": "High-Performance Leader",
+        "product": "High-Performance Leader immersion (2 days, in person in São Paulo)",
+        "angle": "Calendar urgency",
+        "text": "Uses the cohort date as a real deadline: whoever starts organizing the team in January is already late. Last cohort of the year, with applications at the earliest price tier."
+      },
+      {
+        "format": "Stories & Reels 9:16",
+        "campaign": "High-Performance Leader",
+        "product": "High-Performance Leader immersion (2 days, in person in São Paulo)",
+        "angle": "Process, not motivation",
+        "text": "October cohort piece. It lists the content (funnel, forecast, CRM, rituals, 1:1s, cadence) to show it’s 2 days of method, with the date and city right in the ad."
+      }
+    ]
+  }
+}

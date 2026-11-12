@@ -1,0 +1,52 @@
+{
+  "label": "Video editing",
+  "name": "Videos people watch to the end",
+  "tagline": "Pacing, captions and a hook in the first 3 seconds, for people scrolling with the sound off.",
+  "case": {
+    "title": "Your home doesn’t fit in a number",
+    "kicker": "Strategic video · 45 s",
+    "note": "Personal project with a fictional brand, created to show how I approach a consideration video. Voiceover in Portuguese.",
+    "lead": "A consideration video for people who already know Nimbo and are comparing providers. Instead of competing on speed, it changes the question: the right internet depends on the home’s layout, the routine of the people who live there and the support when you need it.",
+    "facts": [
+      ["Brand", "Nimbo Fibra, home internet"],
+      ["Audience", "People who know the brand and are comparing providers"],
+      ["Format", "Vertical motion design · 45 s · voiceover and captions"]
+    ],
+    "strategy": [
+      ["Changes the comparison criteria", "If every provider sells fiber and high speeds, Nimbo enters the race by looking at what the others ignore: rooms, routines and support."],
+      ["Product value for the home", "Talks about the router, Wi-Fi and setup from the resident’s point of view: where the device goes and what each room needs."],
+      ["Brand present, no CTA", "No price, no “sign up now”. Nimbo shows up as a way of thinking about the choice, to make the shortlist of people who are deciding."]
+    ],
+    "scenes": [
+      [0, "The right question: your home doesn’t fit in a number"],
+      [4, "Beyond speed: megabits matter, but they’re not everything"],
+      [11, "Rooms: the floor plan changes the Wi-Fi path"],
+      [17, "Uses: one home, many routines"],
+      [23, "Support: help is part of the choice too"],
+      [29, "The Nimbo view: the home first, then the plan"],
+      [39, "Sign-off: your home before the megabits"]
+    ],
+    "metrics": [
+      {
+        "tab": "While it runs",
+        "items": [
+          ["Retention to 29 s", "people who stayed until Nimbo showed its way of thinking"],
+          ["Watched to the end", "people who reached the brand sign-off"],
+          ["Saves and shares", "a sign the new criteria made sense"]
+        ]
+      },
+      {
+        "tab": "At decision time",
+        "items": [
+          ["Nimbo on the shortlist", "survey: which providers would you consider?"],
+          ["Visits to the plans page", "people who went to look on their own, unprompted"],
+          ["Better-qualified sales conversations", "customers talk about their home, not just speed"]
+        ],
+        "note": "Consideration is measured by comparing people who saw the video with people who didn’t. The plan starts from a baseline and tests one change at a time."
+      }
+    ],
+    "why": "When everyone competes on speed, whoever changes the question gets ahead.",
+    "cta": "I want a video like this",
+    "waMessage": "Hi Diogo, I saw the Nimbo Fibra video on your website and I’d like a strategic video like that"
+  }
+}

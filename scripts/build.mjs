@@ -19,6 +19,108 @@ const services = readdirSync(join(root, 'content/servicos'))
   .map((f) => JSON.parse(readFileSync(join(root, 'content/servicos', f), 'utf8')))
   .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
+// English copy of the cards and dialogs, used only by the English résumé (/curriculo/en).
+// content/servicos-en/<slug>.json holds just the translated fields; they are laid over
+// the Portuguese file (objects merge, arrays of objects merge by index, the rest replaces).
+const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+const overlay = (base, over) => {
+  if (Array.isArray(base) && Array.isArray(over)) {
+    return base.length && base.every(isObj) && over.every(isObj) ? base.map((b, i) => (over[i] ? overlay(b, over[i]) : b)) : over;
+  }
+  if (isObj(base) && isObj(over)) {
+    const o = { ...base };
+    for (const k of Object.keys(over)) o[k] = k in base ? overlay(base[k], over[k]) : over[k];
+    return o;
+  }
+  return over;
+};
+const servicesEn = services.map((s) => {
+  const f = join(root, 'content/servicos-en', `${s.slug}.json`);
+  return existsSync(f) ? overlay(s, JSON.parse(readFileSync(f, 'utf8'))) : s;
+});
+
+// ---------- interface strings ----------
+// The site is Portuguese; only the résumé also renders in English. Templates read the
+// current language through T(); cvPage() switches LANG while it renders.
+let LANG = 'pt';
+const UI = {
+  pt: {
+    authorial: 'Projeto autoral',
+    example: 'exemplo',
+    stages: [['Topo', 'reconhecimento'], ['Meio', 'consideração'], ['Fundo', 'conversão']],
+    stageBadge: (i) => `${['topo', 'meio', 'fundo'][i]} de funil`,
+    thisPiece: ' (esta peça)',
+    funnelAria: 'Funil de vendas',
+    openCarousel: (b) => `Abrir o carrossel da ${b} e a estratégia por trás dele`,
+    seeSlides: (n) => `Ver os ${n} slides`,
+    openVideo: (b) => `Assistir ao vídeo da ${b} e ver a estratégia por trás dele`,
+    watchSound: 'Assistir com som',
+    slidesAria: 'Slides do carrossel',
+    slideAlt: (i, n) => `Slide ${i} de ${n}.`,
+    videoAria: (b, t) => `Vídeo ${b}: ${t}, com legendas na imagem`,
+    close: 'Fechar',
+    goSlide: (i) => `Ir para o slide ${i}`,
+    prevSlide: 'Slide anterior',
+    nextSlide: 'Próximo slide',
+    funnelStage: 'Etapa do funil',
+    strategy: 'A estratégia',
+    sceneBy: 'Cena a cena',
+    slideBy: 'Slide a slide',
+    howMeasure: 'Como eu mediria',
+    whatMeasure: 'O que a gente mede',
+    metricsAria: 'Momento das métricas',
+    caseCta: 'Quero um carrossel assim',
+    cardLink: 'Ver como faço',
+    openAd: (i, a) => `Abrir o anúncio ${i}: ${a}`,
+    seeAds: (n) => `Ver os ${n} anúncios`,
+    adsAria: 'Anúncios',
+    adAlt: (i, n, c, a) => `Anúncio ${i} de ${n}, ${c}: ${a}`,
+    viewAd: (i) => `Ver anúncio ${i}`,
+    prevAd: 'Anúncio anterior',
+    nextAd: 'Próximo anúncio',
+    adFacts: ['Cliente', 'Para quem fala', 'Produto', 'Formato'],
+    adsCta: 'Quero criativos assim',
+  },
+  en: {
+    authorial: 'Personal project',
+    example: 'example',
+    stages: [['Top', 'awareness'], ['Middle', 'consideration'], ['Bottom', 'conversion']],
+    stageBadge: (i) => `${['top', 'middle', 'bottom'][i]} of funnel`,
+    thisPiece: ' (this piece)',
+    funnelAria: 'Sales funnel',
+    openCarousel: (b) => `Open the ${b} carousel and the strategy behind it`,
+    seeSlides: (n) => `See all ${n} slides`,
+    openVideo: (b) => `Watch the ${b} video and see the strategy behind it`,
+    watchSound: 'Watch with sound',
+    slidesAria: 'Carousel slides',
+    slideAlt: (i, n) => `Slide ${i} of ${n}.`,
+    videoAria: (b, t) => `${b} video: ${t}, with on-screen captions`,
+    close: 'Close',
+    goSlide: (i) => `Go to slide ${i}`,
+    prevSlide: 'Previous slide',
+    nextSlide: 'Next slide',
+    funnelStage: 'Funnel stage',
+    strategy: 'The strategy',
+    sceneBy: 'Scene by scene',
+    slideBy: 'Slide by slide',
+    howMeasure: 'How I would measure it',
+    whatMeasure: 'What we measure',
+    metricsAria: 'When the metrics are read',
+    caseCta: 'I want a carousel like this',
+    cardLink: 'See how I do it',
+    openAd: (i, a) => `Open ad ${i}: ${a}`,
+    seeAds: (n) => `See all ${n} ads`,
+    adsAria: 'Ads',
+    adAlt: (i, n, c, a) => `Ad ${i} of ${n}, ${c}: ${a}`,
+    viewAd: (i) => `View ad ${i}`,
+    prevAd: 'Previous ad',
+    nextAd: 'Next ad',
+    adFacts: ['Client', 'Audience', 'Product', 'Format'],
+    adsCta: 'I want ads like this',
+  },
+};
+const T = () => UI[LANG];
+
 // Services with a case or an ad gallery open in a dialog on the home; only the others get a page.
 const hasPage = (s) => !s.case && !s.gallery;
 const ogFor = (name) => (existsSync(join(root, 'public/og', `${name}.png`)) ? `/og/${name}.png` : '/og/home.png');
@@ -51,8 +153,9 @@ const icon = {
 };
 
 // ---------- shared pieces ----------
-const layout = ({ title, description, path, og, body, home = false, schema, cv = false }) => `<!doctype html>
-<html lang="pt-BR">
+// `alternates` ({ pt, en } paths) marks a page that exists in both languages.
+const layout = ({ title, description, path, og, body, home = false, schema, cv = false, alternates }) => `<!doctype html>
+<html lang="${LANG === 'en' ? 'en' : 'pt-BR'}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,10 +163,15 @@ const layout = ({ title, description, path, og, body, home = false, schema, cv =
 <meta name="description" content="${esc(description)}" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="${abs(path)}" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+${alternates ? `<link rel="alternate" hreflang="pt-BR" href="${abs(alternates.pt)}" />
+<link rel="alternate" hreflang="en" href="${abs(alternates.en)}" />
+<link rel="alternate" hreflang="x-default" href="${abs(alternates.pt)}" />
+` : ''}<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#0A0A0B" />
 <meta property="og:type" content="website" />
-<meta property="og:locale" content="pt_BR" />
+<meta property="og:locale" content="${LANG === 'en' ? 'en_US' : 'pt_BR'}" />
+${alternates ? `<meta property="og:locale:alternate" content="${LANG === 'en' ? 'pt_BR' : 'en_US'}" />
+` : ''}
 <meta property="og:site_name" content="Diogo Abílio" />
 <meta property="og:title" content="${esc(title)}" />
 <meta property="og:description" content="${esc(description)}" />
@@ -84,14 +192,14 @@ ${home ? '<link rel="preload" as="image" href="/images/diogo-float-1200.webp" im
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<a class="skip-link" href="#conteudo">${LANG === 'en' ? 'Skip to content' : 'Pular para o conteúdo'}</a>
 ${cv ? cvNav() : nav()}
 <main id="conteudo">
 ${body}
 </main>
 ${footer()}
 ${cv
-    ? `<a class="wa-float" href="${config.cv}" download data-cv="flutuante">${icon.download}Baixar currículo</a>`
+    ? `<a class="wa-float" href="${config.cv}" download data-cv="flutuante">${icon.download}${esc(cvStr[LANG].downloadShort)}</a>`
     : `<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" data-wa="flutuante">${icon.chat}Análise grátis</a>`}
 </body>
 </html>
@@ -112,30 +220,34 @@ const nav = () => `<header class="nav">
   </div>
 </header>`;
 
-// Résumé page nav: same bar, links to its own sections, CTA downloads the PDF.
-const cvNav = () => `<header class="nav">
+// Résumé page nav: same bar, links to its own sections, a PT/EN switch, CTA downloads the PDF.
+const cvNav = () => {
+  const s = cvStr[LANG];
+  return `<header class="nav">
   <div class="container nav-inner">
     <a class="nav-logo" href="/">Diogo Abílio</a>
-    <nav class="nav-links" id="menu" aria-label="Currículo">
+    <nav class="nav-links" id="menu" aria-label="${esc(s.navAria)}">
       <span class="nav-pill" aria-hidden="true"></span>
-      <a href="#experiencia" data-spy="experiencia">Experiência</a>
-      <a href="#trabalhos" data-spy="trabalhos">Trabalhos</a>
-      <a href="#competencias" data-spy="competencias">Competências</a>
-      <a href="#formacao" data-spy="formacao">Formação</a>
+      ${s.nav.map(([id, label]) => `<a href="#${id}" data-spy="${id}">${esc(label)}</a>`).join('\n      ')}
     </nav>
-    <a class="btn btn-primary btn-sm" href="${config.cv}" download data-cv="nav">Baixar currículo</a>
-    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+    <div class="lang-switch" role="group" aria-label="${esc(s.langAria)}">
+      <a href="${cvPath.pt}" hreflang="pt-BR" lang="pt-BR"${LANG === 'pt' ? ' aria-current="page"' : ''} data-lang="pt"><span aria-hidden="true">PT</span><span class="sr-only">Português</span></a>
+      <a href="${cvPath.en}" hreflang="en" lang="en"${LANG === 'en' ? ' aria-current="page"' : ''} data-lang="en"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a>
+    </div>
+    <a class="btn btn-primary btn-sm nav-cta" href="${config.cv}" download data-cv="nav">${esc(s.downloadShort)}</a>
+    <button class="nav-toggle" type="button" aria-label="${esc(s.menu)}" aria-expanded="false" aria-controls="menu"><span></span></button>
   </div>
 </header>`;
+};
 
 const footer = () => `<footer class="footer">
   <div class="container footer-inner">
     <span>Diogo Abílio · São Paulo · 2026</span>
     <div class="footer-links">
-      <a href="/curriculo">Currículo</a>
+      ${LANG === 'en' ? '<a href="/curriculo/en">Résumé</a>' : '<a href="/curriculo">Currículo</a>'}
       <a href="${config.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
       <a href="${config.instagram}" target="_blank" rel="noopener">Instagram</a>
-      <a href="mailto:${config.email}">E-mail</a>
+      <a href="mailto:${config.email}">${LANG === 'en' ? 'Email' : 'E-mail'}</a>
     </div>
   </div>
 </footer>`;
@@ -196,18 +308,18 @@ const mockup = (s) => {
     const main = s.works.find((w) => w.preview);
     return `<div class="mock mock-show" data-loop>
           ${browserFrame([main.preview.desktop], new URL(main.url).host, 'browser--front')}
-          ${main.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
+          ${main.authorial ? `<span class="badge badge--autoral">${T().authorial}</span>` : ''}
           <div class="show-phones" aria-hidden="true">
             ${s.phones.map((ph, i) => `<div class="show-phone show-phone--${i + 1}"><div class="show-screen"><img src="${ph.src}" alt="" width="${ph.width}" height="${ph.height}" loading="lazy" decoding="async" /></div></div>`).join('\n            ')}
           </div>
         </div>`;
   }
   if (s.mockup === 'fan') {
-    return `<div class="mock mock-fan" data-loop aria-hidden="true"><div class="fan">${fanSvgs.join('')}</div><span class="badge">exemplo</span></div>`;
+    return `<div class="mock mock-fan" data-loop aria-hidden="true"><div class="fan">${fanSvgs.join('')}</div><span class="badge">${T().example}</span></div>`;
   }
   if (s.mockup === 'phone') {
     const feed = [plainPost, adPost, plainPost, plainPost].join('');
-    return `<div class="mock mock-phone" data-loop aria-hidden="true"><div class="phone"><div class="feed">${feed}${feed}</div></div><span class="badge">exemplo</span></div>`;
+    return `<div class="mock mock-phone" data-loop aria-hidden="true"><div class="phone"><div class="feed">${feed}${feed}</div></div><span class="badge">${T().example}</span></div>`;
   }
   if (s.mockup === 'timeline') {
     const bars = Array.from({ length: 48 }, (_, k) => `<span style="--k:${(k * 7) % 13}"></span>`).join('');
@@ -217,7 +329,7 @@ const mockup = (s) => {
             <div class="track">${bars}</div>
             <i class="playhead"></i>
           </div>
-          <span class="badge">exemplo</span>
+          <span class="badge">${T().example}</span>
         </div>`;
   }
   return `<div class="mock">${pending()}</div>`;
@@ -232,36 +344,35 @@ const expandIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stro
 const muteIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>';
 const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg>';
 const arrowIcon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
-const funnelStages = [['Topo', 'reconhecimento'], ['Meio', 'consideração'], ['Fundo', 'conversão']];
 const isVideo = (c) => c.type === 'video';
 // one line per slide or scene; scenes carry their start time
 const caseSteps = (c) => (isVideo(c) ? c.scenes.map(([t, text]) => ({ t, text })) : c.arc.map((text) => ({ text })));
-const stageBadge = (c) => `<span class="badge">${esc(funnelStages[c.stage][0].toLowerCase())} de funil</span>`;
+const stageBadge = (c) => `<span class="badge">${esc(T().stageBadge(c.stage))}</span>`;
 
 // Carousel cover: slide 1 in front, slides 2–5 tucked behind; they open into a fan on hover.
 const carouselCover = (c) => `<div class="mock mock-carousel">
           <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
-            <span class="sr-only">Abrir o carrossel da ${esc(c.brand)} e a estratégia por trás dele</span>
+            <span class="sr-only">${esc(T().openCarousel(c.brand))}</span>
             <span class="cfan" aria-hidden="true">
               ${[5, 4, 3, 2, 1].map((n) => `<img src="${slide(c, n, 560)}" alt="" width="560" height="700" loading="lazy" decoding="async" data-n="${n}" />`).join('')}
             </span>
-            <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${c.count} slides</span>
+            <span class="cfan-hint" aria-hidden="true">${expandIcon}${esc(T().seeSlides(c.count))}</span>
           </button>
           ${stageBadge(c)}
-          ${c.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
+          ${c.authorial ? `<span class="badge badge--autoral">${T().authorial}</span>` : ''}
         </div>`;
 
 // Video cover: a plain vertical Reels screen with the muted highlight loop running.
 const videoCover = (c) => `<div class="mock mock-video">
           <button class="carousel-open" type="button" aria-haspopup="dialog" aria-controls="case-${c.id}" data-open-case>
-            <span class="sr-only">Assistir ao vídeo da ${esc(c.brand)} e ver a estratégia por trás dele</span>
+            <span class="sr-only">${esc(T().openVideo(c.brand))}</span>
             <span class="vphone" aria-hidden="true">
               <video class="vprev" muted loop playsinline preload="none" poster="${c.video.posterSmall}" data-src="${c.video.preview}"></video>
               <span class="vmute">${muteIcon}</span>
             </span>
-            <span class="cfan-hint" aria-hidden="true">${playIcon}Assistir com som</span>
+            <span class="cfan-hint" aria-hidden="true">${playIcon}${esc(T().watchSound)}</span>
           </button>
-          ${c.authorial ? '<span class="badge badge--autoral">Projeto autoral</span>' : ''}
+          ${c.authorial ? `<span class="badge badge--autoral">${T().authorial}</span>` : ''}
           ${stageBadge(c)}
         </div>`;
 
@@ -269,8 +380,8 @@ const videoCover = (c) => `<div class="mock mock-video">
 // (new people arriving), a light sweeps across the active layer.
 const funnelLayers = ['M6 34 H234 L210 84 H30 Z', 'M36 92 H204 L184 136 H56 Z', 'M62 144 H178 L162 184 H78 Z'];
 const funnelSvg = (c) => {
-  const label = funnelStages.map(([t, sub], i) => `${t}, ${sub}${i === c.stage ? ' (esta peça)' : ''}`).join('; ');
-  return `<svg class="funnel" viewBox="0 0 240 190" role="img" aria-label="Funil de vendas: ${esc(label)}">
+  const label = T().stages.map(([t, sub], i) => `${t}, ${sub}${i === c.stage ? T().thisPiece : ''}`).join('; ');
+  return `<svg class="funnel" viewBox="0 0 240 190" role="img" aria-label="${esc(T().funnelAria)}: ${esc(label)}">
             <defs>
               <linearGradient id="fg-${c.id}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#CF97FF"/><stop offset=".5" stop-color="#A970FF"/><stop offset="1" stop-color="#7B2FF7"/></linearGradient>
               <linearGradient id="fs-${c.id}" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
@@ -279,15 +390,15 @@ const funnelSvg = (c) => {
             ${c.stage === 0 ? `<g class="funnel-drops">${[[40, 0], [78, 1.1], [112, .5], [146, 1.6], [180, .3], [204, 1.3], [96, 2]].map(([x, d]) => `<circle cx="${x}" cy="10" r="2.6" style="--d:${d}s"/>`).join('')}</g>` : ''}
             ${funnelLayers.map((d, i) => `<path class="fl${i === c.stage ? ' is-on' : ''}" d="${d}" style="--k:${i}"${i === c.stage ? ` fill="url(#fg-${c.id})"` : ''}/>`).join('')}
             <g clip-path="url(#fc-${c.id})"><rect class="funnel-sweep" x="-80" y="${[30, 88, 140][c.stage]}" width="70" height="60" fill="url(#fs-${c.id})"/></g>
-            ${funnelStages.map(([t, sub], i) => { const y = [58, 113, 163][i]; return `<g class="fl-text${i === c.stage ? ' is-on' : ''}" style="--k:${i}"><text x="120" y="${y}" text-anchor="middle" class="fl-t">${t}</text><text x="120" y="${y + 14}" text-anchor="middle" class="fl-s">${sub.toUpperCase()}</text></g>`; }).join('')}
+            ${T().stages.map(([t, sub], i) => { const y = [58, 113, 163][i]; return `<g class="fl-text${i === c.stage ? ' is-on' : ''}" style="--k:${i}"><text x="120" y="${y}" text-anchor="middle" class="fl-t">${t}</text><text x="120" y="${y + 14}" text-anchor="middle" class="fl-s">${sub.toUpperCase()}</text></g>`; }).join('')}
           </svg>`;
 };
 
-const carouselViewer = (c, steps) => `<div class="case-track" tabindex="0" role="region" aria-label="Slides do carrossel">
-        ${steps.map((st, i) => `<figure class="case-slide"><img src="${slide(c, i + 1, 1122)}" srcset="${slide(c, i + 1, 560)} 560w, ${slide(c, i + 1, 1122)} 1122w" sizes="(max-width: 860px) 90vw, 560px" width="1122" height="1402" alt="Slide ${i + 1} de ${steps.length}. ${esc(st.text)}" loading="lazy" decoding="async" /></figure>`).join('\n        ')}
+const carouselViewer = (c, steps) => `<div class="case-track" tabindex="0" role="region" aria-label="${esc(T().slidesAria)}">
+        ${steps.map((st, i) => `<figure class="case-slide"><img src="${slide(c, i + 1, 1122)}" srcset="${slide(c, i + 1, 560)} 560w, ${slide(c, i + 1, 1122)} 1122w" sizes="(max-width: 860px) 90vw, 560px" width="1122" height="1402" alt="${esc(T().slideAlt(i + 1, steps.length))} ${esc(st.text)}" loading="lazy" decoding="async" /></figure>`).join('\n        ')}
       </div>`;
 const videoViewer = (c) => `<div class="case-track case-track--video">
-        <figure class="case-slide"><video class="case-video" controls playsinline preload="none" poster="${c.video.poster}" aria-label="Vídeo ${esc(c.brand)}: ${esc(c.title)}, com legendas na imagem">
+        <figure class="case-slide"><video class="case-video" controls playsinline preload="none" poster="${c.video.poster}" aria-label="${esc(T().videoAria(c.brand, c.title))}">
           <source src="${c.video.src720}" type="video/mp4" media="(max-width: 860px)" />
           <source src="${c.video.src1080}" type="video/mp4" />
         </video></figure>
@@ -299,17 +410,17 @@ const caseDialog = (s) => {
   const steps = caseSteps(c);
   return `<dialog class="case case--${c.type}" id="case-${c.id}" aria-labelledby="case-${c.id}-title" data-lenis-prevent${video ? ` data-times="${steps.map((st) => st.t).join(',')}"` : ''}>
   <div class="case-shell">
-    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
+    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="${esc(T().close)}">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
     <div class="case-viewer">
       ${video ? videoViewer(c) : `${carouselViewer(c, steps)}
       <div class="case-bar">
         <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(steps.length)}</span>
         <div class="case-thumbs">
-          ${steps.map((st, i) => `<button type="button" data-go="${i}" aria-label="Ir para o slide ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}><img src="${slide(c, i + 1, 240)}" alt="" width="240" height="300" loading="lazy" decoding="async" /></button>`).join('')}
+          ${steps.map((st, i) => `<button type="button" data-go="${i}" aria-label="${esc(T().goSlide(i + 1))}"${i === 0 ? ' aria-current="true"' : ''}><img src="${slide(c, i + 1, 240)}" alt="" width="240" height="300" loading="lazy" decoding="async" /></button>`).join('')}
         </div>
         <div class="case-arrows">
-          <button type="button" class="case-prev" aria-label="Slide anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
-          <button type="button" class="case-next" aria-label="Próximo slide">${arrowIcon('M9 18l6-6-6-6')}</button>
+          <button type="button" class="case-prev" aria-label="${esc(T().prevSlide)}" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="${esc(T().nextSlide)}">${arrowIcon('M9 18l6-6-6-6')}</button>
         </div>
       </div>`}
     </div>
@@ -324,20 +435,20 @@ const caseDialog = (s) => {
           ${c.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('\n          ')}
         </dl>
         <div class="case-funnel">
-          <span class="case-h">Etapa do funil</span>
+          <span class="case-h">${esc(T().funnelStage)}</span>
           ${funnelSvg(c)}
         </div>
       </div>
 
       <section class="case-block ci" style="--i:4">
-        <h3 class="case-h">A estratégia</h3>
+        <h3 class="case-h">${esc(T().strategy)}</h3>
         <ol class="case-strategy">
           ${c.strategy.map(([t, p], i) => `<li><span class="n">${pad2(i + 1)}</span><div><b>${esc(t)}</b><p>${esc(p)}</p></div></li>`).join('\n          ')}
         </ol>
       </section>
 
       <section class="case-block ci" style="--i:5">
-        <h3 class="case-h">${video ? 'Cena a cena' : 'Slide a slide'}</h3>
+        <h3 class="case-h">${esc(video ? T().sceneBy : T().slideBy)}</h3>
         <ol class="case-arc">
           ${steps.map((st, i) => (video
             // scenes are read-only; the highlight follows playback
@@ -347,8 +458,8 @@ const caseDialog = (s) => {
       </section>
 
       <section class="case-block ci" style="--i:6">
-        <h3 class="case-h">${c.authorial ? 'Como eu mediria' : 'O que a gente mede'}</h3>
-        <div class="case-tabs" role="tablist" aria-label="Momento das métricas">
+        <h3 class="case-h">${esc(c.authorial ? T().howMeasure : T().whatMeasure)}</h3>
+        <div class="case-tabs" role="tablist" aria-label="${esc(T().metricsAria)}">
           <span class="case-tabs-pill" aria-hidden="true"></span>
           ${c.metrics.map((m, i) => `<button type="button" role="tab" id="case-${c.id}-tab-${i}" aria-controls="case-${c.id}-panel-${i}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}>${esc(m.tab)}</button>`).join('')}
         </div>
@@ -363,7 +474,7 @@ const caseDialog = (s) => {
       <p class="case-why ci" style="--i:7">${esc(c.why)}</p>
 
       <div class="case-cta ci" style="--i:8">
-        <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">${esc(c.cta || 'Quero um carrossel assim')} <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary" href="${waLink(c.waMessage)}" target="_blank" rel="noopener" data-wa="case-${c.id}">${esc(c.cta || T().caseCta)} <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -376,18 +487,19 @@ const cardBody = (s, link) => `<div class="bcard-body">
           <p>${esc(s.tagline)}</p>
           ${link}
         </div>`;
-const cardLinkInner = 'Ver como faço <span class="arr" aria-hidden="true">→</span>';
+const cardLinkInner = () => `${esc(T().cardLink)} <span class="arr" aria-hidden="true">→</span>`;
 // Cards with a case or a gallery open its dialog: the cover and the stretched
 // "Ver como faço" button are all openers. The others link to their page.
 const dialogId = (s) => `case-${(s.case || s.gallery).id}`;
 const serviceCard = (s) => s.case || s.gallery
   ? `<article class="bcard bcard--${s.bento || 'small'} card-base spot reveal" data-card="${s.slug}">
         ${s.gallery ? adsCover(s.gallery) : isVideo(s.case) ? videoCover(s.case) : carouselCover(s.case)}
-        ${cardBody(s, `<button class="card-link card-stretch" type="button" aria-haspopup="dialog" aria-controls="${dialogId(s)}" data-open-case>${cardLinkInner}</button>`)}
+        ${cardBody(s, `<button class="card-link card-stretch" type="button" aria-haspopup="dialog" aria-controls="${dialogId(s)}" data-open-case>${cardLinkInner()}</button>`)}
       </article>`
-  : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" href="/servicos/${s.slug}" data-card="${s.slug}">
+  // the service pages are Portuguese only, so the English résumé sends this card to Behance
+  : `<a class="bcard bcard--${s.bento || 'small'} card-base spot reveal" ${LANG === 'en' ? `href="${cv.behance}" target="_blank" rel="noopener"` : `href="/servicos/${s.slug}"`} data-card="${s.slug}">
         ${mockup(s)}
-        ${cardBody(s, `<span class="card-link">${cardLinkInner}</span>`)}
+        ${cardBody(s, `<span class="card-link">${LANG === 'en' ? 'See more on Behance <span class="arr" aria-hidden="true">↗</span>' : cardLinkInner()}</span>`)}
       </a>`;
 
 // ---------- process illustrations ----------
@@ -644,7 +756,7 @@ ${services.filter((s) => s.gallery).map(adsDialog).join('\n')}`,
 });
 
 // ---------- service page ----------
-const extLink = (href, text) => `<a class="btn btn-outline btn-sm" href="${href}" target="_blank" rel="noopener">${text} <span aria-hidden="true">↗</span><span class="sr-only"> (abre em nova aba)</span></a>`;
+const extLink = (href, text) => `<a class="btn btn-outline btn-sm" href="${href}" target="_blank" rel="noopener">${text} <span aria-hidden="true">↗</span><span class="sr-only"> ${LANG === 'en' ? '(opens in a new tab)' : '(abre em nova aba)'}</span></a>`;
 // Full-page preview: the whole page scrolls inside a browser frame (desktop) or a phone (mobile).
 const pagePreview = (w, id) => `<div class="lp-preview" data-preview>
         <div class="lp-bar">
@@ -695,33 +807,33 @@ const adsDeck = (g) => {
   return `<div class="ads-deck">
         ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<button class="ads-card" type="button" style="--k:${(i - (n - 1) / 2).toFixed(1)}" aria-haspopup="dialog" aria-controls="case-${g.id}" data-open-case data-start="${i}">
           <img src="${adImg(g, i, 480)}" alt="" width="${w}" height="${h}" loading="lazy" decoding="async" />
-          <span class="sr-only">Abrir o anúncio ${i + 1}: ${esc(it.angle)}</span>
+          <span class="sr-only">${esc(T().openAd(i + 1, it.angle))}</span>
         </button>`; }).join('\n        ')}
       </div>`;
 };
 // Home card cover: the deck alone, no client name (that lives in the dialog).
 const adsCover = (g) => `<div class="mock mock-ads">
           ${adsDeck(g)}
-          <span class="cfan-hint" aria-hidden="true">${expandIcon}Ver os ${g.items.length} anúncios</span>
+          <span class="cfan-hint" aria-hidden="true">${expandIcon}${esc(T().seeAds(g.items.length))}</span>
         </div>`;
 const adsDialog = (s) => {
   const g = s.gallery;
   const n = g.items.length;
   return `<dialog class="case case--ads" id="case-${g.id}" aria-labelledby="case-${g.id}-title" data-lenis-prevent>
   <div class="case-shell">
-    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="Fechar">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
+    <form method="dialog" class="case-close-form"><button class="case-close" aria-label="${esc(T().close)}">${arrowIcon('M18 6L6 18M6 6l12 12')}</button></form>
     <div class="case-viewer">
-      <div class="case-track" tabindex="0" role="region" aria-label="Anúncios">
-        ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<figure class="case-slide"><img class="r${it.ratio}" src="${adImg(g, i, 1080)}" srcset="${adImg(g, i, 480)} 480w, ${adImg(g, i, 1080)} 1080w" sizes="(max-width: 860px) 90vw, 560px" width="${w}" height="${h}" alt="Anúncio ${i + 1} de ${n}, ${esc(it.campaign)}: ${esc(it.angle)}" loading="lazy" decoding="async" /></figure>`; }).join('\n        ')}
+      <div class="case-track" tabindex="0" role="region" aria-label="${esc(T().adsAria)}">
+        ${g.items.map((it, i) => { const [w, h] = adSize(it); return `<figure class="case-slide"><img class="r${it.ratio}" src="${adImg(g, i, 1080)}" srcset="${adImg(g, i, 480)} 480w, ${adImg(g, i, 1080)} 1080w" sizes="(max-width: 860px) 90vw, 560px" width="${w}" height="${h}" alt="${esc(T().adAlt(i + 1, n, it.campaign, it.angle))}" loading="lazy" decoding="async" /></figure>`; }).join('\n        ')}
       </div>
       <div class="case-bar">
         <span class="case-count" aria-live="polite"><b>01</b> / ${pad2(n)}</span>
         <div class="case-thumbs">
-          ${g.items.map((it, i) => `<button type="button" data-go="${i}" aria-label="Ver anúncio ${i + 1}"${i ? '' : ' aria-current="true"'}><img src="${adImg(g, i, 480)}" alt="" width="36" height="45" loading="lazy" /></button>`).join('')}
+          ${g.items.map((it, i) => `<button type="button" data-go="${i}" aria-label="${esc(T().viewAd(i + 1))}"${i ? '' : ' aria-current="true"'}><img src="${adImg(g, i, 480)}" alt="" width="36" height="45" loading="lazy" /></button>`).join('')}
         </div>
         <div class="case-arrows">
-          <button type="button" class="case-prev" aria-label="Anúncio anterior" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
-          <button type="button" class="case-next" aria-label="Próximo anúncio">${arrowIcon('M9 18l6-6-6-6')}</button>
+          <button type="button" class="case-prev" aria-label="${esc(T().prevAd)}" disabled>${arrowIcon('M15 18l-6-6 6-6')}</button>
+          <button type="button" class="case-next" aria-label="${esc(T().nextAd)}">${arrowIcon('M9 18l6-6-6-6')}</button>
         </div>
       </div>
     </div>
@@ -735,19 +847,19 @@ const adsDialog = (s) => {
         <p class="ad-text">${esc(it.text)}</p>
         <div class="case-grid">
           <dl class="case-facts">
-            <div><dt>Cliente</dt><dd>${esc(g.facts[0][1])}</dd></div>
-            <div><dt>Para quem fala</dt><dd>${esc(g.facts[1][1])}</dd></div>
-            <div><dt>Produto</dt><dd>${esc(it.product)}</dd></div>
-            <div><dt>Formato</dt><dd>${esc(it.format)}</dd></div>
+            <div><dt>${esc(T().adFacts[0])}</dt><dd>${esc(g.facts[0][1])}</dd></div>
+            <div><dt>${esc(T().adFacts[1])}</dt><dd>${esc(g.facts[1][1])}</dd></div>
+            <div><dt>${esc(T().adFacts[2])}</dt><dd>${esc(it.product)}</dd></div>
+            <div><dt>${esc(T().adFacts[3])}</dt><dd>${esc(it.format)}</dd></div>
           </dl>
           <div class="case-funnel">
-            <span class="case-h">Etapa do funil</span>
+            <span class="case-h">${esc(T().funnelStage)}</span>
             ${funnelSvg({ id: `${g.id}-${i}`, stage: it.stage })}
           </div>
         </div>
       </section>`).join('\n      ')}
       <div class="case-cta ci" style="--i:5">
-        <a class="btn btn-primary" href="${waLink(g.waMessage)}" target="_blank" rel="noopener" data-wa="case-${g.id}">Quero criativos assim <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary" href="${waLink(g.waMessage)}" target="_blank" rel="noopener" data-wa="case-${g.id}">${esc(T().adsCta)} <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -903,8 +1015,185 @@ const cv = {
     ['Pacote Adobe', 'Saga', ''],
   ],
 };
-const cvWa = 'Oi Diogo, vi seu currículo no site e quero conversar sobre uma vaga';
-const cvMail = `mailto:${config.email}?subject=${encodeURIComponent('Vaga: marketing focado em conversão')}`;
+// English résumé: same structure as `cv`, translated for international recruiters.
+const cvEn = {
+  role: 'Conversion-focused marketing',
+  focus: ['Web design', 'Ad creatives', 'Copywriting', 'UX/UI', 'CRO'],
+  summary: '10+ years combining marketing, design and UX/UI to help people decide. I build websites, landing pages, ad creatives and copy that drive action, from strategy to launch. I read the data, fix what holds conversion back and work closely with growth, media, tech and sales teams.',
+  goal: 'A full-time role in conversion-focused marketing, combining web design, ad creatives, copywriting and UX/UI. Open to employee (CLT) or contractor (PJ) arrangements.',
+  meta: ['São Paulo, Brazil', '10+ years of experience', 'Full-time', 'Employee or contractor'],
+  behance: cv.behance,
+  phone: cv.phone,
+  stats: [
+    ['10+', 'years', 'across design, marketing and UX/UI'],
+    ['15%', 'higher', 'MQL rate in cold-audience campaigns at G4 Educação'],
+    ['50K', 'followers', 'on Instagram in under a month at K.Pitaliza'],
+    ['8', 'people', 'led across copy, design and editing in a national campaign'],
+  ],
+  freelance: {
+    intro: 'Since late 2025 I have worked independently with companies. Key clients include IQR Educação and LET’S.',
+    jobs: [
+      {
+        ...cv.freelance.jobs[0],
+        role: 'Design Strategist', period: 'Sep 2026 – Nov 2026', type: 'Freelance',
+        bullets: [
+          'Design and marketing audit for the company of Guilherme Machado, a real estate market expert, from diagnosis to rolling out new materials.',
+          'Presentations, strategy and creative production for organic content and paid media, including bottom-of-funnel campaigns.',
+          'High-converting landing pages, guided by an analysis of acquisition channels and each stage of the funnel.',
+        ],
+      },
+      {
+        ...cv.freelance.jobs[1],
+        role: 'Webflow Designer', period: 'Dec 2025 – Apr 2026', type: 'Freelance',
+        bullets: [
+          'Built and evolved the website, product pages and landing pages for a B2B logistics SaaS, supporting marketing, sales and demand generation.',
+          'Figma, Webflow, CMS, forms and HubSpot for pages that scale and are easy to maintain.',
+        ],
+      },
+    ],
+  },
+  jobs: [
+    {
+      ...cv.jobs[0],
+      role: 'Marketing Coordinator', period: 'Jun 2025 – Oct 2025', type: 'Full-time',
+      bullets: [
+        'Coordinated a national campaign with singer Claudia Leitte as brand ambassador, leading 8 professionals across copy, design and editing.',
+        'Helped grow Instagram from zero to 50K followers in under a month and supported an operation with 300+ active affiliates.',
+      ],
+    },
+    {
+      ...cv.jobs[1],
+      role: 'Web Designer (mid-level)', period: 'Apr 2024 – Feb 2025', type: 'Full-time',
+      bullets: [
+        'Product, event and lead-capture pages in the Web Experience team (Martech/Growth), including G4 Gestão e Estratégia, G4 Growth and G4 Sprints.',
+        'Contributed to cold-audience campaigns that drove a 15% increase in MQL rate.',
+      ],
+    },
+    {
+      ...cv.jobs[2],
+      role: 'UX Designer / Marketing & Growth Analyst', period: 'Dec 2021 – Nov 2023', type: 'Full-time',
+      bullets: ['UX/UI, brand identity and digital products, plus campaigns and materials for lead generation and acquisition.'],
+    },
+  ],
+  earlier: [
+    ['Agência Moonflag', 'Graphic Designer', 'Feb – Nov 2021'],
+    ['Ituran Brasil', 'Marketing Assistant', 'Sep 2018 – Dec 2019'],
+    ['CrediPronto', 'Marketing Intern', 'Nov 2015 – May 2017'],
+  ],
+  skills: [
+    { title: 'Web design & CRO', text: 'From first sketch to live page, designed for the person who has to decide.', tags: ['Information architecture', 'Value proposition', 'CTAs', 'Forms', 'A/B testing', 'CMS', 'Design systems', 'Responsive design'] },
+    { title: 'UX/UI & interface', text: 'Clear interfaces that people understand without having to think.', tags: ['Research & journeys', 'Wireframes', 'Prototypes', 'UI design', 'Usability', 'Digital products'] },
+    { title: 'Copy & creatives', text: 'Words and visuals working together to grab attention and drive action.', tags: ['Copywriting', 'Headlines & CTAs', 'Microcopy', 'Scripts', 'Ad creatives', 'Social media content'] },
+    { title: 'Design & publishing', text: 'Everyday tools to design, build, publish and maintain pages.', tags: ['Figma', 'Webflow', 'Relume', 'Vercel', 'Supabase', 'Adobe Suite'] },
+    { title: 'Data & operations', text: 'I read the numbers to find where a page loses people.', tags: ['GA4', 'Amplitude', 'HubSpot', 'RD Station', 'Sheets'] },
+    { title: 'Applied AI', text: 'For prototypes, creatives, variations and faster execution. The strategy stays with me.', tags: ['Claude', 'Claude Code', 'ChatGPT', 'Lovable', 'Higgsfield'] },
+  ],
+  degree: ['Bachelor’s in Advertising', 'FMU / FIAM-FAAM', '2014 – 2017'],
+  courses: [
+    ['UX Strategy Immersion', 'Mergo', '2025'],
+    ['UX Design, Figma and Design Systems', 'Alura', ''],
+    ['Web Analytics and BI', 'Lemonade School', ''],
+    ['Adobe Suite', 'Saga', ''],
+  ],
+};
+const cvData = { pt: cv, en: cvEn };
+const cvPath = { pt: '/curriculo', en: '/curriculo/en' };
+
+// Interface text of the résumé page in each language. h1 and h2 are [text, italic?] segments.
+const cvStr = {
+  pt: {
+    title: (d) => `Diogo Abílio · Currículo | ${d.role}`,
+    description: (d) => `Diogo Abílio, ${d.role.toLowerCase()} em São Paulo: ${d.focus.join(', ')}. Mais de 10 anos criando sites, landing pages, criativos e copy para conversão. Disponível para CLT ou PJ.`,
+    schemaName: 'Currículo',
+    navAria: 'Currículo',
+    langAria: 'Idioma',
+    menu: 'Abrir menu',
+    nav: [['experiencia', 'Experiência'], ['trabalhos', 'Trabalhos'], ['competencias', 'Competências'], ['formacao', 'Formação']],
+    downloadShort: 'Baixar currículo',
+    downloadTop: 'Baixar currículo em PDF',
+    open: 'Currículo · aberto a vagas',
+    h1: [['Marketing focado em ', false], ['conversão', true]],
+    quick: 'Resumo rápido',
+    goal: 'Objetivo',
+    photoAlt: 'Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão',
+    statsAria: 'Resultados em números',
+    logos: 'Empresas e marcas com quem trabalhei',
+    expLabel: 'Experiência',
+    expH2: [['Onde eu já ', false], ['coloquei a mão', true], ['.', false]],
+    freelanceH: 'Atuação autônoma',
+    freelancePeriod: '2025 – atual',
+    companiesH: 'Experiência em empresas',
+    earlier: 'Anteriores',
+    workLabel: 'Portfólio',
+    workH2: [['Alguns trabalhos, ', false], ['na prática', true], ['.', false]],
+    workLead: (link) => `Clique para ver cada peça e a estratégia por trás dela. Mais cases no ${link}.`,
+    skillsLabel: 'Competências e ferramentas',
+    skillsH2: [['O que eu trago ', false], ['para o time', true], ['.', false]],
+    aboutLabel: 'Como eu trabalho',
+    aboutH2: [['Primeiro eu entendo. Depois eu ', false], ['implemento', true], ['.', false]],
+    about: [
+      'Sou publicitário e designer. Fui conectando áreas que hoje fazem parte do mesmo trabalho: <b class="hl-acc">comunicação, marketing e experiência digital</b>.',
+      'Antes de desenhar, olho os números e procuro o ponto em que a pessoa desiste. Depois coloco no ar, acompanho os dados e ajusto. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática.',
+    ],
+    eduLabel: 'Formação e certificações',
+    eduH2: [['Base e ', false], ['estudo contínuo', true], ['.', false]],
+    degree: 'Graduação',
+    ctaH2: [['Tem uma vaga com a ', false], ['minha cara', true], ['?', false]],
+    ctaLead: 'Vamos conversar. Me chama no WhatsApp que eu respondo rápido.',
+    ctaWa: 'Falar comigo no WhatsApp',
+    ctaPdf: 'Baixar PDF',
+    email: 'E-mail',
+    wa: 'Oi Diogo, vi seu currículo no site e quero conversar sobre uma vaga',
+    mailSubject: 'Vaga: marketing focado em conversão',
+  },
+  en: {
+    title: (d) => `Diogo Abílio · Résumé | ${d.role}`,
+    description: (d) => `Diogo Abílio, ${d.role.toLowerCase()} based in São Paulo, Brazil: ${d.focus.join(', ')}. 10+ years building websites, landing pages, ad creatives and copy that convert.`,
+    schemaName: 'Résumé',
+    navAria: 'Résumé',
+    langAria: 'Language',
+    menu: 'Open menu',
+    nav: [['experiencia', 'Experience'], ['trabalhos', 'Work'], ['competencias', 'Skills'], ['formacao', 'Education']],
+    downloadShort: 'Download résumé',
+    downloadTop: 'Download résumé (PDF)',
+    pdfNote: 'The PDF is in Portuguese.',
+    open: 'Résumé · open to work',
+    h1: [['Conversion-focused ', false], ['marketing', true]],
+    quick: 'Quick summary',
+    goal: 'Goal',
+    photoAlt: 'Diogo Abílio sitting in a director’s chair, holding a purple mug',
+    statsAria: 'Results in numbers',
+    logos: 'Companies and brands I’ve worked with',
+    expLabel: 'Experience',
+    expH2: [['Where I’ve ', false], ['made an impact', true], ['.', false]],
+    freelanceH: 'Independent work',
+    freelancePeriod: '2025 – present',
+    companiesH: 'In-house experience',
+    earlier: 'Earlier',
+    workLabel: 'Portfolio',
+    workH2: [['Selected work, ', false], ['in practice', true], ['.', false]],
+    workLead: (link) => `Click each piece to see it and the strategy behind it. The pieces themselves are in Portuguese. More case studies on ${link}.`,
+    skillsLabel: 'Skills & tools',
+    skillsH2: [['What I bring ', false], ['to the team', true], ['.', false]],
+    aboutLabel: 'How I work',
+    aboutH2: [['First I understand. Then I ', false], ['ship', true], ['.', false]],
+    about: [
+      'I’m an advertising professional and designer. Over the years I’ve connected areas that are now part of the same job: <b class="hl-acc">communication, marketing and digital experience</b>.',
+      'Before designing, I look at the numbers and find the point where people give up. Then I launch, follow the data and adjust. I like to talk, ask questions and take part in decisions, with room to propose ideas and the ownership to make them happen.',
+    ],
+    eduLabel: 'Education & certifications',
+    eduH2: [['Foundation and ', false], ['continuous learning', true], ['.', false]],
+    degree: 'Degree',
+    ctaH2: [['Got a role that ', false], ['fits me', true], ['?', false]],
+    ctaLead: 'Let’s talk. Message me on WhatsApp and I’ll get back to you quickly.',
+    ctaWa: 'Message me on WhatsApp',
+    ctaPdf: 'Download PDF',
+    email: 'Email',
+    wa: 'Hi Diogo, I saw your résumé on your website and would like to talk about a role',
+    mailSubject: 'Role: conversion-focused marketing',
+  },
+};
+const cvMail = (s) => `mailto:${config.email}?subject=${encodeURIComponent(s.mailSubject)}`;
 
 const jobLogo = (j) => (j.logo
   ? `<img src="/images/logos/${j.logo}.webp" alt="" width="${j.lw}" height="${j.lh}" loading="lazy" decoding="async" />`
@@ -924,65 +1213,77 @@ const jobItem = (j) => `<li class="cv-job reveal">
           </div>
         </li>`;
 
-const cvSchema = () => ({
+const cvSchema = (d, s, lang) => ({
   '@context': 'https://schema.org',
   '@graph': [
     {
       ...person(),
-      jobTitle: cv.role,
-      description: cv.summary,
-      knowsAbout: ['Marketing de conversão', 'Web design', 'CRO', 'UX/UI', 'Copywriting', 'Criativos para anúncios', 'Landing pages', 'Design system', 'Figma', 'GA4', 'Growth marketing'],
+      jobTitle: d.role,
+      description: d.summary,
+      knowsAbout: lang === 'en'
+        ? ['Conversion marketing', 'Web design', 'CRO', 'UX/UI', 'Copywriting', 'Ad creatives', 'Landing pages', 'Design systems', 'Figma', 'GA4', 'Growth marketing']
+        : ['Marketing de conversão', 'Web design', 'CRO', 'UX/UI', 'Copywriting', 'Criativos para anúncios', 'Landing pages', 'Design system', 'Figma', 'GA4', 'Growth marketing'],
       alumniOf: { '@type': 'CollegeOrUniversity', name: 'FMU / FIAM-FAAM' },
-      sameAs: [config.linkedin, config.instagram, cv.behance],
+      sameAs: [config.linkedin, config.instagram, d.behance],
     },
-    { '@type': 'ProfilePage', '@id': abs('/curriculo#page'), url: abs('/curriculo'), name: `Diogo Abílio · Currículo · ${cv.role}`, inLanguage: 'pt-BR', mainEntity: { '@id': personId } },
+    { '@type': 'ProfilePage', '@id': abs(`${cvPath[lang]}#page`), url: abs(cvPath[lang]), name: `Diogo Abílio · ${s.schemaName} · ${d.role}`, inLanguage: lang === 'en' ? 'en' : 'pt-BR', mainEntity: { '@id': personId } },
   ],
 });
 
-const cvPage = () => layout({
-  title: `Diogo Abílio · Currículo | ${cv.role}`,
-  description: `Diogo Abílio, ${cv.role.toLowerCase()} em São Paulo: ${cv.focus.join(', ')}. Mais de 10 anos criando sites, landing pages, criativos e copy para conversão. Disponível para CLT ou PJ.`,
-  path: '/curriculo',
-  og: '/og/home.png',
-  schema: cvSchema(),
-  cv: true,
-  body: `<section class="svc-top cv-top" aria-labelledby="cv-title">
+// Renders the résumé in one language; templates shared with the home (cards, dialogs)
+// follow LANG, which is switched for the duration of the render.
+const cvPage = (lang = 'pt') => {
+  const prev = LANG;
+  LANG = lang;
+  const d = cvData[lang];
+  const s = cvStr[lang];
+  const svc = lang === 'en' ? servicesEn : services;
+  const html = layout({
+    title: s.title(d),
+    description: s.description(d),
+    path: cvPath[lang],
+    alternates: cvPath,
+    og: '/og/home.png',
+    schema: cvSchema(d, s, lang),
+    cv: true,
+    body: `<section class="svc-top cv-top" aria-labelledby="cv-title">
   <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
   <div class="container cv-top-grid">
     <div class="cv-top-copy">
-      <span class="label cv-open"><i aria-hidden="true"></i>Currículo · aberto a vagas</span>
+      <span class="label cv-open"><i aria-hidden="true"></i>${esc(s.open)}</span>
       <p class="cv-name">Diogo Miranda Abílio</p>
-      <h1 class="h1" id="cv-title">Marketing focado em <em class="serif grad-text">conversão</em></h1>
-      <ul class="cv-focus">${cv.focus.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
-      <p class="lead">${esc(cv.summary)}</p>
+      <h1 class="h1" id="cv-title">${esc(s.h1[0][0])}<em class="serif grad-text">${esc(s.h1[1][0])}</em></h1>
+      <ul class="cv-focus">${d.focus.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+      <p class="lead">${esc(d.summary)}</p>
       <div class="svc-actions cv-actions">
-        <a class="btn btn-primary magnetic" href="${config.cv}" download data-cv="topo">${icon.download}Baixar currículo em PDF</a>
+        <a class="btn btn-primary magnetic" href="${config.cv}" download data-cv="topo">${icon.download}${esc(s.downloadTop)}</a>
         ${extLink(config.linkedin, 'LinkedIn')}
-        ${extLink(cv.behance, 'Behance')}
+        ${extLink(d.behance, 'Behance')}
       </div>
-      <aside class="cv-card card-base" aria-label="Resumo rápido">
-        <p class="cv-goal"><b>Objetivo</b>${esc(cv.goal)}</p>
-        <ul class="cv-meta">${cv.meta.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
-        <p class="cv-contact"><a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-card">WhatsApp ${esc(cv.phone)}</a><a href="${cvMail}">${esc(config.email)}</a></p>
+      ${s.pdfNote ? `<p class="cv-pdf-note">${esc(s.pdfNote)}</p>` : ''}
+      <aside class="cv-card card-base" aria-label="${esc(s.quick)}">
+        <p class="cv-goal"><b>${esc(s.goal)}</b>${esc(d.goal)}</p>
+        <ul class="cv-meta">${d.meta.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
+        <p class="cv-contact"><a href="${waLink(s.wa)}" target="_blank" rel="noopener" data-wa="cv-card">WhatsApp ${esc(d.phone)}</a><a href="${cvMail(s)}">${esc(config.email)}</a></p>
       </aside>
     </div>
     <figure class="cv-figure">
-      <img class="cv-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 960px) 70vw, 460px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" decoding="async" fetchpriority="high" />
+      <img class="cv-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 960px) 70vw, 460px" width="520" height="770" alt="${esc(s.photoAlt)}" decoding="async" fetchpriority="high" />
     </figure>
   </div>
 </section>
 
-<section class="cv-stats-wrap" aria-label="Resultados em números">
+<section class="cv-stats-wrap" aria-label="${esc(s.statsAria)}">
   <div class="container">
     <ul class="cv-stats" data-stagger>
-      ${cv.stats.map(([n, unit, text]) => `<li class="reveal"><b>${esc(n)}</b><span class="cv-unit">${esc(unit)}</span><span>${esc(text)}</span></li>`).join('\n      ')}
+      ${d.stats.map(([n, unit, text]) => `<li class="reveal"><b>${esc(n)}</b><span class="cv-unit">${esc(unit)}</span><span>${esc(text)}</span></li>`).join('\n      ')}
     </ul>
   </div>
 </section>
 
 <section class="logos" aria-labelledby="logos-title">
   <div class="container">
-    <h2 class="label" id="logos-title">Empresas e marcas com quem trabalhei</h2>
+    <h2 class="label" id="logos-title">${esc(s.logos)}</h2>
   </div>
   <div class="marquee">
     <div class="marquee-track">
@@ -995,30 +1296,30 @@ const cvPage = () => layout({
 <section class="section" id="experiencia" aria-labelledby="exp-title">
   <div class="container">
     <div class="section-head">
-      <span class="label">Experiência</span>
-      ${h2('exp-title', [['Onde eu já ', false], ['coloquei a mão', true], ['.', false]])}
+      <span class="label">${esc(s.expLabel)}</span>
+      ${h2('exp-title', s.expH2)}
     </div>
 
     <div class="cv-group">
       <div class="cv-group-head">
-        <h3>Atuação autônoma</h3><span class="cv-period">2025 – atual</span>
-        <p>${esc(cv.freelance.intro)}</p>
+        <h3>${esc(s.freelanceH)}</h3><span class="cv-period">${esc(s.freelancePeriod)}</span>
+        <p>${esc(d.freelance.intro)}</p>
       </div>
       <ol class="cv-jobs">
-        ${cv.freelance.jobs.map(jobItem).join('\n        ')}
+        ${d.freelance.jobs.map(jobItem).join('\n        ')}
       </ol>
     </div>
 
     <div class="cv-group">
       <div class="cv-group-head">
-        <h3>Experiência em empresas</h3>
+        <h3>${esc(s.companiesH)}</h3>
       </div>
       <ol class="cv-jobs">
-        ${cv.jobs.map(jobItem).join('\n        ')}
+        ${d.jobs.map(jobItem).join('\n        ')}
       </ol>
       <div class="cv-earlier reveal">
-        <span class="case-h">Anteriores</span>
-        <ul>${cv.earlier.map(([c, r, p]) => `<li><b>${esc(c)}</b><span>${esc(r)}</span><span class="cv-period">${esc(p)}</span></li>`).join('')}</ul>
+        <span class="case-h">${esc(s.earlier)}</span>
+        <ul>${d.earlier.map(([c, r, p]) => `<li><b>${esc(c)}</b><span>${esc(r)}</span><span class="cv-period">${esc(p)}</span></li>`).join('')}</ul>
       </div>
     </div>
   </div>
@@ -1027,12 +1328,12 @@ const cvPage = () => layout({
 <section class="section" id="trabalhos" aria-labelledby="trab-title">
   <div class="container">
     <div class="section-head">
-      <span class="label">Portfólio</span>
-      ${h2('trab-title', [['Alguns trabalhos, ', false], ['na prática', true], ['.', false]])}
-      <p class="lead cv-head-lead">Clique para ver cada peça e a estratégia por trás dela. Mais cases no <a class="link-u" href="${cv.behance}" target="_blank" rel="noopener">Behance</a>.</p>
+      <span class="label">${esc(s.workLabel)}</span>
+      ${h2('trab-title', s.workH2)}
+      <p class="lead cv-head-lead">${s.workLead(`<a class="link-u" href="${d.behance}" target="_blank" rel="noopener">Behance</a>`)}</p>
     </div>
     <div class="bento-services" data-stagger>
-      ${services.map(serviceCard).join('\n      ')}
+      ${svc.map(serviceCard).join('\n      ')}
     </div>
   </div>
 </section>
@@ -1040,14 +1341,14 @@ const cvPage = () => layout({
 <section class="section" id="competencias" aria-labelledby="comp-title">
   <div class="container">
     <div class="section-head">
-      <span class="label">Competências e ferramentas</span>
-      ${h2('comp-title', [['O que eu trago ', false], ['para o time', true], ['.', false]])}
+      <span class="label">${esc(s.skillsLabel)}</span>
+      ${h2('comp-title', s.skillsH2)}
     </div>
     <div class="cv-skills" data-stagger>
-      ${cv.skills.map((s) => `<article class="cv-skill card-base spot reveal">
-        <h3>${esc(s.title)}</h3>
-        <p>${esc(s.text)}</p>
-        <ul class="cv-tags">${s.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      ${d.skills.map((k) => `<article class="cv-skill card-base spot reveal">
+        <h3>${esc(k.title)}</h3>
+        <p>${esc(k.text)}</p>
+        <ul class="cv-tags">${k.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
       </article>`).join('\n      ')}
     </div>
   </div>
@@ -1056,12 +1357,11 @@ const cvPage = () => layout({
 <section class="section" id="sobre" aria-labelledby="sobre-title">
   <div class="container cv-about">
     <div class="section-head">
-      <span class="label">Como eu trabalho</span>
-      ${h2('sobre-title', [['Primeiro eu entendo. Depois eu ', false], ['implemento', true], ['.', false]])}
+      <span class="label">${esc(s.aboutLabel)}</span>
+      ${h2('sobre-title', s.aboutH2)}
     </div>
     <div class="about-text reveal">
-      <p>Sou publicitário e designer. Fui conectando áreas que hoje fazem parte do mesmo trabalho: <b class="hl-acc">comunicação, marketing e experiência digital</b>.</p>
-      <p>Antes de desenhar, olho os números e procuro o ponto em que a pessoa desiste. Depois coloco no ar, acompanho os dados e ajusto. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática.</p>
+      ${s.about.map((p) => `<p>${p}</p>`).join('\n      ')}
     </div>
   </div>
 </section>
@@ -1069,17 +1369,17 @@ const cvPage = () => layout({
 <section class="section" id="formacao" aria-labelledby="form-title">
   <div class="container">
     <div class="section-head">
-      <span class="label">Formação e certificações</span>
-      ${h2('form-title', [['Base e ', false], ['estudo contínuo', true], ['.', false]])}
+      <span class="label">${esc(s.eduLabel)}</span>
+      ${h2('form-title', s.eduH2)}
     </div>
     <div class="cv-edu">
       <article class="cv-degree card-base reveal">
-        <span class="case-h">Graduação</span>
-        <h3>${esc(cv.degree[0])}</h3>
-        <p>${esc(cv.degree[1])} <span aria-hidden="true">·</span> ${esc(cv.degree[2])}</p>
+        <span class="case-h">${esc(s.degree)}</span>
+        <h3>${esc(d.degree[0])}</h3>
+        <p>${esc(d.degree[1])} <span aria-hidden="true">·</span> ${esc(d.degree[2])}</p>
       </article>
       <ul class="cv-courses" data-stagger>
-        ${cv.courses.map(([t, school, y]) => `<li class="reveal"><b>${esc(t)}</b><span>${esc(school)}${y ? ` · ${esc(y)}` : ''}</span></li>`).join('\n        ')}
+        ${d.courses.map(([t, school, y]) => `<li class="reveal"><b>${esc(t)}</b><span>${esc(school)}${y ? ` · ${esc(y)}` : ''}</span></li>`).join('\n        ')}
       </ul>
     </div>
   </div>
@@ -1088,25 +1388,28 @@ const cvPage = () => layout({
 <section class="section" id="cta-final" aria-labelledby="cta-title">
   <div class="container">
     <div class="cta-block reveal">
-      ${h2('cta-title', [['Tem uma vaga com a ', false], ['minha cara', true], ['?', false]])}
-      <p class="lead">Vamos conversar. Me chama no WhatsApp que eu respondo rápido.</p>
+      ${h2('cta-title', s.ctaH2)}
+      <p class="lead">${esc(s.ctaLead)}</p>
       <div class="cv-cta-actions">
-        <a class="btn btn-primary magnetic" href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-cta">Falar comigo no WhatsApp <span class="arr" aria-hidden="true">→</span></a>
-        <a class="btn btn-outline" href="${config.cv}" download data-cv="cta">${icon.download}Baixar PDF</a>
+        <a class="btn btn-primary magnetic" href="${waLink(s.wa)}" target="_blank" rel="noopener" data-wa="cv-cta">${esc(s.ctaWa)} <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-outline" href="${config.cv}" download data-cv="cta">${icon.download}${esc(s.ctaPdf)}</a>
       </div>
       <p class="cta-contacts">
-        <a href="${cvMail}">E-mail</a>
+        <a href="${cvMail(s)}">${esc(s.email)}</a>
         <span aria-hidden="true">·</span>
         <a href="${config.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
         <span aria-hidden="true">·</span>
-        <a href="${cv.behance}" target="_blank" rel="noopener">Behance</a>
+        <a href="${d.behance}" target="_blank" rel="noopener">Behance</a>
       </p>
     </div>
   </div>
 </section>
-${services.filter((s) => s.case).map(caseDialog).join('\n')}
-${services.filter((s) => s.gallery).map(adsDialog).join('\n')}`,
-});
+${svc.filter((x) => x.case).map(caseDialog).join('\n')}
+${svc.filter((x) => x.gallery).map(adsDialog).join('\n')}`,
+  });
+  LANG = prev;
+  return html;
+};
 
 // ---------- write ----------
 rmSync(out, { recursive: true, force: true });
@@ -1117,14 +1420,16 @@ cpSync(join(root, 'src/main.js'), join(out, 'assets/main.js'));
 
 writeFileSync(join(out, 'index.html'), home());
 mkdirSync(join(out, 'curriculo'), { recursive: true });
-writeFileSync(join(out, 'curriculo', 'index.html'), cvPage());
+writeFileSync(join(out, 'curriculo', 'index.html'), cvPage('pt'));
+mkdirSync(join(out, 'curriculo', 'en'), { recursive: true });
+writeFileSync(join(out, 'curriculo', 'en', 'index.html'), cvPage('en'));
 for (const s of services.filter(hasPage)) {
   mkdirSync(join(out, 'servicos', s.slug), { recursive: true });
   writeFileSync(join(out, 'servicos', s.slug, 'index.html'), servicePage(s));
 }
 // crawl files: everything is indexable; the sitemap lists the home and each service page
 const today = new Date().toISOString().slice(0, 10);
-const urls = ['/', '/curriculo', ...services.filter(hasPage).map((s) => `/servicos/${s.slug}`)];
+const urls = ['/', '/curriculo', '/curriculo/en', ...services.filter(hasPage).map((s) => `/servicos/${s.slug}`)];
 writeFileSync(join(out, 'robots.txt'), `User-agent: *
 Allow: /
 
