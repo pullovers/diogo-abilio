@@ -267,10 +267,39 @@
   // ---------- case dialog: carousel (swipeable slides) or video (scenes), synced with the list ----------
   // A dialog can have several openers (card cover, a button on the service page); it is set up once.
   var caseOpen = {};
+  // Images inside a closed dialog are lazy, so they used to start downloading only after
+  // the click. Warm them early: the first slides when the card gets near the screen,
+  // all of them on hover/touch/focus (intent) or at the latest on open.
+  var warmed = {};
+  function warm(id, all) {
+    var level = all ? 2 : 1;
+    if ((warmed[id] || 0) >= level) return;
+    warmed[id] = level;
+    var dlg = document.getElementById(id);
+    if (!dlg) return;
+    $$('img[loading="lazy"]', dlg).forEach(function (img, k) {
+      if (all || k < 3 || img.closest('.case-thumbs')) img.loading = 'eager';
+    });
+  }
+  var nearIO = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      nearIO.unobserve(en.target);
+      warm(en.target.dataset.warm, false);
+    });
+  }, { rootMargin: '800px 0px' }) : null;
   $$('[data-open-case]').forEach(function (opener) {
     var id = opener.getAttribute('aria-controls');
     if (!(id in caseOpen)) caseOpen[id] = setupCase(document.getElementById(id));
-    if (caseOpen[id]) opener.addEventListener('click', caseOpen[id]);
+    if (!caseOpen[id]) return;
+    var intent = function () { warm(id, true); };
+    opener.addEventListener('pointerenter', intent, { once: true });
+    opener.addEventListener('touchstart', intent, { once: true, passive: true });
+    opener.addEventListener('focus', intent, { once: true });
+    opener.addEventListener('click', function (e) { warm(id, true); caseOpen[id](e); });
+    // watch the whole card: the opener itself can be a 1px screen-reader-only button
+    var card = opener.closest('article, li, section') || opener;
+    if (nearIO && !card.dataset.warm) { card.dataset.warm = id; nearIO.observe(card); }
   });
   function setupCase(dlg) {
     if (!dlg || typeof dlg.showModal !== 'function') return null;
