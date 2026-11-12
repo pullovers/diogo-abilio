@@ -46,11 +46,12 @@ const h2 = (id, segments, extra = '') =>
 
 // ---------- icons ----------
 const icon = {
+  download: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>',
   chat: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>',
 };
 
 // ---------- shared pieces ----------
-const layout = ({ title, description, path, og, body, home = false, schema }) => `<!doctype html>
+const layout = ({ title, description, path, og, body, home = false, schema, cv = false }) => `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
@@ -84,12 +85,14 @@ ${home ? '<link rel="preload" as="image" href="/images/diogo-float-1200.webp" im
 </head>
 <body>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-${nav()}
+${cv ? cvNav() : nav()}
 <main id="conteudo">
 ${body}
 </main>
 ${footer()}
-<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" data-wa="flutuante">${icon.chat}Análise grátis</a>
+${cv
+    ? `<a class="wa-float" href="${config.cv}" download data-cv="flutuante">${icon.download}Baixar currículo</a>`
+    : `<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" data-wa="flutuante">${icon.chat}Análise grátis</a>`}
 </body>
 </html>
 `;
@@ -102,8 +105,25 @@ const nav = () => `<header class="nav">
       <a href="/#servicos" data-spy="servicos">Serviços</a>
       <a href="/#como-faco" data-spy="como-faco">Como faço</a>
       <a href="/#sobre" data-spy="sobre">Sobre</a>
+      <a href="/curriculo">Currículo</a>
     </nav>
     <a class="btn btn-primary btn-sm" href="${waLink()}" target="_blank" rel="noopener" data-wa="nav">Análise grátis</a>
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+  </div>
+</header>`;
+
+// Résumé page nav: same bar, links to its own sections, CTA downloads the PDF.
+const cvNav = () => `<header class="nav">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="/">Diogo Abílio</a>
+    <nav class="nav-links" id="menu" aria-label="Currículo">
+      <span class="nav-pill" aria-hidden="true"></span>
+      <a href="#experiencia" data-spy="experiencia">Experiência</a>
+      <a href="#trabalhos" data-spy="trabalhos">Trabalhos</a>
+      <a href="#competencias" data-spy="competencias">Competências</a>
+      <a href="#formacao" data-spy="formacao">Formação</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="${config.cv}" download data-cv="nav">Baixar currículo</a>
     <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
   </div>
 </header>`;
@@ -112,6 +132,7 @@ const footer = () => `<footer class="footer">
   <div class="container footer-inner">
     <span>Diogo Abílio · São Paulo · 2026</span>
     <div class="footer-links">
+      <a href="/curriculo">Currículo</a>
       <a href="${config.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
       <a href="${config.instagram}" target="_blank" rel="noopener">Instagram</a>
       <a href="mailto:${config.email}">E-mail</a>
@@ -800,6 +821,291 @@ ${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}
 `,
 });
 
+// ---------- résumé page (/curriculo) ----------
+// The site rewritten for recruiters: same look, content from the PDF résumé.
+const cv = {
+  role: 'Growth Web Designer',
+  focus: 'Webflow, CRO e UX/UI',
+  summary: 'Mais de 10 anos conectando design, marketing e UX/UI. Crio e evoluo sites, landing pages e páginas de produto para aquisição, geração de demanda e conversão. Da estratégia à publicação: copy, interface, responsividade e integração com times de growth, marketing, tecnologia e comercial.',
+  goal: 'Posição de tempo integral como Growth Web Designer, com contratação CLT ou PJ.',
+  meta: ['São Paulo, SP', '+10 anos de experiência', 'Tempo integral', 'CLT ou PJ'],
+  behance: 'https://www.behance.net/diogoux',
+  phone: '+55 11 98555-7297',
+  stats: [
+    ['+10', 'anos', 'entre design, marketing e UX/UI'],
+    ['15%', 'a mais', 'na taxa de MQL em campanhas para público frio no G4 Educação'],
+    ['50 mil', 'seguidores', 'no Instagram em menos de 1 mês, na K.Pitaliza'],
+    ['8', 'pessoas', 'lideradas em copy, design e edição numa campanha nacional'],
+  ],
+  freelance: {
+    intro: 'Desde o fim de 2025 atendo empresas como autônomo. Entre os principais clientes estão IQR Educação e LET’S.',
+    jobs: [
+      {
+        company: 'IQR Educação / Guilherme Machado', logo: 'guilherme-machado', lw: 83, lh: 40,
+        role: 'Design Strategist', period: 'set 2026 – nov 2026', type: 'Autônomo',
+        bullets: [
+          'Auditoria de design e marketing na empresa de Guilherme Machado, especialista do mercado imobiliário, com diagnóstico e implementação de materiais.',
+          'Apresentações, estratégia e produção de criativos para conteúdo orgânico e mídia paga, incluindo campanhas de fundo de funil.',
+          'Landing pages de alta conversão, com análise dos canais de aquisição e das etapas do funil para orientar materiais e conversão.',
+        ],
+      },
+      {
+        company: 'LET’S', logo: 'lets', lw: 75, lh: 24,
+        role: 'Webflow Designer', period: 'dez 2025 – abr 2026', type: 'Autônomo',
+        bullets: [
+          'Criação e evolução de site, páginas de produto e landing pages para um SaaS B2B de logística, apoiando marketing, vendas e geração de demanda.',
+          'Figma, Webflow, CMS, formulários e HubSpot para páginas escaláveis e fáceis de manter.',
+        ],
+      },
+    ],
+  },
+  jobs: [
+    {
+      company: 'K.Pitaliza Tecnologia', initials: 'K.P',
+      role: 'Coordenador de Marketing', period: 'jun 2025 – out 2025', type: 'CLT',
+      bullets: [
+        'Coordenação de campanha nacional com Claudia Leitte como embaixadora e liderança de 8 profissionais de copy, design e edição.',
+        'Apoio ao crescimento do Instagram de zero a 50 mil seguidores em menos de 1 mês e à operação com mais de 300 afiliados ativos.',
+      ],
+    },
+    {
+      company: 'G4 Educação', logo: 'g4', lw: 86, lh: 34,
+      role: 'Web Designer Pleno', period: 'abr 2024 – fev 2025', type: 'CLT',
+      bullets: [
+        'Páginas de produto, eventos e captação no time de Web Experience, em Martech/Growth, incluindo G4 Gestão e Estratégia, G4 Growth e G4 Sprints.',
+        'Participação em campanhas para público frio que contribuíram para um aumento de 15% na taxa de MQL.',
+      ],
+    },
+    {
+      company: 'Valid', logo: 'valid', lw: 78, lh: 24,
+      role: 'UX Designer / Analista de Marketing & Growth', period: 'dez 2021 – nov 2023', type: 'CLT',
+      bullets: ['UX/UI, identidade e produtos digitais, campanhas e materiais para geração de leads e aquisição.'],
+    },
+  ],
+  earlier: [
+    ['Agência Moonflag', 'Designer Gráfico', 'fev – nov 2021'],
+    ['Ituran Brasil', 'Assistente de Marketing', 'set 2018 – dez 2019'],
+    ['CrediPronto', 'Estagiário de Marketing', 'nov 2015 – mai 2017'],
+  ],
+  skills: [
+    { title: 'Web design e CRO', text: 'Do primeiro rascunho à página no ar, pensando em quem precisa decidir.', tags: ['Arquitetura da informação', 'Proposta de valor', 'CTAs', 'Formulários', 'Microcopy', 'CMS', 'Design system', 'Responsividade'] },
+    { title: 'Design e publicação', text: 'Ferramentas do dia a dia para desenhar, montar e manter páginas.', tags: ['Figma', 'Webflow', 'Relume'] },
+    { title: 'Dados e operação', text: 'Leio os números para saber onde a página perde gente.', tags: ['GA4', 'Amplitude', 'HubSpot', 'RD Station', 'Sheets'] },
+    { title: 'IA aplicada', text: 'Para protótipos, variações e execução mais rápida. A estratégia continua comigo.', tags: ['Claude', 'Claude Code', 'ChatGPT', 'Lovable'] },
+  ],
+  degree: ['Publicidade e Propaganda', 'FMU / FIAM-FAAM', '2014 – 2017'],
+  courses: [
+    ['Imersão UX Strategy', 'Mergo', '2025'],
+    ['UX Design, Figma e Design System', 'Alura', ''],
+    ['Web Analytics e BI', 'Lemonade School', ''],
+    ['Pacote Adobe', 'Saga', ''],
+  ],
+};
+const cvWa = 'Oi Diogo, vi seu currículo no site e quero conversar sobre uma vaga';
+const cvMail = `mailto:${config.email}?subject=${encodeURIComponent('Vaga: Growth Web Designer')}`;
+
+const jobLogo = (j) => (j.logo
+  ? `<img src="/images/logos/${j.logo}.webp" alt="" width="${j.lw}" height="${j.lh}" loading="lazy" decoding="async" />`
+  : `<span class="cv-initials">${esc(j.initials)}</span>`);
+const jobItem = (j) => `<li class="cv-job reveal">
+          <div class="cv-job-side">
+            <span class="cv-logo" aria-hidden="true">${jobLogo(j)}</span>
+            <span class="cv-period">${esc(j.period)}</span>
+            <span class="cv-type">${esc(j.type)}</span>
+          </div>
+          <div class="cv-job-main">
+            <h3>${esc(j.role)}</h3>
+            <p class="cv-company">${esc(j.company)}</p>
+            <ul class="cv-bullets">
+              ${j.bullets.map((b) => `<li>${esc(b)}</li>`).join('\n              ')}
+            </ul>
+          </div>
+        </li>`;
+
+const cvSchema = () => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      ...person(),
+      jobTitle: cv.role,
+      description: cv.summary,
+      knowsAbout: ['Web design', 'Webflow', 'CRO', 'UX/UI', 'Landing pages', 'Design system', 'Figma', 'GA4', 'HubSpot', 'Growth marketing'],
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'FMU / FIAM-FAAM' },
+      sameAs: [config.linkedin, config.instagram, cv.behance],
+    },
+    { '@type': 'ProfilePage', '@id': abs('/curriculo#page'), url: abs('/curriculo'), name: `Diogo Abílio · Currículo · ${cv.role}`, inLanguage: 'pt-BR', mainEntity: { '@id': personId } },
+  ],
+});
+
+const cvPage = () => layout({
+  title: `Diogo Abílio · Currículo | ${cv.role}`,
+  description: `${cv.role} em São Paulo (${cv.focus}). Mais de 10 anos criando sites e landing pages para aquisição e conversão. Disponível para CLT ou PJ.`,
+  path: '/curriculo',
+  og: '/og/home.png',
+  schema: cvSchema(),
+  cv: true,
+  body: `<section class="svc-top cv-top" aria-labelledby="cv-title">
+  <div class="hero-bg" aria-hidden="true"><div class="hero-wash"></div></div>
+  <div class="container cv-top-grid">
+    <div class="cv-top-copy">
+      <span class="label cv-open"><i aria-hidden="true"></i>Currículo · aberto a vagas</span>
+      <p class="cv-name">Diogo Miranda Abílio</p>
+      <h1 class="h1" id="cv-title">Growth Web <em class="serif grad-text">Designer</em></h1>
+      <p class="cv-focus">${esc(cv.focus)}</p>
+      <p class="lead">${esc(cv.summary)}</p>
+      <div class="svc-actions cv-actions">
+        <a class="btn btn-primary magnetic" href="${config.cv}" download data-cv="topo">${icon.download}Baixar currículo em PDF</a>
+        ${extLink(config.linkedin, 'LinkedIn')}
+        ${extLink(cv.behance, 'Behance')}
+      </div>
+    </div>
+    <aside class="cv-card card-base" aria-label="Resumo rápido">
+      <img class="cv-photo" src="/images/sobre/diogo-cadeira-520.webp" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" decoding="async" />
+      <div class="cv-card-body">
+        <p class="cv-goal"><b>Objetivo</b>${esc(cv.goal)}</p>
+        <ul class="cv-meta">${cv.meta.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
+        <p class="cv-contact"><a href="${cvMail}">${esc(config.email)}</a><a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-card">${esc(cv.phone)}</a></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="cv-stats-wrap" aria-label="Resultados em números">
+  <div class="container">
+    <ul class="cv-stats" data-stagger>
+      ${cv.stats.map(([n, unit, text]) => `<li class="reveal"><b>${esc(n)}</b><span class="cv-unit">${esc(unit)}</span><span>${esc(text)}</span></li>`).join('\n      ')}
+    </ul>
+  </div>
+</section>
+
+<section class="logos" aria-labelledby="logos-title">
+  <div class="container">
+    <h2 class="label" id="logos-title">Empresas e marcas com quem trabalhei</h2>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <ul class="marquee-list">${logos.map(logoItem).join('')}</ul>
+      <ul class="marquee-list" aria-hidden="true">${logos.map(logoItem).join('')}</ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="experiencia" aria-labelledby="exp-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">Experiência</span>
+      ${h2('exp-title', [['Onde eu já ', false], ['coloquei a mão', true], ['.', false]])}
+    </div>
+
+    <div class="cv-group">
+      <div class="cv-group-head">
+        <h3>Atuação autônoma</h3><span class="cv-period">2025 – atual</span>
+        <p>${esc(cv.freelance.intro)}</p>
+      </div>
+      <ol class="cv-jobs">
+        ${cv.freelance.jobs.map(jobItem).join('\n        ')}
+      </ol>
+    </div>
+
+    <div class="cv-group">
+      <div class="cv-group-head">
+        <h3>Experiência em empresas</h3>
+      </div>
+      <ol class="cv-jobs">
+        ${cv.jobs.map(jobItem).join('\n        ')}
+      </ol>
+      <div class="cv-earlier reveal">
+        <span class="case-h">Anteriores</span>
+        <ul>${cv.earlier.map(([c, r, p]) => `<li><b>${esc(c)}</b><span>${esc(r)}</span><span class="cv-period">${esc(p)}</span></li>`).join('')}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trabalhos" aria-labelledby="trab-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">Portfólio</span>
+      ${h2('trab-title', [['Alguns trabalhos, ', false], ['na prática', true], ['.', false]])}
+      <p class="lead cv-head-lead">Clique para ver cada peça e a estratégia por trás dela. Mais cases no <a class="link-u" href="${cv.behance}" target="_blank" rel="noopener">Behance</a>.</p>
+    </div>
+    <div class="bento-services" data-stagger>
+      ${services.map(serviceCard).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="competencias" aria-labelledby="comp-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">Competências e ferramentas</span>
+      ${h2('comp-title', [['O que eu trago ', false], ['para o time', true], ['.', false]])}
+    </div>
+    <div class="cv-skills" data-stagger>
+      ${cv.skills.map((s) => `<article class="cv-skill card-base spot reveal">
+        <h3>${esc(s.title)}</h3>
+        <p>${esc(s.text)}</p>
+        <ul class="cv-tags">${s.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      </article>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sobre" aria-labelledby="sobre-title">
+  <div class="container cv-about">
+    <div class="section-head">
+      <span class="label">Como eu trabalho</span>
+      ${h2('sobre-title', [['Primeiro eu entendo. Depois eu ', false], ['implemento', true], ['.', false]])}
+    </div>
+    <div class="about-text reveal">
+      <p>Sou publicitário e designer. Fui conectando áreas que hoje fazem parte do mesmo trabalho: <b class="hl-acc">comunicação, marketing e experiência digital</b>.</p>
+      <p>Antes de desenhar, olho os números e procuro o ponto em que a pessoa desiste. Depois coloco no ar, acompanho os dados e ajusto. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="formacao" aria-labelledby="form-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">Formação e certificações</span>
+      ${h2('form-title', [['Base e ', false], ['estudo contínuo', true], ['.', false]])}
+    </div>
+    <div class="cv-edu">
+      <article class="cv-degree card-base reveal">
+        <span class="case-h">Graduação</span>
+        <h3>${esc(cv.degree[0])}</h3>
+        <p>${esc(cv.degree[1])} <span aria-hidden="true">·</span> ${esc(cv.degree[2])}</p>
+      </article>
+      <ul class="cv-courses" data-stagger>
+        ${cv.courses.map(([t, school, y]) => `<li class="reveal"><b>${esc(t)}</b><span>${esc(school)}${y ? ` · ${esc(y)}` : ''}</span></li>`).join('\n        ')}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cta-final" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="cta-block reveal">
+      ${h2('cta-title', [['Tem uma vaga com a ', false], ['minha cara', true], ['?', false]])}
+      <p class="lead">Vamos conversar. Respondo rápido por e-mail, WhatsApp ou LinkedIn.</p>
+      <div class="cv-cta-actions">
+        <a class="btn btn-primary magnetic" href="${cvMail}">Mandar um e-mail <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-outline" href="${config.cv}" download data-cv="cta">${icon.download}Baixar PDF</a>
+      </div>
+      <p class="cta-contacts">
+        <a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-cta">WhatsApp</a>
+        <span aria-hidden="true">·</span>
+        <a href="${config.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+        <span aria-hidden="true">·</span>
+        <a href="${cv.behance}" target="_blank" rel="noopener">Behance</a>
+      </p>
+    </div>
+  </div>
+</section>
+${services.filter((s) => s.case).map(caseDialog).join('\n')}
+${services.filter((s) => s.gallery).map(adsDialog).join('\n')}`,
+});
+
 // ---------- write ----------
 rmSync(out, { recursive: true, force: true });
 mkdirSync(join(out, 'assets'), { recursive: true });
@@ -808,13 +1114,15 @@ cpSync(join(root, 'src/styles.css'), join(out, 'assets/styles.css'));
 cpSync(join(root, 'src/main.js'), join(out, 'assets/main.js'));
 
 writeFileSync(join(out, 'index.html'), home());
+mkdirSync(join(out, 'curriculo'), { recursive: true });
+writeFileSync(join(out, 'curriculo', 'index.html'), cvPage());
 for (const s of services.filter(hasPage)) {
   mkdirSync(join(out, 'servicos', s.slug), { recursive: true });
   writeFileSync(join(out, 'servicos', s.slug, 'index.html'), servicePage(s));
 }
 // crawl files: everything is indexable; the sitemap lists the home and each service page
 const today = new Date().toISOString().slice(0, 10);
-const urls = ['/', ...services.filter(hasPage).map((s) => `/servicos/${s.slug}`)];
+const urls = ['/', '/curriculo', ...services.filter(hasPage).map((s) => `/servicos/${s.slug}`)];
 writeFileSync(join(out, 'robots.txt'), `User-agent: *
 Allow: /
 
