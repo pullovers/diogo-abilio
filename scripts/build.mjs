@@ -824,10 +824,10 @@ ${finalCta(`servico-${s.slug}-cta`, s.whatsappMessage)}
 // ---------- résumé page (/curriculo) ----------
 // The site rewritten for recruiters: same look, content from the PDF résumé.
 const cv = {
-  role: 'Growth Web Designer',
-  focus: 'Webflow, CRO e UX/UI',
-  summary: 'Mais de 10 anos conectando design, marketing e UX/UI. Crio e evoluo sites, landing pages e páginas de produto para aquisição, geração de demanda e conversão. Da estratégia à publicação: copy, interface, responsividade e integração com times de growth, marketing, tecnologia e comercial.',
-  goal: 'Posição de tempo integral como Growth Web Designer, com contratação CLT ou PJ.',
+  role: 'Marketing focado em conversão',
+  focus: ['Web design', 'Criativos', 'Copy', 'UX/UI', 'CRO'],
+  summary: 'Mais de 10 anos unindo marketing, design e UX/UI para fazer gente decidir. Crio sites, landing pages, criativos para anúncios e textos que levam à ação, da estratégia à publicação. Leio os dados, ajusto o que trava a conversão e trabalho junto com growth, mídia, tecnologia e comercial.',
+  goal: 'Posição de tempo integral em marketing focado em conversão, unindo web design, criativos, copy e UX/UI. Contratação CLT ou PJ.',
   meta: ['São Paulo, SP', '+10 anos de experiência', 'Tempo integral', 'CLT ou PJ'],
   behance: 'https://www.behance.net/diogoux',
   phone: '+55 11 98555-7297',
@@ -888,10 +888,12 @@ const cv = {
     ['CrediPronto', 'Estagiário de Marketing', 'nov 2015 – mai 2017'],
   ],
   skills: [
-    { title: 'Web design e CRO', text: 'Do primeiro rascunho à página no ar, pensando em quem precisa decidir.', tags: ['Arquitetura da informação', 'Proposta de valor', 'CTAs', 'Formulários', 'Microcopy', 'CMS', 'Design system', 'Responsividade'] },
-    { title: 'Design e publicação', text: 'Ferramentas do dia a dia para desenhar, montar e manter páginas.', tags: ['Figma', 'Webflow', 'Relume'] },
+    { title: 'Web design e CRO', text: 'Do primeiro rascunho à página no ar, pensando em quem precisa decidir.', tags: ['Arquitetura da informação', 'Proposta de valor', 'CTAs', 'Formulários', 'Testes A/B', 'CMS', 'Design system', 'Responsividade'] },
+    { title: 'UX/UI e interface', text: 'Interfaces claras, que a pessoa entende sem precisar pensar.', tags: ['Pesquisa e jornada', 'Wireframes', 'Protótipos', 'UI design', 'Usabilidade', 'Produtos digitais'] },
+    { title: 'Copy e criativos', text: 'Texto e imagem trabalhando juntos para chamar atenção e levar à ação.', tags: ['Copywriting', 'Headlines e CTAs', 'Microcopy', 'Roteiros', 'Criativos para anúncios', 'Conteúdo para redes sociais'] },
+    { title: 'Design e publicação', text: 'Ferramentas do dia a dia para desenhar, montar, publicar e manter páginas.', tags: ['Figma', 'Webflow', 'Relume', 'Vercel', 'Supabase', 'Pacote Adobe'] },
     { title: 'Dados e operação', text: 'Leio os números para saber onde a página perde gente.', tags: ['GA4', 'Amplitude', 'HubSpot', 'RD Station', 'Sheets'] },
-    { title: 'IA aplicada', text: 'Para protótipos, variações e execução mais rápida. A estratégia continua comigo.', tags: ['Claude', 'Claude Code', 'ChatGPT', 'Lovable'] },
+    { title: 'IA aplicada', text: 'Para protótipos, criativos, variações e execução mais rápida. A estratégia continua comigo.', tags: ['Claude', 'Claude Code', 'ChatGPT', 'Lovable', 'Higgsfield'] },
   ],
   degree: ['Publicidade e Propaganda', 'FMU / FIAM-FAAM', '2014 – 2017'],
   courses: [
@@ -902,7 +904,7 @@ const cv = {
   ],
 };
 const cvWa = 'Oi Diogo, vi seu currículo no site e quero conversar sobre uma vaga';
-const cvMail = `mailto:${config.email}?subject=${encodeURIComponent('Vaga: Growth Web Designer')}`;
+const cvMail = `mailto:${config.email}?subject=${encodeURIComponent('Vaga: marketing focado em conversão')}`;
 
 const jobLogo = (j) => (j.logo
   ? `<img src="/images/logos/${j.logo}.webp" alt="" width="${j.lw}" height="${j.lh}" loading="lazy" decoding="async" />`
@@ -929,7 +931,7 @@ const cvSchema = () => ({
       ...person(),
       jobTitle: cv.role,
       description: cv.summary,
-      knowsAbout: ['Web design', 'Webflow', 'CRO', 'UX/UI', 'Landing pages', 'Design system', 'Figma', 'GA4', 'HubSpot', 'Growth marketing'],
+      knowsAbout: ['Marketing de conversão', 'Web design', 'CRO', 'UX/UI', 'Copywriting', 'Criativos para anúncios', 'Landing pages', 'Design system', 'Figma', 'GA4', 'Growth marketing'],
       alumniOf: { '@type': 'CollegeOrUniversity', name: 'FMU / FIAM-FAAM' },
       sameAs: [config.linkedin, config.instagram, cv.behance],
     },
@@ -939,7 +941,7 @@ const cvSchema = () => ({
 
 const cvPage = () => layout({
   title: `Diogo Abílio · Currículo | ${cv.role}`,
-  description: `${cv.role} em São Paulo (${cv.focus}). Mais de 10 anos criando sites e landing pages para aquisição e conversão. Disponível para CLT ou PJ.`,
+  description: `Diogo Abílio, ${cv.role.toLowerCase()} em São Paulo: ${cv.focus.join(', ')}. Mais de 10 anos criando sites, landing pages, criativos e copy para conversão. Disponível para CLT ou PJ.`,
   path: '/curriculo',
   og: '/og/home.png',
   schema: cvSchema(),
@@ -950,23 +952,23 @@ const cvPage = () => layout({
     <div class="cv-top-copy">
       <span class="label cv-open"><i aria-hidden="true"></i>Currículo · aberto a vagas</span>
       <p class="cv-name">Diogo Miranda Abílio</p>
-      <h1 class="h1" id="cv-title">Growth Web <em class="serif grad-text">Designer</em></h1>
-      <p class="cv-focus">${esc(cv.focus)}</p>
+      <h1 class="h1" id="cv-title">Marketing focado em <em class="serif grad-text">conversão</em></h1>
+      <ul class="cv-focus">${cv.focus.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       <p class="lead">${esc(cv.summary)}</p>
       <div class="svc-actions cv-actions">
         <a class="btn btn-primary magnetic" href="${config.cv}" download data-cv="topo">${icon.download}Baixar currículo em PDF</a>
         ${extLink(config.linkedin, 'LinkedIn')}
         ${extLink(cv.behance, 'Behance')}
       </div>
-    </div>
-    <aside class="cv-card card-base" aria-label="Resumo rápido">
-      <img class="cv-photo" src="/images/sobre/diogo-cadeira-520.webp" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" decoding="async" />
-      <div class="cv-card-body">
+      <aside class="cv-card card-base" aria-label="Resumo rápido">
         <p class="cv-goal"><b>Objetivo</b>${esc(cv.goal)}</p>
         <ul class="cv-meta">${cv.meta.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
-        <p class="cv-contact"><a href="${cvMail}">${esc(config.email)}</a><a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-card">${esc(cv.phone)}</a></p>
-      </div>
-    </aside>
+        <p class="cv-contact"><a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-card">WhatsApp ${esc(cv.phone)}</a><a href="${cvMail}">${esc(config.email)}</a></p>
+      </aside>
+    </div>
+    <figure class="cv-figure">
+      <img class="cv-photo" src="/images/sobre/diogo-cadeira-520.webp" srcset="/images/sobre/diogo-cadeira-520.webp 520w, /images/sobre/diogo-cadeira-900.webp 900w" sizes="(max-width: 960px) 70vw, 460px" width="520" height="770" alt="Diogo Abílio sentado numa cadeira de diretor, com uma caneca roxa na mão" decoding="async" fetchpriority="high" />
+    </figure>
   </div>
 </section>
 
@@ -1087,13 +1089,13 @@ const cvPage = () => layout({
   <div class="container">
     <div class="cta-block reveal">
       ${h2('cta-title', [['Tem uma vaga com a ', false], ['minha cara', true], ['?', false]])}
-      <p class="lead">Vamos conversar. Respondo rápido por e-mail, WhatsApp ou LinkedIn.</p>
+      <p class="lead">Vamos conversar. Me chama no WhatsApp que eu respondo rápido.</p>
       <div class="cv-cta-actions">
-        <a class="btn btn-primary magnetic" href="${cvMail}">Mandar um e-mail <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary magnetic" href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-cta">Falar comigo no WhatsApp <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-outline" href="${config.cv}" download data-cv="cta">${icon.download}Baixar PDF</a>
       </div>
       <p class="cta-contacts">
-        <a href="${waLink(cvWa)}" target="_blank" rel="noopener" data-wa="cv-cta">WhatsApp</a>
+        <a href="${cvMail}">E-mail</a>
         <span aria-hidden="true">·</span>
         <a href="${config.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
         <span aria-hidden="true">·</span>

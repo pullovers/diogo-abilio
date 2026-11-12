@@ -1334,13 +1334,15 @@ html.modal-open { overflow: hidden; }
 .cv-name { font: 500 14px/1.4 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
 .cv-top .h1 { max-width: none; margin-bottom: 14px; }
 .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; padding: 0 .12em 0 .02em; margin: 0 -.12em 0 -.02em; }
-.cv-focus { font-size: clamp(18px, 1.6vw, 22px); color: var(--ink); margin-bottom: 22px; }
+.cv-focus { display: flex; flex-wrap: wrap; gap: 6px 0; font-size: clamp(17px, 1.5vw, 21px); color: var(--ink); margin-bottom: 22px; }
+.cv-focus li + li::before { content: '·'; color: var(--accent); margin: 0 .55em; }
 .cv-top .lead { max-width: 58ch; font-size: 18px; margin-bottom: 32px; }
 .cv-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .cv-actions .btn svg, .cv-cta-actions .btn svg { width: 18px; height: 18px; }
-.cv-card { overflow: hidden; display: flex; flex-direction: column; }
-.cv-photo { width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; object-position: 50% 18%; background: var(--surface-2); }
-.cv-card-body { padding: 22px 24px 24px; display: grid; gap: 18px; }
+.cv-card { margin-top: 40px; padding: 22px 24px 24px; display: grid; gap: 18px; max-width: 620px; }
+.cv-figure { position: relative; display: flex; justify-content: center; align-items: flex-end; align-self: start; }
+.cv-figure::before { content: ''; position: absolute; left: 50%; bottom: 8%; width: 86%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(169, 112, 255, .38), rgba(169, 112, 255, 0)); pointer-events: none; }
+.cv-photo { position: relative; width: auto; max-width: 100%; height: auto; max-height: min(720px, 82vh); filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .7)); }
 .cv-goal { font-size: 17px; line-height: 1.5; }
 .cv-goal b { display: block; font: 500 11px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 6px; }
 .cv-meta { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -1405,8 +1407,8 @@ html.modal-open { overflow: hidden; }
 
 @media (max-width: 960px) {
   .cv-top-grid, .cv-about, .cv-edu { grid-template-columns: 1fr; }
-  .cv-card { flex-direction: row; }
-  .cv-photo { width: 38%; aspect-ratio: auto; }
+  .cv-figure { order: -1; }
+  .cv-photo { max-height: 440px; }
   .cv-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cv-stats li:nth-child(3) { padding-left: 0; border-left: 0; }
   .cv-stats li:nth-child(n+3) { border-top: 1px solid var(--line); }
@@ -1418,8 +1420,8 @@ html.modal-open { overflow: hidden; }
   .cv-skills, .cv-courses, .cv-earlier ul { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
-  .cv-card { flex-direction: column; }
-  .cv-photo { width: 100%; aspect-ratio: 4 / 3; }
+  .cv-photo { max-height: 260px; }
+  .cv-card { margin-top: 32px; }
   .cv-stats li { padding: 22px 14px 22px 0; }
   .cv-stats li + li { padding-left: 14px; }
   .cv-stats li:nth-child(3) { padding-left: 0; }
