@@ -120,6 +120,8 @@ const UI = {
   },
 };
 const T = () => UI[LANG];
+// The résumé PDF in the current language.
+const cvPdf = () => (LANG === 'en' ? '/cv-diogo-abilio-en.pdf' : config.cv);
 
 // Services with a case or an ad gallery open in a dialog on the home; only the others get a page.
 const hasPage = (s) => !s.case && !s.gallery;
@@ -199,7 +201,7 @@ ${body}
 </main>
 ${footer()}
 ${cv
-    ? `<a class="wa-float" href="${config.cv}" download data-cv="flutuante">${icon.download}${esc(cvStr[LANG].downloadShort)}</a>`
+    ? `<a class="wa-float" href="${cvPdf()}" download data-cv="flutuante">${icon.download}${esc(cvStr[LANG].downloadShort)}</a>`
     : `<a class="wa-float" href="${waLink()}" target="_blank" rel="noopener" data-wa="flutuante">${icon.chat}Análise grátis</a>`}
 </body>
 </html>
@@ -234,7 +236,7 @@ const cvNav = () => {
       <a href="${cvPath.pt}" hreflang="pt-BR" lang="pt-BR"${LANG === 'pt' ? ' aria-current="page"' : ''} data-lang="pt"><span aria-hidden="true">PT</span><span class="sr-only">Português</span></a>
       <a href="${cvPath.en}" hreflang="en" lang="en"${LANG === 'en' ? ' aria-current="page"' : ''} data-lang="en"><span aria-hidden="true">EN</span><span class="sr-only">English</span></a>
     </div>
-    <a class="btn btn-primary btn-sm nav-cta" href="${config.cv}" download data-cv="nav">${esc(s.downloadShort)}</a>
+    <a class="btn btn-primary btn-sm nav-cta" href="${cvPdf()}" download data-cv="nav">${esc(s.downloadShort)}</a>
     <button class="nav-toggle" type="button" aria-label="${esc(s.menu)}" aria-expanded="false" aria-controls="menu"><span></span></button>
   </div>
 </header>`;
@@ -1156,7 +1158,6 @@ const cvStr = {
     nav: [['experiencia', 'Experience'], ['trabalhos', 'Work'], ['competencias', 'Skills'], ['formacao', 'Education']],
     downloadShort: 'Download résumé',
     downloadTop: 'Download résumé (PDF)',
-    pdfNote: 'The PDF is in Portuguese.',
     open: 'Résumé · open to work',
     h1: [['Conversion-focused ', false], ['marketing', true]],
     quick: 'Quick summary',
@@ -1256,11 +1257,10 @@ const cvPage = (lang = 'pt') => {
       <ul class="cv-focus">${d.focus.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
       <p class="lead">${esc(d.summary)}</p>
       <div class="svc-actions cv-actions">
-        <a class="btn btn-primary magnetic" href="${config.cv}" download data-cv="topo">${icon.download}${esc(s.downloadTop)}</a>
+        <a class="btn btn-primary magnetic" href="${cvPdf()}" download data-cv="topo">${icon.download}${esc(s.downloadTop)}</a>
         ${extLink(config.linkedin, 'LinkedIn')}
         ${extLink(d.behance, 'Behance')}
       </div>
-      ${s.pdfNote ? `<p class="cv-pdf-note">${esc(s.pdfNote)}</p>` : ''}
       <aside class="cv-card card-base" aria-label="${esc(s.quick)}">
         <p class="cv-goal"><b>${esc(s.goal)}</b>${esc(d.goal)}</p>
         <ul class="cv-meta">${d.meta.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
@@ -1392,7 +1392,7 @@ const cvPage = (lang = 'pt') => {
       <p class="lead">${esc(s.ctaLead)}</p>
       <div class="cv-cta-actions">
         <a class="btn btn-primary magnetic" href="${waLink(s.wa)}" target="_blank" rel="noopener" data-wa="cv-cta">${esc(s.ctaWa)} <span class="arr" aria-hidden="true">→</span></a>
-        <a class="btn btn-outline" href="${config.cv}" download data-cv="cta">${icon.download}${esc(s.ctaPdf)}</a>
+        <a class="btn btn-outline" href="${cvPdf()}" download data-cv="cta">${icon.download}${esc(s.ctaPdf)}</a>
       </div>
       <p class="cta-contacts">
         <a href="${cvMail(s)}">${esc(s.email)}</a>

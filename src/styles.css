@@ -1404,7 +1404,6 @@ html.modal-open { overflow: hidden; }
 .cv-courses li span { color: var(--muted); font-size: 15px; }
 
 .cv-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 8px; }
-.cv-pdf-note { margin-top: 10px; font-size: 13px; color: var(--muted); }
 
 /* PT / EN switch in the résumé nav: two links, the current language lit */
 .lang-switch { display: inline-flex; padding: 3px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgba(255, 255, 255, .03); }
