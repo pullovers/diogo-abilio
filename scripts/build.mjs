@@ -629,7 +629,7 @@ const home = () => layout({
       <span class="label">Sobre mim</span>
       ${h2('sobre-title', [['Prazer, ', false], ['Diogo.', true]])}
       <div class="about-text">
-        <p>Sou publicitário e designer. Nos meus <b class="hl-acc">+12 anos de experiência</b>, fui conectando áreas que hoje fazem parte do mesmo trabalho: comunicação, marketing e experiência digital. Gosto de criar, investigar e entender por que uma ideia merece sair do papel.</p>
+        <p>Sou publicitário e designer. Nos meus <b class="hl-acc">+10 anos de experiência</b>, fui conectando áreas que hoje fazem parte do mesmo trabalho: comunicação, marketing e experiência digital. Gosto de criar, investigar e entender por que uma ideia merece sair do papel.</p>
         <p>Passei pela <b>Agência Moonflag</b>, pela <b>Valid</b> e pelo <b>G4 Educação</b>, trabalhando com design gráfico, marketing, experiência do usuário e páginas digitais. Essa trajetória ampliou meu repertório para olhar um projeto por diferentes perspectivas, da mensagem que chama atenção à experiência de quem chega para conhecer uma empresa.</p>
         <p>Hoje, trago esse olhar para os projetos em que me envolvo. Gosto de conversar, fazer perguntas e participar das escolhas, com espaço para propor e responsabilidade para colocar em prática. Posso entrar em uma entrega específica ou acompanhar um desafio mais amplo, sempre buscando entender onde meu trabalho pode contribuir.</p>
       </div>
