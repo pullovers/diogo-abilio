@@ -956,7 +956,7 @@ const cv = {
     jobs: [
       {
         company: 'IQR Educação / Guilherme Machado', logo: 'guilherme-machado', lw: 83, lh: 40,
-        role: 'Design Strategist', period: 'set 2026 – nov 2026', type: 'Autônomo',
+        role: 'Marketing Strategist', period: 'set 2026 – nov 2026', type: 'Autônomo',
         bullets: [
           'Auditoria de design e marketing na empresa de Guilherme Machado, especialista do mercado imobiliário, com diagnóstico e implementação de materiais.',
           'Apresentações, estratégia e produção de criativos para conteúdo orgânico e mídia paga, incluindo campanhas de fundo de funil.',
@@ -987,6 +987,7 @@ const cv = {
       role: 'Web Designer Pleno', period: 'abr 2024 – fev 2025', type: 'CLT',
       bullets: [
         'Páginas de produto, eventos e captação no time de Web Experience, em Martech/Growth, incluindo G4 Gestão e Estratégia, G4 Growth e G4 Sprints.',
+        'Construção das copies das landing pages e páginas de vendas, da proposta de valor aos CTAs.',
         'Participação em campanhas para público frio que contribuíram para um aumento de 15% na taxa de MQL.',
       ],
     },
