@@ -1038,7 +1038,7 @@ const cvEn = {
     jobs: [
       {
         ...cv.freelance.jobs[0],
-        role: 'Design Strategist', period: 'Sep 2026 – Nov 2026', type: 'Freelance',
+        role: 'Marketing Strategist', period: 'Sep 2026 – Nov 2026', type: 'Freelance',
         bullets: [
           'Design and marketing audit for the company of Guilherme Machado, a real estate market expert, from diagnosis to rolling out new materials.',
           'Presentations, strategy and creative production for organic content and paid media, including bottom-of-funnel campaigns.',
@@ -1069,6 +1069,7 @@ const cvEn = {
       role: 'Web Designer (mid-level)', period: 'Apr 2024 – Feb 2025', type: 'Full-time',
       bullets: [
         'Product, event and lead-capture pages in the Web Experience team (Martech/Growth), including G4 Gestão e Estratégia, G4 Growth and G4 Sprints.',
+        'Wrote the copy for landing pages and sales pages, from value proposition to CTAs.',
         'Contributed to cold-audience campaigns that drove a 15% increase in MQL rate.',
       ],
     },
