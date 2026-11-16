@@ -984,7 +984,7 @@ const cv = {
     },
     {
       company: 'G4 Educação', logo: 'g4', lw: 86, lh: 34,
-      role: 'Web Designer Pleno', period: 'abr 2024 – fev 2025', type: 'CLT',
+      role: 'Web Experience Pleno', period: 'abr 2024 – fev 2025', type: 'CLT',
       bullets: [
         'Páginas de produto, eventos e captação no time de Web Experience, em Martech/Growth, incluindo G4 Gestão e Estratégia, G4 Growth e G4 Sprints.',
         'Construção das copies das landing pages e páginas de vendas, da proposta de valor aos CTAs.',
@@ -1066,7 +1066,7 @@ const cvEn = {
     },
     {
       ...cv.jobs[1],
-      role: 'Web Designer (mid-level)', period: 'Apr 2024 – Feb 2025', type: 'Full-time',
+      role: 'Web Experience (mid-level)', period: 'Apr 2024 – Feb 2025', type: 'Full-time',
       bullets: [
         'Product, event and lead-capture pages in the Web Experience team (Martech/Growth), including G4 Gestão e Estratégia, G4 Growth and G4 Sprints.',
         'Wrote the copy for landing pages and sales pages, from value proposition to CTAs.',
